@@ -1,8 +1,11 @@
+<<<<<<< HEAD
 ## Ignore Docker
 Dockerfile*
 docker-*
 docker/
 
+=======
+>>>>>>> master
 ## Ignore the MVN compiled output directories from version tracking
 target/
 
@@ -28,13 +31,24 @@ nbactions.xml
 nb-configuration.xml
 META-INF/
 
-## Ignore all *.properties file in root folder, EXCEPT build.properties (the default)
+## Ignore all *.cfg files, EXCEPT the ones prefix by !
 *.cfg
 !dspace.cfg
+!swordv2-server.cfg
 
 ## Ignore all *.sh files in root folder
 /*.sh
 
+<<<<<<< HEAD
+=======
+## Ignore config files
+authentication-ip.cfg
+authentication-shibboleth.cfg
+
+## Custom folders
+custom-config/
+
+>>>>>>> master
 ## Ignore vscode directiories
 .vscode/
 dspace-services/
@@ -51,5 +65,11 @@ dspace-services/
 .*.sw[pon]
 /bin/
 
+<<<<<<< HEAD
+=======
+# Config
+dspace.cfg
+
+>>>>>>> master
 # Other
 .bash*
