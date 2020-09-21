@@ -404,13 +404,13 @@
                     of the SOURCEMD part of each file in mets.xml)
                     -->
                     <xsl:when test="contains($label-1, 'label') and string-length($label)!=0">
-                        <i18n:text>xmlui.dri2xhtml.METS-1.0.label-<xsl:value-of select="$label"/></i18n:text>
+                        <i18n:text>xmlui.dri2xhtml.METS-1.0.item-files-label.<xsl:value-of select="$label"/></i18n:text>
                     </xsl:when>
                     <xsl:when test="contains($label-1, 'title') and string-length($title)!=0">
                         <xsl:value-of select="$title"/>
                     </xsl:when>
                     <xsl:when test="contains($label-2, 'label') and string-length($label)!=0">
-                        <i18n:text>xmlui.dri2xhtml.METS-1.0.label-<xsl:value-of select="$label"/></i18n:text>
+                        <i18n:text>xmlui.dri2xhtml.METS-1.0.item-files-label.<xsl:value-of select="$label"/></i18n:text>
                     </xsl:when>
                     <xsl:when test="contains($label-2, 'title') and string-length($title)!=0">
                         <xsl:value-of select="$title"/>
