@@ -283,8 +283,10 @@
                         <i18n:text>xmlui.mirage2.page-structure.aboutThisRepository</i18n:text>
                     </xsl:when>
                     <xsl:when test="starts-with($request-uri, 'page/faq')">
-                        <h1>FAQ</h1>
-                        <i18n:text>xmlui.mirage2.page-structure.aboutThisRepository</i18n:text>
+                        <i18n:text>xmlui.mirage2.static-pages.title.faq</i18n:text>
+                    </xsl:when>
+                    <xsl:when test="starts-with($request-uri, 'page/typology')">
+                        <i18n:text>xmlui.mirage2.static-pages.title.typology</i18n:text>
                     </xsl:when>
                     <xsl:when test="not($page_title)">
                         <xsl:text>  </xsl:text>
@@ -778,6 +780,18 @@
                 <xsl:when test="starts-with($request-uri, 'page/about')">
                     <div class="hero-unit">
                         <h1><i18n:text>xmlui.mirage2.page-structure.heroUnit.title</i18n:text></h1>
+                        <p><i18n:text>xmlui.mirage2.page-structure.heroUnit.content</i18n:text></p>
+                    </div>
+                </xsl:when>
+                <xsl:when test="starts-with($request-uri, 'page/faq')">
+                    <div class="hero-unit">
+                        <h1><i18n:text>xmlui.mirage2.static-pages.heading.faq</i18n:text></h1>
+                        <p><i18n:text>xmlui.mirage2.page-structure.heroUnit.content</i18n:text></p>
+                    </div>
+                </xsl:when>
+                <xsl:when test="starts-with($request-uri, 'page/typology')">
+                    <div class="hero-unit">
+                        <h1><i18n:text>xmlui.mirage2.static-pages.heading.typology</i18n:text></h1>
                         <p><i18n:text>xmlui.mirage2.page-structure.heroUnit.content</i18n:text></p>
                     </div>
                 </xsl:when>
