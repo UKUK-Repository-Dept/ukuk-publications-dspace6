@@ -282,7 +282,7 @@
                     <xsl:when test="starts-with($request-uri, 'page/about')">
                         <i18n:text>xmlui.mirage2.page-structure.aboutThisRepository</i18n:text>
                     </xsl:when>
-                    <xsl:when test="start-with($request-uri, 'page/faq')">
+                    <xsl:when test="starts-with($request-uri, 'page/faq')">
                         <h1>FAQ</h1>
                         <i18n:text>xmlui.mirage2.page-structure.aboutThisRepository</i18n:text>
                     </xsl:when>
