@@ -785,7 +785,7 @@
                 </xsl:when>
                 <xsl:when test="starts-with($request-uri, 'page/faq')">
                     <div class="hero-unit">
-                        <h1><i18n:text>xmlui.mirage2.static-pages.heading.faq</i18n:text></h1>
+                        <h1><i18n:text>xmlui.mirage2.page-structure.heroUnit.title</i18n:text></h1>
                         <p><i18n:text>xmlui.mirage2.page-structure.heroUnit.content</i18n:text></p>
                     </div>
                 </xsl:when>
