@@ -2508,5 +2508,13 @@
     <message key="xmlui.Submission.submit.StartSubmissionLookupStep.submit_publication_item">Imported publication Record</message>
     <message key="xmlui.Submission.submit.progressbar.lookup">Lookup</message>
 
+	<!-- <JR> - 20.1. 2022 - Custom static pages titles -->
+	<message key="xmlui.mirage2.static-pages.title.faq">F.A.Q.</message>
+	<message key="xmlui.mirage2.static-pages.title.typology">Research outputs typology</message>
+
+	<!-- <JR> - 20.1. 2022 - Custom static pages headings -->
+	<message key="xmlui.mirage2.static-pages.heading.faq">Frequently Asked Questions</message>
+	<message key="xmlui.mirage2.static-pages.heading.typology">Research output types accepted into this repository</message>
+
 
 </catalogue>
