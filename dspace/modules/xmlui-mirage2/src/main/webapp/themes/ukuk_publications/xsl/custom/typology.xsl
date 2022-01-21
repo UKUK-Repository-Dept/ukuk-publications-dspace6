@@ -63,7 +63,9 @@
         <xsl:variable name="typologyFileLocation">
             <xsl:text>../../static/OBD_publication_types_accepted.xml</xsl:text>
         </xsl:variable>
-        <xsl:apply-templates select="document($typologyFileLocation)" />
+        <xsl:for-each select="document($typologyFileLocation)/form">
+            <xsl:value-of select="@id"/>
+        </xsl:for-each>
         <!-- TODO: read XML map file containing:
             * FORM ID
             * FORM NAME (CS)
