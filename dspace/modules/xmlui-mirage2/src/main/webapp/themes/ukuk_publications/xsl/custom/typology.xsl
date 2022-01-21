@@ -32,6 +32,9 @@
                 exclude-result-prefixes="xsl dri i18n">
 
     <xsl:output indent="yes"/>
+    <xsl:variable name="typology-file-locaton">
+        <xsl:text>../../static/OBD_publication_types_accepted.xml</xsl:text>
+    </xsl:variable>
 
     <xsl:template name="typology-forms-info-text">
 
@@ -64,6 +67,7 @@
     </xsl:template>
 
     <xsl:template name="typology-forms-process-xml-file">
+        <xsl:apply-templates select="document($typology-file-location" />
         <!-- TODO: read XML map file containing:
             * FORM ID
             * FORM NAME (CS)
@@ -83,7 +87,7 @@
             
             We might decide to USE IDs instead of NAME strings to ensure translation (using <i18n:text>)
         -->
-        <tr>
+        <!-- <tr>
             <td>ČLÁNEK V ČASOPISU</td>
             <td>článek v časopisu</td>
             <td>všechny podřazené poddruhy</td>
@@ -167,7 +171,7 @@
             <td>ABSTRAKT</td>
             <td>abstrakt</td>
             <td>všechny podřazené poddruhy</td>
-        </tr>
+        </tr> -->
     </xsl:template>
 
 </xsl:stylesheet>
