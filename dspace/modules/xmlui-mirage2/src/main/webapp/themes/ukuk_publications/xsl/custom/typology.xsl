@@ -63,7 +63,7 @@
         <xsl:variable name="typologyFileLocation">
             <xsl:text>OBD_publication_types_accepted.xml</xsl:text>
         </xsl:variable>
-        <xsl:for-each select="document($typologyFileLocation)/form">
+        <xsl:apply-templates select="document($typologyFileLocation)">
             <tr>
                 <td></td>
                 <td></td>
@@ -177,9 +177,7 @@
     </xsl:template>
 
     <xsl:template match="/supported_forms">
-        <xsl:for-each select="//form">
-            <xsl:value-of select="@id"/>
-        </xsl:for-each>
+        <xsl:value-of select=".">
     </xsl:template>
 
 </xsl:stylesheet>
