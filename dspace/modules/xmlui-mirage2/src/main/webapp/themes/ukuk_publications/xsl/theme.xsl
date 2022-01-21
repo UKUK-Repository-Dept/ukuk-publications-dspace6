@@ -33,8 +33,8 @@
     <xsl:import href="core/elements.xsl"/>
     <xsl:import href="core/forms.xsl"/>
     <!-- <JR> - 20. 1. 2022 - Use custom page-structure.xsl in this theme -->
-    <xsl:import href="custom/core/page-structure.xsl"/>
-    <!--<xsl:import href="core/page-structure.xsl"/>-->
+    <!--<xsl:import href="custom/core/page-structure.xsl"/>-->
+    <xsl:import href="core/page-structure.xsl"/>
     <xsl:import href="core/navigation.xsl"/>
     <xsl:import href="core/attribute-handlers.xsl"/>
     <xsl:import href="core/utils.xsl"/>
