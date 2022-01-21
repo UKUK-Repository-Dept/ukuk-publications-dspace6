@@ -60,10 +60,10 @@
     </xsl:template>
 
     <xsl:template name="typology-forms-process-xml-file">
-        <xsl:variable name="typology-file-locaton">
+        <xsl:variable name="typologyFileLocation">
             <xsl:text>../../static/OBD_publication_types_accepted.xml</xsl:text>
         </xsl:variable>
-        <xsl:apply-templates select="document($typology-file-location)" />
+        <xsl:apply-templates select="document($typologyFileLocation)" />
         <!-- TODO: read XML map file containing:
             * FORM ID
             * FORM NAME (CS)
