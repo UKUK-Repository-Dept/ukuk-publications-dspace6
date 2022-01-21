@@ -67,7 +67,7 @@
     </xsl:template>
 
     <xsl:template name="typology-forms-process-xml-file">
-        <xsl:apply-templates select="document($typology-file-location" />
+        <xsl:apply-templates select="document($typology-file-location)" />
         <!-- TODO: read XML map file containing:
             * FORM ID
             * FORM NAME (CS)
@@ -172,6 +172,12 @@
             <td>abstrakt</td>
             <td>všechny podřazené poddruhy</td>
         </tr> -->
+    </xsl:template>
+
+    <xsl:template match="/supported_forms">
+        <xsl:for-each select="./form">
+            <xsl:value-of select="@id" />
+        </xsl:for-each>
     </xsl:template>
 
 </xsl:stylesheet>
