@@ -64,6 +64,25 @@
     </xsl:template>
 
     <xsl:template name="typology-forms-process-xml-file">
+        <!-- TODO: read XML map file containing:
+            * FORM ID
+            * FORM NAME (CS)
+            * FORM NAME (EN)
+                * SUBFORMS:
+                    * SUBFORM ID
+                    * SUBFORM NAME (CS)
+                    * SUBFORM NAME (EN)
+                        * CHILD SUBFORMS:
+                            * CHILD SUBFORM ID
+                            * CHILD SUBFORM NAME (CS)
+                            * CHILD SUBFORM NAME (EN)
+            
+            To indicate, that all child subforms of a given subform are accepted into DSpace,
+            <child_subforms> element has an atribute 'all-supported' = "true" - this way we don't list
+            individual supported child subforms, we only display information "všechny podřazené poddruhy" / "all child subforms".
+            
+            We might decide to USE IDs instead of NAME strings to ensure translation (using <i18n:text>)
+        -->
         <tr>
             <td>ČLÁNEK V ČASOPISU</td>
             <td>článek v časopisu</td>
