@@ -2508,6 +2508,7 @@
     <message key="xmlui.Submission.submit.StartSubmissionLookupStep.submit_publication_item">Imported publication Record</message>
     <message key="xmlui.Submission.submit.progressbar.lookup">Lookup</message>
 
+	<!-- STATIC PAGES -->
 	<!-- <JR> - 20.1. 2022 - Custom static pages titles -->
 	<message key="xmlui.mirage2.static-pages.title.faq">F.A.Q.</message>
 	<message key="xmlui.mirage2.static-pages.title.typology">Research outputs typology</message>
@@ -2515,6 +2516,31 @@
 	<!-- <JR> - 20.1. 2022 - Custom static pages headings -->
 	<message key="xmlui.mirage2.static-pages.heading.faq">Frequently Asked Questions</message>
 	<message key="xmlui.mirage2.static-pages.heading.typology">Research output types accepted into this repository</message>
+
+	<!-- OBD (CUNI CRIS SYSTEM) TYPOLOGY "ID -> NAME" DICTIONARY / MAPPING 
+	
+		ID OF ALL ACCEPTED FORMS, SUBFORMS AND CHILD SUBFORMS ARE LISTED HERE
+	-->
+	<!-- OBD forms -->
+	<message key="obd.typology.form.id.73">ČLÁNEK V ČASOPISU</message>
+	<message key="obd.typology.form.id.67">KAPITOLA V KNIZE</message>
+	<message key="obd.typology.form.id.63">KNIHA</message>
+	<message key="obd.typology.form.id.131">Kniha pouze s editory (editor=autor)</message>
+	<message key="obd.typology.form.id.129">METODIKA, POSTUP</message>
+	<message key="obd.typology.form.id.133">[FSV] Pražské sociálně vědní studie</message>
+	<message key="obd.typology.form.id.106">STAŤ VE SBORNÍKU PRACÍ (nekonferenčním)</message>
+	<message key="obd.typology.form.id.127">SPECIALIZOVANÁ MAPA S ODBORNÝM OBSAHEM</message>
+	<message key="obd.typology.form.id.117">FSV: working paper</message>
+	<message key="obd.typology.form.id.122">VÝSLEDEK REALIZOVANÝ POSKYTOVATELEM</message>
+	<message key="obd.typology.form.id.81">PŘEDNÁŠKA, POSTER</message>
+	<message key="obd.typology.form.id.83">SOFTWARE</message>
+	<message key="obd.typology.form.id.57">PŘÍSPĚVEK V KONFERENČNÍM SBORNÍKU</message>
+	<message key="obd.typology.form.id.213">SOUHRNNÁ VÝZKUMNÁ ZPRÁVA</message>
+	<message key="obd.typology.form.id.121">JINÝ VÝSLEDEK</message>
+	<message key="obd.typology.form.id.110">ABSTRAKT</message>
+	<!-- OBD subforms -->
+
+	<!-- OBD child subforms -->
 
 
 </catalogue>

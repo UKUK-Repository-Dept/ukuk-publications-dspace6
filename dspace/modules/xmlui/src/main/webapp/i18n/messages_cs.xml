@@ -2781,7 +2781,7 @@
 
     <message key="xmlui.swordclient.SwordResponse.title">Odpověď SWORD</message>
     <message key="xmlui.swordclient.SwordResponse.trail">Odpověď SWORD</message>
-
+	<!-- STATIC PAGES -->
 	<!-- <JR> - 20.1. 2022 - Custom static pages titles -->
 	<message key="xmlui.mirage2.static-pages.title.faq">F.A.Q.</message>
 	<message key="xmlui.mirage2.static-pages.title.typology">Akceptované formy výsledků</message>
@@ -2789,5 +2789,128 @@
 	<!-- <JR> - 20.1. 2022 - Custom static pages headings -->
 	<message key="xmlui.mirage2.static-pages.heading.faq">Často kladené otázky</message>
 	<message key="xmlui.mirage2.static-pages.heading.typology">Formy výsledků přebírané do repozitáře</message>
+
+	<!-- OBD (CUNI CRIS SYSTEM) TYPOLOGY "ID -> NAME" DICTIONARY / MAPPING 
+	
+		ID OF ALL ACCEPTED FORMS, SUBFORMS AND CHILD SUBFORMS ARE LISTED HERE
+	-->
+	<!-- OBD forms -->
+	<message key="obd.typology.form.id.73">ČLÁNEK V ČASOPISU</message>
+	<message key="obd.typology.form.id.67">KAPITOLA V KNIZE</message>
+	<message key="obd.typology.form.id.63">KNIHA</message>
+	<message key="obd.typology.form.id.131">Kniha pouze s editory (editor=autor)</message>
+	<message key="obd.typology.form.id.129">METODIKA, POSTUP</message>
+	<message key="obd.typology.form.id.133">[FSV] Pražské sociálně vědní studie</message>
+	<message key="obd.typology.form.id.106">STAŤ VE SBORNÍKU PRACÍ (nekonferenčním)</message>
+	<message key="obd.typology.form.id.127">SPECIALIZOVANÁ MAPA S ODBORNÝM OBSAHEM</message>
+	<message key="obd.typology.form.id.117">FSV: working paper</message>
+	<message key="obd.typology.form.id.122">VÝSLEDEK REALIZOVANÝ POSKYTOVATELEM</message>
+	<message key="obd.typology.form.id.81">PŘEDNÁŠKA, POSTER</message>
+	<message key="obd.typology.form.id.83">SOFTWARE</message>
+	<message key="obd.typology.form.id.57">PŘÍSPĚVEK V KONFERENČNÍM SBORNÍKU</message>
+	<message key="obd.typology.form.id.213">SOUHRNNÁ VÝZKUMNÁ ZPRÁVA</message>
+	<message key="obd.typology.form.id.121">JINÝ VÝSLEDEK</message>
+	<message key="obd.typology.form.id.110">ABSTRAKT</message>
+	
+	<!-- OBD subforms -->
+	<message key="obd.typology.subform.id.152">článek v časopisu</message>
+	<message key="obd.typology.subform.id.134">kapitola v knize</message>
+	<message key="obd.typology.subform.id.144">kniha</message>
+	<message key="obd.typology.subform.id.208">kniha pouze s editory</message>
+	<message key="obd.typology.subform.id.151">certifikované postupy</message>
+	<message key="obd.typology.subform.id.207">Pražské sociálně vědní studie</message>
+	<message key="obd.typology.subform.id.133">stať ve sborníku prací</message>
+	<message key="obd.typology.subform.id.147">specializovaná mapa s odborným obsahem</message>
+	<message key="obd.typology.subform.id.131">working paper</message>
+	<message key="obd.typology.subform.id.142">poskytovatelem realizovaný výsledek</message>
+	<message key="obd.typology.subform.id.145">přednáška nebo poster</message>
+	<message key="obd.typology.subform.id.149">software</message>
+	<message key="obd.typology.subform.id.148">příspěvek v konferenčním sborníku</message>
+	<message key="obd.typology.subform.id.339">souhrnná výzkumná zpráva</message>
+	<message key="obd.typology.subform.id.128">jiné výsledky</message>
+	<message key="obd.typology.subform.id.130">abstrakt</message>
+
+	<!-- OBD child subforms -->
+	<message key="obd.typology.subform.child.id.200">jiný článek</message>
+	<message key="obd.typology.subform.child.id.201">popularizující článek</message>
+	<message key="obd.typology.subform.child.id.202">kazuistika</message>
+	<message key="obd.typology.subform.child.id.234">proceedings paper</message>
+	<message key="obd.typology.subform.child.id.233">letter to the editors</message>
+	<message key="obd.typology.subform.child.id.325">editorial</message>
+	<message key="obd.typology.subform.child.id.205">přehledový článek</message>
+	<message key="obd.typology.subform.child.id.204">překlad článku</message>
+	<message key="obd.typology.subform.child.id.470">komentář</message>
+	<message key="obd.typology.subform.child.id.203">recenze</message>
+	<message key="obd.typology.subform.child.id.468">doporučený postup</message>
+	<message key="obd.typology.subform.child.id.206">původní článek</message>
+	<message key="obd.typology.subform.child.id.469">klinická studie</message>
+	<message key="obd.typology.subform.child.id.241">kapitola v informační publikaci</message>
+	<message key="obd.typology.subform.child.id.165">jiná kapitola v knize</message>
+	<message key="obd.typology.subform.child.id.166">kapitola v učebnici pro VŠ</message>
+	<message key="obd.typology.subform.child.id.167">heslo ve vědecké encyklopedii</message>
+	<message key="obd.typology.subform.child.id.168">kapitola v monografii</message>
+	<message key="obd.typology.subform.child.id.169">kapitola v učebnici pro ZŠ</message>
+	<message key="obd.typology.subform.child.id.170">kapitola v příručce</message>
+	<message key="obd.typology.subform.child.id.173">kapitola v kritickém komentovaném překladu</message>
+	<message key="obd.typology.subform.child.id.175">heslo v populární encyklopedii/slovníku</message>
+	<message key="obd.typology.subform.child.id.238">kapitola v odborném atlasu</message>
+	<message key="obd.typology.subform.child.id.266">kapitola v repetitoriu</message>
+	<message key="obd.typology.subform.child.id.239">heslo v populárním slovníku</message>
+	<message key="obd.typology.subform.child.id.242">nekomentovaný překlad - kapitola</message>
+	<message key="obd.typology.subform.child.id.235">heslo ve vědeckém slovníku</message>
+	<message key="obd.typology.subform.child.id.236">právní komentář - kapitola</message>
+	<message key="obd.typology.subform.child.id.237">kapitola v kolektivní monografii</message>
+	<message key="obd.typology.subform.child.id.240">kapitola v ročence</message>
+	<message key="obd.typology.subform.child.id.466">kapitola v populárně-naučné knize</message>
+	<message key="obd.typology.subform.child.id.171">kapitola v učebnici pro SŠ</message>
+	<message key="obd.typology.subform.child.id.172">kapitola ve VŠ skriptu</message>
+	<message key="obd.typology.subform.child.id.174">kapitola v kritické edici pramenů</message>
+	<message key="obd.typology.subform.child.id.241">kapitola v informační publikaci</message>
+	<message key="obd.typology.subform.child.id.184">učebnice pro ZŠ</message>
+	<message key="obd.typology.subform.child.id.185">vědecká encyklopedie</message>
+	<message key="obd.typology.subform.child.id.186">kritický komentovaný překlad</message>
+	<message key="obd.typology.subform.child.id.188">jiná kniha</message>
+	<message key="obd.typology.subform.child.id.189">příručka</message>
+	<message key="obd.typology.subform.child.id.191">VŠ skriptum</message>
+	<message key="obd.typology.subform.child.id.192">sborník</message>
+	<message key="obd.typology.subform.child.id.193">učebnice pro VŠ</message>
+	<message key="obd.typology.subform.child.id.194">kritická edice pramenů</message>
+	<message key="obd.typology.subform.child.id.195">monografie</message>
+	<message key="obd.typology.subform.child.id.248">ročenka</message>
+	<message key="obd.typology.subform.child.id.249">informační publikace</message>
+	<message key="obd.typology.subform.child.id.245">kolektivní monografie</message>
+	<message key="obd.typology.subform.child.id.246">odborný atlas</message>
+	<message key="obd.typology.subform.child.id.244">právní komentář</message>
+	<message key="obd.typology.subform.child.id.247">populární slovník</message>
+	<message key="obd.typology.subform.child.id.250">nekomentovaný překlad</message>
+	<message key="obd.typology.subform.child.id.265">repetitorium</message>
+	<message key="obd.typology.subform.child.id.243">vědecký slovník</message>
+	<message key="obd.typology.subform.child.id.190">učebnice pro SŠ</message>
+	<message key="obd.typology.subform.child.id.465">beletrie</message>
+	<message key="obd.typology.subform.child.id.464">populárně-naučná kniha</message>
+	<message key="obd.typology.subform.child.id.187">populární encyklopedie/slovník</message>
+	<message key="obd.typology.subform.child.id.210">monografie</message>
+	<message key="obd.typology.subform.child.id.211">sborník</message>
+	<message key="obd.typology.subform.child.id.212">jiná kniha</message>
+	<message key="obd.typology.subform.child.id.146">certifikovaná metodika</message>
+	<message key="obd.typology.subform.child.id.198">léčebný postup</message>
+	<message key="obd.typology.subform.child.id.199">památkový postup</message>
+	<message key="obd.typology.subform.child.id.518">schválená metodika</message>
+	<message key="obd.typology.subform.child.id.519">akreditovaná metodika</message>
+	<message key="obd.typology.subform.child.id.181">materiál pro strategický či koncepční dokument</message>
+	<message key="obd.typology.subform.child.id.182">materiál pro právní předpis či normu</message>
+	<message key="obd.typology.subform.child.id.183">materiál pro předpis nelegislativní povahy</message>
+	<message key="obd.typology.subform.child.id.338">přednáška</message>
+	<message key="obd.typology.subform.child.id.340">poster</message>
+	<message key="obd.typology.subform.child.id.311">jiný příspěvek v konferenčním sborníku</message>
+	<message key="obd.typology.subform.child.id.499">příspěvek v recenzovaném konferenčním sborníku</message>
+	<message key="obd.typology.subform.child.id.153">výzkumná zpráva</message>
+	<message key="obd.typology.subform.child.id.154">jiný příspěvek ve sborníku</message>
+	<message key="obd.typology.subform.child.id.252">internetový zdroj</message>
+	<message key="obd.typology.subform.child.id.500">necertifikovaná metodika</message>
+	<message key="obd.typology.subform.child.id.264">popularizující internetová prezentace</message>
+	<message key="obd.typology.subform.child.id.136">abstrakt v elektronické podobě</message>
+	<message key="obd.typology.subform.child.id.462">abstrakt v konferenčním sborníku</message>
+	<message key="obd.typology.subform.child.id.135">abstrakt v časopisu</message>
 
 </catalogue>
