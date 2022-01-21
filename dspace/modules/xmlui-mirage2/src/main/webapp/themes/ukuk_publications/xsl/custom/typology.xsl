@@ -63,7 +63,7 @@
         <xsl:variable name="typologyFileLocation">
             <xsl:text>OBD_publication_types_accepted.xml</xsl:text>
         </xsl:variable>
-        <xsl:apply-templates select="document($typologyFileLocation)">
+        <xsl:apply-templates select="document($typologyFileLocation)"/>
         <!-- TODO: read XML map file containing:
             * FORM ID
             * FORM NAME (CS)
