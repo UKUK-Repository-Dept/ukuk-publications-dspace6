@@ -64,12 +64,6 @@
             <xsl:text>OBD_publication_types_accepted.xml</xsl:text>
         </xsl:variable>
         <xsl:apply-templates select="document($typologyFileLocation)">
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-        </xsl:for-each>
         <!-- TODO: read XML map file containing:
             * FORM ID
             * FORM NAME (CS)
