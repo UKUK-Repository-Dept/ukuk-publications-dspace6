@@ -32,13 +32,6 @@
                 exclude-result-prefixes="xsl dri i18n">
 
     <xsl:output indent="yes"/>
-    <xsl:variable name="typology-file-locaton">
-        <xsl:text>../../static/OBD_publication_types_accepted.xml</xsl:text>
-    </xsl:variable>
-
-    <xsl:template name="typology-forms-info-text">
-
-    </xsl:template>
 
     <xsl:template name="typology-forms-create">
         <xsl:call-template name="typology-forms-table"/>
@@ -67,6 +60,9 @@
     </xsl:template>
 
     <xsl:template name="typology-forms-process-xml-file">
+        <xsl:variable name="typology-file-locaton">
+            <xsl:text>../../static/OBD_publication_types_accepted.xml</xsl:text>
+        </xsl:variable>
         <xsl:apply-templates select="document($typology-file-location)" />
         <!-- TODO: read XML map file containing:
             * FORM ID
