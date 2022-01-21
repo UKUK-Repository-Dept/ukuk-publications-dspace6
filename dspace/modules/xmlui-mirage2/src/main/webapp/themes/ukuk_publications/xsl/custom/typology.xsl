@@ -67,7 +67,7 @@
     </xsl:template>
 
     <xsl:template name="typology-forms-process-xml-file">
-        <xsl:apply-templates select="document($typology-file-location" />
+        <xsl:apply-templates select="document($typology-file-location)" />
         <!-- TODO: read XML map file containing:
             * FORM ID
             * FORM NAME (CS)
