@@ -31,6 +31,7 @@
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
                 xmlns:confman="org.dspace.core.ConfigurationManager"
                 exclude-result-prefixes="i18n dri mets xlink xsl dim xhtml mods dc confman">
+                <xsl:import href="../custom/typology.xsl" />
 
     <xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 
@@ -794,6 +795,7 @@
                         <h1><i18n:text>xmlui.mirage2.static-pages.heading.typology</i18n:text></h1>
                         <p><i18n:text>xmlui.mirage2.page-structure.heroUnit.content</i18n:text></p>
                     </div>
+                    <xsl:call-template name="typology-forms-create"/>
                 </xsl:when>
                 <!-- Otherwise use default handling of body -->
                 <xsl:otherwise>
