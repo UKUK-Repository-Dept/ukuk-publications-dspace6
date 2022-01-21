@@ -64,7 +64,11 @@
             <xsl:text>../../static/OBD_publication_types_accepted.xml</xsl:text>
         </xsl:variable>
         <xsl:for-each select="document($typologyFileLocation)/form">
-            <xsl:value-of select="@id"/>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
         </xsl:for-each>
         <!-- TODO: read XML map file containing:
             * FORM ID
