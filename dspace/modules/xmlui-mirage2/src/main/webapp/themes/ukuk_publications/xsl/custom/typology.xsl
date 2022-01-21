@@ -44,7 +44,7 @@
     <xsl:template name="typology-forms-table">
         <div class="table-responsive">
             <table class="table table-condensed table-hover">
-                <caption><i18n:text>xmlui.mirage2.static-pages.heading.typology</i18n:text></caption>
+                <caption class="sr-only"><i18n:text>xmlui.mirage2.static-pages.heading.typology</i18n:text></caption>
                 <thead>
                     <tr>
                         <th>OBD - forma</th>
