@@ -171,9 +171,9 @@
     </xsl:template>
 
     <xsl:template match="/supported_forms">
-        <xsl:for-each select="./form">
-            <xsl:value-of select="@id" />
-        </xsl:for-each>
+        <xsl:for-each select="//form">
+            <xsl:value-of select="@id"/>
+        </xsl-for-each>
     </xsl:template>
 
 </xsl:stylesheet>
