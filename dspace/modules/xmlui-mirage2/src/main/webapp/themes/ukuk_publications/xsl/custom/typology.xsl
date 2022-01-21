@@ -61,7 +61,7 @@
 
     <xsl:template name="typology-forms-process-xml-file">
         <xsl:variable name="typologyFileLocation">
-            <xsl:text>../../static/OBD_publication_types_accepted.xml</xsl:text>
+            <xsl:text>OBD_publication_types_accepted.xml</xsl:text>
         </xsl:variable>
         <xsl:for-each select="document($typologyFileLocation)/form">
             <tr>
