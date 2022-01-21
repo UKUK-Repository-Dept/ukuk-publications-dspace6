@@ -39,7 +39,7 @@
 
     <xsl:template name="typology-forms-create">
         <xsl:call-template name="typology-forms-table"/>
-    </xsl:temlplate/>
+    </xsl:temlplate>
 
     <xsl:template name="typology-forms-table">
         <div class="table-responsive">
