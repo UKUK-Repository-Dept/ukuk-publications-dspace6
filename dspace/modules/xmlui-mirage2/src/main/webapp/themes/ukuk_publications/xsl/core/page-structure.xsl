@@ -793,7 +793,8 @@
                 <xsl:when test="starts-with($request-uri, 'page/typology')">
                     <div class="hero-unit">
                         <h1><i18n:text>xmlui.mirage2.static-pages.heading.typology</i18n:text></h1>
-                        <p><i18n:text>xmlui.mirage2.page-structure.heroUnit.content</i18n:text></p>
+                        <!-- TODO: Create custom text and make it translatable via i18n:text -->
+                        <!--<p><i18n:text>xmlui.mirage2.page-structure.heroUnit.content</i18n:text></p>-->
                     </div>
                     <xsl:call-template name="typology-forms-create"/>
                 </xsl:when>
