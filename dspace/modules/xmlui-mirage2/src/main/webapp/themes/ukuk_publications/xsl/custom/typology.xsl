@@ -171,7 +171,7 @@
     </xsl:template>
 
     <xsl:template match="/supported_forms">
-        <xsl:value-of select=".">
+        <xsl:value-of select="." />
     </xsl:template>
 
 </xsl:stylesheet>
