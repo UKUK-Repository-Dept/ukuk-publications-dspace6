@@ -2913,4 +2913,9 @@
 	<message key="obd.typology.subform.child.id.462">abstrakt v konferenčním sborníku</message>
 	<message key="obd.typology.subform.child.id.135">abstrakt v časopisu</message>
 
+	<!-- <JR> - 2022-01-24: page/faq translations-->
+	<message key="obd.faq.intro-text">
+		Níže naleznete odpovědi na časté dotazy týkající se ukládání a zpřístupňování plných textů výsledků tvůrčí činnosti UK v tomto repozitáři. 
+	</message>
+	<message key="obd.faq.section.repository.heading">Repozitář</message>
 </catalogue>

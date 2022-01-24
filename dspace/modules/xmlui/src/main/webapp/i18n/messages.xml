@@ -2638,6 +2638,13 @@
 	<message key="obd.typology.subform.child.id.264">popularizující internetová prezentace</message>
 	<message key="obd.typology.subform.child.id.136">abstrakt v elektronické podobě</message>
 	<message key="obd.typology.subform.child.id.462">abstrakt v konferenčním sborníku</message>
-	<message key="obd.typology.subform.child.id.135">abstrakt v časopisu</message>										
+	<message key="obd.typology.subform.child.id.135">abstrakt v časopisu</message>
+	
+	<!-- <JR> - 2022-01-24: page/faq translations-->
+	<message key="obd.faq.intro-text">
+		In this section of the repository, you can find essential information about the storage of and access to the research outputs produced by Charles University
+		employees.
+	</message>
+	<message key="obd.faq.section.repository.heading">Repository</message>
 
 </catalogue>
