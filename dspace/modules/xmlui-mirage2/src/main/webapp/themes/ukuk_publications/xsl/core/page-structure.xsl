@@ -32,6 +32,7 @@
                 xmlns:confman="org.dspace.core.ConfigurationManager"
                 exclude-result-prefixes="i18n dri mets xlink xsl dim xhtml mods dc confman">
                 <xsl:import href="../custom/typology.xsl" />
+                <xsl:import href="../custom/faq.xsl" />
 
     <xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 
@@ -284,7 +285,7 @@
                         <i18n:text>xmlui.mirage2.page-structure.aboutThisRepository</i18n:text>
                     </xsl:when>
                     <xsl:when test="starts-with($request-uri, 'page/faq')">
-                        <i18n:text>xmlui.mirage2.page-structure.aboutThisRepository</i18n:text>
+                        <i18n:text>xmlui.mirage2.static-pages.title.faq</i18n:text>
                     </xsl:when>
                     <xsl:when test="starts-with($request-uri, 'page/typology')">
                         <i18n:text>xmlui.mirage2.static-pages.title.typology</i18n:text>
@@ -787,7 +788,8 @@
                 <xsl:when test="starts-with($request-uri, 'page/faq')">
                     <div class="hero-unit">
                         <h1><i18n:text>xmlui.mirage2.static-pages.heading.faq</i18n:text></h1>
-                        <p><i18n:text>xmlui.mirage2.page-structure.heroUnit.content</i18n:text></p>
+                        <!--<p><i18n:text>xmlui.mirage2.page-structure.heroUnit.content</i18n:text></p>-->
+                        <xsl:call-template name="faq-create"/>
                     </div>
                 </xsl:when>
                 <xsl:when test="starts-with($request-uri, 'page/typology')">
@@ -795,8 +797,9 @@
                         <h1><i18n:text>xmlui.mirage2.static-pages.heading.typology</i18n:text></h1>
                         <!-- TODO: Create custom text and make it translatable via i18n:text -->
                         <!--<p><i18n:text>xmlui.mirage2.page-structure.heroUnit.content</i18n:text></p>-->
+                        <xsl:call-template name="typology-forms-create"/>
                     </div>
-                    <xsl:call-template name="typology-forms-create"/>
+                    
                 </xsl:when>
                 <!-- Otherwise use default handling of body -->
                 <xsl:otherwise>
