@@ -2645,4 +2645,11 @@
 	<message key="obd.typology.subform.secondary.id.462">abstract in conference proceedings</message>
 	<message key="obd.typology.subform.secondary.id.135">abstract in journal</message>										
 
+	<!-- <JR> - 2022-01-24: page/faq translations-->
+	<message key="obd.faq.intro-text">
+		In the sections below, you can find answer to all frequently asked questions in regards of this repository, its functionality 
+		and the submission process. 
+	</message>
+	<message key="obd.faq.section.repository.heading">Repository</message>
+	
 </catalogue>
