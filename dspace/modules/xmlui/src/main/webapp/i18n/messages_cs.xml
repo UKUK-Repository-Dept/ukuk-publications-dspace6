@@ -2797,7 +2797,7 @@
 	<!-- TABLE headings -->
 	<message key="obd.typology.table.heading.form">OBD - forma výsledku</message>
 	<message key="obd.typology.table.heading.subform">OBD - poddruh výsledku</message>
-	<message key="obd.typology.table.heading.subform.children">OBD - podřazený poddruh výsledku</message>
+	<message key="obd.typology.table.heading.subform.secondary">OBD - podřazený poddruh výsledku</message>
 	<!-- OBD forms -->
 	<message key="obd.typology.form.id.73">ČLÁNEK V ČASOPISU</message>
 	<message key="obd.typology.form.id.67">KAPITOLA V KNIZE</message>

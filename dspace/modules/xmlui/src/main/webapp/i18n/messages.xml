@@ -2524,7 +2524,7 @@
 	<!-- TABLE headings -->
 	<message key="obd.typology.table.heading.form">OBD - publication form</message>
 	<message key="obd.typology.table.heading.subform">OBD - publication subform</message>
-	<message key="obd.typology.table.heading.subform.children">OBD - publication secondary subform</message>
+	<message key="obd.typology.table.heading.subform.secondary">OBD - publication secondary subform</message>
 	<!-- OBD forms -->
 	<message key="obd.typology.form.id.73">JOURNAL ARTICLE</message>
 	<message key="obd.typology.form.id.67">CHAPTER</message>
