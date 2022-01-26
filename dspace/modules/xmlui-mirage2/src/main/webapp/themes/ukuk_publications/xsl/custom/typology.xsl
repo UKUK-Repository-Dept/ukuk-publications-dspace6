@@ -43,10 +43,9 @@
                 <caption class="sr-only"><i18n:text>xmlui.mirage2.static-pages.heading.typology</i18n:text></caption>
                 <thead>
                     <tr>
-                        <!-- TODO: These should be an i18n text and should have translation keys in messages.xml and messages_cs.xml -->
-                        <th>OBD - forma</th>
-                        <th>OBD - poddruh</th>
-                        <th>OBD - podřazený poddruh</th>
+                        <th><i18n:text>obd.typology.table.heading.form</i18n:text></th>
+                        <th><i18n:text>obd.typology.table.heading.subform</i18n:text></th>
+                        <th><i18n:text>obd.typology.table.heading.subform.secondary</i18n:text></th>
                     </tr>
                 </thead>
                 <tbody>
