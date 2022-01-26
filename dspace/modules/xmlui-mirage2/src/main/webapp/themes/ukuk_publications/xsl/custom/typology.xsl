@@ -69,8 +69,7 @@
             
                 <xsl:choose>
                     <xsl:when test="./subforms/subform/child_subforms/@all-supported = 'true'">
-                        <!-- TODO: This should be an i18n:text and it should have a translation message / key in messages.xml and messages_cs.xml -->
-                        <td><xsl:text>všechny podřazené poddruhy</xsl:text></td>
+                        <td><i18n:text>obd.typology.subform.secondary.all</i18n:text></td>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:if test="not(./subforms/subform/child_subforms/child_subform)">
