@@ -80,7 +80,7 @@
                             <xsl:choose>
                                 <xsl:when test="position() = 1">
                                     <td>
-                                        <i18n:text><xsl:value-of select="concat('obd.typology.subform.child.id.',./@id)"/></i18n:text>
+                                        <i18n:text><xsl:value-of select="concat('obd.typology.subform.secondary.id.',./@id)"/></i18n:text>
                                     </td>
                                 </xsl:when>
                                 <xsl:otherwise>
@@ -88,7 +88,7 @@
                                         <td></td>
                                         <td></td>
                                         <td>
-                                            <i18n:text><xsl:value-of select="concat('obd.typology.subform.child.id.',./@id)"/></i18n:text>
+                                            <i18n:text><xsl:value-of select="concat('obd.typology.subform.secondary.id.',./@id)"/></i18n:text>
                                         </td>
                                     </tr>
                                 </xsl:otherwise>
