@@ -43,10 +43,9 @@
                 <caption class="sr-only"><i18n:text>xmlui.mirage2.static-pages.heading.typology</i18n:text></caption>
                 <thead>
                     <tr>
-                        <!-- TODO: These should be an i18n text and should have translation keys in messages.xml and messages_cs.xml -->
-                        <th>OBD - forma</th>
-                        <th>OBD - poddruh</th>
-                        <th>OBD - podřazený poddruh</th>
+                        <th><i18n:text>obd.typology.table.heading.form</i18n:text></th>
+                        <th><i18n:text>obd.typology.table.heading.subform</i18n:text></th>
+                        <th><i18n:text>obd.typology.table.heading.subform.secondary</i18n:text></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -69,8 +68,7 @@
             
                 <xsl:choose>
                     <xsl:when test="./subforms/subform/child_subforms/@all-supported = 'true'">
-                        <!-- TODO: This should be an i18n:text and it should have a translation message / key in messages.xml and messages_cs.xml -->
-                        <td><xsl:text>všechny podřazené poddruhy</xsl:text></td>
+                        <td><i18n:text>obd.typology.subform.secondary.all</i18n:text></td>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:if test="not(./subforms/subform/child_subforms/child_subform)">
@@ -80,7 +78,7 @@
                             <xsl:choose>
                                 <xsl:when test="position() = 1">
                                     <td>
-                                        <i18n:text><xsl:value-of select="concat('obd.typology.subform.child.id.',./@id)"/></i18n:text>
+                                        <i18n:text><xsl:value-of select="concat('obd.typology.subform.secondary.id.',./@id)"/></i18n:text>
                                     </td>
                                 </xsl:when>
                                 <xsl:otherwise>
@@ -88,7 +86,7 @@
                                         <td></td>
                                         <td></td>
                                         <td>
-                                            <i18n:text><xsl:value-of select="concat('obd.typology.subform.child.id.',./@id)"/></i18n:text>
+                                            <i18n:text><xsl:value-of select="concat('obd.typology.subform.secondary.id.',./@id)"/></i18n:text>
                                         </td>
                                     </tr>
                                 </xsl:otherwise>
