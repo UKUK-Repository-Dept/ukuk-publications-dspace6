@@ -2954,6 +2954,19 @@
 	</message>
 	<!-- END OF: page/disclaimer-->
 
+	<!-- <JR> 2022-02-01: page/licenses translations -->
+
+		<message key="xmlui.mirage2.static-pages.title.licenses">CC licence</message>
+
+		<message key="xmlui.mirage2.static-pages.licenses.heading">Licence Creative Commons - základní informace</message>
+		<message key="xmlui.mirage2.static-pages.licenses.general-info.heading">Creative Commons licence obecně</message>
+		<message key="xmlui.mirage2.static-pages.licenses.general-info.text">Soubory uložené v repozitáři s některou z licencí Creative Commons jsou v repozitáři otevřeně přístupné (případně otevřeně přístupné po uplynutí určitého
+			času od jejich uložení do repozitáře, tzv. období embarga). Záleží na konkrétní licenci, v jakém rozsahu mohou uživatelé repozitáře příslušný soubor užívat. 
+			Práva a povinnosti plynoucí z licencí Creative Commons jsou definovány čtyřmi licenčními prvky (<i>BY</i>, <i>SA</i>, <i>ND</i>, <i>NC</i>). 
+			Tyto prvky a jejich kombinace pak tvoří šest variant licencí popsaných níže.
+		</message>
+		<!-- END OF: page/licenses translations -->
+
 	<!-- <JR> - 2022-01-24: page/faq translations-->
 	<message key="obd.faq.intro-text">
 		Níže naleznete odpovědi na časté dotazy týkající se ukládání a zpřístupňování plných textů výsledků tvůrčí činnosti UK v tomto repozitáři. 
