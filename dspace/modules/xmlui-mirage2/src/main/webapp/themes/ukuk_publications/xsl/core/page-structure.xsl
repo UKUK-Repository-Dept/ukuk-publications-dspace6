@@ -34,6 +34,7 @@
                 <xsl:import href="../custom/typology.xsl" />
                 <xsl:import href="../custom/faq.xsl" />
                 <xsl:import href="../custom/disclaimer.xsl" />
+                <xsl:import href="../custom/licenses.xsl" />
 
     <xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 
@@ -293,6 +294,9 @@
                     </xsl:when>
                     <xsl:when test="starts-with($request-uri, 'page/disclaimer')">
                         <i18n:text>xmlui.mirage2.static-pages.title.disclaimer</i18n:text>
+                    </xsl:when>
+                    <xsl:when test="starts-with($request-uri, 'page/licenses')">
+                        <i18n:text>xmlui.mirage2.static-pages.title.licenses</i18n:text>
                     </xsl:when>
                     <xsl:when test="not($page_title)">
                         <xsl:text>  </xsl:text>
@@ -808,6 +812,11 @@
                 <xsl:when test="starts-with($request-uri, 'page/disclaimer')">
                     <div class="hero-unit">
                         <xsl:call-template name="disclaimer-create"/>
+                    </div>
+                </xsl:when>
+                <xsl:when test="starts-with($request-uri, 'page/licenses')">
+                    <div class="hero-unit">
+                        <xsl:call-template name="licenses-create"/>
                     </div>
                 </xsl:when>
                 <!-- Otherwise use default handling of body -->
