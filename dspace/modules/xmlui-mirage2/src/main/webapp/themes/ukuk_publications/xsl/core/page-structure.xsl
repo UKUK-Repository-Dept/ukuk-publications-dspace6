@@ -33,6 +33,7 @@
                 exclude-result-prefixes="i18n dri mets xlink xsl dim xhtml mods dc confman">
                 <xsl:import href="../custom/typology.xsl" />
                 <xsl:import href="../custom/faq.xsl" />
+                <xsl:import href="../custom/disclaimer.xsl" />
 
     <xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 
@@ -289,6 +290,9 @@
                     </xsl:when>
                     <xsl:when test="starts-with($request-uri, 'page/typology')">
                         <i18n:text>xmlui.mirage2.static-pages.title.typology</i18n:text>
+                    </xsl:when>
+                    <xsl:when test="starts-with($request-uri, 'page/disclaimer')">
+                        <i18n:text>xmlui.mirage2.static-pages.title.disclaimer</i18n:text>
                     </xsl:when>
                     <xsl:when test="not($page_title)">
                         <xsl:text>  </xsl:text>
@@ -800,6 +804,11 @@
                         <xsl:call-template name="typology-forms-create"/>
                     </div>
                     
+                </xsl:when>
+                <xsl:when test="starts-with($request-uri, 'page/disclaimer')">
+                    <div class="hero-unit">
+                        <xsl:call-template name="disclaimer-create"/>
+                    </div>
                 </xsl:when>
                 <!-- Otherwise use default handling of body -->
                 <xsl:otherwise>
