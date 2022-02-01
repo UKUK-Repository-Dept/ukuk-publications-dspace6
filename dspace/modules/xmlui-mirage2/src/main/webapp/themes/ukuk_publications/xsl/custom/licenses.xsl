@@ -42,7 +42,10 @@
         
         <h2><i18n:text>xmlui.mirage2.static-pages.licenses.general-info.heading</i18n:text></h2>
         <p>
-            <i18n:text>xmlui.mirage2.static-pages.licenses.general-info.text</i18n:text>
+            <i18n:text>xmlui.mirage2.static-pages.licenses.general-info.text.1</i18n:text>
+        </p>
+        <p>
+            <i18n:text>xmlui.mirage2.static-pages.licenses.general-info.text.2</i18n:text>
         </p>
         
         <h2><i18n:text>xmlui.mirage2.static-pages.licenses.variants.heading</i18n:text></h2>
