@@ -2651,19 +2651,19 @@
 	<message key="xmlui.mirage2.static-pages.disclaimer.section.cooauthors">Potvrzení souhlasu spoluautorů s uložení a zpřístupnění výsledku v repozitáři</message>
 	<message key="xmlui.mirage2.static-pages.disclaimer.section.publisher-third-parties">Potvrzení o neporušování práv vydavatele či třetí strany</message>
 	<!-- page/disclaimer - cooauthors paragraphs -->
-	<message key="xmlui.mirage2.static-pages.disclaimer.section.cooauthors.para.1">Potvrzením skutečnosti, že s uložením a zpřístupněním plného textu díla souhlasí všichni spoluautoři splníte podmínku jednomyslnosti, 
-		kterou pro nakládání se spoluautorským dílem zakotvuje ust. § 8 odst. 4 zákona č. 121/2000 Sb., autorského zákona, v platném znění. 
-		Znamená to, že při jakémkoliv nakládání s dílem musí k tomuto jednání udělit souhlasy všichni spoluautoři 
-		(jinými slovy, neuplatní se zde většinový princip, kdy by o nakládání s dílem rozhodovala nadpoloviční většina spoluautorů).
+	<message key="xmlui.mirage2.static-pages.disclaimer.section.cooauthors.para.1">
+		Potvrzením skutečnosti, že s uložením a zpřístupněním plného textu díla souhlasí všichni spoluautoři splníte podmínku jednomyslnosti, 
+		kterou pro nakládání se spoluautorským dílem zakotvuje ust. § 8 odst. 4 zákona č. 121/2000 Sb., o právu autorském, o právech souvisejících s právem autorským 
+		a o změně některých zákonů, v platném znění (dále jen „Autorský zákon”). Znamená to, že při jakémkoliv nakládání s dílem musí k tomuto jednání udělit souhlasy 
+		všichni spoluautoři (jinými slovy, neuplatní se zde většinový princip, kdy by o nakládání s dílem rozhodovala nadpoloviční většina spoluautorů).
 	</message>
 	<message key="xmlui.mirage2.static-pages.disclaimer.section.cooauthors.para.2">
 		Pokud by některý ze spoluautorů bránil bez vážného důvodu nakládání s dílem, můžete se domáhat nahrazení chybějícího projevu jeho vůle soudem.
 	</message>
 	<message key="xmlui.mirage2.static-pages.disclaimer.section.cooauthors.para.3">
-		V případě, že plný text uložíte a zpřístupníte v repozitáři navzdory tomu, že některý ze spoluautorů k tomu neudělil souhlas, 
-		dochází z Vaší strany k zásahu do autorských práv tohoto spoluautora. Ten se následně může cestou soukromoprávní žaloby u soudu domáhat ochrany svých práv 
-		v souladu s ust. § 40 a násl. zákona č. 121/2000 Sb., o právu autorském, o právech souvisejících s právem autorským a o změně některých zákonů, 
-		v platném znění (dále jen „Autorský zákon”). Konkrétně se může spoluautor domáhat např. zákazu neoprávněného sdělování díla veřejnosti 
+		V případě, že plný text uložíte a zpřístupníte v repozitáři navzdory tomu, že některý ze spoluautorů k tomu neudělil souhlas, dochází z Vaší strany 
+		k zásahu do autorských práv tohoto spoluautora. Ten se následně může cestou soukromoprávní žaloby u soudu domáhat ochrany svých práv 
+		v souladu s ust. § 40 a násl. Autorského zákona. Konkrétně se může spoluautor domáhat např. zákazu neoprávněného sdělování díla veřejnosti 
 		či poskytnutí přiměřeného zadostiučinění. V úvahu připadá i správněprávní odpovědnost za přestupek dle ust. § 105a Autorského zákona, 
 		v krajním případě i trestněprávní odpovědnost dle ust. § 270 zákona č. 40/2009 Sb., trestního zákoníku, v platném znění.
 	</message>
