@@ -40,7 +40,6 @@
     <xsl:template name="disclaimer-text">
         <h1><i18n:text>xmlui.mirage2.static-pages.title.disclaimer</i18n:text></h1>
         <br/>
-        <br/>
         <h2><i18n:text>xmlui.mirage2.static-pages.disclaimer.section.cooauthors</i18n:text></h2>
         <br/>
         <p>
@@ -52,7 +51,6 @@
         <p>
             <i18n:text>xmlui.mirage2.static-pages.disclaimer.section.cooauthors.para.3</i18n:text>
         </p>
-        <br/>
         <br/>
         <h2><i18n:text>xmlui.mirage2.static-pages.disclaimer.section.publisher-third-parties</i18n:text></h2>
         <br/>
