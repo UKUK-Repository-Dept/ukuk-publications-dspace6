@@ -2921,8 +2921,8 @@
 	<!-- <JR> - 22-02-01: page/disclaimer-->
 	<message key="xmlui.mirage2.static-pages.title.disclaimer">Poučení</message>
 	<!-- page/disclaimer - section headings -->
-	<message key="xmlui.mirage2.static-pages.disclaimer.section.cooauthors">Potvrzení souhlasu spoluautorů s uložení a zpřístupnění výsledku v repozitáři</message>
-	<message key="xmlui.mirage2.static-pages.disclaimer.section.publisher-third-parties">Potvrzení o neporušování práv vydavatele či třetí strany</message>
+	<message key="xmlui.mirage2.static-pages.disclaimer.section.cooauthors">Potvrzení získání souhlasu spoluautorů s uložením a zpřístupněním výsledku v repozitáři</message>
+	<message key="xmlui.mirage2.static-pages.disclaimer.section.publisher-third-parties">Potvrzení prohlášení o neporušování práv vydavatele či třetí strany</message>
 	<!-- page/disclaimer - cooauthors paragraphs -->
 	<message key="xmlui.mirage2.static-pages.disclaimer.section.cooauthors.para.1">
 		Potvrzením skutečnosti, že s uložením a zpřístupněním plného textu díla souhlasí všichni spoluautoři splníte podmínku jednomyslnosti, 
