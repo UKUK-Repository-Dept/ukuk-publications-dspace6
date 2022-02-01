@@ -2918,6 +2918,42 @@
 	<message key="obd.typology.subform.secondary.id.462">abstrakt v konferenčním sborníku</message>
 	<message key="obd.typology.subform.secondary.id.135">abstrakt v časopisu</message>
 
+	<!-- <JR> - 22-02-01: page/disclaimer-->
+	<message key="xmlui.mirage2.static-pages.title.disclaimer">Poučení</message>
+	<!-- page/disclaimer - section headings -->
+	<message key="xmlui.mirage2.static-pages.disclaimer.section.cooauthors">Potvrzení souhlasu spoluautorů s uložení a zpřístupnění výsledku v repozitáři</message>
+	<message key="xmlui.mirage2.static-pages.disclaimer.section.publisher-third-parties">Potvrzení o neporušování práv vydavatele či třetí strany</message>
+	<!-- page/disclaimer - cooauthors paragraphs -->
+	<message key="xmlui.mirage2.static-pages.disclaimer.section.cooauthors.para.1">Potvrzením skutečnosti, že s uložením a zpřístupněním plného textu díla souhlasí všichni spoluautoři splníte podmínku jednomyslnosti, 
+		kterou pro nakládání se spoluautorským dílem zakotvuje ust. § 8 odst. 4 zákona č. 121/2000 Sb., autorského zákona, v platném znění. 
+		Znamená to, že při jakémkoliv nakládání s dílem musí k tomuto jednání udělit souhlasy všichni spoluautoři 
+		(jinými slovy, neuplatní se zde většinový princip, kdy by o nakládání s dílem rozhodovala nadpoloviční většina spoluautorů).
+	</message>
+	<message key="xmlui.mirage2.static-pages.disclaimer.section.cooauthors.para.2">
+		Pokud by některý ze spoluautorů bránil bez vážného důvodu nakládání s dílem, můžete se domáhat nahrazení chybějícího projevu jeho vůle soudem.
+	</message>
+	<message key="xmlui.mirage2.static-pages.disclaimer.section.cooauthors.para.3">
+		V případě, že plný text uložíte a zpřístupníte v repozitáři navzdory tomu, že některý ze spoluautorů k tomu neudělil souhlas, 
+		dochází z Vaší strany k zásahu do autorských práv tohoto spoluautora. Ten se následně může cestou soukromoprávní žaloby u soudu domáhat ochrany svých práv 
+		v souladu s ust. § 40 a násl. zákona č. 121/2000 Sb., o právu autorském, o právech souvisejících s právem autorským a o změně některých zákonů, 
+		v platném znění (dále jen „Autorský zákon”). Konkrétně se může spoluautor domáhat např. zákazu neoprávněného sdělování díla veřejnosti 
+		či poskytnutí přiměřeného zadostiučinění. V úvahu připadá i správněprávní odpovědnost za přestupek dle ust. § 105a Autorského zákona, 
+		v krajním případě i trestněprávní odpovědnost dle ust. § 270 zákona č. 40/2009 Sb., trestního zákoníku, v platném znění.
+	</message>
+	<!-- page/disclaimer - publisher/third parties paragraph-->
+	<message key="xmlui.mirage2.static-pages.disclaimer.section.publisher-third-parties.para.1">
+		Potvrzením skutečnosti, že uložením a zpřístupněním plného textu díla v repozitáři nezasahujete do práv vydavatele / nakladatele či jiné třetí strany stvrzujete, 
+		že tímto jednáním nedochází k porušení smluvních podmínek v licenční či jiné smlouvě. Proto je v případě, kdy byla uzavřena licenční smlouva 
+		s vydavatelem / nakladatelem či jiná smlouva, jejímž předmětem je nakládání s dílem, velmi důležité ujistit se, že uložení a zpřístupnění díla v repozitáři 
+		není v rozporu se smluvními podmínkami (k tomu více viz Krok 2: Kontrola licenční smlouvy s vydavatelem).
+	</message>
+	<message key="xmlui.mirage2.static-pages.disclaimer.section.publisher-third-parties.para.2">
+		V případě, že plný text uložíte a zpřístupníte v repozitáři v rozporu s dříve uzavřenou licenční či jinou smlouvou, 
+		dochází z Vaší strany k zásahu do práv druhé smluvní strany. Ta se může následně cestou soukromoprávní žaloby u soudu domáhat náhrady škody způsobené 
+		porušením smluvní povinnosti v souladu s ust. § 2913 zákona č. 89/2012 Sb., občanského zákoníku. 
+	</message>
+	<!-- END OF: page/disclaimer-->
+
 	<!-- <JR> - 2022-01-24: page/faq translations-->
 	<message key="obd.faq.intro-text">
 		Níže naleznete odpovědi na časté dotazy týkající se ukládání a zpřístupňování plných textů výsledků tvůrčí činnosti UK v tomto repozitáři. 
