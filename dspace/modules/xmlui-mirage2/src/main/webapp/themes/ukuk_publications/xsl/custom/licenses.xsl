@@ -80,10 +80,10 @@
         <h2><i18n:text>xmlui.mirage2.static-pages.licenses.versions-adaptations.heading</i18n:text></h2>
         <p>
             <i18n:text>xmlui.mirage2.static-pages.licenses.versions-adaptations.versions.text</i18n:text>
-        <p>
+        </p>
         <p>
             <i18n:text>xmlui.mirage2.static-pages.licenses.versions-adaptations.adaptations.text</i18n:text>
-        <p>
+        </p>
 
     </xsl:template>
 
