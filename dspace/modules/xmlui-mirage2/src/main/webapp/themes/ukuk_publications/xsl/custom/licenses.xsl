@@ -39,31 +39,39 @@
 
     <xsl:template name="licenses-text">
         <h1><i18n:text>xmlui.mirage2.static-pages.licenses.heading</i18n:text></h1>
+        
         <h2><i18n:text>xmlui.mirage2.static-pages.licenses.general-info.heading</i18n:text></h2>
         <p>
             <i18n:text>xmlui.mirage2.static-pages.licenses.general-info.text</i18n:text>
         </p>
+        
         <h2><i18n:text>xmlui.mirage2.static-pages.licenses.variants.heading</i18n:text></h2>
+        
         <h3><i18n:text>xmlui.mirage2.static-pages.licenses.variants.cc-by.heading</i18n:text></h3>
         <p>
             <i18n:text>xmlui.mirage2.static-pages.licenses.variants.cc-by.text</i18n:text>
         </p>
+        
         <h3><i18n:text>xmlui.mirage2.static-pages.licenses.variants.cc-by-sa.heading</i18n:text></h3>
         <p>
             <i18n:text>xmlui.mirage2.static-pages.licenses.variants.cc-by-sa.text</i18n:text>
         </p>
-        <h3><i18n:text>xmlui.mirage2.static-pages.licenses.variants.cc-by-nd.heading</i18n:text></h2>
+        
+        <h3><i18n:text>xmlui.mirage2.static-pages.licenses.variants.cc-by-nd.heading</i18n:text></h3>
         <p>
             <i18n:text>xmlui.mirage2.static-pages.licenses.variants.cc-by-nd.text</i18n:text>
         </p>
-        <h3><i18n:text>xmlui.mirage2.static-pages.licenses.variants.cc-by-nc.heading</i18n:text></h2>
+        
+        <h3><i18n:text>xmlui.mirage2.static-pages.licenses.variants.cc-by-nc.heading</i18n:text></h3>
         <p>
             <i18n:text>xmlui.mirage2.static-pages.licenses.variants.cc-by-nc.text</i18n:text>
         </p>
-        <h3><i18n:text>xmlui.mirage2.static-pages.licenses.variants.cc-by-nc-sa.heading</i18n:text></h2>
+        
+        <h3><i18n:text>xmlui.mirage2.static-pages.licenses.variants.cc-by-nc-sa.heading</i18n:text></h3>
         <p>
             <i18n:text>xmlui.mirage2.static-pages.licenses.variants.cc-by-nc-sa.text</i18n:text>
         </p>
+        
         <h3><i18n:text>xmlui.mirage2.static-pages.licenses.variants.cc-by-nc-nd.heading</i18n:text></h3>
         <p>
             <i18n:text>xmlui.mirage2.static-pages.licenses.variants.cc-by-nc-nd.text</i18n:text>
@@ -76,6 +84,7 @@
         <p>
             <i18n:text>xmlui.mirage2.static-pages.licenses.versions-adaptations.adaptations.text</i18n:text>
         <p>
+
     </xsl:template>
 
 </xsl:stylesheet>
