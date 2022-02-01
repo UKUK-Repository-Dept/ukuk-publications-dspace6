@@ -2687,10 +2687,77 @@
 
 	<message key="xmlui.mirage2.static-pages.licenses.heading">Creative Commons Licences - basic information</message>
 	<message key="xmlui.mirage2.static-pages.licenses.general-info.heading">Creative Commons Licenses in general</message>
-	<message key="xmlui.mirage2.static-pages.licenses.general-info.text">Soubory uložené v repozitáři s některou z licencí Creative Commons jsou v repozitáři otevřeně přístupné (případně otevřeně přístupné po uplynutí určitého
+	<message key="xmlui.mirage2.static-pages.licenses.general-info.text.1">Soubory uložené v repozitáři s některou z licencí Creative Commons jsou v repozitáři otevřeně přístupné (případně otevřeně přístupné po uplynutí určitého
 		času od jejich uložení do repozitáře, tzv. období embarga). Záleží na konkrétní licenci, v jakém rozsahu mohou uživatelé repozitáře příslušný soubor užívat. 
 		Práva a povinnosti plynoucí z licencí Creative Commons jsou definovány čtyřmi licenčními prvky (<i>BY</i>, <i>SA</i>, <i>ND</i>, <i>NC</i>). 
 		Tyto prvky a jejich kombinace pak tvoří šest variant licencí popsaných níže.
+	</message>
+	<message key="xmlui.mirage2.static-pages.licenses.general-info.text.2">
+		Licence obsahující tři licenční prvky (<i>CC BY-NC-SA</i> a <i>CC BY-NC-ND</i>) jsou poměrně restriktivní, neboť kombinace více licenčních prvků představují 
+		více omezujících podmínek pro uživatele. Z tohoto důvodu doporučujeme využívat spíše liberálnější licence, zejména pak licence <i>CC BY</i> a <i>CC BY-SA</i>. 
+		Pouze tyto dvě licence jsou považovány za otevřené licence ve smyslu 
+		<a href="https://openaccess.mpg.de/Berlin-Declaration" target="_blank">Berlínské deklarace o otevřeném přístupu</a>, neboť umožňují široké užití licencovaných děl 
+		(včetně vytváření odvozených děl a komerčního využití licencovaného obsahu).
+	</message>
+
+	<message key="xmlui.mirage2.static-pages.licenses.variants.heading">Creative Commons License Variants</message>
+	<message key="xmlui.mirage2.static-pages.licenses.variants.cc-by.heading">CC BY: Attribution</message>
+	<message key="xmlui.mirage2.static-pages.licenses.variants.cc-by.text">
+		Tato licence je tou nejliberálnější z licencí Creative Commons. Zvolíte-li ji, dáváte tím oprávnění uživatelům k tomu, 
+		aby plný text užívali všemi možnými způsoby (např. překládali, užívali jako součást svých děl, sdíleli, …), 
+		avšak za dodržení podmínky, že při každém takovém užití uvedou následující informace: název díla, jméno autora, 
+		zdroj a licenci, pod kterou byl plný text zpřístupněn. Uvedením těchto informací je splněna podmínka licenčního prvku BY, 
+		který je přítomen u všech variant licencí Creative Commons. Znamená to, že je tyto informace o plném textu musí uživatel uvádět vždy, 
+		když užívá dílo podléhající jedné z licencí Creative Commons. Nemělo by se tak stát, že autorství nebude uvedeno či si ho přisvojí některý z uživatelů.
+	</message>
+
+	<message key="xmlui.mirage2.static-pages.licenses.variants.cc-by-sa.heading">CC BY-SA: Attribution-ShareAlike</message>
+	<message key="xmlui.mirage2.static-pages.licenses.variants.cc-by-sa.text">
+		Jak bylo zmíněno výše, i tato licence obsahuje prvek BY; při každém užití plného textu zpřístupněného pod touto licencí tedy uživatel musí uvést název díla, 
+		jméno autora, zdroj a licenci. Nadto je zde přítomen licenční prvek SA, který představuje podmínku zachování licence. Znamená to, že pokud uživatel vytvoří 
+		tzv. odvozené dílo (zcela nové dílo, jehož autorem je uživatel, avšak které je založené na původním díle), musí ho v případě sdílení opatřit shodnou licencí, 
+		tj. licencí CC BY-SA (ve verzi stejné nebo novější).
+	</message>
+	
+	<message key="xmlui.mirage2.static-pages.licenses.variants.cc-by-nd.heading">CC BY-ND: Attribution-NoDerivatives</message>
+	<message key="xmlui.mirage2.static-pages.licenses.variants.cc-by-nd.text">
+		I u této licence je nutné naplnit licenční prvek BY; uživatelé tedy dílo budou moci užít, uvedou-li název díla, jméno autora, zdroj a licenci. 
+		Licenci obsahující licenční prvek ND autor většinou volí, pokud si nepřeje, aby bylo jeho dílo měněno či aby do něj bylo jakkoliv zasahováno. 
+		Je-li tedy dílo opatřeno licencí s licenčním prvkem ND, není možné takové dílo zpracovávat, tedy tvořit díla nová, od původního díla odvozená. 
+		Díla opatřená touto licencí tak není možné např. překládat.
+	</message>
+
+	<message key="xmlui.mirage2.static-pages.licenses.variants.cc-by-nc.heading">CC BY-NC: Attribution-NonCommercial</message>
+	<message key="xmlui.mirage2.static-pages.licenses.variants.cc-by-nc.text">
+		Prvek NC říká, že autor zakazuje komerční využití svého díla. Uživatel tedy dílo může užívat všemi způsoby, pokud z takového užití nebude mít komerční prospěch. 
+		Nadto musí samozřejmě splnit podmínku licenčního prvku BY, tedy uvést název díla, jméno autora, zdroj a licenci.
+	</message>
+
+	<message key="xmlui.mirage2.static-pages.licenses.variants.cc-by-nc-sa.heading">CC BY-NC-SA: Attribution-NonCommercial-ShareAlike</message>
+	<message key="xmlui.mirage2.static-pages.licenses.variants.cc-by-nc-sa.text">
+		Tato licence umožňuje uživatelům užívat dílo všemi způsoby, a to za podmínky, že takové užití nebude komerční. Vytvoří-li uživatel nové (odvozené) dílo, 
+		které bude chtít opatřit licencí, musí zvolit shodnou licenci, tj. CC BY-NC-SA (ve verzi stejné či novější). Samozřejmě i zde musí uživatel při každém užití díla 
+		uvést náležité informace o díle: název díla, jména autora, zdroj a licenci.
+	</message>
+
+	<message key="xmlui.mirage2.static-pages.licenses.variants.cc-by-nc-nd.heading">CC BY-NC-ND: Attribution-NonCommercial-NoDerivatives</message>
+	<message key="xmlui.mirage2.static-pages.licenses.variants.cc-by-nc-nd.text">
+		Tuto licenci volí autoři, kteří si nepřejí, aby bylo jejich dílo jakkoliv zpracováváno či měněno (tedy např. překládáno), ani aby bylo jejich dílo možné komerčně využít. 
+		Opět je zde povinnost uživatele při užití díla uvést název díla, jména autora, zdroj a licenci.
+	</message>
+
+	<message key="xmlui.mirage2.static-pages.licenses.versions-adaptations.heading">Creative Commons License Versions and National Adaptations</message>
+	<message key="xmlui.mirage2.static-pages.licenses.versions-adaptations.versions.text">
+		Verze licencí jsou značeny číslem; jde o různá znění licencí číslovaných vzestupně dle roku vzniku. Nejstarší verze licencí je verze 1.0 z roku 2002, 
+		nejnovější je verze 4.0 z roku 2013.
+	</message>
+	<message key="xmlui.mirage2.static-pages.licenses.versions-adaptations.adaptations.text">
+		U licencí ve verzi 3.0 a starší existuje jednak tzv. obecná či generická licence (u verzí 1.0, 2.0 a 2.5 označená jako Generic, 
+		u verze 3.0 jako Unported), jednak několik národních (adaptovaných) znění, tedy znění s obsahovými odchylkami plynoucími z odlišností mezi právními řády 
+		jednotlivých států. Adaptovaná znění licencí jsou značená zkratkou daného státu (např. zkratka AT v licenci CC BY 2.0 AT značí licenci ve verzi 2.0 
+		adaptovanou na rakouský právní řád). U nejnovější verze 4.0 již adaptovaná znění neexistují, neboť je jako jediná z verzí mezinárodní. 
+		Znamená to, že text všech variant licencí ve verzi 4.0 je souladný s právními řády všech států (značí se vždy jako 4.0 International). 
+		Z tohoto důvodu nelze než doporučit zvolení nejnovější mezinárodní verze 4.0. 
 	</message>
 	<!-- END OF: page/licenses translations -->
 
