@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<supported_forms>
+    <form id="73"> <!-- ČLÁNEK V ČASOPISU -->
+        <subforms>
+            <subform id="152"> <!-- článek v časopisu -->
+                <child_subforms all-supported="true">
+                    <child_subform id="200"></child_subform> <!-- jiný článek -->
+                    <child_subform id="201"></child_subform> <!-- popularizující článek -->
+                    <child_subform id="202"></child_subform> <!-- kazuistika -->
+                    <child_subform id="234"></child_subform> <!-- proceedings paper -->
+                    <child_subform id="233"></child_subform> <!-- letter to the editors -->
+                    <child_subform id="325"></child_subform> <!-- editorial -->
+                    <child_subform id="205"></child_subform> <!-- přehledový článek -->
+                    <child_subform id="204"></child_subform> <!-- překlad článku -->
+                    <child_subform id="470"></child_subform> <!-- komentář -->
+                    <child_subform id="203"></child_subform> <!-- recenze -->
+                    <child_subform id="468"></child_subform> <!-- doporučený postup -->
+                    <child_subform id="206"></child_subform> <!-- původní článek -->
+                    <child_subform id="469"></child_subform> <!-- klinická studie -->
+                </child_subforms>
+            </subform>
+        </subforms>
+    </form>
+    <form id="67"> <!-- KAPITOLA V KNIZE -->
+        <subforms>
+            <subform id="134"> <!-- kapitola v knize -->
+                <child_subforms all-supported="true">
+                    <child_subform id="241"></child_subform> <!-- kapitola v informační publikaci -->
+                    <child_subform id="165"></child_subform> <!-- jiná kapitola v knize -->
+                    <child_subform id="166"></child_subform> <!-- kapitola v učebnici pro VŠ -->
+                    <child_subform id="167"></child_subform> <!-- heslo ve vědecké encyklopedii -->
+                    <child_subform id="168"></child_subform> <!-- kapitola v monografii -->
+                    <child_subform id="169"></child_subform> <!-- kapitola v učebnici pro ZŠ -->
+                    <child_subform id="170"></child_subform> <!-- kapitola v příručce -->
+                    <child_subform id="173"></child_subform> <!-- kapitola v kritickém komentovaném překladu -->
+                    <child_subform id="175"></child_subform> <!-- heslo v populární encyklopedii/slovníku -->
+                    <child_subform id="238"></child_subform> <!-- kapitola v odborném atlasu -->
+                    <child_subform id="266"></child_subform> <!-- kapitola v repetitoriu -->
+                    <child_subform id="239"></child_subform> <!-- heslo v populárním slovníku -->
+                    <child_subform id="242"></child_subform> <!-- nekomentovaný překlad - kapitola -->
+                    <child_subform id="235"></child_subform> <!-- heslo ve vědeckém slovníku -->
+                    <child_subform id="236"></child_subform> <!-- právní komentář - kapitola -->
+                    <child_subform id="237"></child_subform> <!-- kapitola v kolektivní monografii -->
+                    <child_subform id="240"></child_subform> <!-- kapitola v ročence -->
+                    <child_subform id="466"></child_subform> <!-- kapitola v populárně-naučné knize -->
+                    <child_subform id="171"></child_subform> <!-- kapitola v učebnici pro SŠ -->
+                    <child_subform id="172"></child_subform> <!-- kapitola ve VŠ skriptu -->
+                    <child_subform id="174"></child_subform> <!-- kapitola v kritické edici pramenů -->
+                    <child_subform id="241"></child_subform> <!-- kapitola v informační publikaci -->
+                </child_subforms>
+            </subform>
+        </subforms>
+    </form>
+    <form id="63"> <!-- KNIHA -->
+        <subforms>
+            <subform id="144"> <!-- kniha --> 
+                <child_subforms all-supported="true">
+                    <child_subform id="184"></child_subform> <!-- učebnice pro ZŠ -->
+                    <child_subform id="185"></child_subform> <!-- vědecká encyklopedie -->
+                    <child_subform id="186"></child_subform> <!-- kritický komentovaný překlad -->
+                    <child_subform id="188"></child_subform> <!-- jiná kniha -->
+                    <child_subform id="189"></child_subform> <!-- příručka -->
+                    <child_subform id="191"></child_subform> <!-- VŠ skriptum -->
+                    <child_subform id="192"></child_subform> <!-- sborník -->
+                    <child_subform id="193"></child_subform> <!-- učebnice pro VŠ -->
+                    <child_subform id="194"></child_subform> <!-- kritická edice pramenů -->
+                    <child_subform id="195"></child_subform> <!-- monografie -->
+                    <child_subform id="248"></child_subform> <!-- ročenka -->
+                    <child_subform id="249"></child_subform> <!-- informační publikace -->
+                    <child_subform id="245"></child_subform> <!-- kolektivní monografie -->
+                    <child_subform id="246"></child_subform> <!-- odborný atlas -->
+                    <child_subform id="244"></child_subform> <!-- právní komentář -->
+                    <child_subform id="247"></child_subform> <!-- populární slovník -->
+                    <child_subform id="250"></child_subform> <!-- nekomentovaný překlad -->
+                    <child_subform id="265"></child_subform> <!-- repetitorium -->
+                    <child_subform id="243"></child_subform> <!-- vědecký slovník -->
+                    <child_subform id="190"></child_subform> <!-- učebnice pro SŠ -->
+                    <child_subform id="465"></child_subform> <!-- beletrie -->
+                    <child_subform id="464"></child_subform> <!-- populárně-naučná kniha -->
+                    <child_subform id="187"></child_subform> <!-- populární encyklopedie/slovník -->
+                </child_subforms>
+            </subform>
+        </subforms>
+    </form>
+    <form id="131"> <!-- Kniha pouze s editory (editor=autor) -->
+        <subforms>
+            <subform id="208"> <!-- kniha pouze s editory -->
+                <child_subforms all-supported="true">
+                    <child_subform id="210"></child_subform> <!-- monografie -->
+                    <child_subform id="211"></child_subform> <!-- sborník -->
+                    <child_subform id="212"></child_subform> <!-- jiná kniha -->   
+                </child_subforms>
+            </subform>
+        </subforms>
+    </form>
+    <form id="129"> <!-- METODIKA, POSTUP -->
+        <subforms>
+            <subform id="151"> <!-- certifikované postupy -->
+                <child_subforms all-supported="true">
+                    <child_subform id="146"></child_subform> <!-- certifikovaná metodika -->
+                    <child_subform id="198"></child_subform> <!-- léčebný postup -->
+                    <child_subform id="199"></child_subform> <!-- památkový postup -->
+                    <child_subform id="518"></child_subform> <!-- schválená metodika -->
+                    <child_subform id="519"></child_subform> <!-- akreditovaná metodika -->            
+                </child_subforms>
+            </subform>
+        </subforms>
+    </form>
+    <form id="133"> <!-- [FSV] Pražské sociálně vědní studie -->
+        <subforms>
+            <subform id="207"> <!-- Pražské sociálně vědní studie -->
+                <child_subforms all-supported="false">
+                </child_subforms>
+            </subform>
+        </subforms>
+    </form>
+    <form id="106"> <!-- STAŤ VE SBORNÍKU PRACÍ (nekonferenčním) -->
+        <subforms>
+            <subform id="133"> <!-- stať ve sborníku prací -->
+                <child_subforms all-supported="false">
+                </child_subforms>
+            </subform>
+        </subforms>
+    </form>
+    <!-- SPECIALIZOVANÁ MAPA S ODBORNÝM OBSAHEM -->
+    <!--<form id="127"> 
+        <subforms> -->
+            <!--<subform id="147">--> <!-- specializovaná mapa s odborným obsahem -->
+                <!--<child_subforms all-supported="false">
+                </child_subforms>
+            </subform>
+        </subforms>
+    </form>-->
+    <form id="117"> <!-- FSV: working paper -->
+        <subforms>
+            <subform id="131"> <!-- working paper -->
+                <child_subforms all-supported="false">
+                </child_subforms>
+            </subform>
+        </subforms>
+    </form>
+    <form id="122"> <!-- VÝSLEDEK REALIZOVANÝ POSKYTOVATELEM -->
+        <subforms>
+            <subform id="142"> <!-- poskytovatelem realizovaný výsledek -->
+                <child_subforms all-supported="true">
+                    <child_subform id="181"></child_subform> <!-- materiál pro strategický či koncepční dokument -->
+                    <child_subform id="182"></child_subform> <!-- materiál pro právní předpis či normu -->
+                    <child_subform id="183"></child_subform> <!-- materiál pro předpis nelegislativní povahy -->
+                </child_subforms>
+            </subform>
+        </subforms>
+    </form>
+    <form id="81"> <!-- PŘEDNÁŠKA, POSTER -->
+        <subforms>
+            <subform id="145"> <!-- přednáška nebo poster -->
+                <child_subforms all-supported="true">
+                    <child_subform id="338"></child_subform> <!-- přednáška -->
+                    <child_subform id="340"></child_subform> <!-- poster -->
+                </child_subforms>
+            </subform>
+        </subforms>
+    </form>
+    <!-- SOFTWARE-->
+    <!--<form id="83">
+        <subforms>
+            <subform id="149">
+                <child_subforms all-supported="false">
+                </child_subforms>
+            </subform>
+        </subforms>
+    </form>-->
+    <form id="57"> <!-- PŘÍSPĚVEK V KONFERENČNÍM SBORNÍKU -->
+        <subforms>
+            <subform id="148"> <!-- příspěvek v konferenčním sborníku -->
+                <child_subforms all-supported="true">
+                    <child_subform id="311"></child_subform> <!-- jiný příspěvek v konferenčním sborníku -->
+                    <child_subform id="499"></child_subform> <!-- příspěvek v recenzovaném konferenčním sborníku -->
+                </child_subforms>
+            </subform>
+        </subforms>
+    </form>
+    <form id="213"> <!-- SOUHRNNÁ VÝZKUMNÁ ZPRÁVA -->
+        <subforms>
+            <subform id="339"> <!-- souhrnná výzkumná zpráva -->
+                <child_subforms all-supported="false">
+                </child_subforms>
+            </subform>
+        </subforms>
+    </form>
+    <form id="121"> <!-- JINÝ VÝSLEDEK -->
+        <subforms>
+            <subform id="128"> <!-- jiné výsledky -->
+                <child_subforms all-supported="false">
+                    <child_subform id="153"></child_subform> <!-- výzkumná zpráva -->
+                    <child_subform id="154"></child_subform> <!-- jiný příspěvek ve sborníku -->
+                    <!--<child_subform id="252"></child_subform>--> <!-- internetový zdroj -->
+                    <child_subform id="500"></child_subform> <!-- necertifikovaná metodika -->
+                    <!--<child_subform id="264"></child_subform>--> <!-- popularizující internetová prezentace -->
+                </child_subforms>
+            </subform>
+        </subforms>
+    </form>
+    <form id="110"> <!-- ABSTRAKT -->
+        <subforms>
+            <subform id="130"> <!-- abstrakt -->
+                <child_subforms all-supported="true">
+                    <child_subform id="136"></child_subform> <!-- abstrakt v elektronické podobě -->
+                    <child_subform id="462"></child_subform> <!-- abstrakt v konferenčním sborníku -->
+                    <child_subform id="135"></child_subform> <!-- abstrakt v časopisu -->
+                </child_subforms>
+            </subform>
+        </subforms>
+    </form>
+</supported_forms>
