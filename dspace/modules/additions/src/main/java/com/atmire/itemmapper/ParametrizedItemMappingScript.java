@@ -8,9 +8,13 @@ import com.atmire.cli.BooleanOption;
 import com.atmire.cli.ContextScript;
 import com.atmire.cli.OptionWrapper;
 import com.atmire.cli.StringOption;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.dspace.core.Context;
 
 public class ParametrizedItemMappingScript extends ContextScript {
+
+    private static final Logger log = LogManager.getLogger(ParametrizedItemMappingScript.class);
 
     StringOption operationMode;
     StringOption sourceHandle;
@@ -46,5 +50,20 @@ public class ParametrizedItemMappingScript extends ContextScript {
     @Override
     public void run(Context context) throws SQLException {
 
+    }
+
+    public void logCLI(String level, String message) {
+        System.out.println(message);
+        switch(level) {
+            case "info":
+                log.info(message);
+                break;
+            case "error":
+                log.error(message);
+                break;
+            case "warn":
+                log.warn(message);
+                break;
+        }
     }
 }
