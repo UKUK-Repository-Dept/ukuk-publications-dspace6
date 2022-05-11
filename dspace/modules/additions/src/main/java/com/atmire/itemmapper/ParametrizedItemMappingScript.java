@@ -183,16 +183,14 @@ public class ParametrizedItemMappingScript extends ContextScript {
                     "not mapped because it is already mapped to the destination collection");
             }
 
-            if (!dryRun.isSelected()) {
-                System.out.println("Current items in destination collection:");
+            else if (!item.getCollections().contains(destinationCollection)) {
                 showItemsInCollection(context, destinationCollection);
-                collectionService.addItem(context, destinationCollection, item);
-                System.out.println("Current items in destination collection:");
-                showItemsInCollection(context, destinationCollection);
+                logCLI("info", "Mapping item with UUID:" + item.getID() +
+                    " to collection with UUID: " + destinationCollection.getID());
+                if (!dryRun.isSelected()) {
+                    collectionService.addItem(context, destinationCollection, item);
+                }
             }
-
-            logCLI("info", "Mapping item with UUID:" + item.getID() +
-                " to collection with UUID: " + destinationCollection.getID());
 
         } else {
             logCLI("warning", "Item with UUID:" + item.getID() +
@@ -251,36 +249,41 @@ public class ParametrizedItemMappingScript extends ContextScript {
 
             // If the item is mapped to the collection we want to remove from and that collection is not it's owning
             // collection we can go ahead and remove the item from the collection (if the item is not mapped to only
-            // that collection but this should not be the case
+            // that collection which should not be the case but check to be sure)
             if (itemCollections.contains(resolvedDestinationCollection)
                 && !resolvedDestinationCollection.equals(itemOwningCollection)
                 && item.getCollections().size() > 1) {
-                collectionService.removeItem(context, resolvedDestinationCollection, item);
-            }
-        }
 
-
-        for (Collection collection : itemCollections) {
-            if (collection.equals(itemOwningCollection)) {
-                logCLI("info", "Current collection is the item's owning collection, skipping");
-                continue;
-            }
-
-            if (item.getCollections().size() == 1) {
-                logCLI("info", "Item is only left in one collection, we're not removing it");
-                if (!itemService.isOwningCollection(item, item.getCollections().get(0))) {
-                    logCLI("warn", "The item with UUID:" + item.getID() + " is only left in one collection, which is " +
-                        "not its owning collection, this should not be possible");
+                if (!dryRun.isSelected()) {
+                    collectionService.removeItem(context, resolvedDestinationCollection, item);
                 }
-                continue;
+                logCLI("info", "Item with UUID: " + item.getID() + " was removed from" +
+                    " collection with UUID: " + resolvedDestinationCollection.getID());
             }
+        } else {
+            for (Collection collection : itemCollections) {
+                if (collection.equals(itemOwningCollection)) {
+                    logCLI("info", "Current collection is the item's owning collection, skipping");
+                    continue;
+                }
 
-            collectionService.removeItem(context, collection, item);
-            logCLI("info", "Item with UUID: " + item.getID() + " was removed from" +
-                " collection with UUID: " + collection.getID());
+                if (item.getCollections().size() == 1) {
+                    logCLI("info", "Item is only left in one collection, we're not removing it");
+                    if (!itemService.isOwningCollection(item, item.getCollections().get(0))) {
+                        logCLI("warn", "The item with UUID:" + item.getID() + " is only left in one collection, which is " +
+                            "not its owning collection, this should not be possible");
+                    }
+                    continue;
+                }
 
+                if (!dryRun.isSelected()) {
+                    collectionService.removeItem(context, collection, item);
+                }
+                logCLI("info", "Item with UUID: " + item.getID() + " was removed from" +
+                    " collection with UUID: " + collection.getID());
+
+            }
         }
-
     }
 
     public void showItemsInCollection(Context context, Collection collection) throws SQLException {
