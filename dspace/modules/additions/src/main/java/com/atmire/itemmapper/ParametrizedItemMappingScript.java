@@ -26,6 +26,8 @@ import org.dspace.content.factory.ContentServiceFactory;
 import org.dspace.content.service.CollectionService;
 import org.dspace.content.service.ItemService;
 import org.dspace.core.Context;
+import org.dspace.services.ConfigurationService;
+import org.dspace.services.factory.DSpaceServicesFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class ParametrizedItemMappingScript extends ContextScript {
@@ -39,6 +41,7 @@ public class ParametrizedItemMappingScript extends ContextScript {
     ItemMapperService itemMapperService = ItemMapperServiceFactory.getInstance().getItemMapperService();
     ItemService itemService = ContentServiceFactory.getInstance().getItemService();
     CollectionService collectionService = ContentServiceFactory.getInstance().getCollectionService();
+    ConfigurationService configurationService = DSpaceServicesFactory.getInstance().getConfigurationService();
 
     StringOption operationMode;
     StringOption sourceHandle;
@@ -47,6 +50,9 @@ public class ParametrizedItemMappingScript extends ContextScript {
 
     Collection resolvedSourceCollection;
     Collection resolvedDestinationCollection;
+
+    int batchSize = configurationService.getIntProperty("item.mapper.batchsize", 20);
+    int offset = 0;
 
     String currentOperation;
     boolean isUnmapped;
@@ -82,7 +88,7 @@ public class ParametrizedItemMappingScript extends ContextScript {
                 resolvedDestinationCollection = itemMapperService.resolveCollection(context, destinationHandle.getValue());
                 // If no source collection is given we want to obtain all items
                 if (StringUtils.isBlank(sourceHandle.getValue())) {
-                    itemsToMap = itemService.findAll(context);
+                    itemsToMap = itemService.findAllWithLimitAndOffset(context, batchSize, 0);
                     itemsToMap.forEachRemaining((item -> {
                         try {
                             itemMapperService.mapItem(context, item, resolvedDestinationCollection, dryRun.isSelected());
@@ -98,18 +104,25 @@ public class ParametrizedItemMappingScript extends ContextScript {
                     resolvedSourceCollection = itemMapperService.resolveCollection(context, sourceHandle.getValue());
 
                     itemMapperService.showItemsInCollection(context, resolvedDestinationCollection);
-                    itemsToMap = itemService.findAllByCollection(context, resolvedSourceCollection);
-                    itemsToMap.forEachRemaining((item -> {
-                        try {
-                            System.out.println("Mapping item:" + item.getID());
-                            itemMapperService.mapItem(context, item, resolvedSourceCollection,
-                                                      resolvedDestinationCollection, dryRun.isSelected());
-                            itemMapperService.showItemsInCollection(context, resolvedSourceCollection);
-                        } catch (SQLException | AuthorizeException e) {
-                            itemMapperService.logCLI("error", "Item could not be mapped for an unknown reason");
-                            e.printStackTrace();
-                        }
-                    }));
+                    double totalItems = itemService.countAllItems(context, resolvedDestinationCollection);
+                    double loops = Math.ceil(totalItems / batchSize);
+                    for (int i = 1; i <= loops; i++) {
+                        int batchnr = i;
+                        itemsToMap = itemService.findAllByCollection(context, resolvedSourceCollection, batchSize, offset);
+                        itemMapperService.logCLI("info", "PROCESSING BATCH:" + batchnr);
+                        itemsToMap.forEachRemaining((item -> {
+                            try {
+                                System.out.println("Mapping item:" + item.getID());
+                                itemMapperService.mapItem(context, item, resolvedSourceCollection,
+                                                          resolvedDestinationCollection, dryRun.isSelected());
+                                itemMapperService.showItemsInCollection(context, resolvedSourceCollection);
+                            } catch (SQLException | AuthorizeException e) {
+                                itemMapperService.logCLI("error", "Item could not be mapped for an unknown reason");
+                                e.printStackTrace();
+                            }
+                        }));
+                        offset += batchSize;
+                    }
                 }
                 break;
             case "reversed":
