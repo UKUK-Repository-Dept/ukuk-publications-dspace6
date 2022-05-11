@@ -56,6 +56,14 @@ public class ItemDAOImpl extends AbstractHibernateDSODAO<Item> implements ItemDA
     }
 
     @Override
+    public Iterator<Item> findAllWithLimitAndOffset(Context context, int limit, int offset) throws SQLException {
+        Query query = createQuery(context, "FROM Item");
+        query.setMaxResults(limit);
+        query.setFirstResult(offset);
+        return iterate(query);
+    }
+
+    @Override
     public Iterator<Item> findAll(Context context, boolean archived, boolean withdrawn) throws SQLException {
         Query query = createQuery(context, "FROM Item WHERE inArchive= :in_archive or withdrawn = :withdrawn");
         query.setParameter("in_archive", archived);
