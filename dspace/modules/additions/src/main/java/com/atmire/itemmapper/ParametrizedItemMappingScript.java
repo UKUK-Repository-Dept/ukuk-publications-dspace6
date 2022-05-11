@@ -77,10 +77,10 @@ public class ParametrizedItemMappingScript extends ContextScript {
     public void run(Context context) throws SQLException {
         context.turnOffAuthorisationSystem();
         verifyParams(context);
-        Iterator<Item> itemsToMap = null;
 
         switch (currentOperation) {
             case "unmapped":
+                Iterator<Item> itemsToMap;
                 // If no source collection is given we want to obtain all items
                 if (StringUtils.isBlank(sourceHandle.getValue())) {
                     itemsToMap = itemService.findAll(context);
@@ -102,7 +102,7 @@ public class ParametrizedItemMappingScript extends ContextScript {
                     // Check that the given UUID actually resolves to a valid collection
                     if (!resolvedSourceCollection.getID().toString().equals(sourceHandle.getValue())) {
                         logCLI("error", "No collection could be resolved with UUID:" + sourceHandle.getValue());
-                        break;
+                        System.exit(1);
                     }
 
                     showItemsInCollection(context, resolvedDestinationCollection);
@@ -110,11 +110,9 @@ public class ParametrizedItemMappingScript extends ContextScript {
                     itemsToMap.forEachRemaining((item -> {
                         try {
                             System.out.println("Mapping item:" + item.getID());
-                            Thread.sleep(1000);
                             mapItem(context, item, resolvedSourceCollection, resolvedDestinationCollection);
-                            Thread.sleep(1000);
                             showItemsInCollection(context, resolvedSourceCollection);
-                        } catch (SQLException | AuthorizeException | InterruptedException e) {
+                        } catch (SQLException | AuthorizeException e) {
                             logCLI("error", "Item could not be mapped for an unknown reason");
                             e.printStackTrace();
                         }
@@ -182,7 +180,7 @@ public class ParametrizedItemMappingScript extends ContextScript {
         if (itemService.isOwningCollection(item, sourceCollection)) {
             if (item.getCollections().contains(destinationCollection)) {
                 logCLI("warning", "Item with UUID:" + item.getID() +
-                    "not mapped because it is already in collection with UUID: " + destinationCollection.getID());
+                    "not mapped because it is already mapped to the destination collection");
             }
 
             if (!dryRun.isSelected()) {
@@ -229,7 +227,7 @@ public class ParametrizedItemMappingScript extends ContextScript {
             resolvedDestinationCollection
                 = collectionService.find(context, UUID.fromString(destinationHandle.getValue()));
 
-            if (!resolvedDestinationCollection.getID().equals(destinationHandle.getValue())) {
+            if (!resolvedDestinationCollection.getID().toString().equals(destinationHandle.getValue())) {
                 logCLI("error", "UUID:" + destinationHandle.getValue() + " did not resolve to a valid collection");
             }
 
@@ -244,10 +242,28 @@ public class ParametrizedItemMappingScript extends ContextScript {
         List<Collection> itemCollections = item.getCollections();
         Collection itemOwningCollection = item.getOwningCollection();
 
+        // if source and destination handle are given resolve them to their collections
+        // We only want to remove the items originating from the source collections to be removed from the
+        // destination collection (they were previously mapped)
+        if (StringUtils.isNotBlank(sourceHandle.getValue()) && StringUtils.isNotBlank(destinationHandle.getValue())) {
+            resolvedSourceCollection = collectionService.find(context, UUID.fromString(sourceHandle.getValue()));
+            resolvedDestinationCollection = collectionService.find(context, UUID.fromString(destinationHandle.getValue()));
+
+            // If the item is mapped to the collection we want to remove from and that collection is not it's owning
+            // collection we can go ahead and remove the item from the collection (if the item is not mapped to only
+            // that collection but this should not be the case
+            if (itemCollections.contains(resolvedDestinationCollection)
+                && !resolvedDestinationCollection.equals(itemOwningCollection)
+                && item.getCollections().size() > 1) {
+                collectionService.removeItem(context, resolvedDestinationCollection, item);
+            }
+        }
+
+
         for (Collection collection : itemCollections) {
-            if (itemService.isOwningCollection(item, collection)) {
-                logCLI("info", "owning collection --- skipping");
-                break;
+            if (collection.equals(itemOwningCollection)) {
+                logCLI("info", "Current collection is the item's owning collection, skipping");
+                continue;
             }
 
             if (item.getCollections().size() == 1) {
@@ -256,7 +272,7 @@ public class ParametrizedItemMappingScript extends ContextScript {
                     logCLI("warn", "The item with UUID:" + item.getID() + " is only left in one collection, which is " +
                         "not its owning collection, this should not be possible");
                 }
-                break;
+                continue;
             }
 
             collectionService.removeItem(context, collection, item);
