@@ -28,7 +28,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
 
     @Override
     public void logCLI(String level, String message) {
-        System.out.println(message);
+        System.out.println(level.toUpperCase() + ": " + message);
         switch (level) {
             case "info":
                 log.info(message);
@@ -48,19 +48,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
         throws SQLException, AuthorizeException {
 
         if (itemService.isOwningCollection(item, sourceCollection)) {
-            if (item.getCollections().contains(destinationCollection)) {
-                logCLI("warning", "Item with UUID:" + item.getID() +
-                    " because it is already mapped to the destination collection");
-            }
-
-            else if (!item.getCollections().contains(destinationCollection)) {
-                showItemsInCollection(context, destinationCollection);
-                logCLI("info", "Mapping item with UUID:" + item.getID() +
-                    " to collection with UUID: " + destinationCollection.getID());
-                if (!dryRun) {
-                    collectionService.addItem(context, destinationCollection, item);
-                }
-            }
+            verifyValidAndMap(context, item, destinationCollection, dryRun);
 
         } else {
             logCLI("warning", "Item with UUID:" + item.getID() +
@@ -72,11 +60,12 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     @Override
     public void mapItem (Context context, Item item, Collection destinationCollection, boolean dryRun)
         throws SQLException, AuthorizeException {
-        mapItem(context, item, item.getOwningCollection(), destinationCollection, dryRun);
+            verifyValidAndMap(context, item, destinationCollection, dryRun);
     }
 
     @Override
-    public void verifyParams(Context context, String operationMode, String destinationHandle, boolean dryRun) throws SQLException {
+    public void verifyParams(Context context, String operationMode, String sourceHandle, String destinationHandle,
+                             boolean dryRun) throws SQLException {
         switch (operationMode) {
             case "unmapped":
             case "mapped":
@@ -91,6 +80,21 @@ public class ItemMapperServiceImpl implements ItemMapperService {
             if (StringUtils.isBlank(destinationHandle)) {
                 logCLI("error", "No destination handle was given, this is required when the operation mode is " +
                     "set to unmapped");
+                System.exit(1);
+            }
+        }
+
+        if (operationMode.equals("reversed")) {
+            if (StringUtils.isBlank(destinationHandle) && StringUtils.isNotBlank(sourceHandle)) {
+                logCLI("error", "You should also give a destination parameter when giving a " +
+                    "source parameter");
+                System.exit(1);
+            }
+
+            if (StringUtils.isNotBlank(destinationHandle) && StringUtils.isBlank(sourceHandle)) {
+                logCLI("error", "You should also give a source parameter when giving a " +
+                    "destination parameter");
+                System.exit(1);
             }
         }
 
@@ -123,7 +127,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
             resolvedSourceCollection = collectionService.find(context, UUID.fromString(sourceHandle));
             resolvedDestinationCollection = collectionService.find(context, UUID.fromString(destinationHandle));
 
-            // If the item is mapped to the collection we want to remove from and that collection is not it's owning
+            // If the item is mapped to the collection we want to remove from and that collection is not its owning
             // collection we can go ahead and remove the item from the collection (if the item is not mapped to only
             // that collection which should not be the case but check to be sure)
             if (itemCollections.contains(resolvedDestinationCollection)
@@ -166,5 +170,22 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     public void showItemsInCollection(Context context, Collection collection) throws SQLException {
         int itemsCount = itemService.countItems(context, collection);
         System.out.println(itemsCount + " items in collection: " + collection.getID() + ": " + collection.getName());
+    }
+
+    private void verifyValidAndMap(Context context, Item item, Collection destinationCollection, boolean dryRun)
+        throws SQLException, AuthorizeException {
+        if (item.getCollections().contains(destinationCollection)) {
+            logCLI("warning", "Item with UUID: " + item.getID() +
+                " was not mapped because it is already in destination collection");
+        }
+
+        else if (!item.getCollections().contains(destinationCollection)) {
+            showItemsInCollection(context, destinationCollection);
+            logCLI("info", "Mapping item with UUID: " + item.getID() +
+                " to collection with UUID: " + destinationCollection.getID());
+            if (!dryRun) {
+                collectionService.addItem(context, destinationCollection, item);
+            }
+        }
     }
 }
