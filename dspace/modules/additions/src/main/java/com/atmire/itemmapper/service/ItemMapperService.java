@@ -16,7 +16,8 @@ public interface ItemMapperService {
         throws SQLException, AuthorizeException;
     public void mapItem (Context context, Item item, Collection destinationCollection, boolean dryRun) throws SQLException,
         AuthorizeException;
-    public void verifyParams(Context context, String operationmode, String destinationHandle, boolean dryRun) throws SQLException;
+    public void verifyParams(Context context, String operationmode, String sourceHandle, String destinationHandle,
+                             boolean dryRun) throws SQLException;
     public void reverseMappedItem(Context context, Item item, String sourceHandle, String destinationHandle,
                                   boolean dryRun)
                                   throws SQLException, AuthorizeException, IOException;
