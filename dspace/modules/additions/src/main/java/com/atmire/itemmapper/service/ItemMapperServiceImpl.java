@@ -1,7 +1,12 @@
 package com.atmire.itemmapper.service;
 
+import static com.atmire.itemmapper.ParametrizedItemMappingScript.OPERATIONS;
+import static com.atmire.itemmapper.ParametrizedItemMappingScript.REVERSED;
+import static com.atmire.itemmapper.ParametrizedItemMappingScript.UNMAPPED;
+
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -73,17 +78,13 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     @Override
     public void verifyParams(Context context, String operationMode, String sourceHandle, String destinationHandle,
                              boolean dryRun) throws SQLException {
-        switch (operationMode) {
-            case "unmapped":
-            case "mapped":
-            case "reversed":
-            case "reverse-mapped":
-                break;
-            default:
-                logCLI("error", "No valid operation mode was given");
+
+
+        if (!Arrays.asList(OPERATIONS).contains(operationMode)) {
+            logCLI("error", "No valid operation mode was given");
         }
 
-        if (operationMode.equals("unmapped")) {
+        if (operationMode.equals(UNMAPPED)) {
             if (StringUtils.isBlank(destinationHandle)) {
                 logCLI("error", "No destination handle was given, this is required when the operation mode is " +
                     "set to unmapped");
@@ -91,7 +92,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
             }
         }
 
-        if (operationMode.equals("reversed")) {
+        if (operationMode.equals(REVERSED)) {
             if (StringUtils.isBlank(destinationHandle) && StringUtils.isNotBlank(sourceHandle)) {
                 logCLI("error", "You should also give a destination parameter when giving a " +
                     "source parameter");
