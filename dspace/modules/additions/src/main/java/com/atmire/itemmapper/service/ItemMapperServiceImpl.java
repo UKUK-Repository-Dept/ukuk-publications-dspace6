@@ -11,17 +11,23 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.dspace.authorize.AuthorizeException;
 import org.dspace.content.Collection;
+import org.dspace.content.DSpaceObject;
 import org.dspace.content.Item;
 import org.dspace.content.factory.ContentServiceFactory;
 import org.dspace.content.service.CollectionService;
 import org.dspace.content.service.ItemService;
+import org.dspace.core.Constants;
 import org.dspace.core.Context;
+import org.dspace.handle.factory.HandleServiceFactory;
+import org.dspace.handle.service.HandleService;
 
 public class ItemMapperServiceImpl implements ItemMapperService {
 
     private static final Logger log = LogManager.getLogger(ParametrizedItemMappingScript.class);
     ItemService itemService = ContentServiceFactory.getInstance().getItemService();
     CollectionService collectionService = ContentServiceFactory.getInstance().getCollectionService();
+    HandleService handleService = HandleServiceFactory.getInstance().getHandleService();
+
 
     Collection resolvedSourceCollection;
     Collection resolvedDestinationCollection;
@@ -105,13 +111,24 @@ public class ItemMapperServiceImpl implements ItemMapperService {
 
     @Override
     public Collection resolveCollection(Context context, String collectionID) throws SQLException {
-        Collection resolvedCollection
-            = collectionService.find(context, UUID.fromString(collectionID));
+        DSpaceObject dso = handleService.resolveToObject(context, collectionID);
 
-        if (!resolvedCollection.getID().toString().equals(collectionID)) {
-            logCLI("error", "UUID:" + collectionID + " did not resolve to a valid collection");
+        if (dso == null) {
+            try {
+                Collection resolvedCollection = collectionService.find(context, UUID.fromString(collectionID));
+                if (resolvedCollection == null) {
+                    logCLI("error", collectionID + " did not resolve to a valid collection");
+                }
+            } catch (IllegalArgumentException e) {
+                logCLI("error", collectionID + " is not a valid UUID or handle");
+            }
         }
-        return resolvedCollection;
+
+        else if (dso.getType() != Constants.COLLECTION) {
+            logCLI("error", "Handle:" + collectionID + " resolved to a " + dso.getType());
+        }
+
+        return (Collection) dso;
     }
 
     @Override
