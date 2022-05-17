@@ -2,6 +2,7 @@ package com.atmire.itemmapper;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -29,6 +30,7 @@ import org.dspace.core.Context;
 import org.dspace.services.ConfigurationService;
 import org.dspace.services.factory.DSpaceServicesFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
 
 /**
  * CLI script for mapping / unmapping items from and to collections
@@ -63,11 +65,26 @@ public class ParametrizedItemMappingScript extends ContextScript {
     int batchSize = configurationService.getIntProperty("item.mapper.batch.size", 100);
     int offset = 0;
 
+    public static final String UNMAPPED = "unmapped";
+    public static final String MAPPED = "mapped";
+    public static final String REVERSED = "reversed";
+    public static final String REVERSE_MAPPED = "reverse-mapped";
+
+    public static final String[] OPERATIONS = {
+        UNMAPPED,
+        MAPPED,
+        REVERSED,
+        REVERSE_MAPPED
+    };
+
 
     @Override
     protected Set<OptionWrapper> getOptionWrappers() {
         this.helpOption = new HelpOption();
-        operationMode = new StringOption('o', "operation", "the operation mode for the script", true);
+        operationMode = new StringOption('o', "operation",
+                                         "the operation mode for the script, should be one of following: " +
+                                             Arrays.toString(OPERATIONS),
+                                         true);
         sourceHandle = new StringOption('s', "source", "handle of the source collection", false);
         destinationHandle = new StringOption('d', "destination", "handle of the destination collection", isUnmapped);
         dryRun = new BooleanOption('t', "test", "script run is dry run, for testing purposes only", false);
@@ -92,7 +109,7 @@ public class ParametrizedItemMappingScript extends ContextScript {
                                            dryRun.isSelected());
 
             switch (currentOperation) {
-                case "unmapped":
+                case UNMAPPED:
                     // Destination collection is required when case is unmapped
                     resolvedDestinationCollection = itemMapperService.resolveCollection(context, destinationHandle.getValue());
 
@@ -148,7 +165,7 @@ public class ParametrizedItemMappingScript extends ContextScript {
                         }
                     }
                     break;
-                case "reversed":
+                case REVERSED:
                     // If no destination and source collection is given we want to obtain all the items
                     if (StringUtils.isBlank(destinationHandle.getValue()) && StringUtils.isBlank(sourceHandle.getValue())) {
                         totalItems = itemService.countTotal(context);
