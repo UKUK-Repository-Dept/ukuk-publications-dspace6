@@ -84,98 +84,104 @@ public class ParametrizedItemMappingScript extends ContextScript {
 
     @Override
     public void run(Context context) throws SQLException {
-        context.turnOffAuthorisationSystem();
-        currentOperation = operationMode.getValue();
-        itemMapperService.verifyParams(context, operationMode.getValue(), sourceHandle.getValue(),
-                                       destinationHandle.getValue(),
-                                       dryRun.isSelected());
+        try {
+            context.turnOffAuthorisationSystem();
+            currentOperation = operationMode.getValue();
+            itemMapperService.verifyParams(context, operationMode.getValue(), sourceHandle.getValue(),
+                                           destinationHandle.getValue(),
+                                           dryRun.isSelected());
 
-        switch (currentOperation) {
-            case "unmapped":
-                // Destination collection is required when case is unmapped
-                resolvedDestinationCollection = itemMapperService.resolveCollection(context, destinationHandle.getValue());
+            switch (currentOperation) {
+                case "unmapped":
+                    // Destination collection is required when case is unmapped
+                    resolvedDestinationCollection = itemMapperService.resolveCollection(context, destinationHandle.getValue());
 
-                // If no source collection is given we want to obtain all items
-                if (StringUtils.isBlank(sourceHandle.getValue())) {
-                    totalItems = itemService.countTotal(context);
+                    // If no source collection is given we want to obtain all items
+                    if (StringUtils.isBlank(sourceHandle.getValue())) {
+                        totalItems = itemService.countTotal(context);
 
-                    // Loop through all of our items in batches
-                    for (int i = 1; i <= Math.ceil(totalItems / batchSize); i++) {
-                        itemsToMap = itemService.findAllWithLimitAndOffset(context, batchSize, offset);
-                        itemMapperService.logCLI("info", "***** PROCESSING BATCH:" + i + " *****");
+                        // Loop through all of our items in batches
+                        for (int i = 1; i <= Math.ceil(totalItems / batchSize); i++) {
+                            itemsToMap = itemService.findAllWithLimitAndOffset(context, batchSize, offset);
+                            itemMapperService.logCLI("info", "***** PROCESSING BATCH:" + i + " *****");
 
-                        // Map all items in the current batch
-                        itemsToMap.forEachRemaining((item) -> {
-                            try {
-                                itemMapperService.logCLI("info","Mapping item with UUID: " + item.getID());
-                                itemMapperService.mapItem(context, item, resolvedDestinationCollection, dryRun.isSelected());
-                            } catch (SQLException | AuthorizeException e) {
-                                itemMapperService.logCLI("error", "Item could not be mapped for an unknown " +
-                                    "reason");
-                                e.printStackTrace();
-                            }
-                        });
-                        offset += batchSize;
+                            // Map all items in the current batch
+                            itemsToMap.forEachRemaining((item) -> {
+                                try {
+                                    itemMapperService.logCLI("info","Mapping item with UUID: " + item.getID());
+                                    itemMapperService.mapItem(context, item, resolvedDestinationCollection, dryRun.isSelected());
+                                } catch (SQLException | AuthorizeException e) {
+                                    itemMapperService.logCLI("error", "Item could not be mapped for an unknown " +
+                                        "reason");
+                                    e.printStackTrace();
+                                }
+                            });
+                            offset += batchSize;
+                        }
                     }
-                }
 
-                // If a source collection is given we want to obtain the items inside that collection
-                else if (StringUtils.isNotBlank(sourceHandle.getValue())) {
-                    resolvedSourceCollection = itemMapperService.resolveCollection(context, sourceHandle.getValue());
-                    totalItems = itemService.countAllItems(context, resolvedSourceCollection);
+                    // If a source collection is given we want to obtain the items inside that collection
+                    else if (StringUtils.isNotBlank(sourceHandle.getValue())) {
+                        resolvedSourceCollection = itemMapperService.resolveCollection(context, sourceHandle.getValue());
+                        totalItems = itemService.countAllItems(context, resolvedSourceCollection);
 
-                    for (int i = 1; i <= Math.ceil(totalItems / batchSize); i++) {
-                        itemsToMap = itemService.findAllByCollection(context, resolvedSourceCollection, batchSize, offset);
-                        itemMapperService.logCLI("info", "***** PROCESSING BATCH:" + i + " *****");
+                        for (int i = 1; i <= Math.ceil(totalItems / batchSize); i++) {
+                            itemsToMap = itemService.findAllByCollection(context, resolvedSourceCollection, batchSize, offset);
+                            itemMapperService.logCLI("info", "***** PROCESSING BATCH:" + i + " *****");
 
-                        itemsToMap.forEachRemaining((item -> {
-                            try {
-                                itemMapperService.mapItem(context, item, resolvedSourceCollection,
-                                                          resolvedDestinationCollection, dryRun.isSelected());
-                            } catch (SQLException | AuthorizeException e) {
-                                itemMapperService.logCLI("error", "Item could not be mapped for an unknown reason");
-                                e.printStackTrace();
-                            }
-                        }));
-                        offset += batchSize;
+                            itemsToMap.forEachRemaining((item -> {
+                                try {
+                                    itemMapperService.mapItem(context, item, resolvedSourceCollection,
+                                                              resolvedDestinationCollection, dryRun.isSelected());
+                                } catch (SQLException | AuthorizeException e) {
+                                    itemMapperService.logCLI("error", "Item could not be mapped for an unknown reason");
+                                    e.printStackTrace();
+                                }
+                            }));
+                            offset += batchSize;
+                        }
                     }
-                }
-                break;
-            case "reversed":
-                // If no destination and source collection is given we want to obtain all the items
-                if (StringUtils.isBlank(destinationHandle.getValue()) && StringUtils.isBlank(sourceHandle.getValue())) {
-                    totalItems = itemService.countTotal(context);
+                    break;
+                case "reversed":
+                    // If no destination and source collection is given we want to obtain all the items
+                    if (StringUtils.isBlank(destinationHandle.getValue()) && StringUtils.isBlank(sourceHandle.getValue())) {
+                        totalItems = itemService.countTotal(context);
 
-                    // Loop through all of our items in batches
-                    for (int i = 1; i <= Math.ceil(totalItems / batchSize); i++) {
-                        itemsToMap = itemService.findAllWithLimitAndOffset(context, batchSize, offset);
-                        itemMapperService.logCLI("info", "***** PROCESSING BATCH:" + i + " *****");
+                        // Loop through all of our items in batches
+                        for (int i = 1; i <= Math.ceil(totalItems / batchSize); i++) {
+                            itemsToMap = itemService.findAllWithLimitAndOffset(context, batchSize, offset);
+                            itemMapperService.logCLI("info", "***** PROCESSING BATCH:" + i + " *****");
 
-                        // Reverse map all items in the current batch
-                        reverseMapItemsInBatch(context);
+                            // Reverse map all items in the current batch
+                            reverseMapItemsInBatch(context);
+                        }
                     }
-                }
 
-                // If a destination and source collection is given we want to obtain only the items from the
-                // destination collection as this is where we will be reverse mapping (removing) items from
-                else if (StringUtils.isNotBlank(destinationHandle.getValue())) {
-                    resolvedDestinationCollection =
-                        itemMapperService.resolveCollection(context, destinationHandle.getValue());
-                    resolvedSourceCollection =
-                        itemMapperService.resolveCollection(context, sourceHandle.getValue());
+                    // If a destination and source collection is given we want to obtain only the items from the
+                    // destination collection as this is where we will be reverse mapping (removing) items from
+                    else if (StringUtils.isNotBlank(destinationHandle.getValue())) {
+                        resolvedDestinationCollection =
+                            itemMapperService.resolveCollection(context, destinationHandle.getValue());
+                        resolvedSourceCollection =
+                            itemMapperService.resolveCollection(context, sourceHandle.getValue());
 
-                    totalItems = itemService.countAllItems(context, resolvedSourceCollection);
+                        totalItems = itemService.countAllItems(context, resolvedSourceCollection);
 
-                    // Loop through all of our items in batches
-                    for (int i = 1; i <= Math.ceil(totalItems / batchSize); i++) {
-                        itemsToMap = itemService.findAllByCollection(context, resolvedSourceCollection, batchSize, offset);
-                        itemMapperService.logCLI("info", "***** PROCESSING BATCH:" + i + " *****");
+                        // Loop through all of our items in batches
+                        for (int i = 1; i <= Math.ceil(totalItems / batchSize); i++) {
+                            itemsToMap = itemService.findAllByCollection(context, resolvedSourceCollection, batchSize, offset);
+                            itemMapperService.logCLI("info", "***** PROCESSING BATCH:" + i + " *****");
 
-                        // Reverse map all items in the current batch
-                        reverseMapItemsInBatch(context);
+                            // Reverse map all items in the current batch
+                            reverseMapItemsInBatch(context);
+                        }
                     }
-                }
-                break;
+                    break;
+            }
+        } catch (Exception e) {
+            itemMapperService.logCLI("error", "An exception has occurred! => " + e.getCause().toString());
+            e.printStackTrace();
+            throw e;
         }
     }
 
