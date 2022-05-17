@@ -108,11 +108,13 @@ public class ParametrizedItemMappingScript extends ContextScript {
                             // Map all items in the current batch
                             itemsToMap.forEachRemaining((item) -> {
                                 try {
-                                    itemMapperService.logCLI("info","Mapping item with UUID: " + item.getID());
+                                    itemMapperService.logCLI("info", String.format("Mapping item (%s | %s) ",
+                                                                 item.getHandle(), item.getID()));
                                     itemMapperService.mapItem(context, item, resolvedDestinationCollection, dryRun.isSelected());
                                 } catch (SQLException | AuthorizeException e) {
-                                    itemMapperService.logCLI("error", "Item could not be mapped for an unknown " +
-                                        "reason");
+                                    itemMapperService.logCLI("error", String.format("Item (%s | %s) could not be " +
+                                                                                        "mapped for an unknown reason",
+                                                                                   item.getHandle(), item.getID()));
                                     e.printStackTrace();
                                 }
                             });
@@ -131,10 +133,14 @@ public class ParametrizedItemMappingScript extends ContextScript {
 
                             itemsToMap.forEachRemaining((item -> {
                                 try {
+                                    itemMapperService.logCLI("info", String.format("Mapping item (%s | %s) ",
+                                                                                   item.getHandle(), item.getID()));
                                     itemMapperService.mapItem(context, item, resolvedSourceCollection,
                                                               resolvedDestinationCollection, dryRun.isSelected());
                                 } catch (SQLException | AuthorizeException e) {
-                                    itemMapperService.logCLI("error", "Item could not be mapped for an unknown reason");
+                                    itemMapperService.logCLI("error", String.format("Item (%s | %s) could not be " +
+                                                                                        "mapped for an unknown reason",
+                                                                                    item.getHandle(), item.getID()));
                                     e.printStackTrace();
                                 }
                             }));
@@ -191,7 +197,8 @@ public class ParametrizedItemMappingScript extends ContextScript {
                 itemMapperService.reverseMappedItem(context, item, sourceHandle.getValue(),
                                                     destinationHandle.getValue(), dryRun.isSelected());
             } catch (SQLException | AuthorizeException | IOException e) {
-                itemMapperService.logCLI("error", "Item could not be mapped for an unknown reason");
+                itemMapperService.logCLI("error", String.format("Item (%s | %s) could not be mapped for an unknown reason ",
+                                                                item.getHandle(), item.getID()));
                 e.printStackTrace();
             }
         });

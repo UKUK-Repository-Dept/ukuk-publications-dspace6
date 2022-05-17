@@ -57,8 +57,9 @@ public class ItemMapperServiceImpl implements ItemMapperService {
             verifyValidAndMap(context, item, destinationCollection, dryRun);
 
         } else {
-            logCLI("warning", "Item with UUID:" + item.getID() +
-                "not mapped because it is not owned by collection with UUID: " + sourceCollection.getID());
+            logCLI("warning", String.format("Item (%s | %s) was not mapped because it is not owned by " +
+                                                "collection (%s | %s)", item.getHandle(), item.getID(),
+                                            sourceCollection.getHandle(), sourceCollection.getID()));
         }
 
     }
@@ -131,6 +132,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
         return (Collection) dso;
     }
 
+
     @Override
     public void reverseMappedItem(Context context, Item item, String sourceHandle, String destinationHandle,
                                   boolean dryRun) throws SQLException, AuthorizeException, IOException {
@@ -154,8 +156,10 @@ public class ItemMapperServiceImpl implements ItemMapperService {
                 if (!dryRun) {
                     collectionService.removeItem(context, resolvedDestinationCollection, item);
                 }
-                logCLI("info", "Item with UUID: " + item.getID() + " was removed from" +
-                    " collection with UUID: " + resolvedDestinationCollection.getID());
+
+                logCLI("info", String.format("Item (%s | %s) was removed from collection (%s | %s)",
+                                             item.getHandle(), item.getID(),
+                                             resolvedDestinationCollection.getHandle(), resolvedDestinationCollection.getID()));
             }
         } else {
             for (Collection collection : itemCollections) {
@@ -165,10 +169,18 @@ public class ItemMapperServiceImpl implements ItemMapperService {
                 }
 
                 if (item.getCollections().size() == 1) {
-                    logCLI("info", "Item is only left in one collection, we're not removing it");
+                    logCLI("info", String.format("Item (%s | %s) is left in only one collection (%s | %s), we're not " +
+                                                     "removing it",
+                                                 item.getHandle(), item.getID(),
+                                                 item.getCollections().get(0).getHandle(),
+                                                 item.getCollections().get(0).getID()));
+
                     if (!itemService.isOwningCollection(item, item.getCollections().get(0))) {
-                        logCLI("warn", "The item with UUID:" + item.getID() + " is only left in one collection, which is " +
-                            "not its owning collection, this should not be possible");
+                        logCLI("warn", String.format("Item (%s | %s) is only left in collection (%s | %s), which " +
+                                                         "is not its owning collection, this shouldn't be possible",
+                                                     item.getHandle(), item.getID(),
+                                                     item.getCollections().get(0).getHandle(),
+                                                     item.getCollections().get(0).getID()));
                     }
                     continue;
                 }
@@ -176,9 +188,11 @@ public class ItemMapperServiceImpl implements ItemMapperService {
                 if (!dryRun) {
                     collectionService.removeItem(context, collection, item);
                 }
-                logCLI("info", "Item with UUID: " + item.getID() + " was removed from" +
-                    " collection with UUID: " + collection.getID());
 
+                logCLI("info", String.format("Item (%s | %s) was removed from collection (%s | %s),",
+                                             item.getHandle(), item.getID(),
+                                             collection.getHandle(),
+                                             collection.getID()));
             }
         }
     }
@@ -186,20 +200,26 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     @Override
     public void showItemsInCollection(Context context, Collection collection) throws SQLException {
         int itemsCount = itemService.countItems(context, collection);
-        System.out.println(itemsCount + " items in collection: " + collection.getID() + ": " + collection.getName());
+        System.out.println("#" + itemsCount + " item of collection: " + collection.getHandle() + ": " + collection.getID());
     }
 
     private void verifyValidAndMap(Context context, Item item, Collection destinationCollection, boolean dryRun)
         throws SQLException, AuthorizeException {
         if (item.getCollections().contains(destinationCollection)) {
-            logCLI("warning", "Item with UUID: " + item.getID() +
-                " was not mapped because it is already in destination collection");
+            logCLI("warning", String.format("Item (%s | %s) was not mapped because it is already in destination " +
+                                                "collection (%s | %s),",
+                                            item.getHandle(), item.getID(),
+                                            destinationCollection.getHandle(),
+                                            destinationCollection.getID()));
         }
 
         else if (!item.getCollections().contains(destinationCollection)) {
             showItemsInCollection(context, destinationCollection);
-            logCLI("info", "Mapping item with UUID: " + item.getID() +
-                " to collection with UUID: " + destinationCollection.getID());
+
+            logCLI("info", String.format("Mapping item (%s | %s) to collection (%s | %s)",
+                                         item.getHandle(), item.getID(),
+                                         destinationCollection.getHandle(),
+                                         destinationCollection.getID()));
             if (!dryRun) {
                 collectionService.addItem(context, destinationCollection, item);
             }
