@@ -37,19 +37,25 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     Collection resolvedSourceCollection;
     Collection resolvedDestinationCollection;
 
+    public static final String INFO = "info";
+    public static final String ERROR = "error";
+    public static final String WARN = "warn";
+
     @Override
     public void logCLI(String level, String message) {
         System.out.println(level.toUpperCase() + ": " + message);
         switch (level) {
-            case "info":
+            case INFO:
                 log.info(message);
                 break;
-            case "error":
+            case ERROR:
                 log.error(message);
                 break;
-            case "warn":
+            case WARN:
                 log.warn(message);
                 break;
+            default:
+                throw new IllegalArgumentException(level + "is not a valid log level");
         }
     }
 
@@ -81,26 +87,24 @@ public class ItemMapperServiceImpl implements ItemMapperService {
 
 
         if (!Arrays.asList(OPERATIONS).contains(operationMode)) {
-            logCLI("error", "No valid operation mode was given");
+            logCLI(ERROR, "No valid operation mode was given");
         }
 
-        if (operationMode.equals(UNMAPPED)) {
-            if (StringUtils.isBlank(destinationHandle)) {
-                logCLI("error", "No destination handle was given, this is required when the operation mode is " +
+        if (operationMode.equals(UNMAPPED) && StringUtils.isBlank(destinationHandle) ) {
+                logCLI(ERROR, "No destination handle was given, this is required when the operation mode is " +
                     "set to unmapped");
                 System.exit(1);
-            }
         }
 
         if (operationMode.equals(REVERSED)) {
             if (StringUtils.isBlank(destinationHandle) && StringUtils.isNotBlank(sourceHandle)) {
-                logCLI("error", "You should also give a destination parameter when giving a " +
+                logCLI(ERROR, "You should also give a destination parameter when giving a " +
                     "source parameter");
                 System.exit(1);
             }
 
             if (StringUtils.isNotBlank(destinationHandle) && StringUtils.isBlank(sourceHandle)) {
-                logCLI("error", "You should also give a source parameter when giving a " +
+                logCLI(ERROR, "You should also give a source parameter when giving a " +
                     "destination parameter");
                 System.exit(1);
             }
@@ -119,15 +123,16 @@ public class ItemMapperServiceImpl implements ItemMapperService {
             try {
                 Collection resolvedCollection = collectionService.find(context, UUID.fromString(collectionID));
                 if (resolvedCollection == null) {
-                    logCLI("error", collectionID + " did not resolve to a valid collection");
+                    logCLI(ERROR, collectionID + " did not resolve to a valid collection");
                 }
+                return resolvedCollection;
             } catch (IllegalArgumentException e) {
-                logCLI("error", collectionID + " is not a valid UUID or handle");
+                logCLI(ERROR, collectionID + " is not a valid UUID or handle");
             }
         }
 
         else if (dso.getType() != Constants.COLLECTION) {
-            logCLI("error", "Handle:" + collectionID + " resolved to a " + dso.getType());
+            logCLI(ERROR, "Handle:" + collectionID + " resolved to a " + dso.getType());
         }
 
         return (Collection) dso;
@@ -144,8 +149,8 @@ public class ItemMapperServiceImpl implements ItemMapperService {
         // We only want to remove the items originating from the source collections to be removed from the
         // destination collection (they were previously mapped)
         if (StringUtils.isNotBlank(sourceHandle) && StringUtils.isNotBlank(destinationHandle)) {
-            resolvedSourceCollection = collectionService.find(context, UUID.fromString(sourceHandle));
-            resolvedDestinationCollection = collectionService.find(context, UUID.fromString(destinationHandle));
+            resolvedSourceCollection = resolveCollection(context, sourceHandle);
+            resolvedDestinationCollection = resolveCollection(context, destinationHandle);
 
             // If the item is mapped to the collection we want to remove from and that collection is not its owning
             // collection we can go ahead and remove the item from the collection (if the item is not mapped to only
