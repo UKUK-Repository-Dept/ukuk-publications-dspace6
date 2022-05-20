@@ -3,7 +3,6 @@ package com.atmire.itemmapper.model;
 
 import java.util.List;
 import javax.annotation.Generated;
-
 import com.google.gson.annotations.SerializedName;
 
 @Generated("net.hexar.json2pojo")
@@ -48,14 +47,6 @@ public class Mapfile {
     }
 
     public void setSource_collections(List<SourceCollection> sourceCollections) {
-        if (sourceCollections.isEmpty()) {
-            throw new IllegalArgumentException("Source collections cannot be empty");
-        }
-        for (SourceCollection sourceCollection : sourceCollections) {
-            if (sourceCollection.getId() == null) {
-                throw new IllegalArgumentException("Source collection id cannot be null");
-            }
-        }
         mSourceCollections = sourceCollections;
     }
 
