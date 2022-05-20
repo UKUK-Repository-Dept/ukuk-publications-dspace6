@@ -6,7 +6,7 @@ public abstract class ContextScript extends Script implements Function {
     public ContextScript() {
     }
 
-    protected void run() {
+    protected void run() throws Exception {
         (new NewContext()).run(this);
     }
 }

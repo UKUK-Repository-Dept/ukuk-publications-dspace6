@@ -1,17 +1,30 @@
 package com.atmire.itemmapper.service;
 
+import static com.atmire.itemmapper.ParametrizedItemMappingScript.FILE_LOCATION;
+import static com.atmire.itemmapper.ParametrizedItemMappingScript.LOCAL;
 import static com.atmire.itemmapper.ParametrizedItemMappingScript.OPERATIONS;
 import static com.atmire.itemmapper.ParametrizedItemMappingScript.REVERSED;
 import static com.atmire.itemmapper.ParametrizedItemMappingScript.UNMAPPED;
+import static com.atmire.itemmapper.ParametrizedItemMappingScript.URL;
+import static org.apache.commons.lang3.StringUtils.isBlank;
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
+import static org.apache.commons.lang3.StringUtils.substringAfterLast;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
 import com.atmire.itemmapper.ParametrizedItemMappingScript;
-import org.apache.commons.lang3.StringUtils;
+import com.atmire.itemmapper.model.CuniMapFile;
+import com.atmire.itemmapper.model.GenericCollection;
+import com.atmire.itemmapper.model.MappingRecord;
+import com.atmire.itemmapper.model.MetadataField;
+import com.atmire.itemmapper.model.TargetCollection;
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.dspace.authorize.AuthorizeException;
@@ -25,6 +38,8 @@ import org.dspace.core.Constants;
 import org.dspace.core.Context;
 import org.dspace.handle.factory.HandleServiceFactory;
 import org.dspace.handle.service.HandleService;
+import org.dspace.services.ConfigurationService;
+import org.dspace.services.factory.DSpaceServicesFactory;
 
 public class ItemMapperServiceImpl implements ItemMapperService {
 
@@ -32,11 +47,15 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     ItemService itemService = ContentServiceFactory.getInstance().getItemService();
     CollectionService collectionService = ContentServiceFactory.getInstance().getCollectionService();
     HandleService handleService = HandleServiceFactory.getInstance().getHandleService();
+    static ConfigurationService configurationService = DSpaceServicesFactory.getInstance().getConfigurationService();
+
 
 
     Collection resolvedSourceCollection;
     Collection resolvedDestinationCollection;
 
+    public static final String MAPPING_FILE_NAME = configurationService.getProperty("mapping.file.name");
+    public static final String MAPPING_FILE_PATH = configurationService.getProperty("mapping.file.path");
     public static final String INFO = "info";
     public static final String ERROR = "error";
     public static final String WARN = "warn";
@@ -83,27 +102,26 @@ public class ItemMapperServiceImpl implements ItemMapperService {
 
     @Override
     public void verifyParams(Context context, String operationMode, String sourceHandle, String destinationHandle,
-                             boolean dryRun) throws SQLException {
-
+                             String linkToFile, String pathToFile, boolean dryRun) {
 
         if (!Arrays.asList(OPERATIONS).contains(operationMode)) {
             logCLI(ERROR, "No valid operation mode was given");
         }
 
-        if (operationMode.equals(UNMAPPED) && StringUtils.isBlank(destinationHandle) ) {
+        if (operationMode.equals(UNMAPPED) && isBlank(destinationHandle) ) {
                 logCLI(ERROR, "No destination handle was given, this is required when the operation mode is " +
                     "set to unmapped");
                 System.exit(1);
         }
 
         if (operationMode.equals(REVERSED)) {
-            if (StringUtils.isBlank(destinationHandle) && StringUtils.isNotBlank(sourceHandle)) {
+            if (isBlank(destinationHandle) && isNotBlank(sourceHandle)) {
                 logCLI(ERROR, "You should also give a destination parameter when giving a " +
                     "source parameter");
                 System.exit(1);
             }
 
-            if (StringUtils.isNotBlank(destinationHandle) && StringUtils.isBlank(sourceHandle)) {
+            if (isNotBlank(destinationHandle) && isBlank(sourceHandle)) {
                 logCLI(ERROR, "You should also give a source parameter when giving a " +
                     "destination parameter");
                 System.exit(1);
@@ -112,6 +130,27 @@ public class ItemMapperServiceImpl implements ItemMapperService {
 
         if (dryRun) {
             context.setMode(Context.Mode.READ_ONLY);
+        }
+
+        switch (FILE_LOCATION) {
+            case URL:
+                if (isBlank(linkToFile)) {
+                    logCLI(ERROR, "You should give a value for the link (-l) parameter when the" +
+                        "file location property is set to URL");
+                    System.exit(1);
+                }
+                break;
+            case LOCAL:
+                if (isBlank(pathToFile)) {
+                    pathToFile = MAPPING_FILE_PATH + MAPPING_FILE_NAME;
+                }
+
+                if (!substringAfterLast(pathToFile, ".").equals("json")) {
+                    logCLI(ERROR, pathToFile + " did not resolve to a valid .json file");
+                }
+                break;
+            default:
+                logCLI(ERROR, "The location for the file: " + FILE_LOCATION + " is not valid please pick either local or url");
         }
     }
 
@@ -148,7 +187,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
         // if source and destination handle are given resolve them to their collections
         // We only want to remove the items originating from the source collections to be removed from the
         // destination collection (they were previously mapped)
-        if (StringUtils.isNotBlank(sourceHandle) && StringUtils.isNotBlank(destinationHandle)) {
+        if (isNotBlank(sourceHandle) && isNotBlank(destinationHandle)) {
             resolvedSourceCollection = resolveCollection(context, sourceHandle);
             resolvedDestinationCollection = resolveCollection(context, destinationHandle);
 
@@ -228,6 +267,58 @@ public class ItemMapperServiceImpl implements ItemMapperService {
                                          destinationCollection.getID()));
             if (!dryRun) {
                 collectionService.addItem(context, destinationCollection, item);
+            }
+        }
+    }
+
+    @Override
+    public String getContentFromFile(String filepath) throws IOException {
+        File jsonFile = new File(filepath);
+        String content = FileUtils.readFileToString(jsonFile);
+        return content;
+    }
+
+    @Override
+    public Collection getCorrespondingCollection(Context context, GenericCollection col)
+        throws SQLException {
+        if (col.getId().getType().equals("handle")) {
+            return (Collection) handleService.resolveToObject(context, col.getId().getValue());
+        }
+        else if (col.getId().getType().equals("uuid")) {
+            return collectionService.find(context, UUID.fromString(col.getId().getValue()));
+        }
+        else {
+            logCLI(ERROR, "Collection id type is not set correctly please use \"handle\" or \"uuid\"");
+        }
+        return null;
+    }
+
+    @Override
+    public void mapItemsFromJson(Context context, Iterator<Item> items, CuniMapFile mapFile)
+        throws SQLException, AuthorizeException {
+        String primaryMdFieldValue = "";
+        String secondaryMdFieldValue = "";
+
+        while (items.hasNext()) {
+            Item item = items.next();
+            for (MetadataField mdField :mapFile.getMapfile().getMetadata_fields()) {
+                if (mdField.getField_type().equals("primary")) {
+                    primaryMdFieldValue = mdField.getField_identifier();
+                }
+
+                if (mdField.getField_type().equals("secondary")) {
+                    secondaryMdFieldValue = mdField.getField_identifier();
+                }
+            }
+
+            for (MappingRecord mappingRecord: mapFile.getMapfile().getMapping_records()) {
+                if (primaryMdFieldValue.equals(mappingRecord.getMetadata_value()) ||
+                    secondaryMdFieldValue.equals(mappingRecord.getMetadata_value())) {
+                    for (TargetCollection col : mappingRecord.getTarget_collections()) {
+                        Collection correspondingCol = getCorrespondingCollection(context, col);
+                        mapItem(context, item, correspondingCol, false);
+                    }
+                }
             }
         }
     }

@@ -9,7 +9,7 @@ public class NewContext {
     public NewContext() {
     }
 
-    public void run(NewContext.Function function) {
+    public void run(NewContext.Function function) throws Exception {
         Context context = null;
 
         try {
@@ -28,6 +28,6 @@ public class NewContext {
     }
 
     public interface Function {
-        void run(Context context) throws SQLException;
+        void run(Context context) throws Exception;
     }
 }
