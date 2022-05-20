@@ -47,7 +47,7 @@ public abstract class Script {
                 }
 
                 this.run();
-            } catch (ParseException e) {
+            } catch (Exception e) {
                 this.print(e.getMessage());
                 this.printHelp();
             }
@@ -77,7 +77,7 @@ public abstract class Script {
         return null;
     }
 
-    protected abstract void run();
+    protected abstract void run() throws Exception;
 
     protected boolean addHelpOption() {
         return true;
