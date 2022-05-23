@@ -2,8 +2,11 @@ package com.atmire.itemmapper;
 
 import static com.atmire.itemmapper.service.ItemMapperServiceImpl.ERROR;
 import static com.atmire.itemmapper.service.ItemMapperServiceImpl.INFO;
+import static com.atmire.itemmapper.service.ItemMapperServiceImpl.MAPPING_FILE_NAME;
+import static com.atmire.itemmapper.service.ItemMapperServiceImpl.MAPPING_FILE_PATH;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -17,9 +20,6 @@ import com.atmire.cli.OptionWrapper;
 import com.atmire.cli.StringOption;
 import com.atmire.itemmapper.factory.ItemMapperServiceFactory;
 import com.atmire.itemmapper.model.CuniMapFile;
-import com.atmire.itemmapper.model.GenericCollection;
-import com.atmire.itemmapper.model.Mapfile;
-import com.atmire.itemmapper.model.MappingRecord;
 import com.atmire.itemmapper.model.SourceCollection;
 import com.atmire.itemmapper.service.ItemMapperService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -69,13 +69,13 @@ public class ParametrizedItemMappingScript extends ContextScript {
     int batchSize = configurationService.getIntProperty("item.mapper.batch.size", 100);
     int offset = 0;
 
-    public static final String FILE_LOCATION = configurationService.getProperty("mapping.file.location", "local");
     public static final String UNMAPPED = "unmapped";
     public static final String MAPPED = "mapped";
     public static final String REVERSED = "reversed";
     public static final String REVERSE_MAPPED = "reverse-mapped";
     public static final String LOCAL = "local";
     public static final String URL = "url";
+    public static final String FILE_LOCATION = configurationService.getProperty("mapping.file.location", LOCAL);
     public static final String[] OPERATIONS = {
         UNMAPPED,
         MAPPED,
@@ -211,15 +211,20 @@ public class ParametrizedItemMappingScript extends ContextScript {
                 case MAPPED:
                     CuniMapFile cuniMapFile;
                     ObjectMapper objectMapper = new ObjectMapper();
-
-                    if (StringUtils.isNotBlank(pathToFile.getValue()))
-                    {
-                        cuniMapFile = objectMapper.readValue(itemMapperService.getContentFromFile(pathToFile.getValue()), CuniMapFile.class);
-                        for (SourceCollection col : cuniMapFile.getMapfile().getSource_collections()) {
-                            Collection collection =  itemMapperService.getCorrespondingCollection(context, col);
-                            itemMapperService.mapItemsFromJson(context, itemService.findAllByCollection(context,collection), cuniMapFile);
-                        }
+                    if (StringUtils.isNotBlank(linkToFile.getValue())) {
+                        java.net.URL jsonURL = new URL(linkToFile.getValue());
+                        cuniMapFile = objectMapper.readValue(jsonURL, CuniMapFile.class);
                     }
+                    else if (StringUtils.isNotBlank(pathToFile.getValue())) {
+                        cuniMapFile = objectMapper.readValue(itemMapperService.getContentFromFile(pathToFile.getValue()), CuniMapFile.class);
+                    } else {
+                        cuniMapFile = objectMapper.readValue(itemMapperService.getContentFromFile(MAPPING_FILE_PATH + MAPPING_FILE_NAME), CuniMapFile.class);
+                    }
+                    for (SourceCollection col : cuniMapFile.getMapfile().getSource_collections()) {
+                        Collection collection =  itemMapperService.getCorrespondingCollection(context, col);
+                        itemMapperService.mapItemsFromJson(context, itemService.findAllByCollection(context,collection), cuniMapFile);
+                    }
+
 
             }
         } catch (Exception e) {
