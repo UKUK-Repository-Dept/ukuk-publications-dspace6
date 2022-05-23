@@ -16,6 +16,7 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 import com.atmire.itemmapper.ParametrizedItemMappingScript;
@@ -251,7 +252,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     private void verifyValidAndMap(Context context, Item item, Collection destinationCollection, boolean dryRun)
         throws SQLException, AuthorizeException {
         if (item.getCollections().contains(destinationCollection)) {
-            logCLI("warning", String.format("Item (%s | %s) was not mapped because it is already in destination " +
+            logCLI(WARN, String.format("Item (%s | %s) was not mapped because it is already in destination " +
                                                 "collection (%s | %s),",
                                             item.getHandle(), item.getID(),
                                             destinationCollection.getHandle(),
@@ -261,7 +262,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
         else if (!item.getCollections().contains(destinationCollection)) {
             showItemsInCollection(context, destinationCollection);
 
-            logCLI("info", String.format("Mapping item (%s | %s) to collection (%s | %s)",
+            logCLI(INFO, String.format("Mapping item (%s | %s) to collection (%s | %s)",
                                          item.getHandle(), item.getID(),
                                          destinationCollection.getHandle(),
                                          destinationCollection.getID()));
@@ -274,18 +275,28 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     @Override
     public String getContentFromFile(String filepath) throws IOException {
         File jsonFile = new File(filepath);
-        String content = FileUtils.readFileToString(jsonFile);
-        return content;
+        return FileUtils.readFileToString(jsonFile);
     }
 
     @Override
     public Collection getCorrespondingCollection(Context context, GenericCollection col)
         throws SQLException {
+        Collection resolvedCollection;
         if (col.getId().getType().equals("handle")) {
-            return (Collection) handleService.resolveToObject(context, col.getId().getValue());
+            resolvedCollection = (Collection) handleService.resolveToObject(context, col.getId().getValue());
+            if (resolvedCollection == null) {
+                logCLI(ERROR, "No collection could be resolved with the handle: " + col.getId().getValue());
+                System.exit(1);
+            }
+            return resolvedCollection;
         }
         else if (col.getId().getType().equals("uuid")) {
-            return collectionService.find(context, UUID.fromString(col.getId().getValue()));
+            resolvedCollection = collectionService.find(context, UUID.fromString(col.getId().getValue()));
+            if (resolvedCollection == null) {
+                logCLI(ERROR, "No collection could be resolved with the UUID:" + col.getId().getValue());
+                System.exit(1);
+            }
+            return resolvedCollection;
         }
         else {
             logCLI(ERROR, "Collection id type is not set correctly please use \"handle\" or \"uuid\"");
@@ -296,27 +307,29 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     @Override
     public void mapItemsFromJson(Context context, Iterator<Item> items, CuniMapFile mapFile)
         throws SQLException, AuthorizeException {
-        String primaryMdFieldValue = "";
-        String secondaryMdFieldValue = "";
-
         while (items.hasNext()) {
+            String primaryMdFieldValue = null;
+            String secondaryMdFieldValue = null;
             Item item = items.next();
+
             for (MetadataField mdField :mapFile.getMapfile().getMetadata_fields()) {
                 if (mdField.getField_type().equals("primary")) {
-                    primaryMdFieldValue = mdField.getField_identifier();
+                    primaryMdFieldValue = itemService.getMetadata(item, mdField.getField_identifier());
                 }
 
                 if (mdField.getField_type().equals("secondary")) {
-                    secondaryMdFieldValue = mdField.getField_identifier();
+                    secondaryMdFieldValue = itemService.getMetadata(item, mdField.getField_identifier());
                 }
             }
 
-            for (MappingRecord mappingRecord: mapFile.getMapfile().getMapping_records()) {
-                if (primaryMdFieldValue.equals(mappingRecord.getMetadata_value()) ||
-                    secondaryMdFieldValue.equals(mappingRecord.getMetadata_value())) {
-                    for (TargetCollection col : mappingRecord.getTarget_collections()) {
-                        Collection correspondingCol = getCorrespondingCollection(context, col);
-                        mapItem(context, item, correspondingCol, false);
+            if (primaryMdFieldValue != null || secondaryMdFieldValue != null) {
+                for (MappingRecord mappingRecord: mapFile.getMapfile().getMapping_records()) {
+                    if (Objects.equals(primaryMdFieldValue, mappingRecord.getMetadata_value()) ||
+                        Objects.equals(secondaryMdFieldValue, mappingRecord.getMetadata_value())) {
+                        for (TargetCollection col : mappingRecord.getTarget_collections()) {
+                            Collection correspondingCol = getCorrespondingCollection(context, col);
+                            mapItem(context, item, correspondingCol, false);
+                        }
                     }
                 }
             }
