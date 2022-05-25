@@ -97,7 +97,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
         throws SQLException, AuthorizeException {
 
         if (itemService.isOwningCollection(item, sourceCollection)) {
-            verifyValidAndMap(context, item, destinationCollection, dryRun);
+            addItemToCollection(context, item, destinationCollection, dryRun);
 
         } else {
             logCLI(WARN, String.format("Item (%s | %s) was not mapped because it is not owned by " +
@@ -110,7 +110,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     @Override
     public void mapItem (Context context, Item item, Collection destinationCollection, boolean dryRun)
         throws SQLException, AuthorizeException {
-            verifyValidAndMap(context, item, destinationCollection, dryRun);
+            addItemToCollection(context, item, destinationCollection, dryRun);
     }
 
     @Override
@@ -271,7 +271,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
         System.out.println("#" + itemsCount + " item of collection: " + collection.getHandle() + ": " + collection.getID());
     }
 
-    private void verifyValidAndMap(Context context, Item item, Collection destinationCollection, boolean dryRun)
+    private void addItemToCollection(Context context, Item item, Collection destinationCollection, boolean dryRun)
         throws SQLException, AuthorizeException {
         if (item.getCollections().contains(destinationCollection)) {
             logCLI(WARN, String.format("Item (%s | %s) was not mapped because it is already in destination " +
@@ -340,13 +340,13 @@ public class ItemMapperServiceImpl implements ItemMapperService {
             for (MetadataField mdField :mapFile.getMapfile().getMetadata_fields()) {
                 if (mdField.getField_type().equals("primary")) {
                     primaryMdFieldValues = itemService.getMetadata(item, mdField.getField_identifier(), Item.ANY);
-                    primaryStringMdFieldValues = primaryMdFieldValues.stream().map(MetadataValue::getValue).collect(Collectors.toList());
+                    primaryStringMdFieldValues = convertMetadataValuesToString(primaryMdFieldValues);
 
                 }
 
                 if (mdField.getField_type().equals("secondary")) {
                     secondaryMdFieldValues = itemService.getMetadata(item, mdField.getField_identifier(), Item.ANY);
-                    secondaryStringMdFieldValues = secondaryMdFieldValues.stream().map(MetadataValue::getValue).collect(Collectors.toList());
+                    secondaryStringMdFieldValues = convertMetadataValuesToString(secondaryMdFieldValues);
                 }
             }
 
@@ -362,6 +362,10 @@ public class ItemMapperServiceImpl implements ItemMapperService {
                 }
             }
         }
+    }
+
+    public List<String> convertMetadataValuesToString(List<MetadataValue> metadataValues) {
+        return metadataValues.stream().map(MetadataValue::getValue).collect(Collectors.toList());
     }
 
     @Override
@@ -440,8 +444,8 @@ public class ItemMapperServiceImpl implements ItemMapperService {
             totalItems = itemService.countTotal(context);
 
             // Loop through all of our items in batches
-            for (int i = 1; i <= Math.ceil(totalItems / batchSize); i++) {
-                itemsToMap = itemService.findAllWithLimitAndOffset(context, batchSize, ( offset));
+            for (int i = 1; i < Math.ceil(totalItems / batchSize) + 1; i++) {
+                itemsToMap = itemService.findAllWithLimitAndOffset(context, batchSize, offset);
                 logCLI(INFO, "***** PROCESSING BATCH:" + i + " *****");
 
                 // Reverse map all items in the current batch
