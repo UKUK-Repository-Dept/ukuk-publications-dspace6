@@ -33,6 +33,7 @@ import com.atmire.itemmapper.model.SourceCollection;
 import com.atmire.itemmapper.model.TargetCollection;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.dspace.authorize.AuthorizeException;
