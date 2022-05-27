@@ -2,8 +2,10 @@ package com.atmire.itemmapper.service;
 
 import static com.atmire.itemmapper.ParametrizedItemMappingScript.FILE_LOCATION;
 import static com.atmire.itemmapper.ParametrizedItemMappingScript.LOCAL;
+import static com.atmire.itemmapper.ParametrizedItemMappingScript.MAPPED;
 import static com.atmire.itemmapper.ParametrizedItemMappingScript.OPERATIONS;
 import static com.atmire.itemmapper.ParametrizedItemMappingScript.REVERSED;
+import static com.atmire.itemmapper.ParametrizedItemMappingScript.REVERSE_MAPPED;
 import static com.atmire.itemmapper.ParametrizedItemMappingScript.UNMAPPED;
 import static com.atmire.itemmapper.ParametrizedItemMappingScript.URL;
 import static org.apache.commons.lang3.StringUtils.isBlank;
@@ -226,8 +228,14 @@ public class ItemMapperServiceImpl implements ItemMapperService {
         }
     }
 
+    @Override
+    public void unmapItem(Context context, Item item, String sourceHandle, boolean dryRun)
+        throws SQLException, AuthorizeException, IOException {
+        unmapItem(context, item, sourceHandle, null, dryRun);
+    }
+
     public void removeItemFromAllCollectionsExceptOwning(Context context, List<Collection> itemCollections, Collection itemOwningCollection,
-                                         Item item, boolean dryRun) throws SQLException, AuthorizeException, IOException {
+                                                         Item item, boolean dryRun) throws SQLException, AuthorizeException, IOException {
         for (Collection collection : itemCollections) {
             if (collection.equals(itemOwningCollection)) {
                 logCLI("info", String.format("Current collection (%s | %s) is the item's (%s | %s) owning " +
@@ -328,40 +336,8 @@ public class ItemMapperServiceImpl implements ItemMapperService {
 
     @Override
     public void mapItemsFromJson(Context context, Iterator<Item> items, CuniMapFile mapFile)
-        throws SQLException, AuthorizeException {
-        while (items.hasNext()) {
-            List<MetadataValue> primaryMdFieldValues = new ArrayList<>();
-            List<MetadataValue> secondaryMdFieldValues = new ArrayList<>();
-            List<String> primaryStringMdFieldValues = new ArrayList<>();
-            List<String> secondaryStringMdFieldValues = new ArrayList<>();
-
-            Item item = items.next();
-
-            for (MetadataField mdField :mapFile.getMapfile().getMetadata_fields()) {
-                if (mdField.getField_type().equals("primary")) {
-                    primaryMdFieldValues = itemService.getMetadata(item, mdField.getField_identifier(), Item.ANY);
-                    primaryStringMdFieldValues = convertMetadataValuesToString(primaryMdFieldValues);
-
-                }
-
-                if (mdField.getField_type().equals("secondary")) {
-                    secondaryMdFieldValues = itemService.getMetadata(item, mdField.getField_identifier(), Item.ANY);
-                    secondaryStringMdFieldValues = convertMetadataValuesToString(secondaryMdFieldValues);
-                }
-            }
-
-            if (!primaryMdFieldValues.isEmpty() || !secondaryMdFieldValues.isEmpty()) {
-                for (MappingRecord mappingRecord: mapFile.getMapfile().getMapping_records()) {
-                    if (primaryStringMdFieldValues.contains(mappingRecord.getMetadata_value()) ||
-                        secondaryStringMdFieldValues.contains(mappingRecord.getMetadata_value())) {
-                        for (TargetCollection col : mappingRecord.getTarget_collections()) {
-                            Collection correspondingCol = getCorrespondingCollection(context, col);
-                            mapItem(context, item, correspondingCol, false);
-                        }
-                    }
-                }
-            }
-        }
+        throws SQLException, AuthorizeException, IOException {
+        checkMetadataValuesAndConvertToString(context,items, mapFile, MAPPED);
     }
 
     public List<String> convertMetadataValuesToString(List<MetadataValue> metadataValues) {
@@ -383,7 +359,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
 
     @Override
     public void mapFromParams(Context context, String destinationHandle, String sourceHandle, boolean dryRun) throws SQLException {
-        
+
         // Destination collection is required when case is unmapped
         resolvedDestinationCollection = resolveCollection(context, destinationHandle);
 
@@ -397,7 +373,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
                 logCLI(INFO, "***** PROCESSING BATCH:" + i + " *****");
 
                 // Map all items in the current batch
-                itemsToMap.forEachRemaining((item) -> {
+                itemsToMap.forEachRemaining(item -> {
                     try {
                         logCLI(INFO, String.format("Mapping item (%s | %s) ",
                                                                      item.getHandle(), item.getID()));
@@ -438,7 +414,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
 
     @Override
     public void reverseMapFromParams(Context context, String destinationHandle, String sourceHandle, boolean dryRun) throws SQLException {
-        
+
         // If no destination and source collection is given we want to obtain all the items
         if (isBlank(destinationHandle) && isBlank(sourceHandle)) {
             totalItems = itemService.countTotal(context);
@@ -476,7 +452,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
 
     private void reverseMapItemsInBatch(Context context, Iterator<Item> itemsToMap, String sourceHandle,
                                         String destinationHandle, boolean dryRun) {
-        itemsToMap.forEachRemaining((item) -> {
+        itemsToMap.forEachRemaining(item -> {
             try {
                 unmapItem(context, item, sourceHandle, destinationHandle, dryRun);
             } catch (SQLException | AuthorizeException | IOException e) {
@@ -505,4 +481,81 @@ public class ItemMapperServiceImpl implements ItemMapperService {
             mapItemsFromJson(context, itemService.findAllByCollection(context,collection), cuniMapFile);
         }
     }
+
+    @Override
+    public void reverseMapItemsFromJson(Context context, Iterator<Item> items, CuniMapFile mapFile)
+        throws SQLException, AuthorizeException, IOException {
+        checkMetadataValuesAndConvertToString(context,items, mapFile, REVERSE_MAPPED);
+    }
+
+    @Override
+    public void reverseMapFromMappingFile(Context context, String link, String path)
+        throws SQLException, IOException, AuthorizeException {
+        CuniMapFile cuniMapFile;
+        if (isNotBlank(link)) {
+            cuniMapFile = getMapFileFromLink(link);
+        }
+        else if (isNotBlank(path)) {
+            cuniMapFile = getMapFileFromPath(path);
+        } else {
+            cuniMapFile = getMapFileFromPath(MAPPING_FILE_PATH + MAPPING_FILE_NAME);
+        }
+        for (SourceCollection col : cuniMapFile.getMapfile().getSource_collections()) {
+            Collection collection =  getCorrespondingCollection(context, col);
+            reverseMapItemsFromJson(context, itemService.findAllByCollection(context,collection), cuniMapFile);
+        }
+    }
+
+    public void checkMetadataValuesAndConvertToString(Context context, Iterator<Item> items, CuniMapFile mapFile,
+                                                      String mapMode)
+        throws SQLException, AuthorizeException, IOException {
+            while (items.hasNext()) {
+                List<MetadataValue> primaryMdFieldValues;
+                List<MetadataValue> secondaryMdFieldValues;
+                List<String> primaryStringMdFieldValues = new ArrayList<>();
+                List<String> secondaryStringMdFieldValues = new ArrayList<>();
+
+                Item item = items.next();
+
+                for (MetadataField mdField :mapFile.getMapfile().getMetadata_fields()) {
+                    if (mdField.getField_type().equals("primary")) {
+                        primaryMdFieldValues = itemService.getMetadata(item, mdField.getField_identifier(), Item.ANY);
+                        primaryStringMdFieldValues = convertMetadataValuesToString(primaryMdFieldValues);
+
+                    }
+
+                    if (mdField.getField_type().equals("secondary")) {
+                        secondaryMdFieldValues = itemService.getMetadata(item, mdField.getField_identifier(), Item.ANY);
+                        secondaryStringMdFieldValues = convertMetadataValuesToString(secondaryMdFieldValues);
+                    }
+                }
+
+                mapOnMetadataValueMatch(context, primaryStringMdFieldValues, secondaryStringMdFieldValues, mapFile,
+                                        mapMode, item);
+        }
+    }
+
+    public void mapOnMetadataValueMatch(Context context,
+                                        List<String> primaryStringMdFieldValues,
+                                        List<String> secondaryStringMdFieldValues,
+                                        CuniMapFile mapFile, String mapMode, Item item)
+        throws SQLException, AuthorizeException, IOException {
+            if (!primaryStringMdFieldValues.isEmpty() || !secondaryStringMdFieldValues.isEmpty()) {
+                for (MappingRecord mappingRecord: mapFile.getMapfile().getMapping_records()) {
+                    if (primaryStringMdFieldValues.contains(mappingRecord.getMetadata_value()) ||
+                        secondaryStringMdFieldValues.contains(mappingRecord.getMetadata_value())) {
+                        for (TargetCollection col : mappingRecord.getTarget_collections()) {
+                            Collection correspondingCol = getCorrespondingCollection(context, col);
+                            if (mapMode.equals(REVERSE_MAPPED)) {
+                                unmapItem(context, item, correspondingCol.getHandle(),false);
+                            }
+                            if (mapMode.equals(MAPPED)) {
+                                mapItem(context, item, correspondingCol,false);
+                            }
+                        }
+                    }
+                }
+            }
+        }
 }
+
