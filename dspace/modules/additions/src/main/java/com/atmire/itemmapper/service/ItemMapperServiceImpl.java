@@ -5,7 +5,7 @@ import static com.atmire.itemmapper.ParametrizedItemMappingScript.LOCAL;
 import static com.atmire.itemmapper.ParametrizedItemMappingScript.MAPPED;
 import static com.atmire.itemmapper.ParametrizedItemMappingScript.OPERATIONS;
 import static com.atmire.itemmapper.ParametrizedItemMappingScript.REVERSED;
-import static com.atmire.itemmapper.ParametrizedItemMappingScript.REVERSE_MAPPED;
+import static com.atmire.itemmapper.ParametrizedItemMappingScript.REVERSED_MAPPED;
 import static com.atmire.itemmapper.ParametrizedItemMappingScript.UNMAPPED;
 import static com.atmire.itemmapper.ParametrizedItemMappingScript.URL;
 import static org.apache.commons.lang3.StringUtils.isBlank;
@@ -14,6 +14,7 @@ import static org.apache.commons.lang3.StringUtils.substringAfterLast;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -117,7 +118,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
 
     @Override
     public void verifyParams(Context context, String operationMode, String sourceHandle, String destinationHandle,
-                             String linkToFile, String pathToFile, boolean dryRun) {
+                             String linkToFile, String pathToFile, boolean dryRun) throws IOException {
 
         if (!Arrays.asList(OPERATIONS).contains(operationMode)) {
             logCLI(ERROR, "No valid operation mode was given");
@@ -150,14 +151,13 @@ public class ItemMapperServiceImpl implements ItemMapperService {
         switch (FILE_LOCATION) {
             case URL:
                 if (isBlank(linkToFile)) {
-                    logCLI(ERROR, "You should give a value for the link (-l) parameter when the" +
-                        " file location property is set to " + URL);
-                    System.exit(1);
+                    linkToFile = MAPPING_FILE_PATH;
                 }
+                doesURLResolve(linkToFile);
                 break;
             case LOCAL:
                 if (isBlank(pathToFile)) {
-                    pathToFile = MAPPING_FILE_PATH + MAPPING_FILE_NAME;
+                    pathToFile = MAPPING_FILE_PATH + File.separator + MAPPING_FILE_NAME;
                 }
 
                 File jsonFile = new File(pathToFile);
@@ -168,6 +168,20 @@ public class ItemMapperServiceImpl implements ItemMapperService {
                 break;
             default:
                 logCLI(ERROR, "The location for the file: " + FILE_LOCATION + " is not valid please pick either " + LOCAL + " or " + URL);
+        }
+    }
+
+
+    public void doesURLResolve(String sUrl) throws IOException {
+        java.net.URL url = new URL(sUrl);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        int responseCode = connection.getResponseCode();
+
+        if (responseCode < 200 || responseCode > 300) {
+            logCLI(ERROR, "The given file path " + url + " is not a valid URL, please give a valid URL" +
+                " using the -l parameter or in a configuration file using the " + MAPPING_FILE_PATH_CFG + " " +
+                "property");
+            System.exit(1);
         }
     }
 
@@ -468,13 +482,17 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     public void mapFromMappingFile(Context context, String link, String path)
         throws IOException, SQLException, AuthorizeException {
         CuniMapFile cuniMapFile;
+        if (isBlank(link) && FILE_LOCATION.equals(URL)) {
+            link = MAPPING_FILE_PATH;
+            doesURLResolve(link);
+        }
         if (isNotBlank(link)) {
             cuniMapFile = getMapFileFromLink(link);
         }
         else if (isNotBlank(path)) {
             cuniMapFile = getMapFileFromPath(path);
         } else {
-            cuniMapFile = getMapFileFromPath(MAPPING_FILE_PATH + MAPPING_FILE_NAME);
+            cuniMapFile = getMapFileFromPath(MAPPING_FILE_PATH + File.separator + MAPPING_FILE_NAME);
         }
         for (SourceCollection col : cuniMapFile.getMapfile().getSource_collections()) {
             Collection collection =  getCorrespondingCollection(context, col);
@@ -485,20 +503,24 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     @Override
     public void reverseMapItemsFromJson(Context context, Iterator<Item> items, CuniMapFile mapFile)
         throws SQLException, AuthorizeException, IOException {
-        checkMetadataValuesAndConvertToString(context,items, mapFile, REVERSE_MAPPED);
+        checkMetadataValuesAndConvertToString(context,items, mapFile, REVERSED_MAPPED);
     }
 
     @Override
     public void reverseMapFromMappingFile(Context context, String link, String path)
         throws SQLException, IOException, AuthorizeException {
         CuniMapFile cuniMapFile;
+        if (isBlank(link) && FILE_LOCATION.equals(URL)) {
+            link = MAPPING_FILE_PATH;
+            doesURLResolve(link);
+        }
         if (isNotBlank(link)) {
             cuniMapFile = getMapFileFromLink(link);
         }
         else if (isNotBlank(path)) {
             cuniMapFile = getMapFileFromPath(path);
         } else {
-            cuniMapFile = getMapFileFromPath(MAPPING_FILE_PATH + MAPPING_FILE_NAME);
+            cuniMapFile = getMapFileFromPath(MAPPING_FILE_PATH +  File.separator + MAPPING_FILE_NAME);
         }
         for (SourceCollection col : cuniMapFile.getMapfile().getSource_collections()) {
             Collection collection =  getCorrespondingCollection(context, col);
@@ -519,13 +541,13 @@ public class ItemMapperServiceImpl implements ItemMapperService {
 
                 for (MetadataField mdField :mapFile.getMapfile().getMetadata_fields()) {
                     if (mdField.getField_type().equals("primary")) {
-                        primaryMdFieldValues = itemService.getMetadata(item, mdField.getField_identifier(), Item.ANY);
+                        primaryMdFieldValues = splitMetadataField(item,mdField.getField_identifier());
                         primaryStringMdFieldValues = convertMetadataValuesToString(primaryMdFieldValues);
 
                     }
 
                     if (mdField.getField_type().equals("secondary")) {
-                        secondaryMdFieldValues = itemService.getMetadata(item, mdField.getField_identifier(), Item.ANY);
+                        secondaryMdFieldValues = splitMetadataField(item,mdField.getField_identifier());
                         secondaryStringMdFieldValues = convertMetadataValuesToString(secondaryMdFieldValues);
                     }
                 }
@@ -535,6 +557,21 @@ public class ItemMapperServiceImpl implements ItemMapperService {
         }
     }
 
+    public List<MetadataValue> splitMetadataField(Item item, String metadataFieldString) {
+        String[] metadataFieldParts = metadataFieldString.split("\\.");
+        List<MetadataValue> metadataValues = new ArrayList<>();
+        if (metadataFieldParts.length == 2) {
+            metadataValues = itemService.getMetadata(item, metadataFieldParts[0],
+                                                                         metadataFieldParts[1], Item.ANY, Item.ANY);
+        }
+        if (metadataFieldParts.length == 3) {
+            metadataValues = itemService.getMetadata(item, metadataFieldParts[0],
+                                                                         metadataFieldParts[1], metadataFieldParts[2],
+                                                                         Item.ANY);
+        }
+        return metadataValues;
+    }
+
     public void mapOnMetadataValueMatch(Context context,
                                         List<String> primaryStringMdFieldValues,
                                         List<String> secondaryStringMdFieldValues,
@@ -542,11 +579,11 @@ public class ItemMapperServiceImpl implements ItemMapperService {
         throws SQLException, AuthorizeException, IOException {
             if (!primaryStringMdFieldValues.isEmpty() || !secondaryStringMdFieldValues.isEmpty()) {
                 for (MappingRecord mappingRecord: mapFile.getMapfile().getMapping_records()) {
-                    if (primaryStringMdFieldValues.contains(mappingRecord.getMetadata_value()) ||
-                        secondaryStringMdFieldValues.contains(mappingRecord.getMetadata_value())) {
+                    if (primaryStringMdFieldValues.contains(mappingRecord.getMetadata_value())
+                    || secondaryStringMdFieldValues.contains(mappingRecord.getMetadata_value())) {
                         for (TargetCollection col : mappingRecord.getTarget_collections()) {
                             Collection correspondingCol = getCorrespondingCollection(context, col);
-                            if (mapMode.equals(REVERSE_MAPPED)) {
+                            if (mapMode.equals(REVERSED_MAPPED)) {
                                 unmapItem(context, item, correspondingCol.getHandle(),false);
                             }
                             if (mapMode.equals(MAPPED)) {
