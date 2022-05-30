@@ -24,7 +24,8 @@ public interface ItemMapperService {
         AuthorizeException;
 
     public void verifyParams(Context context, String operationmode, String sourceHandle, String destinationHandle,
-                             String linkToFile, String pathToFile, boolean dryRun) throws SQLException;
+                             String linkToFile, String pathToFile, boolean dryRun)
+        throws SQLException, IOException;
 
     public void unmapItem(Context context, Item item, String sourceHandle, String destinationHandle,
                           boolean dryRun)
