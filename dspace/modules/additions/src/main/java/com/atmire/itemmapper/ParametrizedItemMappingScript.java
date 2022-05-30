@@ -13,7 +13,9 @@ import com.atmire.cli.OptionWrapper;
 import com.atmire.cli.StringOption;
 import com.atmire.itemmapper.factory.ItemMapperServiceFactory;
 import com.atmire.itemmapper.service.ItemMapperService;
+import org.dspace.content.factory.ContentServiceFactory;
 import org.dspace.content.service.CollectionService;
+import org.dspace.content.service.ItemService;
 import org.dspace.core.Context;
 import org.dspace.services.ConfigurationService;
 import org.dspace.services.factory.DSpaceServicesFactory;
@@ -33,6 +35,9 @@ public class ParametrizedItemMappingScript extends ContextScript {
     @Autowired
     CollectionService collectionService;
 
+    protected ItemService itemService = ContentServiceFactory.getInstance()
+                                                             .getItemService();
+
     ItemMapperService itemMapperService = ItemMapperServiceFactory.getInstance().getItemMapperService();
     static ConfigurationService configurationService = DSpaceServicesFactory.getInstance().getConfigurationService();
 
@@ -47,7 +52,7 @@ public class ParametrizedItemMappingScript extends ContextScript {
     public static final String UNMAPPED = "unmapped";
     public static final String MAPPED = "mapped";
     public static final String REVERSED = "reversed";
-    public static final String REVERSE_MAPPED = "reverse-mapped";
+    public static final String REVERSED_MAPPED = "reversed-mapped";
     public static final String LOCAL = "local";
     public static final String URL = "url";
     public static final String FILE_LOCATION = configurationService.getProperty("mapping.file.location", LOCAL);
@@ -55,7 +60,7 @@ public class ParametrizedItemMappingScript extends ContextScript {
         UNMAPPED,
         MAPPED,
         REVERSED,
-        REVERSE_MAPPED
+        REVERSED_MAPPED
     };
 
 
@@ -100,15 +105,19 @@ public class ParametrizedItemMappingScript extends ContextScript {
                     break;
                 case MAPPED:
                     itemMapperService.mapFromMappingFile(context, linkToFile.getValue(), pathToFile.getValue());
+                    System.out.println("ITMS IN COLLECTION 9e34856c-e877-48b2-a45f-fe444e3977fa: ");
+                    System.out.println(itemService.countItems(context, itemMapperService.resolveCollection(context, "9e34856c-e877-48b2-a45f-fe444e3977fa")));
+                    System.out.println("ITMS IN COLLECTION a9982973-1641-49ad-a7f9-acf086dee391: ");
+                    System.out.println(itemService.countItems(context, itemMapperService.resolveCollection(context, "a9982973-1641-49ad-a7f9-acf086dee391")));
                     break;
-                case REVERSE_MAPPED:
+                case REVERSED_MAPPED:
                     itemMapperService.reverseMapFromMappingFile(context, linkToFile.getValue(), pathToFile.getValue());
                     break;
                 default:
                     itemMapperService.logCLI(ERROR, "The mapping operation resolved to: " + currentOperation + " this is not supported");
             }
         } catch (Exception e) {
-            itemMapperService.logCLI(ERROR, "An exception has occurred! => " + e.getCause().toString());
+            itemMapperService.logCLI(ERROR, "An exception has occurred! => " + e.getMessage());
             e.printStackTrace();
             throw e;
         }
