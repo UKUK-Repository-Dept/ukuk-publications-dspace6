@@ -1,5 +1,6 @@
 package com.atmire.itemmapper.service;
 
+import static com.atmire.itemmapper.ParametrizedItemMappingScript.CONSUMER_FILE_LOCATION;
 import static com.atmire.itemmapper.ParametrizedItemMappingScript.FILE_LOCATION;
 import static com.atmire.itemmapper.ParametrizedItemMappingScript.LOCAL;
 import static com.atmire.itemmapper.ParametrizedItemMappingScript.MAPPED;
@@ -486,7 +487,30 @@ public class ItemMapperServiceImpl implements ItemMapperService {
             link = MAPPING_FILE_PATH;
             doesURLResolve(link);
         }
-        if (isNotBlank(link)) {
+        if (isNotBlank(link) && FILE_LOCATION.equals(URL)) {
+            doesURLResolve(link);
+            cuniMapFile = getMapFileFromLink(link);
+        }
+        else if (isNotBlank(path)) {
+            cuniMapFile = getMapFileFromPath(path);
+        } else {
+            cuniMapFile = getMapFileFromPath(MAPPING_FILE_PATH + File.separator + MAPPING_FILE_NAME);
+        }
+        for (SourceCollection col : cuniMapFile.getMapfile().getSource_collections()) {
+            Collection collection =  getCorrespondingCollection(context, col);
+            mapItemsFromJson(context, itemService.findAllByCollection(context,collection), cuniMapFile);
+        }
+    }
+
+    @Override
+    public void consumerMapFromMappingFile(Context context, String link, String path)
+        throws IOException, SQLException, AuthorizeException {
+        CuniMapFile cuniMapFile;
+        if (isBlank(link) && CONSUMER_FILE_LOCATION.equals(URL)) {
+            link = MAPPING_FILE_PATH;
+            doesURLResolve(link);
+        }
+        if (isNotBlank(link) && CONSUMER_FILE_LOCATION.equals(URL)) {
             cuniMapFile = getMapFileFromLink(link);
         }
         else if (isNotBlank(path)) {
