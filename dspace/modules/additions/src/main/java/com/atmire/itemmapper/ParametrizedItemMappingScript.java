@@ -56,6 +56,7 @@ public class ParametrizedItemMappingScript extends ContextScript {
     public static final String LOCAL = "local";
     public static final String URL = "url";
     public static final String FILE_LOCATION = configurationService.getProperty("mapping.file.location", LOCAL);
+    public static final String CONSUMER_FILE_LOCATION = configurationService.getProperty("consumer.mapping.file.location", LOCAL);
     public static final String[] OPERATIONS = {
         UNMAPPED,
         MAPPED,
@@ -105,10 +106,6 @@ public class ParametrizedItemMappingScript extends ContextScript {
                     break;
                 case MAPPED:
                     itemMapperService.mapFromMappingFile(context, linkToFile.getValue(), pathToFile.getValue());
-                    System.out.println("ITMS IN COLLECTION 9e34856c-e877-48b2-a45f-fe444e3977fa: ");
-                    System.out.println(itemService.countItems(context, itemMapperService.resolveCollection(context, "9e34856c-e877-48b2-a45f-fe444e3977fa")));
-                    System.out.println("ITMS IN COLLECTION a9982973-1641-49ad-a7f9-acf086dee391: ");
-                    System.out.println(itemService.countItems(context, itemMapperService.resolveCollection(context, "a9982973-1641-49ad-a7f9-acf086dee391")));
                     break;
                 case REVERSED_MAPPED:
                     itemMapperService.reverseMapFromMappingFile(context, linkToFile.getValue(), pathToFile.getValue());
