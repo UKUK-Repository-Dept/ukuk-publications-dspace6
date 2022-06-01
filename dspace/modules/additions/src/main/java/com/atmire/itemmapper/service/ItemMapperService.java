@@ -60,6 +60,9 @@ public interface ItemMapperService {
     public void mapFromMappingFile(Context context, String link, String path)
         throws IOException, SQLException, AuthorizeException;
 
+    public void consumerMapFromMappingFile(Context context, String link, String path)
+        throws IOException, SQLException, AuthorizeException;
+
     public void reverseMapFromMappingFile(Context context, String link, String path)
         throws SQLException, IOException, AuthorizeException;
 }
