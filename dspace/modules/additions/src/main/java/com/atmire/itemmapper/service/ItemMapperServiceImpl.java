@@ -86,6 +86,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
                 break;
             case ERROR:
                 log.error(message);
+                System.exit(1);
                 break;
             case WARN:
                 log.warn(message);
@@ -246,7 +247,8 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     @Override
     public void unmapItem(Context context, Item item, String sourceHandle, boolean dryRun)
         throws SQLException, AuthorizeException, IOException {
-        unmapItem(context, item, sourceHandle, null, dryRun);
+            unmapItem(context, item, sourceHandle, null, dryRun);
+
     }
 
     public void removeItemFromAllCollectionsExceptOwning(Context context, List<Collection> itemCollections, Collection itemOwningCollection,
@@ -350,9 +352,9 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     }
 
     @Override
-    public void mapItemsFromJson(Context context, Iterator<Item> items, CuniMapFile mapFile)
+    public void mapItemsFromJson(Context context, Iterator<Item> items, CuniMapFile mapFile, boolean dryRun)
         throws SQLException, AuthorizeException, IOException {
-        checkMetadataValuesAndConvertToString(context,items, mapFile, MAPPED);
+        checkMetadataValuesAndConvertToString(context,items, mapFile, MAPPED, dryRun);
     }
 
     public List<String> convertMetadataValuesToString(List<MetadataValue> metadataValues) {
@@ -362,6 +364,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     @Override
     public CuniMapFile getMapFileFromLink(String link) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
+        doesURLResolve(link);
         java.net.URL jsonURL = new URL(link);
         return objectMapper.readValue(jsonURL, CuniMapFile.class);
     }
@@ -480,15 +483,13 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     }
 
     @Override
-    public void mapFromMappingFile(Context context, String link, String path)
+    public void mapFromMappingFile(Context context, String link, String path, boolean dryRun)
         throws IOException, SQLException, AuthorizeException {
         CuniMapFile cuniMapFile;
-        if (isBlank(link) && FILE_LOCATION.equals(URL)) {
+        if (isBlank(link) && isBlank(path) && FILE_LOCATION.equals(URL)) {
             link = MAPPING_FILE_PATH;
-            doesURLResolve(link);
         }
         if (isNotBlank(link) && FILE_LOCATION.equals(URL)) {
-            doesURLResolve(link);
             cuniMapFile = getMapFileFromLink(link);
         }
         else if (isNotBlank(path)) {
@@ -498,12 +499,12 @@ public class ItemMapperServiceImpl implements ItemMapperService {
         }
         for (SourceCollection col : cuniMapFile.getMapfile().getSource_collections()) {
             Collection collection =  getCorrespondingCollection(context, col);
-            mapItemsFromJson(context, itemService.findAllByCollection(context,collection), cuniMapFile);
+            mapItemsFromJson(context, itemService.findAllByCollection(context,collection), cuniMapFile, dryRun);
         }
     }
 
     @Override
-    public void consumerMapFromMappingFile(Context context, String link, String path)
+    public void consumerMapFromMappingFile(Context context, String link, String path, boolean dryRun)
         throws IOException, SQLException, AuthorizeException {
         CuniMapFile cuniMapFile;
         if (isBlank(link) && CONSUMER_FILE_LOCATION.equals(URL)) {
@@ -520,21 +521,21 @@ public class ItemMapperServiceImpl implements ItemMapperService {
         }
         for (SourceCollection col : cuniMapFile.getMapfile().getSource_collections()) {
             Collection collection =  getCorrespondingCollection(context, col);
-            mapItemsFromJson(context, itemService.findAllByCollection(context,collection), cuniMapFile);
+            mapItemsFromJson(context, itemService.findAllByCollection(context,collection), cuniMapFile, dryRun);
         }
     }
 
     @Override
-    public void reverseMapItemsFromJson(Context context, Iterator<Item> items, CuniMapFile mapFile)
+    public void reverseMapItemsFromJson(Context context, Iterator<Item> items, CuniMapFile mapFile, boolean dryRun)
         throws SQLException, AuthorizeException, IOException {
-        checkMetadataValuesAndConvertToString(context,items, mapFile, REVERSED_MAPPED);
+        checkMetadataValuesAndConvertToString(context,items, mapFile, REVERSED_MAPPED, dryRun);
     }
 
     @Override
-    public void reverseMapFromMappingFile(Context context, String link, String path)
+    public void reverseMapFromMappingFile(Context context, String link, String path, boolean dryRun)
         throws SQLException, IOException, AuthorizeException {
         CuniMapFile cuniMapFile;
-        if (isBlank(link) && FILE_LOCATION.equals(URL)) {
+        if (isBlank(link) && isBlank(path) && FILE_LOCATION.equals(URL)) {
             link = MAPPING_FILE_PATH;
             doesURLResolve(link);
         }
@@ -548,12 +549,12 @@ public class ItemMapperServiceImpl implements ItemMapperService {
         }
         for (SourceCollection col : cuniMapFile.getMapfile().getSource_collections()) {
             Collection collection =  getCorrespondingCollection(context, col);
-            reverseMapItemsFromJson(context, itemService.findAllByCollection(context,collection), cuniMapFile);
+            reverseMapItemsFromJson(context, itemService.findAllByCollection(context,collection), cuniMapFile, dryRun);
         }
     }
 
     public void checkMetadataValuesAndConvertToString(Context context, Iterator<Item> items, CuniMapFile mapFile,
-                                                      String mapMode)
+                                                      String mapMode, boolean dryRun)
         throws SQLException, AuthorizeException, IOException {
             while (items.hasNext()) {
                 List<MetadataValue> primaryMdFieldValues;
@@ -577,7 +578,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
                 }
 
                 mapOnMetadataValueMatch(context, primaryStringMdFieldValues, secondaryStringMdFieldValues, mapFile,
-                                        mapMode, item);
+                                        mapMode, item, dryRun);
         }
     }
 
@@ -599,7 +600,8 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     public void mapOnMetadataValueMatch(Context context,
                                         List<String> primaryStringMdFieldValues,
                                         List<String> secondaryStringMdFieldValues,
-                                        CuniMapFile mapFile, String mapMode, Item item)
+                                        CuniMapFile mapFile, String mapMode,
+                                        Item item, boolean dryRun)
         throws SQLException, AuthorizeException, IOException {
             if (!primaryStringMdFieldValues.isEmpty() || !secondaryStringMdFieldValues.isEmpty()) {
                 for (MappingRecord mappingRecord: mapFile.getMapfile().getMapping_records()) {
@@ -608,10 +610,10 @@ public class ItemMapperServiceImpl implements ItemMapperService {
                         for (TargetCollection col : mappingRecord.getTarget_collections()) {
                             Collection correspondingCol = getCorrespondingCollection(context, col);
                             if (mapMode.equals(REVERSED_MAPPED)) {
-                                unmapItem(context, item, correspondingCol.getHandle(),false);
+                                unmapItem(context, item, correspondingCol.getHandle(), dryRun);
                             }
                             if (mapMode.equals(MAPPED)) {
-                                mapItem(context, item, correspondingCol,false);
+                                mapItem(context, item, correspondingCol, dryRun);
                             }
                         }
                     }

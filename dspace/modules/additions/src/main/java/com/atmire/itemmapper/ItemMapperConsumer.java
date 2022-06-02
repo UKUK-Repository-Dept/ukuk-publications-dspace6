@@ -47,7 +47,7 @@ public class ItemMapperConsumer implements Consumer {
                         log.info("ItemMapperConsumer: Item install event, mapping items based on local file located " +
                                      "at : " + FULL_PATH_TO_FILE);
                     }
-                    itemMapperService.consumerMapFromMappingFile(ctx, CONSUMER_MAPPING_FILE_PATH, FULL_PATH_TO_FILE);
+                    itemMapperService.consumerMapFromMappingFile(ctx, CONSUMER_MAPPING_FILE_PATH, FULL_PATH_TO_FILE, false);
             }
         }
     }
