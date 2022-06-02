@@ -35,6 +35,7 @@
                 <xsl:import href="../custom/faq.xsl" />
                 <xsl:import href="../custom/disclaimer.xsl" />
                 <xsl:import href="../custom/licenses.xsl" />
+                <xsl:import href="../custom/metadata.xsl" />
 
     <xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 
@@ -291,6 +292,9 @@
                     </xsl:when>
                     <xsl:when test="starts-with($request-uri, 'page/typology')">
                         <i18n:text>xmlui.mirage2.static-pages.title.typology</i18n:text>
+                    </xsl:when>
+                    <xsl:when test="starts-with($request-uri, 'page/metadata')">
+                        <i18n:text>xmlui.mirage2.static-pages.title.metadata</i18n:text>
                     </xsl:when>
                     <xsl:when test="starts-with($request-uri, 'page/disclaimer')">
                         <i18n:text>xmlui.mirage2.static-pages.title.disclaimer</i18n:text>
@@ -799,6 +803,15 @@
                         <!--<p><i18n:text>xmlui.mirage2.page-structure.heroUnit.content</i18n:text></p>-->
                         <xsl:call-template name="faq-create"/>
                     </div>
+                </xsl:when>
+                <xsl:when test="starts-with($request-uri, 'page/metadata')">
+                    <div class="hero-unit">
+                        <h1><i18n:text>xmlui.mirage2.static-pages.heading.metadata</i18n:text></h1>
+                        <!-- TODO: Create custom text and make it translatable via i18n:text -->
+                        <!--<p><i18n:text>xmlui.mirage2.page-structure.heroUnit.content</i18n:text></p>-->
+                        <xsl:call-template name="metadata-create"/>
+                    </div>
+                    
                 </xsl:when>
                 <xsl:when test="starts-with($request-uri, 'page/typology')">
                     <div class="hero-unit">
