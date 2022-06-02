@@ -2785,10 +2785,12 @@
 	<!-- <JR> - 20.1. 2022 - Custom static pages titles -->
 	<message key="xmlui.mirage2.static-pages.title.faq">F.A.Q.</message>
 	<message key="xmlui.mirage2.static-pages.title.typology">Akceptované formy výsledků</message>
+	<message key="xmlui.mirage2.static-pages.title.metadata">Povinné popisné údaje</message>
 
 	<!-- <JR> - 20.1. 2022 - Custom static pages headings -->
 	<message key="xmlui.mirage2.static-pages.heading.faq">Často kladené otázky</message>
 	<message key="xmlui.mirage2.static-pages.heading.typology">Formy výsledků přebírané do repozitáře</message>
+	<message key="xmlui.mirage2.static-pages.heading.metadata">Povinné popisné údaje</message>
 
 	<!-- OBD (CUNI CRIS SYSTEM) TYPOLOGY "ID -> NAME" DICTIONARY / MAPPING 
 	
