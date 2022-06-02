@@ -43,10 +43,10 @@ public interface ItemMapperService {
     public Collection getCorrespondingCollection(Context context, GenericCollection col)
         throws SQLException;
 
-    public void mapItemsFromJson(Context context, Iterator<Item> items, CuniMapFile mapFile)
+    public void mapItemsFromJson(Context context, Iterator<Item> items, CuniMapFile mapFile, boolean dryRun)
         throws SQLException, AuthorizeException, IOException;
 
-    public void reverseMapItemsFromJson(Context context, Iterator<Item> items, CuniMapFile mapFile)
+    public void reverseMapItemsFromJson(Context context, Iterator<Item> items, CuniMapFile mapFile, boolean dryRun)
         throws SQLException, AuthorizeException, IOException;
 
     public CuniMapFile getMapFileFromLink(String link) throws IOException;
@@ -57,12 +57,12 @@ public interface ItemMapperService {
 
     public void reverseMapFromParams(Context context, String destinationHandle, String sourceHandle, boolean dryRun) throws SQLException;
 
-    public void mapFromMappingFile(Context context, String link, String path)
+    public void mapFromMappingFile(Context context, String link, String path, boolean dryRun)
         throws IOException, SQLException, AuthorizeException;
 
-    public void consumerMapFromMappingFile(Context context, String link, String path)
+    public void consumerMapFromMappingFile(Context context, String link, String path, boolean dryRun)
         throws IOException, SQLException, AuthorizeException;
 
-    public void reverseMapFromMappingFile(Context context, String link, String path)
+    public void reverseMapFromMappingFile(Context context, String link, String path, boolean dryRun)
         throws SQLException, IOException, AuthorizeException;
 }

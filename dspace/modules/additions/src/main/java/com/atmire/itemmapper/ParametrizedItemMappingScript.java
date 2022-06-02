@@ -70,11 +70,12 @@ public class ParametrizedItemMappingScript extends ContextScript {
         this.helpOption = new HelpOption();
         operationMode = new StringOption('o', "operation",
                                          "the operation mode for the script, should be one of following: " + Arrays.toString(OPERATIONS),true);
-        sourceHandle = new StringOption('s', "source", "handle of the source collection", false);
-        destinationHandle = new StringOption('d', "destination", "handle of the destination collection", false);
+        sourceHandle = new StringOption('s', "source", "handle or uuid of the source collection", false);
+        destinationHandle = new StringOption('d', "destination", "handle or uuid of the destination collection", false);
         linkToFile = new StringOption('l',"link", "URL address leading to the mapped file", false);
         pathToFile = new StringOption('p',"localpath", "Path to the mapped file in local storage system", false);
-        dryRun = new BooleanOption('t', "test", "script run is dry run, for testing purposes only", false);
+        dryRun = new BooleanOption('t', "test", "script run is dry run, no changes will be made to the database, for " +
+            "testing purposes only", false);
 
         HashSet<OptionWrapper> options = new HashSet<>();
         options.add(helpOption);
@@ -105,10 +106,10 @@ public class ParametrizedItemMappingScript extends ContextScript {
                     itemMapperService.reverseMapFromParams(context, destinationHandle.getValue(), sourceHandle.getValue(), dryRun.isSelected());
                     break;
                 case MAPPED:
-                    itemMapperService.mapFromMappingFile(context, linkToFile.getValue(), pathToFile.getValue());
+                    itemMapperService.mapFromMappingFile(context, linkToFile.getValue(), pathToFile.getValue(), dryRun.isSelected());
                     break;
                 case REVERSED_MAPPED:
-                    itemMapperService.reverseMapFromMappingFile(context, linkToFile.getValue(), pathToFile.getValue());
+                    itemMapperService.reverseMapFromMappingFile(context, linkToFile.getValue(), pathToFile.getValue(), dryRun.isSelected());
                     break;
                 default:
                     itemMapperService.logCLI(ERROR, "The mapping operation resolved to: " + currentOperation + " this is not supported");
