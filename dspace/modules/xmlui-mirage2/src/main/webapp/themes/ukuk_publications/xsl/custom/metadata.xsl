@@ -37,15 +37,26 @@
 
     <xsl:template name="metadata-general">
         <ul class="nav nav-pills nav-justified">
-            <li role="presentation" data-toggle="collapse" data-target="#colapseAbstract"><a href="#">Abstrakt</a></li>
-            <li role="presentation" data-toggle="collapse" data-target="#colapseArticle"><a href="#">Článek v časopisu</a></li>
+            <li id="metadata-abstract" role="presentation" data-toggle="collapse" data-target="#collapseTableDiv"><a href="#">Abstrakt</a></li>
+            <li id="metadata-article" role="presentation" data-toggle="collapse" data-target="#collapseTableDiv"><a href="#">Článek v časopisu</a></li>
         </ul>
+
+        <xsl:if test="div[@id='metadata']/ul/li[@aria-expanded='true']">
+            <xsl:for-each select="following-sibling::li/a">
+                <xsl:attribute name="class">disabled</xsl:attribute>
+            </xsl:for-each>
+
+            <xsl:for-each select="preceding-sibling::li/a">
+                <xsl:attribute name="class">disable</xsl:attribute>
+            </xsl:for-each>
+        </xsl:if>
 
         <div class="panel panel-default">
             <div class="panel-heading">
-              <h3 class="panel-title">Povinné popisné údaje</h3>
+              <h3 class="panel-title">Tabulka povinných popisných údajů</h3>
             </div>
-            <div id="colapseAbstract" class="panel-collapse collapse">
+            <div id="collapseTableDiv" class="panel-collapse collapse">
+
                 <div class="panel-body">
                     <table class="table">
                         <caption>Tabulka povinných údajů - forma výsledku: Abstrakt</caption>
@@ -77,7 +88,7 @@
                     </table>
                 </div>
             </div>
-            <div id="colapseArticle" class="panel-collapse collapse">
+            <div id="collapseTableDiv" class="panel-collapse collapse">
                 <div class="panel-body">
                     <table class="table">
                         <caption>Tabulka povinných údajů - forma výsledku: Článek v časopisu</caption>

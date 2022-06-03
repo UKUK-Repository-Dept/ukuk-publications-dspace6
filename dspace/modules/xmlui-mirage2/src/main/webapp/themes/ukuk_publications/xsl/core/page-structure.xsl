@@ -805,7 +805,7 @@
                     </div>
                 </xsl:when>
                 <xsl:when test="starts-with($request-uri, 'page/metadata')">
-                    <div class="hero-unit">
+                    <div class="hero-unit" id="metadata">
                         <h1><i18n:text>xmlui.mirage2.static-pages.heading.metadata</i18n:text></h1>
                         <!-- TODO: Create custom text and make it translatable via i18n:text -->
                         <!--<p><i18n:text>xmlui.mirage2.page-structure.heroUnit.content</i18n:text></p>-->
