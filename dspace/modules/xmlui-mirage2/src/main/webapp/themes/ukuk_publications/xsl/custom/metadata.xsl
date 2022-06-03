@@ -58,11 +58,6 @@
             <div id="collapseTableDiv" class="panel-collapse collapse">
 
                 <div class="panel-body">
-
-                    <xsl:call-template name="metadata-table">
-                        <xsl:with-param name="publicationForm" select="" />
-                    </xsl:call-template>
-                
                     <table class="table">
                         <caption>Tabulka povinných údajů - forma výsledku: Abstrakt</caption>
                         <thead>
@@ -126,10 +121,6 @@
                 </div>
             </div>
         </div>
-    </xsl:template>
-
-    <xsl:template name="metadata-table">
-
     </xsl:template>
 
 </xsl:stylesheet>
