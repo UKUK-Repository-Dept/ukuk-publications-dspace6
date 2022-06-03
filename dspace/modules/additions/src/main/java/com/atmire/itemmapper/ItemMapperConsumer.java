@@ -1,14 +1,22 @@
 package com.atmire.itemmapper;
 
 import static com.atmire.itemmapper.ParametrizedItemMappingScript.LOCAL;
+import static com.atmire.itemmapper.ParametrizedItemMappingScript.MAPPED;
 import static com.atmire.itemmapper.ParametrizedItemMappingScript.URL;
 import static com.atmire.itemmapper.ParametrizedItemMappingScript.configurationService;
 
 import java.io.File;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.atmire.itemmapper.factory.ItemMapperServiceFactory;
+import com.atmire.itemmapper.model.CuniMapFile;
+import com.atmire.itemmapper.model.SourceCollection;
 import com.atmire.itemmapper.service.ItemMapperService;
 import org.apache.log4j.Logger;
+import org.dspace.content.Collection;
+import org.dspace.content.Item;
 import org.dspace.content.factory.ContentServiceFactory;
 import org.dspace.content.service.ItemService;
 import org.dspace.core.Constants;
@@ -30,6 +38,9 @@ public class ItemMapperConsumer implements Consumer {
     public static final boolean CONSUMER_ITEM_MAPPER_ENABLED = configurationService.getBooleanProperty("consumer" +
                                                                                                             ".item.mapper.enabled", true);
 
+    List<Item> itemList = new ArrayList<>();
+    CuniMapFile cuniMapFile;
+
     @Override
     public void initialize() throws Exception {
 
@@ -37,28 +48,53 @@ public class ItemMapperConsumer implements Consumer {
 
     @Override
     public void consume(Context ctx, Event event) throws Exception {
-        if (CONSUMER_ITEM_MAPPER_ENABLED) {
-            if (event.getSubjectType() == Constants.ITEM && event.getEventType() == Event.INSTALL) {
-                    if (CONSUMER_MAPPING_FILE_LOCATION.equals(URL)) {
-                        log.info("ItemMapperConsumer: Item install event, mapping items based on URL: " +
-                                     CONSUMER_MAPPING_FILE_PATH);
-                    }
-                    if (CONSUMER_MAPPING_FILE_LOCATION.equals(LOCAL)) {
-                        log.info("ItemMapperConsumer: Item install event, mapping items based on local file located " +
-                                     "at : " + FULL_PATH_TO_FILE);
-                    }
-                    itemMapperService.consumerMapFromMappingFile(ctx, CONSUMER_MAPPING_FILE_PATH, FULL_PATH_TO_FILE, false);
+        if (CONSUMER_ITEM_MAPPER_ENABLED && event.getSubjectType() == Constants.ITEM && event.getEventType() == Event.INSTALL) {
+            Item item = (Item) event.getSubject(ctx);
+
+            if (CONSUMER_MAPPING_FILE_LOCATION.equals(URL)) {
+                log.info("ItemMapperConsumer: Item install event, mapping items based on URL: " + CONSUMER_MAPPING_FILE_PATH);
+                itemMapperService.doesURLResolve(CONSUMER_MAPPING_FILE_PATH);
+                cuniMapFile = itemMapperService.getMapFileFromLink(CONSUMER_MAPPING_FILE_PATH);
+                addItemToListIfInSourceCollection(ctx, item);
+            }
+
+            else if (CONSUMER_MAPPING_FILE_LOCATION.equals(LOCAL)) {
+                log.info("ItemMapperConsumer: Item install event, mapping items based on local file located at : " + FULL_PATH_TO_FILE);
+                itemMapperService.isValidJSONFile(FULL_PATH_TO_FILE);
+                cuniMapFile = itemMapperService.getMapFileFromPath(FULL_PATH_TO_FILE);
+                addItemToListIfInSourceCollection(ctx, item);
+            }
+            else {
+                log.error("ItemMapperConsumer: Item install event was called but the " + CONSUMER_MAPPING_FILE_LOCATION_CFG + " is not " +
+                              "set correctly, please set it to either " + URL + " or " + LOCAL);
             }
         }
     }
 
     @Override
     public void end(Context ctx) throws Exception {
-
+        if (!itemList.isEmpty()) {
+            try {
+                itemMapperService.checkMetadataValuesAndConvertToString(ctx, itemList.iterator(), cuniMapFile, MAPPED, false);
+            } catch (Exception e) {
+                log.error("ItemMapperConsumer: An exception occurred while mapping items", e);
+            } finally {
+                itemList.clear();
+            }
+        }
     }
 
     @Override
     public void finish(Context ctx) throws Exception {
 
+    }
+
+    public void addItemToListIfInSourceCollection(Context ctx, Item item) throws SQLException {
+        for (SourceCollection col : cuniMapFile.getMapfile().getSource_collections()) {
+            Collection collection =  itemMapperService.getCorrespondingCollection(ctx, col);
+            if (collection.getID() == item.getOwningCollection().getID()) {
+                itemList.add(item);
+            }
+        }
     }
 }
