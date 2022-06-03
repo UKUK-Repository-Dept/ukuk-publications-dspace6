@@ -60,9 +60,14 @@ public interface ItemMapperService {
     public void mapFromMappingFile(Context context, String link, String path, boolean dryRun)
         throws IOException, SQLException, AuthorizeException;
 
-    public void consumerMapFromMappingFile(Context context, String link, String path, boolean dryRun)
-        throws IOException, SQLException, AuthorizeException;
-
     public void reverseMapFromMappingFile(Context context, String link, String path, boolean dryRun)
         throws SQLException, IOException, AuthorizeException;
+
+    public void doesURLResolve(String url) throws IOException;
+
+    public void isValidJSONFile(String path) throws IOException;
+
+    public void checkMetadataValuesAndConvertToString(Context context, Iterator<Item> items, CuniMapFile mapFile,
+                                                      String mapMode, boolean dryRun)
+        throws SQLException, AuthorizeException, IOException;
 }
