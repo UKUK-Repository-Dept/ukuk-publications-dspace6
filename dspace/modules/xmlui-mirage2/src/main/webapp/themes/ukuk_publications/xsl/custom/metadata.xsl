@@ -36,7 +36,80 @@
     </xsl:template>
 
     <xsl:template name="metadata-general">
-        <h1><i18n:text>xmlui.mirage2.static-pages.metadata.heading</i18n:text></h1>
+        <ul class="nav nav-pills nav-justified">
+            <li role="presentation" data-toggle="collapse" data-target="#colapseAbstract"><a href="#">Abstrakt</a></li>
+            <li role="presentation" data-toggle="collapse" data-target="#colapseArticle"><a href="#">Článek v časopisu</a></li>
+        </ul>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Povinné popisné údaje</h3>
+            </div>
+            <div id="colapseAbstract" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <table class="table">
+                        <caption>Tabulka povinných údajů - forma výsledku: Abstrakt</caption>
+                        <thead>
+                            <tr>
+                              <th scope="col">název údaje</th>
+                              <th scope="col">OBD: sekce formuláře</th>
+                              <th scope="col">OBD: pole formuláře</th>
+                              <th scope="col">vydaný výsledek</th>
+                              <th scope="col">nevydaný výsledek</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                              <th scope="row">Datum (rok) vydání dokumentu</th>
+                              <td>Základní informace</td>
+                              <td>Rok</td>
+                              <td>X</td>
+                              <td>X</td>
+                            </tr>
+                            <tr>
+                              <th scope="row">Příjmení a jméno autora dokumentu</th>
+                              <td>AUTOR</td>
+                              <td></td>
+                              <td>X</td>
+                              <td>X</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="colapseArticle" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <table class="table">
+                        <caption>Tabulka povinných údajů - forma výsledku: Článek v časopisu</caption>
+                        <thead>
+                            <tr>
+                              <th scope="col">název údaje</th>
+                              <th scope="col">OBD: sekce formuláře</th>
+                              <th scope="col">OBD: pole formuláře</th>
+                              <th scope="col">vydaný výsledek</th>
+                              <th scope="col">nevydaný výsledek</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                              <th scope="row">Datum (rok) vydání dokumentu</th>
+                              <td>Základní informace</td>
+                              <td>Rok</td>
+                              <td>X</td>
+                              <td>X</td>
+                            </tr>
+                            <tr>
+                              <th scope="row">Příjmení a jméno autora dokumentu</th>
+                              <td>AUTOR</td>
+                              <td></td>
+                              <td>X</td>
+                              <td>X</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </xsl:template>
 
 </xsl:stylesheet>
