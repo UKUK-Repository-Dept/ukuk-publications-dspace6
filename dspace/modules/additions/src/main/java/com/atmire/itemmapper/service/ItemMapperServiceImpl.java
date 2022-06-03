@@ -1,6 +1,5 @@
 package com.atmire.itemmapper.service;
 
-import static com.atmire.itemmapper.ParametrizedItemMappingScript.CONSUMER_FILE_LOCATION;
 import static com.atmire.itemmapper.ParametrizedItemMappingScript.FILE_LOCATION;
 import static com.atmire.itemmapper.ParametrizedItemMappingScript.LOCAL;
 import static com.atmire.itemmapper.ParametrizedItemMappingScript.MAPPED;
@@ -161,19 +160,23 @@ public class ItemMapperServiceImpl implements ItemMapperService {
                 if (isBlank(pathToFile)) {
                     pathToFile = MAPPING_FILE_PATH + File.separator + MAPPING_FILE_NAME;
                 }
-
-                File jsonFile = new File(pathToFile);
-                if (!substringAfterLast(pathToFile, ".").equals("json") || !jsonFile.exists() || !jsonFile.isFile()) {
-                    logCLI(ERROR, String.format("%s did not resolve to a valid .json file. Either put path to valid json in '%s' option, or set configs %s/%s to point to valid json.",
-                                                pathToFile, PATH_OPTION_CHAR, MAPPING_FILE_PATH_CFG, MAPPING_FILE_NAME_CFG));
-                }
+                isValidJSONFile(pathToFile);
                 break;
             default:
                 logCLI(ERROR, "The location for the file: " + FILE_LOCATION + " is not valid please pick either " + LOCAL + " or " + URL);
         }
     }
 
+    @Override
+    public void isValidJSONFile(String pathToFile) throws IOException {
+        File jsonFile = new File(pathToFile);
+        if (!substringAfterLast(pathToFile, ".").equals("json") || !jsonFile.exists() || !jsonFile.isFile()) {
+            logCLI(ERROR, String.format("%s did not resolve to a valid .json file. Either put path to valid json in '%s' option, or set configs %s/%s to point to valid json.",
+                                        pathToFile, PATH_OPTION_CHAR, MAPPING_FILE_PATH_CFG, MAPPING_FILE_NAME_CFG));
+        }
+    }
 
+    @Override
     public void doesURLResolve(String sUrl) throws IOException {
         java.net.URL url = new URL(sUrl);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -504,28 +507,6 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     }
 
     @Override
-    public void consumerMapFromMappingFile(Context context, String link, String path, boolean dryRun)
-        throws IOException, SQLException, AuthorizeException {
-        CuniMapFile cuniMapFile;
-        if (isBlank(link) && CONSUMER_FILE_LOCATION.equals(URL)) {
-            link = MAPPING_FILE_PATH;
-            doesURLResolve(link);
-        }
-        if (isNotBlank(link) && CONSUMER_FILE_LOCATION.equals(URL)) {
-            cuniMapFile = getMapFileFromLink(link);
-        }
-        else if (isNotBlank(path)) {
-            cuniMapFile = getMapFileFromPath(path);
-        } else {
-            cuniMapFile = getMapFileFromPath(MAPPING_FILE_PATH + File.separator + MAPPING_FILE_NAME);
-        }
-        for (SourceCollection col : cuniMapFile.getMapfile().getSource_collections()) {
-            Collection collection =  getCorrespondingCollection(context, col);
-            mapItemsFromJson(context, itemService.findAllByCollection(context,collection), cuniMapFile, dryRun);
-        }
-    }
-
-    @Override
     public void reverseMapItemsFromJson(Context context, Iterator<Item> items, CuniMapFile mapFile, boolean dryRun)
         throws SQLException, AuthorizeException, IOException {
         checkMetadataValuesAndConvertToString(context,items, mapFile, REVERSED_MAPPED, dryRun);
@@ -553,6 +534,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
         }
     }
 
+    @Override
     public void checkMetadataValuesAndConvertToString(Context context, Iterator<Item> items, CuniMapFile mapFile,
                                                       String mapMode, boolean dryRun)
         throws SQLException, AuthorizeException, IOException {
