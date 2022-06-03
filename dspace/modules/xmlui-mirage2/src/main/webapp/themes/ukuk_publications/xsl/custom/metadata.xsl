@@ -42,12 +42,12 @@
         </ul>
 
         <xsl:if test="div[@id='metadata']/ul/li[@aria-expanded='true']">
-            <xsl:for-each select="following-sibling::li/a">
+            <xsl:for-each select="following-sibling::li">
                 <xsl:attribute name="class">disabled</xsl:attribute>
             </xsl:for-each>
 
-            <xsl:for-each select="preceding-sibling::li/a">
-                <xsl:attribute name="class">disable</xsl:attribute>
+            <xsl:for-each select="preceding-sibling::li">
+                <xsl:attribute name="class">disabled</xsl:attribute>
             </xsl:for-each>
         </xsl:if>
 
