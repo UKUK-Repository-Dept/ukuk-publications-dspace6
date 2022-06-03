@@ -41,7 +41,8 @@
             <li id="metadata-article" role="presentation" data-toggle="collapse" data-target="#collapseTableDiv"><a href="#">Článek v časopisu</a></li>
         </ul>
 
-        <xsl:if test="div[@id='metadata']/ul/li[@aria-expanded='true']">
+        <xsl:if test="//div[@id='metadata']/ul/li[@aria-expanded='true']">
+            <xsl:attribute name="class">active</xsl:attribute>
             <xsl:for-each select="following-sibling::li">
                 <xsl:attribute name="class">disabled</xsl:attribute>
             </xsl:for-each>
