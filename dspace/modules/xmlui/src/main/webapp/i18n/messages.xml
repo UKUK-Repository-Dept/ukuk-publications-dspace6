@@ -2650,36 +2650,24 @@
 	<!-- <JR> - 22-02-01: page/disclaimer-->
 	<message key="xmlui.mirage2.static-pages.title.disclaimer">Disclaimer</message>
 	<!-- page/disclaimer - section headings -->
-	<message key="xmlui.mirage2.static-pages.disclaimer.section.cooauthors">Potvrzení získání souhlasu spoluautorů s uložením a zpřístupněním výsledku v repozitáři</message>
-	<message key="xmlui.mirage2.static-pages.disclaimer.section.publisher-third-parties">Potvrzení prohlášení o neporušování práv vydavatele či třetí strany</message>
+	<message key="xmlui.mirage2.static-pages.disclaimer.section.cooauthors">Confirmation of obtaining the consent of the co-authors to storage and disclosure of the results in the repository</message>
+	<message key="xmlui.mirage2.static-pages.disclaimer.section.publisher-third-parties">Confirmation of non-infringement of the rights of the publisher or a third party</message>
 	<!-- page/disclaimer - cooauthors paragraphs -->
 	<message key="xmlui.mirage2.static-pages.disclaimer.section.cooauthors.para.1">
-		Potvrzením skutečnosti, že s uložením a zpřístupněním plného textu díla souhlasí všichni spoluautoři splníte podmínku jednomyslnosti, 
-		kterou pro nakládání se spoluautorským dílem zakotvuje ust. § 8 odst. 4 zákona č. 121/2000 Sb., o právu autorském, o právech souvisejících s právem autorským 
-		a o změně některých zákonů, v platném znění (dále jen „Autorský zákon”). Znamená to, že při jakémkoliv nakládání s dílem musí k tomuto jednání udělit souhlasy 
-		všichni spoluautoři (jinými slovy, neuplatní se zde většinový princip, kdy by o nakládání s dílem rozhodovala nadpoloviční většina spoluautorů).
+		By confirming that all co-authors agree to the storage and disclosure of the full text of the work, you meet the condition of unanimity, which for the treatment of co-authored works, is established in Article 8(4) of Act no. 121/2000 Sb., on copyrights, on rights related to copyrights, and on amendments to certain acts, as amended (the “Copyright Act”). This means that when handling or using the work in any manner, all co-authors must provide their consent (in other words, the majority principle, i.e. where an absolute majority of co-authors would decide on the handling or usage of the work, does not apply here).
 	</message>
 	<message key="xmlui.mirage2.static-pages.disclaimer.section.cooauthors.para.2">
-		Pokud by některý ze spoluautorů bránil bez vážného důvodu nakládání s dílem, můžete se domáhat nahrazení chybějícího projevu jeho vůle soudem.
+		If one of the co-authors prevents the handling or usage of the work without a serious reason, you may seek replacement of the missing expression of their will by a court of law.
 	</message>
 	<message key="xmlui.mirage2.static-pages.disclaimer.section.cooauthors.para.3">
-		V případě, že plný text uložíte a zpřístupníte v repozitáři navzdory tomu, že některý ze spoluautorů k tomu neudělil souhlas, dochází z Vaší strany 
-		k zásahu do autorských práv tohoto spoluautora. Ten se následně může cestou soukromoprávní žaloby u soudu domáhat ochrany svých práv 
-		v souladu s ust. § 40 a násl. Autorského zákona. Konkrétně se může spoluautor domáhat např. zákazu neoprávněného sdělování díla veřejnosti 
-		či poskytnutí přiměřeného zadostiučinění. V úvahu připadá i správněprávní odpovědnost za přestupek dle ust. § 105a Autorského zákona, 
-		v krajním případě i trestněprávní odpovědnost dle ust. § 270 zákona č. 40/2009 Sb., trestního zákoníku, v platném znění.
+		If you store and disclose the full text in the repository and one of the co-authors has not provided their consent, you infringe upon this co-author’s copyright. They may subsequently, by way of a private court action, seek the protection of their rights in accordance with Section 40 et seq. of the Copyright Act. Specifically, the co-author may seek a ban on unauthorized disclosure of the work to the public or entitlement to reasonable satisfaction. Administrative liability for a misdemeanour, pursuant to Section 105a of the Copyright Act, is also possible, and in extreme cases, also criminal liability, pursuant to Section 270 of Act no. 40/2009 Sb., the Criminal Code, as amended.
 	</message>
 	<!-- page/disclaimer - publisher/third parties paragraph-->
 	<message key="xmlui.mirage2.static-pages.disclaimer.section.publisher-third-parties.para.1">
-		Potvrzením skutečnosti, že uložením a zpřístupněním plného textu díla v repozitáři nezasahujete do práv vydavatele / nakladatele či jiné třetí strany stvrzujete, 
-		že tímto jednáním nedochází k porušení smluvních podmínek v licenční či jiné smlouvě. Proto je v případě, kdy byla uzavřena licenční smlouva 
-		s vydavatelem / nakladatelem či jiná smlouva, jejímž předmětem je nakládání s dílem, velmi důležité ujistit se, že uložení a zpřístupnění díla v repozitáři 
-		není v rozporu se smluvními podmínkami (k tomu více viz Krok 2: Kontrola licenční smlouvy s vydavatelem).
+		Upon confirmation that by storing and disclosing the full text of the work in the repository you do not infringe upon the rights of the publisher or another third party, you confirm that this action does not violate the terms and conditions of the licensing agreement or another contract. Thus, in the event that a licensing agreement has been concluded with the publisher or another contract concerning the handling or use of the work, it is very important to ensure that storing and disclosing the work in the repository does not violate the terms and conditions (see Step 2 for more information: Checking the licensing agreement with the publisher).
 	</message>
 	<message key="xmlui.mirage2.static-pages.disclaimer.section.publisher-third-parties.para.2">
-		V případě, že plný text uložíte a zpřístupníte v repozitáři v rozporu s dříve uzavřenou licenční či jinou smlouvou, 
-		dochází z Vaší strany k zásahu do práv druhé smluvní strany. Ta se může následně cestou soukromoprávní žaloby u soudu domáhat náhrady škody způsobené 
-		porušením smluvní povinnosti v souladu s ust. § 2913 zákona č. 89/2012 Sb., občanského zákoníku. 
+		In the event that you store and disclose the full text in the repository in violation of a previously concluded licensing agreement or other contract, you infringe upon the rights of the other party. They may subsequently seek compensation for damage caused by a breach of contractual obligation in a private court action, in accordance with Section 2913 of Act no. 89/2012 Sb., the Civil Code. 
 	</message>
 	<!-- END OF: page/disclaimer-->
 
