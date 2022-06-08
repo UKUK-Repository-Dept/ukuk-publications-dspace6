@@ -4,8 +4,12 @@ import static com.atmire.itemmapper.ParametrizedItemMappingScript.LOCAL;
 import static com.atmire.itemmapper.ParametrizedItemMappingScript.MAPPED;
 import static com.atmire.itemmapper.ParametrizedItemMappingScript.URL;
 import static com.atmire.itemmapper.ParametrizedItemMappingScript.configurationService;
+import static org.apache.commons.lang3.StringUtils.substringAfterLast;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +41,6 @@ public class ItemMapperConsumer implements Consumer {
     public static final String FULL_PATH_TO_FILE = CONSUMER_MAPPING_FILE_PATH + File.separator + CONSUMER_MAPPING_FILE_NAME;
     public static final boolean CONSUMER_ITEM_MAPPER_ENABLED = configurationService.getBooleanProperty("consumer" +
                                                                                                             ".item.mapper.enabled", true);
-
     List<Item> itemList = new ArrayList<>();
     CuniMapFile cuniMapFile;
 
@@ -49,24 +52,25 @@ public class ItemMapperConsumer implements Consumer {
     @Override
     public void consume(Context ctx, Event event) throws Exception {
         if (CONSUMER_ITEM_MAPPER_ENABLED && event.getSubjectType() == Constants.ITEM && event.getEventType() == Event.INSTALL) {
+
             Item item = (Item) event.getSubject(ctx);
 
-            if (CONSUMER_MAPPING_FILE_LOCATION.equals(URL)) {
+            if (CONSUMER_MAPPING_FILE_LOCATION.equals(URL) && isLinkValid()) {
                 log.info("ItemMapperConsumer: Item install event, mapping items based on URL: " + CONSUMER_MAPPING_FILE_PATH);
-                itemMapperService.doesURLResolve(CONSUMER_MAPPING_FILE_PATH);
                 cuniMapFile = itemMapperService.getMapFileFromLink(CONSUMER_MAPPING_FILE_PATH);
                 addItemToListIfInSourceCollection(ctx, item);
             }
 
-            else if (CONSUMER_MAPPING_FILE_LOCATION.equals(LOCAL)) {
+            else if (CONSUMER_MAPPING_FILE_LOCATION.equals(LOCAL) && doesFileExist()) {
                 log.info("ItemMapperConsumer: Item install event, mapping items based on local file located at : " + FULL_PATH_TO_FILE);
-                itemMapperService.isValidJSONFile(FULL_PATH_TO_FILE);
                 cuniMapFile = itemMapperService.getMapFileFromPath(FULL_PATH_TO_FILE);
                 addItemToListIfInSourceCollection(ctx, item);
             }
             else {
-                log.error("ItemMapperConsumer: Item install event was called but the " + CONSUMER_MAPPING_FILE_LOCATION_CFG + " is not " +
-                              "set correctly, please set it to either " + URL + " or " + LOCAL);
+                log.error("ItemMapperConsumer: Item install event was called but the path to the file is not " +
+                              "set correctly, please double check your consumer properties:" +
+                              CONSUMER_MAPPING_FILE_LOCATION_CFG + ", " + CONSUMER_MAPPING_FILE_NAME_CFG + " and" + CONSUMER_MAPPING_FILE_LOCATION_CFG);
+
             }
         }
     }
@@ -96,5 +100,17 @@ public class ItemMapperConsumer implements Consumer {
                 itemList.add(item);
             }
         }
+    }
+
+    public boolean doesFileExist() {
+        File jsonFile = new File(FULL_PATH_TO_FILE);
+        return substringAfterLast(FULL_PATH_TO_FILE, ".").equals("json") && jsonFile.exists() && jsonFile.isFile();
+    }
+
+    public boolean isLinkValid() throws IOException {
+        java.net.URL url = new URL(CONSUMER_MAPPING_FILE_PATH);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        int responseCode = connection.getResponseCode();
+        return responseCode >= 200 && responseCode <= 300;
     }
 }
