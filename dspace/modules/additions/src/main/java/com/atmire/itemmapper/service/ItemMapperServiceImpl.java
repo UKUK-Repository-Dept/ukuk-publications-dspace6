@@ -149,21 +149,25 @@ public class ItemMapperServiceImpl implements ItemMapperService {
             context.setMode(Context.Mode.READ_ONLY);
         }
 
-        switch (FILE_LOCATION) {
-            case URL:
+        if (operationMode.equals(MAPPED) || operationMode.equals(REVERSED_MAPPED)) {
+            if (FILE_LOCATION.equals(URL) || isNotBlank(linkToFile)) {
                 if (isBlank(linkToFile)) {
                     linkToFile = MAPPING_FILE_PATH;
                 }
                 doesURLResolve(linkToFile);
-                break;
-            case LOCAL:
+            }
+
+            else if (FILE_LOCATION.equals(LOCAL) || isNotBlank(pathToFile)) {
                 if (isBlank(pathToFile)) {
                     pathToFile = MAPPING_FILE_PATH + File.separator + MAPPING_FILE_NAME;
                 }
                 isValidJSONFile(pathToFile);
-                break;
-            default:
-                logCLI(ERROR, "The location for the file: " + FILE_LOCATION + " is not valid please pick either " + LOCAL + " or " + URL);
+            }
+
+            else {
+                logCLI(ERROR, "No valid JSON data could be resolved please provide either a link to a JSON file " +
+                    "or a path to a JSON file. Using either properties in item-mapping.cfg or the command line ");
+            }
         }
     }
 
@@ -492,7 +496,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
         if (isBlank(link) && isBlank(path) && FILE_LOCATION.equals(URL)) {
             link = MAPPING_FILE_PATH;
         }
-        if (isNotBlank(link) && FILE_LOCATION.equals(URL)) {
+        if (isNotBlank(link)) {
             cuniMapFile = getMapFileFromLink(link);
         }
         else if (isNotBlank(path)) {
