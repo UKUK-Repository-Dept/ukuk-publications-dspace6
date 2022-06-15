@@ -90,37 +90,44 @@
     <xsl:template name="metadata-forms-generate-tables">
         <xsl:param name="publicationFormID"/>
 
-        <div id="collapse{$publicationFormID}" class="panel-collapse collapse">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title" data-toggle="collapse" data-target="#collapse{$publicationFormID}">
+                    Tabulka povinných údajů - <i18n:text><xsl:value-of select="concat('obd.typology.form.id.', $publicationFormID)"/></i18n:text>
+                </h4>
+            </div>
+            <div id="collapse{$publicationFormID}" class="panel-collapse">
 
-            <div class="panel-body">
-                <table class="table">
-                    <caption>Tabulka povinných údajů - <i18n:text><xsl:value-of select="concat('obd.typology.form.id.', $publicationFormID)"/></i18n:text></caption>
-                    <thead>
-                        <tr>
-                            <th scope="col">název údaje</th>
-                            <th scope="col">OBD: sekce formuláře</th>
-                            <th scope="col">OBD: pole formuláře</th>
-                            <th scope="col">vydaný výsledek</th>
-                            <th scope="col">nevydaný výsledek</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">Datum (rok) vydání dokumentu</th>
-                            <td>Základní informace</td>
-                            <td>Rok</td>
-                            <td>X</td>
-                            <td>X</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Příjmení a jméno autora dokumentu</th>
-                            <td>AUTOR</td>
-                            <td></td>
-                            <td>X</td>
-                            <td>X</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="panel-body">
+                    <table class="table">
+                        <caption class="sr-only">Tabulka povinných údajů - <i18n:text><xsl:value-of select="concat('obd.typology.form.id.', $publicationFormID)"/></i18n:text></caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">název údaje</th>
+                                <th scope="col">OBD: sekce formuláře</th>
+                                <th scope="col">OBD: pole formuláře</th>
+                                <th scope="col">vydaný výsledek</th>
+                                <th scope="col">nevydaný výsledek</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">Datum (rok) vydání dokumentu</th>
+                                <td>Základní informace</td>
+                                <td>Rok</td>
+                                <td>X</td>
+                                <td>X</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Příjmení a jméno autora dokumentu</th>
+                                <td>AUTOR</td>
+                                <td></td>
+                                <td>X</td>
+                                <td>X</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
@@ -178,7 +185,6 @@
         <xsl:param name="dataTarget"/>
 
         <div id="$dataTarget" class="panel-collapse collapse">
-
                 <div class="panel-body">
                     <table class="table">
                         <caption>Tabulka povinných údajů</caption>
