@@ -39,7 +39,7 @@
 
     <xsl:template name="metadata-general">
         
-        <xsl:call-template name="typology-forms-process-xml-file-list"/>
+        <xsl:call-template name="metadata-forms-process-xml-file-list"/>
 <!--         
         <ul class="nav nav-pills nav-justified">
             <li id="metadata-abstract" role="presentation" data-toggle="collapse" data-target="#collapseAbstract"><a href="#">Abstrakt</a></li>
