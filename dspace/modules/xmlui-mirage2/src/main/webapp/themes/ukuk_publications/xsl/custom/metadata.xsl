@@ -33,34 +33,45 @@
 
     <xsl:template name="metadata-create">
             <xsl:call-template name="metadata-general"/>
+            <xsl:call-template name="metadata-table-structure"/>
     </xsl:template>
 
     <xsl:template name="metadata-general">
         <ul class="nav nav-pills nav-justified">
-            <li id="metadata-abstract" role="presentation" data-toggle="collapse" data-target="#collapseTableDiv"><a href="#">Abstrakt</a></li>
-            <li id="metadata-article" role="presentation" data-toggle="collapse" data-target="#collapseTableDiv"><a href="#">Článek v časopisu</a></li>
+            <li id="metadata-abstract" role="presentation" data-toggle="collapse" data-target="#collapseAbstract"><a href="#">Abstrakt</a></li>
+            <li id="metadata-article" role="presentation" data-toggle="collapse" data-target="#collapseArticle"><a href="#">Článek v časopisu</a></li>
+            <li id="metadata-fsv-working-paper" role="presentation" data-toggle="collapse" data-target="#collapseFSVWorkingPaper"><a href="#">FSV: Working paper</a></li>
+            <li id="metadata-book-chapter" role="presentation" data-toggle="collapse" data-target="#collapseBookChapter"><a href="#">Kapitola v knize</a></li>
+            <li id="metadata-book" role="presentation" data-toggle="collapse" data-target="#collapseBook"><a href="#">Kniha</a></li>
+            <li id="metadata-book-with-editors-only" role="presentation" data-toggle="collapse" data-target="#collapseBookWithEditorsOnly"><a href="#">Kniha pouze s editory</a></li>
+            <li id="metadata-methodology" role="presentation" data-toggle="collapse" data-target="#collapseMethodology"><a href="#">Metodika, postup</a></li>
+            <li id="metadata-lecture-poster" role="presentation" data-toggle="collapse" data-target="#collapseLecturePoster"><a href="#">Přednáška, poster</a></li>
+            <li id="metadata-conference-proceedings" role="presentation" data-toggle="collapse" data-target="#collapseConferenceProceedings"><a href="#">Příspěvek v konferenčním sborníku</a></li>
+            <li id="metadata-research-report" role="presentation" data-toggle="collapse" data-target="#collapseResearchReport"><a href="#">Souhrná výzkumná zpráva</a></li>
+            <li id="metadata-article-in-collection-of-papers" role="presentation" data-toggle="collapse" data-target="#collapseArticleInCollectionOfPapers"><a href="#">Stať ve sborníku prací (nekonferenčním)</a></li>
+            <li id="metadata-result-realised-by-the-funding-provider" role="presentation" data-toggle="collapse" data-target="#collapseResultRealisedByTheFundingProvider"><a href="#">Výsledek realizovaný poskytovatelem</a></li>
+            <li id="metadata-other-result" role="presentation" data-toggle="collapse" data-target="#collapseArticle"><a href="#">Jiný výsledek</a></li>
         </ul>
+    </xsl:template>
 
-        <xsl:if test="//div[@id='metadata']/ul/li[@aria-expanded='true']">
-            <xsl:attribute name="class">active</xsl:attribute>
-            <xsl:for-each select="following-sibling::li">
-                <xsl:attribute name="class">disabled</xsl:attribute>
-            </xsl:for-each>
-
-            <xsl:for-each select="preceding-sibling::li">
-                <xsl:attribute name="class">disabled</xsl:attribute>
-            </xsl:for-each>
-        </xsl:if>
-
+    <xsl:template name="metadata-table-structure">
         <div class="panel panel-default">
-            <div class="panel-heading">
-              <h3 class="panel-title">Tabulka povinných popisných údajů</h3>
-            </div>
-            <div id="collapseTableDiv" class="panel-collapse collapse">
+            <xsl:for-each select="//li[@data-toggle='collapse']">
+                <xsl:call-template name="metadata-table-content">
+                    <xsl:with-param name="dataTarget" select="@data-target"/>
+                </xsl:call-template>
+            <xsl:for-each>
+        </div>
+    </xsl:template>
+    
+    <xsl:template name="metadata-table-content">
+        <xsl:param name="dataTarget"/>
+
+        <div id="$dataTarget" class="panel-collapse collapse">
 
                 <div class="panel-body">
                     <table class="table">
-                        <caption>Tabulka povinných údajů - forma výsledku: Abstrakt</caption>
+                        <caption>Tabulka povinných údajů</caption>
                         <thead>
                             <tr>
                               <th scope="col">název údaje</th>
@@ -89,39 +100,6 @@
                     </table>
                 </div>
             </div>
-            <div id="collapseTableDiv" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <table class="table">
-                        <caption>Tabulka povinných údajů - forma výsledku: Článek v časopisu</caption>
-                        <thead>
-                            <tr>
-                              <th scope="col">název údaje</th>
-                              <th scope="col">OBD: sekce formuláře</th>
-                              <th scope="col">OBD: pole formuláře</th>
-                              <th scope="col">vydaný výsledek</th>
-                              <th scope="col">nevydaný výsledek</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                              <th scope="row">Datum (rok) vydání dokumentu</th>
-                              <td>Základní informace</td>
-                              <td>Rok</td>
-                              <td>X</td>
-                              <td>X</td>
-                            </tr>
-                            <tr>
-                              <th scope="row">Příjmení a jméno autora dokumentu</th>
-                              <td>AUTOR</td>
-                              <td></td>
-                              <td>X</td>
-                              <td>X</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
     </xsl:template>
 
 </xsl:stylesheet>
