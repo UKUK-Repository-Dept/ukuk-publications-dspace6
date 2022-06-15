@@ -1,5 +1,7 @@
 package com.atmire.itemmapper.service;
 
+import static com.atmire.itemmapper.ItemMapperConsumer.CONSUMER_MAPPING_FILE_PATH;
+import static com.atmire.itemmapper.ItemMapperConsumer.FULL_PATH_TO_FILE;
 import static com.atmire.itemmapper.ParametrizedItemMappingScript.FILE_LOCATION;
 import static com.atmire.itemmapper.ParametrizedItemMappingScript.LOCAL;
 import static com.atmire.itemmapper.ParametrizedItemMappingScript.MAPPED;
@@ -607,5 +609,33 @@ public class ItemMapperServiceImpl implements ItemMapperService {
                 }
             }
         }
+
+    @Override
+    public void addItemToListIfInSourceCollection(Context ctx, Item item, CuniMapFile cuniMapFile,
+                                                  List<Item> itemList) throws SQLException {
+
+        for (SourceCollection col : cuniMapFile.getMapfile().getSource_collections()) {
+            Collection collection =  getCorrespondingCollection(ctx, col);
+            if (collection.getID() == item.getOwningCollection().getID()) {
+                itemList.add(item);
+            }
+        }
+    }
+
+    @Override
+    public boolean doesFileExist() {
+        File jsonFile = new File(FULL_PATH_TO_FILE);
+        return substringAfterLast(FULL_PATH_TO_FILE, ".").equals("json") && jsonFile.exists() && jsonFile.isFile();
+    }
+
+    @Override
+    public boolean isLinkValid() throws IOException {
+        java.net.URL url = new URL(CONSUMER_MAPPING_FILE_PATH);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        int responseCode = connection.getResponseCode();
+        return responseCode >= 200 && responseCode <= 300;
+    }
+
+
 }
 

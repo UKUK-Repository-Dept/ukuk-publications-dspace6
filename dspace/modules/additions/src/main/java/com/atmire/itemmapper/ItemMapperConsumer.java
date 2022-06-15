@@ -4,22 +4,15 @@ import static com.atmire.itemmapper.ParametrizedItemMappingScript.LOCAL;
 import static com.atmire.itemmapper.ParametrizedItemMappingScript.MAPPED;
 import static com.atmire.itemmapper.ParametrizedItemMappingScript.URL;
 import static com.atmire.itemmapper.ParametrizedItemMappingScript.configurationService;
-import static org.apache.commons.lang3.StringUtils.substringAfterLast;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.atmire.itemmapper.factory.ItemMapperServiceFactory;
 import com.atmire.itemmapper.model.CuniMapFile;
-import com.atmire.itemmapper.model.SourceCollection;
 import com.atmire.itemmapper.service.ItemMapperService;
 import org.apache.log4j.Logger;
-import org.dspace.content.Collection;
 import org.dspace.content.Item;
 import org.dspace.content.factory.ContentServiceFactory;
 import org.dspace.content.service.ItemService;
@@ -55,16 +48,16 @@ public class ItemMapperConsumer implements Consumer {
 
             Item item = (Item) event.getSubject(ctx);
 
-            if (CONSUMER_MAPPING_FILE_LOCATION.equals(URL) && isLinkValid()) {
+            if (CONSUMER_MAPPING_FILE_LOCATION.equals(URL) && itemMapperService.isLinkValid()) {
                 log.info("ItemMapperConsumer: Item install event, mapping items based on URL: " + CONSUMER_MAPPING_FILE_PATH);
                 cuniMapFile = itemMapperService.getMapFileFromLink(CONSUMER_MAPPING_FILE_PATH);
-                addItemToListIfInSourceCollection(ctx, item);
+                itemMapperService.addItemToListIfInSourceCollection(ctx, item, cuniMapFile, itemList);
             }
 
-            else if (CONSUMER_MAPPING_FILE_LOCATION.equals(LOCAL) && doesFileExist()) {
+            else if (CONSUMER_MAPPING_FILE_LOCATION.equals(LOCAL) && itemMapperService.doesFileExist()) {
                 log.info("ItemMapperConsumer: Item install event, mapping items based on local file located at : " + FULL_PATH_TO_FILE);
                 cuniMapFile = itemMapperService.getMapFileFromPath(FULL_PATH_TO_FILE);
-                addItemToListIfInSourceCollection(ctx, item);
+                itemMapperService.addItemToListIfInSourceCollection(ctx, item, cuniMapFile, itemList);
             }
             else {
                 log.error("ItemMapperConsumer: Item install event was called but the path to the file is not " +
@@ -93,24 +86,4 @@ public class ItemMapperConsumer implements Consumer {
 
     }
 
-    public void addItemToListIfInSourceCollection(Context ctx, Item item) throws SQLException {
-        for (SourceCollection col : cuniMapFile.getMapfile().getSource_collections()) {
-            Collection collection =  itemMapperService.getCorrespondingCollection(ctx, col);
-            if (collection.getID() == item.getOwningCollection().getID()) {
-                itemList.add(item);
-            }
-        }
-    }
-
-    public boolean doesFileExist() {
-        File jsonFile = new File(FULL_PATH_TO_FILE);
-        return substringAfterLast(FULL_PATH_TO_FILE, ".").equals("json") && jsonFile.exists() && jsonFile.isFile();
-    }
-
-    public boolean isLinkValid() throws IOException {
-        java.net.URL url = new URL(CONSUMER_MAPPING_FILE_PATH);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        int responseCode = connection.getResponseCode();
-        return responseCode >= 200 && responseCode <= 300;
-    }
 }
