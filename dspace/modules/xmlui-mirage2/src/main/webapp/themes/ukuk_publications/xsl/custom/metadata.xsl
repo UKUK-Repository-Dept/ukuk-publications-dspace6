@@ -69,7 +69,7 @@
                     <xsl:for-each select="$typologyFile//form">
                         <xsl:variable name="formValue" select="./@id"/>
                         <li role="presentation" data-toggle="collapse" data-target="#collapse{$formValue}">
-                            <a href="#"><i18n:text><xsl:value-of select="concat('obd.typology.form.id.',./@id)"/></i18n:text></a>
+                            <a href="#collapse{$formValue}"><i18n:text><xsl:value-of select="concat('obd.typology.form.id.',./@id)"/></i18n:text></a>
                         </li>
                         
                         <!-- <td><i18n:text><xsl:value-of select="concat('obd.typology.subform.id.',./subforms/subform/@id)"/></i18n:text></td> -->
@@ -96,7 +96,7 @@
                     Tabulka povinných údajů - <i18n:text><xsl:value-of select="concat('obd.typology.form.id.', $publicationFormID)"/></i18n:text>
                 </h4>
             </div>
-            <div id="collapse{$publicationFormID}" class="panel-collapse">
+            <div id="collapse{$publicationFormID}" class="panel-collapse collapse">
 
                 <div class="panel-body">
                     <table class="table">
