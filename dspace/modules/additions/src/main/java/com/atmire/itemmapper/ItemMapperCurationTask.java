@@ -36,8 +36,7 @@ public class ItemMapperCurationTask extends AbstractCurationTask {
         itemList.clear();
 
         if (CONSUMER_MAPPING_FILE_LOCATION.equals(URL) && itemMapperService.isLinkValid()) {
-            log.info(String.format("ItemMapperCurationTask: Starting map-items curation on item ( %s | %s ) based on " +
-                "URL: %s", item.getID(), item.getHandle(), CONSUMER_MAPPING_FILE_PATH));
+            log.info("ItemMapperCurationTask: mapping items based on URL: " + CONSUMER_MAPPING_FILE_PATH);
             cuniMapFile = itemMapperService.getMapFileFromLink(CONSUMER_MAPPING_FILE_PATH);
             itemMapperService.addItemToListIfInSourceCollection(Curator.curationContext(), item, cuniMapFile, itemList);
 
@@ -50,9 +49,8 @@ public class ItemMapperCurationTask extends AbstractCurationTask {
         }
 
         else if (CONSUMER_MAPPING_FILE_LOCATION.equals(LOCAL) && itemMapperService.doesFileExist()) {
-            log.info(String
-                .format("ItemMapperCurationTask: Starting map-items curation on item ( %s | %s ) based on %s JSON",
-                    item.getHandle(), item.getID().toString(), CONSUMER_MAPPING_FILE_LOCATION));
+            log.info(String.format("ItemMapperCurationTask: mapping item ( %s | %s ) based on %s JSON",
+                     item.getHandle(), item.getID().toString(), CONSUMER_MAPPING_FILE_LOCATION));
             cuniMapFile = itemMapperService.getMapFileFromPath(FULL_PATH_TO_FILE);
             itemMapperService.addItemToListIfInSourceCollection(Curator.curationContext(), item, cuniMapFile, itemList);
 

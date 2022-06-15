@@ -3,6 +3,7 @@ package com.atmire.itemmapper.service;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Iterator;
+import java.util.List;
 
 import com.atmire.itemmapper.model.CuniMapFile;
 import com.atmire.itemmapper.model.GenericCollection;
@@ -70,4 +71,11 @@ public interface ItemMapperService {
     public void checkMetadataValuesAndConvertToString(Context context, Iterator<Item> items, CuniMapFile mapFile,
                                                       String mapMode, boolean dryRun)
         throws SQLException, AuthorizeException, IOException;
+
+    public void addItemToListIfInSourceCollection(Context ctx, Item item, CuniMapFile cuniMapFile,
+                                                  List<Item> itemList) throws SQLException;
+
+    public boolean doesFileExist();
+
+    public boolean isLinkValid() throws IOException;
 }
