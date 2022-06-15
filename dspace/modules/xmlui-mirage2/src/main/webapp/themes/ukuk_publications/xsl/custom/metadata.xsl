@@ -30,13 +30,17 @@
                 exclude-result-prefixes="xsl dri i18n">
 
     <xsl:output indent="yes"/>
+    <xsl:param name="typologyFile" select="document('../../static/OBD_publication_types_accepted.xml')"/>
 
     <xsl:template name="metadata-create">
             <xsl:call-template name="metadata-general"/>
-            <xsl:call-template name="metadata-table-structure"/>
+            <!-- <xsl:call-template name="metadata-table-structure"/> -->
     </xsl:template>
 
     <xsl:template name="metadata-general">
+        
+        <xsl:call-template name="typology-forms-process-xml-file-list"/>
+<!--         
         <ul class="nav nav-pills nav-justified">
             <li id="metadata-abstract" role="presentation" data-toggle="collapse" data-target="#collapseAbstract"><a href="#">Abstrakt</a></li>
             <li id="metadata-article" role="presentation" data-toggle="collapse" data-target="#collapseArticle"><a href="#">Článek v časopisu</a></li>
@@ -51,8 +55,66 @@
             <li id="metadata-article-in-collection-of-papers" role="presentation" data-toggle="collapse" data-target="#collapseArticleInCollectionOfPapers"><a href="#">Stať ve sborníku prací (nekonferenčním)</a></li>
             <li id="metadata-result-realised-by-the-funding-provider" role="presentation" data-toggle="collapse" data-target="#collapseResultRealisedByTheFundingProvider"><a href="#">Výsledek realizovaný poskytovatelem</a></li>
             <li id="metadata-other-result" role="presentation" data-toggle="collapse" data-target="#collapseArticle"><a href="#">Jiný výsledek</a></li>
+        </ul> -->
+    </xsl:template>
+
+    <xsl:template name="metadata-forms-process-xml-file-list">
+        
+        <ul class="nav nav-pills"><!--<xsl:copy-of select="document('../../static/OBD_publication_types_accepted.xml')" />-->
+            <li role="presentation" class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                    Forma výsledku <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <xsl:for-each select="$typologyFile//form">
+                        <xsl:variable name="formValue" select="./@id"/>
+                        <li role="presentation" data-toggle="collapse" data-target="#collapse{$formValue}">
+                            <a href="#"><i18n:text><xsl:value-of select="concat('obd.typology.form.id.',./@id)"/></i18n:text></a>
+                        </li>
+                        <!-- <td><i18n:text><xsl:value-of select="concat('obd.typology.subform.id.',./subforms/subform/@id)"/></i18n:text></td> -->
+                    </xsl:for-each>
+                </ul>
+            </li>
         </ul>
     </xsl:template>
+
+    <!-- <xsl:template name="metadata-forms-process-xml-file">
+        <xsl:for-each select="$typologyFile//form">
+            <tr>
+                <td><i18n:text><xsl:value-of select="concat('obd.typology.form.id.',./@id)"/></i18n:text></td>
+                <td><i18n:text><xsl:value-of select="concat('obd.typology.subform.id.',./subforms/subform/@id)"/></i18n:text></td>
+            
+                <xsl:choose>
+                    <xsl:when test="./subforms/subform/child_subforms/@all-supported = 'true'">
+                        <td><i18n:text>obd.typology.subform.secondary.all</i18n:text></td>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:if test="not(./subforms/subform/child_subforms/child_subform)">
+                            <td></td>
+                        </xsl:if>
+                        <xsl:for-each select=".//child_subform">
+                            <xsl:choose>
+                                <xsl:when test="position() = 1">
+                                    <td>
+                                        <i18n:text><xsl:value-of select="concat('obd.typology.subform.secondary.id.',./@id)"/></i18n:text>
+                                    </td>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <i18n:text><xsl:value-of select="concat('obd.typology.subform.secondary.id.',./@id)"/></i18n:text>
+                                        </td>
+                                    </tr>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:for-each>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </tr>
+        </xsl:for-each>
+    </xsl:template> -->
 
     <xsl:template name="metadata-table-structure">
         <div class="panel panel-default">
