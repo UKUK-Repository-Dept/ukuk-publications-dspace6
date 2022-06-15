@@ -72,7 +72,7 @@
                             <a href="#"><i18n:text><xsl:value-of select="concat('obd.typology.form.id.',./@id)"/></i18n:text></a>
                         </li>
                         <xsl:call-template name="metadata-forms-generate-tables">
-                            <with-param name="publicationFormID" select="$formValue"/>
+                            <xsl:with-param name="publicationFormID" select="$formValue"/>
                         </xsl:call-template>
                         <!-- <td><i18n:text><xsl:value-of select="concat('obd.typology.subform.id.',./subforms/subform/@id)"/></i18n:text></td> -->
                     </xsl:for-each>
