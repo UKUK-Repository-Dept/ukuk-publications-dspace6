@@ -79,11 +79,12 @@
         </ul>
 
         <xsl:for-each select="$typologyFile//form">
+            <xsl:variable name="formValueID" select="./@id"/>
             <xsl:call-template name="metadata-forms-generate-tables">
-                <xsl:with-param name="publicationFormID" select="$formValue"/>
+                <xsl:with-param name="publicationFormID" select="$formValueID"/>
             </xsl:call-template>
         </xsl:for-each>
-        
+
     </xsl:template>
 
     <xsl:template name="metadata-forms-generate-tables">
