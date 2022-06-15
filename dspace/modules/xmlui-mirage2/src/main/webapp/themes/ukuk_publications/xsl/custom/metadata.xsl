@@ -88,7 +88,7 @@
 
             <div class="panel-body">
                 <table class="table">
-                    <caption>Tabulka povinných údajů - <18n:text><xsl:value-of select="concat('obd.typology.form.id.', $publicationFormID)"/></i18n:text></caption>
+                    <caption>Tabulka povinných údajů - <i18n:text><xsl:value-of select="concat('obd.typology.form.id.', $publicationFormID)"/></i18n:text></caption>
                     <thead>
                         <tr>
                             <th scope="col">název údaje</th>
