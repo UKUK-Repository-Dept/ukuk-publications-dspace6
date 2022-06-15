@@ -71,11 +71,53 @@
                         <li role="presentation" data-toggle="collapse" data-target="#collapse{$formValue}">
                             <a href="#"><i18n:text><xsl:value-of select="concat('obd.typology.form.id.',./@id)"/></i18n:text></a>
                         </li>
+                        <xsl:call-template name="metadata-forms-generate-tables">
+                            <with-param name="publicationFormID" select="$formValue"/>
+                        </xsl:call-template>
                         <!-- <td><i18n:text><xsl:value-of select="concat('obd.typology.subform.id.',./subforms/subform/@id)"/></i18n:text></td> -->
                     </xsl:for-each>
                 </ul>
             </li>
         </ul>
+    </xsl:template>
+
+    <xsl:template name="metadata-forms-generate-tables">
+        <xsl:param name="publicationFormID"/>
+
+        <div id="collapse{$publicationFormID}" class="panel-collapse collapse">
+
+            <div class="panel-body">
+                <table class="table">
+                    <caption>Tabulka povinných údajů - <18n:text><xsl:value-of select="concat('obd.typology.form.id.', $publicationFormID)"/></i18n:text></caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">název údaje</th>
+                            <th scope="col">OBD: sekce formuláře</th>
+                            <th scope="col">OBD: pole formuláře</th>
+                            <th scope="col">vydaný výsledek</th>
+                            <th scope="col">nevydaný výsledek</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Datum (rok) vydání dokumentu</th>
+                            <td>Základní informace</td>
+                            <td>Rok</td>
+                            <td>X</td>
+                            <td>X</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Příjmení a jméno autora dokumentu</th>
+                            <td>AUTOR</td>
+                            <td></td>
+                            <td>X</td>
+                            <td>X</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
     </xsl:template>
 
     <!-- <xsl:template name="metadata-forms-process-xml-file">
