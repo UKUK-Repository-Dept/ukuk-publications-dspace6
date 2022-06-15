@@ -71,14 +71,19 @@
                         <li role="presentation" data-toggle="collapse" data-target="#collapse{$formValue}">
                             <a href="#"><i18n:text><xsl:value-of select="concat('obd.typology.form.id.',./@id)"/></i18n:text></a>
                         </li>
-                        <xsl:call-template name="metadata-forms-generate-tables">
-                            <xsl:with-param name="publicationFormID" select="$formValue"/>
-                        </xsl:call-template>
+                        
                         <!-- <td><i18n:text><xsl:value-of select="concat('obd.typology.subform.id.',./subforms/subform/@id)"/></i18n:text></td> -->
                     </xsl:for-each>
                 </ul>
             </li>
         </ul>
+
+        <xsl:for-each select="$typologyFile//form">
+            <xsl:call-template name="metadata-forms-generate-tables">
+                <xsl:with-param name="publicationFormID" select="$formValue"/>
+            </xsl:call-template>
+        </xsl:for-each>
+        
     </xsl:template>
 
     <xsl:template name="metadata-forms-generate-tables">
