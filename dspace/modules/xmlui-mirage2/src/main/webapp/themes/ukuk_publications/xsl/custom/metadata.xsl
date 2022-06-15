@@ -60,7 +60,7 @@
                 <xsl:call-template name="metadata-table-content">
                     <xsl:with-param name="dataTarget" select="@data-target"/>
                 </xsl:call-template>
-            <xsl:for-each>
+            </xsl:for-each>
         </div>
     </xsl:template>
     
