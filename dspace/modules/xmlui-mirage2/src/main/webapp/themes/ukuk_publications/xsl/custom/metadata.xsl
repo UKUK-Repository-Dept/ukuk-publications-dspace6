@@ -118,12 +118,14 @@
                                                     </td>
                                                     <td>
                                                         <i18n:text>
-                                                            obd.form-id-<xsl:value-of select="$publicationFormID"/>.mandatory.metadata.id.<xsl:value-of select="$metadatumID"/>.section-trl.<xsl:value-of select="$obdSectionTranslationKey"/>
+                                                            <xsl:value-of select="concat('obd.form-id-',{$publicationFormID},'.mandatory.metadata.id.',{$metadatumID},
+                                                            '.section-trl.',{$obdSectionTranslationKey})"/>
                                                         </i18n:text>
                                                     </td>
                                                     <td>
                                                         <i18n:text>
-                                                            obd.form-id-<xsl:value-of select="$publicationFormID"/>.mandatory.metadata.id.<xsl:value-of select="$metadatumID"/>.field-trl.<xsl:value-of select="$obdFieldTranslationKey"/>
+                                                            <xsl:value-of select="concat('obd.form-id-',{$publicationFormID},'.mandatory.metadata.id.',{$metadatumID},
+                                                            '.field-trl.',{$obdFieldTranslationKey})"/>
                                                         </i18n:text>
                                                     </td>
                                                     <xsl:choose>
