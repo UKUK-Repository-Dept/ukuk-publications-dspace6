@@ -2685,19 +2685,19 @@
 	<!-- ABSTRACT metadata -->
 
 	<!-- Datum (rok) vydání dokumentu -->
-	<message key="obd.form-id-110.mandatory.metadata.id.1.section-trl.110-1">Basic Information</message>
+	<message key="obd.form-id-110.mandatory.metadata.section-trl.110-1">Basic Information</message>
 	<message key="obd.form-id-110.mandatory.metadata.id.1.field-trl.110-1-1">Year</message>
 
 	<!-- Příjmení a jméno autora dokumentu -->
-	<message key="obd.form-id-110.mandatory.metadata.id.2.section-trl.110-2">AUTHOR</message>
+	<message key="obd.form-id-110.mandatory.metadata.section-trl.110-2">AUTHOR</message>
 	<message key="obd.form-id-110.mandatory.metadata.id.2.field-trl.110-2-none"></message>
 
 	<!-- Příjmení a jméno osoby s podílem na vzniku dokumentu: Editor dokumentu -->
-	<message key="obd.form-id-110.mandatory.metadata.id.3.section-trl.110-3">EDITOR</message>
+	<message key="obd.form-id-110.mandatory.metadata.section-trl.110-3">EDITOR</message>
 	<message key="obd.form-id-110.mandatory.metadata.id.3.field-trl.110-3-none"></message>
 
 	<!-- Abstrakt -->
-	<message key="obd.form-id-110.mandatory.metadata.id.4.section-trl.110-5">Titles</message>
+	<message key="obd.form-id-110.mandatory.metadata.section-trl.110-5">Titles</message>
 	<message key="obd.form-id-110.mandatory.metadata.id.4.field-trl.110-5-1">Annotation / Description</message>
 
 	<!-- Jazyk dokumentu (OBD pošle pouze ISO kód) -->
