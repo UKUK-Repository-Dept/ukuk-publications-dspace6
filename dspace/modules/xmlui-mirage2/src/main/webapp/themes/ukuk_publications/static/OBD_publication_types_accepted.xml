@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <supported_forms>
+    <form id="110"> <!-- ABSTRAKT -->
+        <subforms>
+            <subform id="130"> <!-- abstrakt -->
+                <child_subforms all-supported="true">
+                    <child_subform id="136"></child_subform> <!-- abstrakt v elektronické podobě -->
+                    <child_subform id="462"></child_subform> <!-- abstrakt v konferenčním sborníku -->
+                    <child_subform id="135"></child_subform> <!-- abstrakt v časopisu -->
+                </child_subforms>
+            </subform>
+        </subforms>
+    </form>
     <form id="73"> <!-- ČLÁNEK V ČASOPISU -->
         <subforms>
             <subform id="152"> <!-- článek v časopisu -->
@@ -197,17 +208,6 @@
                     <!--<child_subform id="252"></child_subform>--> <!-- internetový zdroj -->
                     <child_subform id="500"></child_subform> <!-- necertifikovaná metodika -->
                     <!--<child_subform id="264"></child_subform>--> <!-- popularizující internetová prezentace -->
-                </child_subforms>
-            </subform>
-        </subforms>
-    </form>
-    <form id="110"> <!-- ABSTRAKT -->
-        <subforms>
-            <subform id="130"> <!-- abstrakt -->
-                <child_subforms all-supported="true">
-                    <child_subform id="136"></child_subform> <!-- abstrakt v elektronické podobě -->
-                    <child_subform id="462"></child_subform> <!-- abstrakt v konferenčním sborníku -->
-                    <child_subform id="135"></child_subform> <!-- abstrakt v časopisu -->
                 </child_subforms>
             </subform>
         </subforms>
