@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<forms>
+    <!-- ABSTRAKT -->
+    <form id="110">
+        <metadata>
+            <metadatum id="1" internal_name="Datum (rok) vydání dokumentu" obd_section_id="1" obd_field_id="1" order="1">
+                <meta_info system="false" obd_section_translation="110-1" obd_field_translation="110-1-1" valid_for="both" obd_section_name="Základní informace" obd_field_nme="Rok"/>
+            </metadatum>
+            <metadatum id="2" internal_name="Příjmení a jméno autora dokumentu" obd_section_id="2" obd_field_id="none" order="2">
+                <meta_info system="false" obd_section_translation="110-2" obd_field_translation="110-2-none" valid_for="both" obd_section_name="AUTOR" obd_field_name="none"/>
+            </metadatum>
+            <metadatum id="3" internal_name="Příjmení a jméno osoby s podílem na vzniku dokumentu: Editor dokumentu" obd_section_id="3" obd_field_id="none" order="3">
+                <meta_info system="false" obd_section_translation="110-3" obd_field_translation="110-3-none" valid_for="both" obd_section_name="EDITOR" obd_field_name="none"/>
+            </metadatum>
+            <metadatum id="4" internal_name="Abstrakt" obd_section_id="5" obd_field_id="1" order="4">
+                <meta_info system="false" obd_section_translation="110-5" obd_field_translation="110-5-1" valid_for="both" obd_section_name="Tituly" obd_field_name="Anotace / popis"/>
+            </metadatum>
+            <metadatum id="5" internal_name="Jazyk dokumentu (OBD pošle pouze ISO kód)" obd_section_id="5" obd_field_id="2" order="5">
+                <meta_info system="false" obd_section_translation="110-5" obd_field_translation="110-5-2" valid_for="both" obd_section_name="Tituly" obd_field_name="Jazyk"/>
+            </metadatum>
+            <metadatum id="6" internal_name="Klíčová slova" obd_section_id="5" obd_field_id="3" order="6">
+                <meta_info system="false" obd_section_translation="110-5" obd_field_translation="110-5-3" valid_for="both" obd_section_name="Tituly" obd_field_name="Klíčová slova"/>
+            </metadatum>
+            <metadatum id="7" internal_name="Název dokumentu" obd_section_id="5" obd_field_id="4" order="7">
+                <meta_info system="false" obd_section_translation="110-5" obd_field_translation="110-5-4" valid_for="both" obd_section_name="Tituly" obd_field_name="Název abstraktu"/>
+            </metadatum>
+        </metadata>
+    </form>
+    <!-- ČLÁNEK V ČASOPISU -->
+    <form id="73">
+        <metadata>
+            <metadatum id="1" internal_name="Datum (rok) vydání dokumentu" obd_section_id="1" obd_field_id="1" order="1">
+                <meta_info system="false" obd_section_translation="73-1" obd_field_translation="73-1-1" valid_for="both" obd_section_name="Základní informace" obd_field_name="Rok"/>
+            </metadatum>
+            <metadatum id="2" internal_name="Příjmení a jméno autora dokumentu" obd_section_id="2" obd_field_id="none" order="2">
+                <meta_info system="false" obd_section_translation="73-2" obd_field_translation="73-2-none" valid_for="both" obd_section_name="AUTOR" obd_field_name="none"/>
+            </metadatum>
+            <metadatum id="3" internal_name="Příjmení a jméno osoby s podílem na vzniku dokumentu: Editor dokumentu" obd_section_id="3" obd_field_id="none" order="3">
+                <meta_info system="false" obd_section_translation="73-3" obd_field_translation="73-3-none" valid_for="both" obd_section_name="EDITOR" obd_field_name="none"/>
+            </metadatum>
+            <metadatum id="4" internal_name="Abstrakt" obd_section_id="5" obd_field_id="1" order="4">
+                <meta_info system="false" obd_section_translation="73-5" obd_field_translation="73-5-1" valid_for="both" obd_section_name="Tituly" obd_field_name="Anotace / popis"/>
+            </metadatum>
+            <metadatum id="5" internal_name="Jazyk dokumentu (OBD pošle pouze ISO kód)" obd_section_id="5" obd_field_id="2" order="5">
+                <meta_info system="false" obd_section_translation="73-5" obd_field_translation="73-5-2" valid_for="both" obd_section_name="Tituly" obd_field_name="Jazyk"/>
+            </metadatum>
+            <metadatum id="6" internal_name="Klíčová slova" obd_section_id="5" obd_field_id="3" order="6">
+                <meta_info system="false" obd_section_translation="73-5" obd_field_translation="73-5-3" valid_for="both" obd_section_name="Tituly" obd_field_name="Klíčová slova"/>
+            </metadatum>
+            <metadatum id="7" internal_name="Název dokumentu" obd_section_id="5" obd_field_id="4" order="7">
+                <meta_info system="false" obd_section_translation="73-5" obd_field_translation="73-5-4" valid_for="both" obd_section_name="Tituly" obd_field_name="Název článku"/>
+            </metadatum>
+        </metadata>
+    </form>
+
+</forms>
+    <!-- <metadatum id="4" system_metadatum="true">
+        <internal_name>Jazyk dokumentu (OBD pošle pouze ISO kód)</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="5" system_metadatum="">
+        <internal_name>Vydavatel</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="6" system_metadatum="">
+        <internal_name>Klíčová slova</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="7" system_metadatum="">
+        <internal_name>Název dokumentu</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="8" system_metadatum="">
+        <internal_name>Přeložený název dokumentu</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="9" system_metadatum="">
+        <internal_name>Místo vydání</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="10" system_metadatum="">
+        <internal_name>ISSN publikace</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="11" system_metadatum="">
+        <internal_name>eISSN publikace</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="12" system_metadatum="">
+        <internal_name>ISBN publikace</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="13" system_metadatum="">
+        <internal_name>Licenční podmínky</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="14" system_metadatum="">
+        <internal_name>Odkaz na podmínky k užití díla</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="15" system_metadatum="">
+        <internal_name>Datum začátku platnosti licence</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="16" system_metadatum="">
+        <internal_name>Datum konce platnosti licence</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="17" system_metadatum="">
+        <internal_name>Dostupnost</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="18" system_metadatum="">
+        <internal_name>Název zdrojového dokumentu</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="19" system_metadatum="">
+        <internal_name>ISSN zdrojového dokumentu</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="20" system_metadatum="">
+        <internal_name>eISSN zdrojového dokumentu</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="21" system_metadatum="">
+        <internal_name>Rok vydání zdrojového dokumentu</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="22" system_metadatum="">
+        <internal_name>Ročník zdrojového dokumentu</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="23" system_metadatum="">
+        <internal_name>Číslo zdrojového dokumentu</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="24" system_metadatum="">
+        <internal_name>ISBN zdrojového dokumentu</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="25" system_metadatum="">
+        <internal_name>Stránkový rozsah od - do</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="26" system_metadatum="">
+        <internal_name>Edice dokumentu</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="27" system_metadatum="">
+        <internal_name>Počet stran dokumentu</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="28" system_metadatum="">
+        <internal_name>Zdroj financování</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="29" system_metadatum="true">
+        <internal_name>Datum začátku embarga</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="30" system_metadatum="">
+        <internal_name>Datum konce embarga</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="31" system_metadatum="">
+        <internal_name>Příjmení a jméno osoby s podílem na vzniku dokumentu: Editor dokumentu</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="32" system_metadatum="">
+        <internal_name>Příjmení a jméno osoby s podílem na vzniku dokumentu: Organizátor</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="33" system_metadatum="">
+        <internal_name>Příjmení a jméno osoby s podílem na vzniku dokumentu: Překladatel</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="34" system_metadatum="true">
+        <internal_name>ID - handle (záznam v Dspace)</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="35" system_metadatum="">
+        <internal_name>Příjmení a jméno osoby s podílem na vzniku dokumentu - autor celé monografie</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="36" system_metadatum="true">
+        <internal_name>Typ dokumentu - OBD (hierarchie)</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="37" system_metadatum="true">
+        <internal_name>Identifikátor autora (dočasné pole, pro vytvoření autoritní báze)</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="38" system_metadatum="">
+        <internal_name>Verze souboru</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="39" system_metadatum="">
+        <internal_name>ID - DOI</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="40" system_metadatum="">
+        <internal_name>ID - Web of Science (UT WoS)</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="41" system_metadatum="">
+        <internal_name>ID - Scopus (EID)</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="42" system_metadatum="true">
+        <internal_name>ID - OBD</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="43" system_metadatum="true">
+        <internal_name>ID - RIV</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="44" system_metadatum="">
+        <internal_name>ID - Pubmed</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="45" system_metadatum="true">
+        <internal_name>ID - fakulta s primární odpovědností k výsledku</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="46" system_metadatum="true">
+        <internal_name>Název fakulty s primární odpovědností k výsledku (OBD)</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="47" system_metadatum="true">
+        <internal_name>ID - fakulta se sekundární odpovědností k výsledku</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="48" system_metadatum="true">
+        <internal_name>Název fakulty se sekundární odpovědností k výsledku (OBD)</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="49" system_metadatum="true">
+        <internal_name>ID - pracoviště s primární odpovědností k výsledku</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="50" system_metadatum="true">
+        <internal_name>Název pracoviště s primární odpovědností k výsledku (OBD)</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="51" system_metadatum="true">
+        <internal_name>ID - pracoviště se sekundární odpovědností k výsledku</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="52" system_metadatum="true">
+        <internal_name>Název pracoviště se sekundární odpovědností k výsledku (OBD)</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="53" system_metadatum="">
+        <internal_name>Vědní obor hlavní</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="54" system_metadatum="">
+        <internal_name>Vědní obor vedlejší</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="55" system_metadatum="">
+        <internal_name>Vydání</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="56" system_metadatum="">
+        <internal_name>Odkaz na</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="57" system_metadatum="">
+        <internal_name>Název konference</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="58" system_metadatum="">
+        <internal_name>Interní identifikace</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="59" system_metadatum="">
+        <internal_name>Číslo dokumentu</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="60" system_metadatum="">
+        <internal_name>Technické parametry</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="61" system_metadatum="">
+        <internal_name>Ekonomické parametry</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="62" system_metadatum="">
+        <internal_name>Datum certifikace</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="63" system_metadatum="">
+        <internal_name>Certifikační orgán</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum>
+    <metadatum id="64" system_metadatum="">
+        <internal_name>Způsob využití</internal_name>
+        <valid_for_forms>
+            <form id="" publication_state="" obd_section_id="" obd_field_id="" obd_section_order=""/>
+        </valid_for_forms>
+    </metadatum> -->
+<!-- </metadata> -->
