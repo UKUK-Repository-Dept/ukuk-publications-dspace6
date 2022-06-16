@@ -31,6 +31,7 @@
 
     <xsl:output indent="yes"/>
     <xsl:param name="typologyFile" select="document('../../static/OBD_publication_types_accepted.xml')"/>
+    <xsl:param name="mandatoryMetadataFile" select="document('../../static/test.xml')"/>
 
     <xsl:template name="metadata-create">
             <xsl:call-template name="metadata-general"/>
@@ -40,22 +41,7 @@
     <xsl:template name="metadata-general">
         
         <xsl:call-template name="metadata-forms-process-xml-file-list"/>
-<!--         
-        <ul class="nav nav-pills nav-justified">
-            <li id="metadata-abstract" role="presentation" data-toggle="collapse" data-target="#collapseAbstract"><a href="#">Abstrakt</a></li>
-            <li id="metadata-article" role="presentation" data-toggle="collapse" data-target="#collapseArticle"><a href="#">Článek v časopisu</a></li>
-            <li id="metadata-fsv-working-paper" role="presentation" data-toggle="collapse" data-target="#collapseFSVWorkingPaper"><a href="#">FSV: Working paper</a></li>
-            <li id="metadata-book-chapter" role="presentation" data-toggle="collapse" data-target="#collapseBookChapter"><a href="#">Kapitola v knize</a></li>
-            <li id="metadata-book" role="presentation" data-toggle="collapse" data-target="#collapseBook"><a href="#">Kniha</a></li>
-            <li id="metadata-book-with-editors-only" role="presentation" data-toggle="collapse" data-target="#collapseBookWithEditorsOnly"><a href="#">Kniha pouze s editory</a></li>
-            <li id="metadata-methodology" role="presentation" data-toggle="collapse" data-target="#collapseMethodology"><a href="#">Metodika, postup</a></li>
-            <li id="metadata-lecture-poster" role="presentation" data-toggle="collapse" data-target="#collapseLecturePoster"><a href="#">Přednáška, poster</a></li>
-            <li id="metadata-conference-proceedings" role="presentation" data-toggle="collapse" data-target="#collapseConferenceProceedings"><a href="#">Příspěvek v konferenčním sborníku</a></li>
-            <li id="metadata-research-report" role="presentation" data-toggle="collapse" data-target="#collapseResearchReport"><a href="#">Souhrná výzkumná zpráva</a></li>
-            <li id="metadata-article-in-collection-of-papers" role="presentation" data-toggle="collapse" data-target="#collapseArticleInCollectionOfPapers"><a href="#">Stať ve sborníku prací (nekonferenčním)</a></li>
-            <li id="metadata-result-realised-by-the-funding-provider" role="presentation" data-toggle="collapse" data-target="#collapseResultRealisedByTheFundingProvider"><a href="#">Výsledek realizovaný poskytovatelem</a></li>
-            <li id="metadata-other-result" role="presentation" data-toggle="collapse" data-target="#collapseArticle"><a href="#">Jiný výsledek</a></li>
-        </ul> -->
+
     </xsl:template>
 
     <xsl:template name="metadata-forms-process-xml-file-list">
@@ -114,20 +100,63 @@
                         </thead>
                         <tbody>
                             <!-- TODO: Create table values based on a XML "configuration" file -->
-                            <tr>
-                                <th scope="row">Datum (rok) vydání dokumentu</th>
-                                <td>Základní informace</td>
-                                <td>Rok</td>
-                                <td>X</td>
-                                <td>X</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Příjmení a jméno autora dokumentu</th>
-                                <td>AUTOR</td>
-                                <td></td>
-                                <td>X</td>
-                                <td>X</td>
-                            </tr>
+                            <xsl:for-each select="$typologyFile//form">
+                                <xsl:choose>
+                                    <xsl:when test="./@id = $publicationFormID">
+                                        <xsl:for-each select=".//metadatum">
+                                            <xsl:variable name="systemMetadatum" select="./meta_info/@system"/>
+                                            <xsl:variable name="metadatumID" select="./@id"/>
+                                            <xsl:variable name="metadatumInternalName" select="./@internal_name"/>
+                                            <xsl:variable name="obdSectionTranslationKey" select="./meta_info/@obd_section_translation"/>
+                                            <xsl:variable name="obdFieldTranslationKey" select="./meta_info/@obd_field_translation"/>
+                                            <xsl:variable name="validForPublicationState" select="./meta_info/@valid_for"/>
+                                            
+                                            <xsl:if test="./meta_info[@system = 'false']">
+                                                <tr>
+                                                    <td>
+                                                        <i18n:text>obd.metadata.metadatum.id.<xsl:value-of select="$metadatumID"/></i18n:text>
+                                                    </td>
+                                                    <td>
+                                                        <i18n:text>
+                                                            obd.form-id-
+                                                            <xsl:value-of select="$publicationFormID"/>.mandatory.metadata.id.
+                                                            <xsl:value-of select="$metadatumID"/>.section-trl.
+                                                            <xsl:value-of select="$obdSectionTranslationKey"/>
+                                                        </i18n:text>
+                                                    </td>
+                                                    <td>
+                                                        <i18n:text>
+                                                            obd.form-id-
+                                                            <xsl:value-of select="$publicationFormID"/>.mandatory.metadata.id.
+                                                            <xsl:value-of select="$metadatumID"/>.field-trl.
+                                                            <xsl:value-of select="$obdFieldTranslationKey"/>
+                                                        </i18n:text>
+                                                    </td>
+                                                    <xsl:choose>
+                                                        <xsl:when test="$validForPublicationState = 'both'">
+                                                            <td>X</td>
+                                                            <td>X</td>
+                                                        </xsl:when>
+                                                        <xsl:when test="$validForPublicationState = 'published'">
+                                                            <td>X</td>
+                                                            <td></td>
+                                                        </xsl:when>
+                                                        <xsl:when test="$validForPublicationState = 'not_published'">
+                                                            <td></td>
+                                                            <td>X</td>
+                                                        </xsl:when>
+                                                        <xsl:otherwise>
+                                                        </xsl:otherwise>
+                                                    </xsl:choose>
+                                                </tr>
+                                            </xsl:if>
+                                        </xsl:for-each>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:for-each>
                         </tbody>
                     </table>
                 </div>

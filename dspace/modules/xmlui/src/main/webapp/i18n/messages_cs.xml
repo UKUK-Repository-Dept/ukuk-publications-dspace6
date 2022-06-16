@@ -2920,6 +2920,77 @@
 	<message key="obd.typology.subform.secondary.id.462">abstrakt v konferenčním sborníku</message>
 	<message key="obd.typology.subform.secondary.id.135">abstrakt v časopisu</message>
 
+	<!-- <JR> - 22-06-16: page/metadata -->
+	
+	<!-- All metadata internal names translations -->
+	<message key="obd.metadata.metadatum.id.1">Datum (rok) vydání dokumentu</message>
+	<message key="obd.metadata.metadatum.id.2">Příjmení a jméno autora dokumentu</message>
+	<message key="obd.metadata.metadatum.id.3">Příjmení a jméno osoby s podílem na vzniku dokumentu: Editor dokumentu</message>
+	<message key="obd.metadata.metadatum.id.4">Abstrakt</message>
+	<message key="obd.metadata.metadatum.id.5">Jazyk dokumentu</message>
+	<message key="obd.metadata.metadatum.id.6">Klíčová slova</message>
+	<message key="obd.metadata.metadatum.id.7">Název dokumentu</message>
+	
+	<!-- ABSTRACT metadata -->
+
+	<!-- Datum (rok) vydání dokumentu -->
+	<message key="obd.form-id-110.mandatory.metadata.id.1.section-trl.110-1">Základní informace</message>
+	<message key="obd.form-id-110.mandatory.metadata.id.1.field-trl.110-1-1">Rok</message>
+
+	<!-- Příjmení a jméno autora dokumentu -->
+	<message key="obd.form-id-110.mandatory.metadata.id.2.section-trl.110-2">AUTOR</message>
+	<message key="obd.form-id-110.mandatory.metadata.id.2.field-trl.110-2-none"></message>
+
+	<!-- Příjmení a jméno osoby s podílem na vzniku dokumentu: Editor dokumentu -->
+	<message key="obd.form-id-110.mandatory.metadata.id.3.section-trl.110-3">EDITOR</message>
+	<message key="obd.form-id-110.mandatory.metadata.id.3.field-trl.110-3-none"></message>
+
+	<!-- Abstrakt -->
+	<message key="obd.form-id-110.mandatory.metadata.id.4.section-trl.110-5">Tituly</message>
+	<message key="obd.form-id-110.mandatory.metadata.id.4.field-trl.110-5-1">Anotace / popis</message>
+
+	<!-- Jazyk dokumentu (OBD pošle pouze ISO kód) -->
+	<message key="obd.form-id-110.mandatory.metadata.id.5.field-trl.110-5-2">Jazyk</message>
+	
+	<!-- Klíčová slova -->
+	<message key="obd.form-id-110.mandatory.metadata.id.6.field-trl.110-5-3">Klíčová slova</message>
+
+	<!-- Název dokumentu -->
+	<message key="obd.form-id-110.mandatory.metadata.id.7.field-trl.110-5-4">Název abstraktu</message>
+
+	<!-- END OF: ABSTRACT metadata -->
+
+	<!-- ČLÁNEK V ČASOPISU metadata -->
+	
+	<!-- Datum (rok) vydání dokumentu -->
+	<message key="obd.form-id-73.mandatory.metadata.id.1.section-trl.73-1">Základní informace</message>
+	<message key="obd.form-id-73.mandatory.metadata.id.1.field-trl.73-1-1">Rok</message>
+
+	<!-- Příjmení a jméno autora dokumentu -->
+	<message key="obd.form-id-73.mandatory.metadata.id.2.section-trl.73-2">AUTOR</message>
+	<message key="obd.form-id-73.mandatory.metadata.id.2.field-trl.73-2-none"></message>
+
+	<!-- Příjmení a jméno osoby s podílem na vzniku dokumentu: Editor dokumentu -->
+	<message key="obd.form-id-73.mandatory.metadata.id.3.section-trl.73-3">EDITOR</message>
+	<message key="obd.form-id-73.mandatory.metadata.id.3.field-trl.73-3-none"></message>
+
+	<!-- Abstrakt -->
+	<message key="obd.form-id-73.mandatory.metadata.id.4.section-trl.73-5">Tituly</message>
+	<message key="obd.form-id-73.mandatory.metadata.id.4.field-trl.73-5-1">Anotace / popis</message>
+
+	<!-- Jazyk dokumentu (OBD pošle pouze ISO kód) -->
+	<message key="obd.form-id-73.mandatory.metadata.id.5.field-trl.73-5-2">Jazyk</message>
+
+	<!-- Klíčová slova -->
+	<message key="obd.form-id-73.mandatory.metadata.id.6.field-trl.73-5-3">Klíčová slova</message>
+
+	<!-- Název dokumentu -->
+	<message key="obd.form-id-73.mandatory.metadata.id.7.field-trl.73-5-4">Název článku</message>
+
+	<!-- END OF: ČLÁNEK V ČASOPISU metadata -->
+
+	<!-- END OF: <JR> - 22-06-16: page/metadata -->
+
 	<!-- <JR> - 22-02-01: page/disclaimer-->
 	<message key="xmlui.mirage2.static-pages.title.disclaimer">Poučení</message>
 	<!-- page/disclaimer - section headings -->
