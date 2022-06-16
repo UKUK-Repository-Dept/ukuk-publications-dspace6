@@ -100,7 +100,7 @@
                         </thead>
                         <tbody>
                             <!-- TODO: Create table values based on a XML "configuration" file -->
-                            <xsl:for-each select="$typologyFile//form">
+                            <xsl:for-each select="$mandatoryMetadataFile//form">
                                 <xsl:choose>
                                     <xsl:when test="./@id = $publicationFormID">
                                         <xsl:for-each select=".//metadatum">
