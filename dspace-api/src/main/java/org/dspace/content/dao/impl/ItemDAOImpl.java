@@ -57,7 +57,7 @@ public class ItemDAOImpl extends AbstractHibernateDSODAO<Item> implements ItemDA
 
     @Override
     public Iterator<Item> findAllWithLimitAndOffset(Context context, int limit, int offset) throws SQLException {
-        Query query = createQuery(context, "FROM Item");
+        Query query = createQuery(context, "FROM Item i ORDER BY i.id");
         query.setMaxResults(limit);
         query.setFirstResult(offset);
         return iterate(query);
