@@ -2720,6 +2720,7 @@
 	<message key="obd.metadata.metadatum.id.id_issn">ISSN publikace</message>
 	<message key="obd.metadata.metadatum.id.id_eissn">Document Identifier - e-ISSN</message>
 	<message key="obd.metadata.metadatum.id.id_scopus">Document Identifier - Scopus (EID)</message>
+	<message key="obd.metadata.metadatum.id.id_pubmed">PubMed Record ID</message>
 	<message key="obd.metadata.metadatum.id.organizer_name">Surname and Name of the person responsible for creation of the document: Organizer</message>
 	
 	<!-- OBD METADATA SECTIONS TRANSLATIONS - GENERAL -->
@@ -2767,7 +2768,7 @@
 	<message key="obd.metadata.field-id_issn-general">ISSN</message>
 	<message key="obd.metadata.field-id_eissn-general">eISSN</message>
 	<message key="obd.metadata.field-id_scopus-general">Scopus Record EID</message>
-	<message key="obd.metadata.metadatum.id.id_pubmed">PubMed Record ID</message>
+	<message key="obd.metadata.field-id_pubmed-general">PubMed ID</message>
 	<message key="obd.metadata.field-organizer_name-general">Event Organizer</message>
 	<!-- END OF: OBD METADATA SECTIONS TRANSLATIONS - GENERAL -->
 
@@ -2816,6 +2817,7 @@
 	<message key="obd.metadata.field-methodology_certification_authority">Certification Authority</message>
 	<message key="obd.metadata.field-methodology_usage">Usage</message>
 	<message key="obd.metadata.field-extent_total-output">Number of Pages</message>
+	<message key="obd.metadata.field-directive_number">Directive Number</message>
 	<message key="obd.metadata.field-id_isbn-ismn">ISBN/ISMN</message>
 	<message key="obd.metadata.field-organizer_name-conference">Conference Organizer</message>
 

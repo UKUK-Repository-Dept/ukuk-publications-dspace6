@@ -3018,6 +3018,7 @@
 	<message key="obd.metadata.field-id_issn-general">ISSN</message>
 	<message key="obd.metadata.field-id_eissn-general">eISSN</message>
 	<message key="obd.metadata.field-id_scopus-general">EID záznamu ve Scopus</message>
+	<message key="obd.metadata.field-id_pubmed-general">PubMed ID</message>
 	<message key="obd.metadata.field-organizer_name-general">Organizátor akce</message>
 	<!-- END OF: OBD METADATA SECTIONS TRANSLATIONS - GENERAL -->
 
@@ -3065,6 +3066,7 @@
 	<message key="obd.metadata.field-methodology_date_certified">Datum certifikace</message>
 	<message key="obd.metadata.field-methodology_certification_authority">Certifikační orgán</message>
 	<message key="obd.metadata.field-methodology_usage">Způsob využití</message>
+	<message key="obd.metadata.field-directive_number">Číslo předpisu</message>
 	<message key="obd.metadata.field-extent_total-output">Počet stran výsledku</message>
 	<message key="obd.metadata.field-id_isbn-ismn">ISBN/ISMN</message>
 	<message key="obd.metadata.field-organizer_name-conference">Organizátor konference</message>
