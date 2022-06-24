@@ -2767,6 +2767,7 @@
 	<message key="obd.metadata.field-id_issn-general">ISSN</message>
 	<message key="obd.metadata.field-id_eissn-general">eISSN</message>
 	<message key="obd.metadata.field-id_scopus-general">Scopus Record EID</message>
+	<message key="obd.metadata.metadatum.id.id_pubmed">PubMed Record ID</message>
 	<message key="obd.metadata.field-organizer_name-general">Event Organizer</message>
 	<!-- END OF: OBD METADATA SECTIONS TRANSLATIONS - GENERAL -->
 

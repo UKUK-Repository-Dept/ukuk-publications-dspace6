@@ -157,16 +157,16 @@
                 <meta_info system="false" obd_section_translation="section-specific-73-8" obd_field_translation="field-extent-general" valid_for="published" obd_section_name="Časopis" obd_field_name="Stránkový rozsah od-do"/>
             </metadatum>
             <metadatum id="id_doi" internal_name="ID - DOI" obd_section_id="10" obd_field_id="1" order="18">
-                <meta_info system="false" obd_section_translation="section-general-73-10" obd_field_translation="field-id_doi-general" valid_for="published" obd_section_name="Zvláštní údaje pro RIV" obd_field_name="DOI"/>
+                <meta_info system="false" obd_section_translation="section-general-10" obd_field_translation="field-id_doi-general" valid_for="published" obd_section_name="Zvláštní údaje pro RIV" obd_field_name="DOI"/>
             </metadatum>
             <metadatum id="id_wos" internal_name="ID - Web of Science (UT WoS)" obd_section_id="10" obd_field_id="2" order="19">
-                <meta_info system="false" obd_section_translation="section-general-73-10" obd_field_translation="field-id_wos-general" valid_for="published" obd_section_name="Zvláštní údaje pro RIV" obd_field_name="UT WOS"/>
+                <meta_info system="false" obd_section_translation="section-general-10" obd_field_translation="field-id_wos-general" valid_for="published" obd_section_name="Zvláštní údaje pro RIV" obd_field_name="UT WOS"/>
             </metadatum>
             <metadatum id="id_scopus" internal_name="ID - Scopus (EID)" obd_section_id="10" obd_field_id="3" order="20">
-                <meta_info system="false" obd_section_translation="section-general-73-10" obd_field_translation="field-id_scopus-general" valid_for="published" obd_section_name="Zvláštní údaje pro RIV" obd_field_name="EID záznamu ve Scopus"/>
+                <meta_info system="false" obd_section_translation="section-general-10" obd_field_translation="field-id_scopus-general" valid_for="published" obd_section_name="Zvláštní údaje pro RIV" obd_field_name="EID záznamu ve Scopus"/>
             </metadatum>
             <metadatum id="id_pubmed" internal_name="ID - Pubmed" obd_section_id="10" obd_field_id="4" order="21">
-                <meta_info system="false" obd_section_translation="section-general-73-10" obd_field_translation="73-10-4" valid_for="published" obd_section_name="Zvláštní údaje pro RIV" obd_field_name="PubMed ID"/>
+                <meta_info system="false" obd_section_translation="section-general-10" obd_field_translation="73-10-4" valid_for="published" obd_section_name="Zvláštní údaje pro RIV" obd_field_name="PubMed ID"/>
             </metadatum>
             <metadatum id="license_terms" internal_name="Licenční podmínky" obd_section_id="11" obd_field_id="1" order="22">
                 <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-license_terms-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Licence"/>
@@ -240,7 +240,7 @@
                 <meta_info system="false" obd_section_translation="117-9" obd_field_translation="field-edition-order-in-series" valid_for="published" obd_section_name="Specifické informace" obd_field_name="Pořadí v sérii"/>
             </metadatum>
             <metadatum id="id_doi" internal_name="ID - DOI" obd_section_id="10" obd_field_id="1" order="16">
-                <meta_info system="false" obd_section_translation="section-general-117-10" obd_field_translation="field-id_doi-general" valid_for="published" obd_section_name="Zvláštní údaje pro RIV" obd_field_name="DOI"/>
+                <meta_info system="false" obd_section_translation="section-general-10" obd_field_translation="field-id_doi-general" valid_for="published" obd_section_name="Zvláštní údaje pro RIV" obd_field_name="DOI"/>
             </metadatum>
             <metadatum id="license_terms" internal_name="Licenční podmínky" obd_section_id="11" obd_field_id="1" order="17">
                 <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-license_terms-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Licence"/>
@@ -424,13 +424,13 @@
                 <meta_info system="false" obd_section_translation="section-specific-67-8" obd_field_translation="field-edition-general" valid_for="published" obd_section_name="Kniha" obd_field_name="Vydání"/>
             </metadatum>
             <metadatum id="id_doi" internal_name="ID - DOI" obd_section_id="10" obd_field_id="1" order="22">
-                <meta_info system="false" obd_section_translation="section-general-67-10" obd_field_translation="field-id_doi-general" valid_for="published" obd_section_name="Zvláštní údaje pro RIV" obd_field_name="DOI"/>
+                <meta_info system="false" obd_section_translation="section-general-10" obd_field_translation="field-id_doi-general" valid_for="published" obd_section_name="Zvláštní údaje pro RIV" obd_field_name="DOI"/>
             </metadatum>
             <metadatum id="id_wos" internal_name="ID - Web of Science (UT WoS)" obd_section_id="10" obd_field_id="2" order="23">
-                <meta_info system="false" obd_section_translation="section-general-67-10" obd_field_translation="field-id_wos-general" valid_for="published" obd_section_name="Zvláštní údaje pro RIV" obd_field_name="UT WOS"/>
+                <meta_info system="false" obd_section_translation="section-general-10" obd_field_translation="field-id_wos-general" valid_for="published" obd_section_name="Zvláštní údaje pro RIV" obd_field_name="UT WOS"/>
             </metadatum>
             <metadatum id="id_scopus" internal_name="ID - Scopus (EID)" obd_section_id="10" obd_field_id="3" order="24">
-                <meta_info system="false" obd_section_translation="section-general-67-10" obd_field_translation="field-id_scopus-general" valid_for="published" obd_section_name="Zvláštní údaje pro RIV" obd_field_name="EID záznamu ve Scopus"/>
+                <meta_info system="false" obd_section_translation="section-general-10" obd_field_translation="field-id_scopus-general" valid_for="published" obd_section_name="Zvláštní údaje pro RIV" obd_field_name="EID záznamu ve Scopus"/>
             </metadatum>
             <metadatum id="license_terms" internal_name="Licenční podmínky" obd_section_id="11" obd_field_id="1" order="25">
                 <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-license_terms-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Licence"/>
@@ -510,13 +510,13 @@
                 <meta_info system="false" obd_section_translation="section-specific-63-8" obd_field_translation="field-edition-general" valid_for="published" obd_section_name="Kniha" obd_field_name="Vydání"/>
             </metadatum>
             <metadatum id="id_doi" internal_name="ID - DOI" obd_section_id="10" obd_field_id="1" order="18">
-                <meta_info system="false" obd_section_translation="section-general-63-10" obd_field_translation="field-id_doi-general" valid_for="published" obd_section_name="Zvláštní údaje pro RIV" obd_field_name="DOI"/>
+                <meta_info system="false" obd_section_translation="section-general-10" obd_field_translation="field-id_doi-general" valid_for="published" obd_section_name="Zvláštní údaje pro RIV" obd_field_name="DOI"/>
             </metadatum>
             <metadatum id="id_wos" internal_name="ID - Web of Science (UT WoS)" obd_section_id="10" obd_field_id="2" order="19">
-                <meta_info system="false" obd_section_translation="section-general-63-10" obd_field_translation="field-id_wos-general" valid_for="published" obd_section_name="Zvláštní údaje pro RIV" obd_field_name="UT WOS"/>
+                <meta_info system="false" obd_section_translation="section-general-10" obd_field_translation="field-id_wos-general" valid_for="published" obd_section_name="Zvláštní údaje pro RIV" obd_field_name="UT WOS"/>
             </metadatum>
             <metadatum id="id_scopus" internal_name="ID - Scopus (EID)" obd_section_id="10" obd_field_id="3" order="20">
-                <meta_info system="false" obd_section_translation="section-general-63-10" obd_field_translation="field-id_scopus-general" valid_for="published" obd_section_name="Zvláštní údaje pro RIV" obd_field_name="EID záznamu ve Scopus"/>
+                <meta_info system="false" obd_section_translation="section-general-10" obd_field_translation="field-id_scopus-general" valid_for="published" obd_section_name="Zvláštní údaje pro RIV" obd_field_name="EID záznamu ve Scopus"/>
             </metadatum>
             <metadatum id="license_terms" internal_name="Licenční podmínky" obd_section_id="11" obd_field_id="1" order="21">
                 <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-license_terms-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Licence"/>
@@ -593,7 +593,7 @@
                 <meta_info system="false" obd_section_translation="section-specific-131-8" obd_field_translation="field-edition-general" valid_for="published" obd_section_name="Kniha" obd_field_name="Vydání"/>
             </metadatum>
             <metadatum id="id_doi" internal_name="ID - DOI" obd_section_id="10" obd_field_id="1" order="17">
-                <meta_info system="false" obd_section_translation="131-10" obd_field_translation="field-id_doi-general" valid_for="published" obd_section_name="Zvláštní údaje pro RIV" obd_field_name="DOI"/>
+                <meta_info system="false" obd_section_translation="section-general-10" obd_field_translation="field-id_doi-general" valid_for="published" obd_section_name="Zvláštní údaje pro RIV" obd_field_name="DOI"/>
             </metadatum>
             <metadatum id="license_terms" internal_name="Licenční podmínky" obd_section_id="11" obd_field_id="1" order="18">
                 <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-license_terms-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Licence"/>
@@ -827,13 +827,13 @@
                 <meta_info system="false" obd_section_translation="section-specific-57-9" obd_field_translation="field-conference_name-general" valid_for="both" obd_section_name="Konference" obd_field_name="Název konference"/>
             </metadatum>
             <metadatum id="id_doi" internal_name="ID - DOI" obd_section_id="10" obd_field_id="1" order="23">
-                <meta_info system="false" obd_section_translation="section-general-57-10" obd_field_translation="field-id_doi-general" valid_for="published" obd_section_name="Zvláštní údaje pro RIV" obd_field_name="DOI"/>
+                <meta_info system="false" obd_section_translation="section-general-10" obd_field_translation="field-id_doi-general" valid_for="published" obd_section_name="Zvláštní údaje pro RIV" obd_field_name="DOI"/>
             </metadatum>
             <metadatum id="id_wos" internal_name="ID - Web of Science (UT WoS)" obd_section_id="10" obd_field_id="2" order="24">
-                <meta_info system="false" obd_section_translation="section-general-57-10" obd_field_translation="field-id_wos-general" valid_for="published" obd_section_name="Zvláštní údaje pro RIV" obd_field_name="UT WOS"/>
+                <meta_info system="false" obd_section_translation="section-general-10" obd_field_translation="field-id_wos-general" valid_for="published" obd_section_name="Zvláštní údaje pro RIV" obd_field_name="UT WOS"/>
             </metadatum>
             <metadatum id="id_scopus" internal_name="ID - Scopus (EID)" obd_section_id="10" obd_field_id="3" order="25">
-                <meta_info system="false" obd_section_translation="section-general-57-10" obd_field_translation="field-id_scopus-general" valid_for="published" obd_section_name="Zvláštní údaje pro RIV" obd_field_name="EID záznamu ve Scopus"/>
+                <meta_info system="false" obd_section_translation="section-general-10" obd_field_translation="field-id_scopus-general" valid_for="published" obd_section_name="Zvláštní údaje pro RIV" obd_field_name="EID záznamu ve Scopus"/>
             </metadatum>
             <metadatum id="license_terms" internal_name="Licenční podmínky" obd_section_id="11" obd_field_id="1" order="26">
                 <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-license_terms-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Licence"/>
@@ -990,7 +990,7 @@
                 <meta_info system="false" obd_section_translation="section-specific-106-8" obd_field_translation="field-edition-general" valid_for="published" obd_section_name="Sborník" obd_field_name="Vydání"/>
             </metadatum>
             <metadatum id="id_doi" internal_name="ID - DOI" obd_section_id="10" obd_field_id="1" order="20">
-                <meta_info system="false" obd_section_translation="section-general-106-10" obd_field_translation="field-id_doi-general" valid_for="published" obd_section_name="Zvláštní údaje pro RIV" obd_field_name="DOI"/>
+                <meta_info system="false" obd_section_translation="section-general-10" obd_field_translation="field-id_doi-general" valid_for="published" obd_section_name="Zvláštní údaje pro RIV" obd_field_name="DOI"/>
             </metadatum>
             <metadatum id="license_terms" internal_name="Licenční podmínky" obd_section_id="11" obd_field_id="1" order="21">
                 <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-license_terms-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Licence"/>

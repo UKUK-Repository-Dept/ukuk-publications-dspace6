@@ -2968,9 +2968,10 @@
 	<message key="obd.metadata.metadatum.id.id_issn">ISSN publikace</message>
 	<message key="obd.metadata.metadatum.id.id_eissn">eISSN publikace</message>
 	<message key="obd.metadata.metadatum.id.id_scopus">ID - Scopus (EID)</message>
+	<message key="obd.metadata.metadatum.id.id_pubmed">ID - PubMed</message>
 	<message key="obd.metadata.metadatum.id.organizer_name">Příjmení a jméno osoby s podílem na vzniku dokumentu: Organizátor</message>
 	<!-- END OF: All metadata internal names translations -->
-	
+
 	<!-- OBD METADATA SECTIONS TRANSLATIONS - GENERAL -->
 	<!-- Metadata Sections -->
 	<message key="obd.metadata.section-general-1">Základní informace</message>
