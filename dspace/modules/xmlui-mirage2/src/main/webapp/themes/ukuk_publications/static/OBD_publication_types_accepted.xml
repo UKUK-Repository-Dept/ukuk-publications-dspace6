@@ -118,14 +118,14 @@
             </subform>
         </subforms>
     </form>
-    <!-- <form id="133"> <!-- [FSV] Pražské sociálně vědní studie -->
-        <subforms>
-            <subform id="207"> <!-- Pražské sociálně vědní studie -->
-                <child_subforms all-supported="false">
-                </child_subforms>
-            </subform>
-        </subforms>
-    </form> -->
+    <!-- <form id="133"> --> <!-- [FSV] Pražské sociálně vědní studie -->
+        <!-- <subforms> -->
+            <!-- <subform id="207"> --> <!-- Pražské sociálně vědní studie -->
+                <!-- <child_subforms all-supported="false"> -->
+                <!-- </child_subforms> -->
+            <!-- </subform> -->
+        <!-- </subforms> -->
+    <!-- </form> -->
     <form id="106"> <!-- STAŤ VE SBORNÍKU PRACÍ (nekonferenčním) -->
         <subforms>
             <subform id="133"> <!-- stať ve sborníku prací -->
