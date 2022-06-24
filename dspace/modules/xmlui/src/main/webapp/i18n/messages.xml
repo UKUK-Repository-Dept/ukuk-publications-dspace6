@@ -2674,71 +2674,151 @@
 	<!-- <JR> - 22-06-16: page/metadata -->
 
 	<!-- All metadata internal names translations -->
-	<message key="obd.metadata.metadatum.id.1">Date (year) of publication</message>
-	<message key="obd.metadata.metadatum.id.2">Surname and Name of the author</message>
-	<message key="obd.metadata.metadatum.id.3">Surname and Name of the person responsible for creation of the document: Editor</message>
-	<message key="obd.metadata.metadatum.id.4">Abstract / Annotation</message>
-	<message key="obd.metadata.metadatum.id.5">Language</message>
-	<message key="obd.metadata.metadatum.id.6">Keywords</message>
-	<message key="obd.metadata.metadatum.id.7">Document Title</message>
+
+	<message key="obd.metadata.metadatum.id.date_issued">Date (year) of publication</message>
+	<message key="obd.metadata.metadatum.id.author_name">Surname and Name of the author</message>
+	<message key="obd.metadata.metadatum.id.editor_name">Surname and Name of the person responsible for creation of the document: Editor</message>
+	<message key="obd.metadata.metadatum.id.abstract">Abstract / Annotation</message>
+	<message key="obd.metadata.metadatum.id.language">Language</message>
+	<message key="obd.metadata.metadatum.id.keywords">Keywords</message>
+	<message key="obd.metadata.metadatum.id.title">Document Title</message>
+	<message key="obd.metadata.metadatum.id.title_translated">Document Translated Title</message>
+	<message key="obd.metadata.metadatum.id.financing_source">Source of the Financing</message>
+	<message key="obd.metadata.metadatum.id.research_field_primary">Research Field - Primary</message>
+	<message key="obd.metadata.metadatum.id.research_field_secondary">Research Field - Secondary</message>
+	<message key="obd.metadata.metadatum.id.publisher">Publisher</message>
+	<message key="obd.metadata.metadatum.id.publishing_place">Place of Publication</message>
+	<message key="obd.metadata.metadatum.id.source_title">Title of the Source Document</message>
+	<message key="obd.metadata.metadatum.id.source_issn">ISSN of the Source Document</message>
+	<message key="obd.metadata.metadatum.id.source_volume">Volume of the Source Document</message>
+	<message key="obd.metadata.metadatum.id.source_issue">Issue of the Source Document</message>
+	<message key="obd.metadata.metadatum.id.source_isbn">ISBN of the Source Document</message>
+	<message key="obd.metadata.metadatum.id.extent">Page Range</message>
+	<message key="obd.metadata.metadatum.id.series">Series</message>
+	<message key="obd.metadata.metadatum.id.edition">Edition</message>
+	<message key="obd.metadata.metadatum.id.source_eissn">eISSN of the Source Document</message>
+	<message key="obd.metadata.metadatum.id.id_doi">Document Identifier - DOI</message>
+	<message key="obd.metadata.metadatum.id.id_wos">Document Identifier - Web of Science (UT WoS)</message>
+	<message key="obd.metadata.metadatum.id.conference_name">Conference Name</message>
+	<message key="obd.metadata.metadatum.id.license_terms">License Terms</message>
+	<message key="obd.metadata.metadatum.id.license_terms_url">Link to License Terms</message>
+	<message key="obd.metadata.metadatum.id.license_terms_date_start">License Valid From Date</message>
+	<message key="obd.metadata.metadatum.id.license_terms_date_end">License Valid Until Date</message>
+	<message key="obd.metadata.metadatum.id.availability">Availability</message>
+	<message key="obd.metadata.metadatum.id.file_version">Version of Fulltext File</message>
+	<message key="obd.metadata.metadatum.id.embargo_date_end">Embargo End Date</message>
+	<message key="obd.metadata.metadatum.id.other_output_id_internal">Document number</message>
+	<message key="obd.metadata.metadatum.id.methodology_id_internal">Internal identification</message>
+	<message key="obd.metadata.metadatum.id.methodology_number">Document number</message>
+	<message key="obd.metadata.metadatum.id.methodology_parameters_technical">Technical Parameters</message>
+	<message key="obd.metadata.metadatum.id.methodology_parameters_economical">Economic parameters</message>
+	<message key="obd.metadata.metadatum.id.methodology_date_certified">Certification Date</message>
+	<message key="obd.metadata.metadatum.id.methodology_certification_authority">Certification Authority</message>
+	<message key="obd.metadata.metadatum.id.methodology_usage">Usage</message>
+	<message key="obd.metadata.metadatum.id.extent_total">Extent</message>
+	<message key="obd.metadata.metadatum.id.id_isbn">Document Identifier - ISBN</message>
+	<message key="obd.metadata.metadatum.id.id_issn">ISSN publikace</message>
+	<message key="obd.metadata.metadatum.id.id_eissn">Document Identifier - e-ISSN</message>
+	<message key="obd.metadata.metadatum.id.id_scopus">Document Identifier - Scopus (EID)</message>
+	<message key="obd.metadata.metadatum.id.organizer_name">Surname and Name of the person responsible for creation of the document: Organizer</message>
 	
-	<!-- ABSTRACT metadata -->
+	<!-- OBD METADATA SECTIONS TRANSLATIONS - GENERAL -->
+	<message key="obd.metadata.section-general-1">Basic Information</message>
+	<message key="obd.metadata.section-general-2">AUTHOR</message>
+	<message key="obd.metadata.section-general-3">EDITOR</message>
+	<message key="obd.metadata.section-general-4">AUTHOR OF THE WHOLE MONOGRAPH</message>
+	<message key="obd.metadata.section-general-5">Document Titles / Description</message>
+	<message key="obd.metadata.section-general-6">Financing Method</message>
+	<message key="obd.metadata.section-general-7">Record Classification</message>
+	<message key="obd.metadata.section-general-9">Specific Information</message>
+	<message key="obd.metadata.section-general-10">Special Information for RIV</message>
+	<message key="obd.metadata.section-general-11">Attached Files</message>
 
-	<!-- Datum (rok) vydání dokumentu -->
-	<message key="obd.form-id-110.mandatory.metadata.section-trl.110-1">Basic Information</message>
-	<message key="obd.form-id-110.mandatory.metadata.id.1.field-trl.110-1-1">Year</message>
+	<!-- Metadata Fields -->
+	<message key="obd.metadata.field-date_issued-general">Year</message>
+	<message key="obd.metadata.field-abstract-general">Annotation</message>
+	<message key="obd.metadata.field-language-general">Language</message>
+	<message key="obd.metadata.field-keywords-general">Keywords</message>
+	<message key="obd.metadata.field-title-general">Title</message>
+	<message key="obd.metadata.field-title-translated-general">English Title</message>
+	<message key="obd.metadata.field-research_fields_classification-general">Internal Research Fields Classification</message>
+	<message key="obd.metadata.field-place_of_publication-general">Place of Publication</message>
+	<message key="obd.metadata.field-source_title-general">Source Document Title</message>
+	<message key="obd.metadata.field-source_issn-general">ISSN</message>
+	<message key="obd.metadata.field-source_volume-general">Journal Volume</message>
+	<message key="obd.metadata.field-source_issue-general">Journal Issue</message>
+	<message key="obd.metadata.field-source_isbn-general">ISBN</message>
+	<message key="obd.metadata.field-extent-general">Page range</message>
+	<message key="obd.metadata.field-series-general">Series</message>
+	<message key="obd.metadata.field-edition-general">Edition</message>
+	<message key="obd.metadata.field-source_eissn-general">e-ISSN</message>
+	<message key="obd.metadata.field-id_doi-general">DOI</message>
+	<message key="obd.metadata.field-id_wos-general">UT WOS</message>
+	<message key="obd.metadata.field-conference_name-general">Conference Name</message>
+	<message key="obd.metadata.field-license_terms-general">License</message>
+	<message key="obd.metadata.field-license_terms_url-general">License – URL</message>
+	<message key="obd.metadata.field-license_terms_date_start-general">Valid from:</message>
+	<message key="obd.metadata.field-license_terms_date_end-general">Valid until:</message>
+	<message key="obd.metadata.field-availability-general">Availability</message>
+	<message key="obd.metadata.field-file_version-general">Attachment Type</message>
+	<message key="obd.metadata.field-embargo_date_end-general">Accesion Date</message>
+	<message key="obd.metadata.field-extent_total-general">Number of Pages</message>
+	<message key="obd.metadata.field-id_isbn-general">ISBN</message>
+	<message key="obd.metadata.field-id_issn-general">ISSN</message>
+	<message key="obd.metadata.field-id_eissn-general">eISSN</message>
+	<message key="obd.metadata.field-id_scopus-general">Scopus Record EID</message>
+	<message key="obd.metadata.field-organizer_name-general">Event Organizer</message>
+	<!-- END OF: OBD METADATA SECTIONS TRANSLATIONS - GENERAL -->
 
-	<!-- Příjmení a jméno autora dokumentu -->
-	<message key="obd.form-id-110.mandatory.metadata.section-trl.110-2">AUTHOR</message>
-	<message key="obd.form-id-110.mandatory.metadata.id.2.field-trl.110-2-none"></message>
+	<!-- OBD METADATA SECTIONS TRANSLATIONS - FORM SPECIFIC -->
+	<!-- Metadata Sections -->
+	<message key="obd.metadata.section-specific-110-8">Proceedings, Journal</message>
+	<message key="obd.metadata.section-specific-73-8">Journal</message>
+	<message key="obd.metadata.section-specific-67-8">Book</message>
+	<message key="obd.metadata.section-specific-63-8">Book</message>
+	<message key="obd.metadata.section-specific-131-8">Book</message>
+	<message key="obd.metadata.section-specific-57-8">Proceedings</message>
+	<message key="obd.metadata.section-specific-106-8">Proceedings</message>
+	<message key="obd.metadata.section-specific-57-9">Conference</message>
+	<message key="obd.metadata.section-specific-110-10">Conference</message>
+	<!-- Metadata Fields -->
+	<message key="obd.metadata.field-date_issued-applicable-year">Year of Application</message>
+	<message key="obd.metadata.field-abstract-annotation-description">Annotation / Description</message>
+	<message key="obd.metadata.field-abstract-description">Description</message>
+	<message key="obd.metadata.field-title-abstract">Abstract Title</message>
+	<message key="obd.metadata.field-title-article">Article Title</message>
+	<message key="obd.metadata.field-title-chapter">Chapter Title</message>
+	<message key="obd.metadata.field-title-book">Book Title</message>
+	<message key="obd.metadata.field-title-submission">Submission Title</message>
+	<message key="obd.metadata.field-title-essay">Essay Title</message>
+	<message key="obd.metadata.field-title-translated-chapter">Chapter Title - English</message>
+	<message key="obd.metadata.field-title-translated-book">Book Title - English</message>
+	<message key="obd.metadata.field-title-translated-submission">Submission Title - English</message>
+	<message key="obd.metadata.field-title-translated-essay">Essay Title - English</message>
+	<message key="obd.metadata.field-publisher-periodical">Publisher</message>
+	<message key="obd.metadata.field-publisher-monographic">Publisher</message>
+	<message key="obd.metadata.field-publisher-client">Client</message>
+	<message key="obd.metadata.field-source_title-journal-proceedings">Journal / Proceedings Title</message>
+	<message key="obd.metadata.field-source_title-journal">Journal Title</message>
+	<message key="obd.metadata.field-source_title-book">Book Title</message>
+	<message key="obd.metadata.field-source_title-proceedings">Proceedings Title</message>
+	<message key="obd.metadata.field-series-name">Series Name</message>
+	<message key="obd.metadata.field-series-version-number">Version Number</message>
+	<message key="obd.metadata.field-edition-order-in-series">Order in Series</message>
+	<message key="obd.metadata.field-source_eissn-second-issn">Second ISSN (eISSN)</message>
+	<message key="obd.metadata.field-conference_name-event-name">Event Name</message>
+	<message key="obd.metadata.field-methodology_id_internal">Internal Identification</message>
+	<message key="obd.metadata.field-methodology_number">Document Number</message>
+	<message key="obd.metadata.field-methodology_parameters_technical">Technical Parameters</message>
+	<message key="obd.metadata.field-methodology_parameters_economical">Economic Parameters</message>
+	<message key="obd.metadata.field-methodology_date_certified">Certification Date</message>
+	<message key="obd.metadata.field-methodology_certification_authority">Certification Authority</message>
+	<message key="obd.metadata.field-methodology_usage">Usage</message>
+	<message key="obd.metadata.field-extent_total-output">Number of Pages</message>
+	<message key="obd.metadata.field-id_isbn-ismn">ISBN/ISMN</message>
+	<message key="obd.metadata.field-organizer_name-conference">Conference Organizer</message>
 
-	<!-- Příjmení a jméno osoby s podílem na vzniku dokumentu: Editor dokumentu -->
-	<message key="obd.form-id-110.mandatory.metadata.section-trl.110-3">EDITOR</message>
-	<message key="obd.form-id-110.mandatory.metadata.id.3.field-trl.110-3-none"></message>
-
-	<!-- Abstrakt -->
-	<message key="obd.form-id-110.mandatory.metadata.section-trl.110-5">Titles</message>
-	<message key="obd.form-id-110.mandatory.metadata.id.4.field-trl.110-5-1">Annotation / Description</message>
-
-	<!-- Jazyk dokumentu (OBD pošle pouze ISO kód) -->
-	<message key="obd.form-id-110.mandatory.metadata.id.5.field-trl.110-5-2">Language</message>
-	
-	<!-- Klíčová slova -->
-	<message key="obd.form-id-110.mandatory.metadata.id.6.field-trl.110-5-3">Keywords</message>
-
-	<!-- Název dokumentu -->
-	<message key="obd.form-id-110.mandatory.metadata.id.7.field-trl.110-5-4">Title of the abstract</message>
-
-	<!-- END OF: ABSTRACT metadata -->
-
-	<!-- ČLÁNEK V ČASOPISU metadata -->
-	
-	<!-- Datum (rok) vydání dokumentu -->
-	<message key="obd.form-id-73.mandatory.metadata.id.1.section-trl.73-1">Basic Information</message>
-	<message key="obd.form-id-73.mandatory.metadata.id.1.field-trl.73-1-1">Year</message>
-
-	<!-- Příjmení a jméno autora dokumentu -->
-	<message key="obd.form-id-73.mandatory.metadata.id.2.section-trl.73-2">AUTHOR</message>
-	<message key="obd.form-id-73.mandatory.metadata.id.2.field-trl.73-2-none"></message>
-
-	<!-- Příjmení a jméno osoby s podílem na vzniku dokumentu: Editor dokumentu -->
-	<message key="obd.form-id-73.mandatory.metadata.id.3.section-trl.73-3">EDITOR</message>
-	<message key="obd.form-id-73.mandatory.metadata.id.3.field-trl.73-3-none"></message>
-
-	<!-- Abstrakt -->
-	<message key="obd.form-id-73.mandatory.metadata.id.4.section-trl.73-5">Titles</message>
-	<message key="obd.form-id-73.mandatory.metadata.id.4.field-trl.73-5-1">Annotation / Description</message>
-
-	<!-- Jazyk dokumentu (OBD pošle pouze ISO kód) -->
-	<message key="obd.form-id-73.mandatory.metadata.id.5.field-trl.73-5-2">Language</message>
-
-	<!-- Klíčová slova -->
-	<message key="obd.form-id-73.mandatory.metadata.id.6.field-trl.73-5-3">Keywords</message>
-
-	<!-- Název dokumentu -->
-	<message key="obd.form-id-73.mandatory.metadata.id.7.field-trl.73-5-4">Title of the article</message>
-
-	<!-- END OF: ČLÁNEK V ČASOPISU metadata -->
+	<!-- END OF: OBD METADATA SECTIONS TRANSLATIONS - FORM SPECIFIC -->
 
 	<!-- END OF: <JR> - 22-06-16: page/metadata -->
 
