@@ -105,6 +105,7 @@
                                     <xsl:when test="./@id = $publicationFormID">
                                         <xsl:for-each select=".//metadatum">
                                             <xsl:variable name="systemMetadatum" select="./meta_info/@system"/>
+                                            <xsl:variable name="obdFieldID" select="./@obd_field_id"/>
                                             <xsl:variable name="metadatumID" select="./@id"/>
                                             <xsl:variable name="metadatumInternalName" select="./@internal_name"/>
                                             <xsl:variable name="obdSectionTranslationKey" select="./meta_info/@obd_section_translation"/>
@@ -122,9 +123,11 @@
                                                         </i18n:text>
                                                     </td>
                                                     <td>
-                                                        <i18n:text>
-                                                            <xsl:value-of select="concat('obd.metadata.', $obdFieldTranslationKey)"/>
-                                                        </i18n:text>
+                                                        <xsl:if test="$obdFieldID != 'none'">
+                                                            <i18n:text>
+                                                                <xsl:value-of select="concat('obd.metadata.', $obdFieldTranslationKey)"/>
+                                                            </i18n:text>
+                                                        </xsl:if>
                                                     </td>
                                                     <xsl:choose>
                                                         <xsl:when test="$validForPublicationState = 'both'">
