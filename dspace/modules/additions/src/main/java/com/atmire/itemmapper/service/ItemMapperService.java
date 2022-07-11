@@ -58,10 +58,10 @@ public interface ItemMapperService {
 
     public void reverseMapFromParams(Context context, String destinationHandle, String sourceHandle, boolean dryRun) throws SQLException;
 
-    public void mapFromMappingFile(Context context, String link, String path, boolean dryRun)
+    public void mapFromMappingFile(Context context, String sourceCol, String link, String path, boolean dryRun)
         throws IOException, SQLException, AuthorizeException;
 
-    public void reverseMapFromMappingFile(Context context, String link, String path, boolean dryRun)
+    public void reverseMapFromMappingFile(Context context, String sourceCol, String link, String path, boolean dryRun)
         throws SQLException, IOException, AuthorizeException;
 
     public void doesURLResolve(String url) throws IOException;
