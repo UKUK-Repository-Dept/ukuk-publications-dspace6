@@ -35,19 +35,21 @@ public interface ItemMapperService {
     public void unmapItem(Context context, Item item, String sourceHandle,  boolean dryRun)
         throws SQLException, AuthorizeException, IOException;
 
-    public void showItemsInCollection(Context context, Collection collection) throws SQLException;
+    public void showItemsInCollection(Context context, Item item, Collection collection) throws SQLException;
 
-    public Collection resolveCollection(Context context, String collectionID) throws SQLException;
+    public List<Collection> resolveCollections(Context context, String collectionIDs) throws SQLException;
 
     public String getContentFromFile(String filepath) throws IOException;
 
     public Collection getCorrespondingCollection(Context context, GenericCollection col)
         throws SQLException;
 
-    public void mapItemsFromJson(Context context, Iterator<Item> items, CuniMapFile mapFile, boolean dryRun)
+    public void mapItemsFromJson(Context context, Iterator<Item> items, CuniMapFile mapFile, boolean dryRun,
+                                 Collection collection)
         throws SQLException, AuthorizeException, IOException;
 
-    public void reverseMapItemsFromJson(Context context, Iterator<Item> items, CuniMapFile mapFile, boolean dryRun)
+    public void reverseMapItemsFromJson(Context context, Iterator<Item> items, CuniMapFile mapFile, boolean dryRun,
+                                        Collection collection)
         throws SQLException, AuthorizeException, IOException;
 
     public CuniMapFile getMapFileFromLink(String link) throws IOException;
