@@ -70,8 +70,10 @@ public class ParametrizedItemMappingScript extends ContextScript {
         this.helpOption = new HelpOption();
         operationMode = new StringOption('o', "operation",
                                          "the operation mode for the script, should be one of following: " + Arrays.toString(OPERATIONS),true);
-        sourceHandle = new StringOption('s', "source", "handle or uuid of the source collection", false);
-        destinationHandle = new StringOption('d', "destination", "handle or uuid of the destination collection", false);
+        sourceHandle = new StringOption('s', "source", "handle or uuid of the source collection(s). Note that " +
+            "multiple collections should be seperated by a single space", false);
+        destinationHandle = new StringOption('d', "destination", "handle or uuid of the destination collection(s). " +
+            "Note that multiple collections should be seperated by a single space", false);
         linkToFile = new StringOption('l',"link", "URL address leading to the mapped file", false);
         pathToFile = new StringOption('p',"localpath", "Path to the mapped file in local storage system", false);
         dryRun = new BooleanOption('t', "test", "script run is dry run, no changes will be made to the database, for " +
