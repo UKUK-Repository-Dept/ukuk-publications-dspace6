@@ -1,6 +1,7 @@
 package com.atmire.itemmapper;
 
 import static com.atmire.itemmapper.service.ItemMapperServiceImpl.ERROR;
+import static com.atmire.itemmapper.service.ItemMapperServiceImpl.INFO;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -71,11 +72,13 @@ public class ParametrizedItemMappingScript extends ContextScript {
         operationMode = new StringOption('o', "operation",
                                          "the operation mode for the script, should be one of following: " + Arrays.toString(OPERATIONS),true);
         sourceHandle = new StringOption('s', "source", "handle or uuid of the source collection(s). Note that " +
-            "multiple collections should be seperated by a single space", false);
+            "multiple collections should be between quotes and seperated by a space", false);
         destinationHandle = new StringOption('d', "destination", "handle or uuid of the destination collection(s). " +
-            "Note that multiple collections should be seperated by a single space", false);
-        linkToFile = new StringOption('l',"link", "URL address leading to the mapped file", false);
-        pathToFile = new StringOption('p',"localpath", "Path to the mapped file in local storage system", false);
+            "Note that multiple collections should be between quotes and seperated by a space", false);
+        linkToFile = new StringOption('l',"link", "URL address leading to a valid link containing the raw json data " +
+            "of the mapping file", false);
+        pathToFile = new StringOption('p',"localpath", "Path to the json mapping file on your local storage system",
+                                      false);
         dryRun = new BooleanOption('t', "test", "script run is dry run, no changes will be made to the database, for " +
             "testing purposes only", false);
 
@@ -100,6 +103,11 @@ public class ParametrizedItemMappingScript extends ContextScript {
             itemMapperService.verifyParams(context, operationMode.getValue(), sourceHandle.getValue(),
                                            destinationHandle.getValue(), linkToFile.getValue(), pathToFile.getValue(),
                                            dryRun.isSelected());
+
+            if (dryRun.isSelected()) {
+                itemMapperService.logCLI(INFO, "This is a dry run / test run of the script, no changes will be made to the database");
+            }
+
             switch (currentOperation) {
                 case UNMAPPED:
                     itemMapperService.mapFromParams(context, destinationHandle.getValue(), sourceHandle.getValue(), dryRun.isSelected());
@@ -117,7 +125,13 @@ public class ParametrizedItemMappingScript extends ContextScript {
                                                                 pathToFile.getValue(), dryRun.isSelected());
                     break;
                 default:
-                    itemMapperService.logCLI(ERROR, "The mapping operation resolved to: " + currentOperation + " this is not supported");
+                    itemMapperService.logCLI(ERROR, "The mapping operation resolved to: " + currentOperation + " this" +
+                        " is not supported");
+            }
+
+            if (dryRun.isSelected()) {
+                itemMapperService.logCLI(INFO, "This was a dry run / test run of the script, no changes have been " +
+                    "made to the database");
             }
         } catch (Exception e) {
             itemMapperService.logCLI(ERROR, "An exception has occurred! => " + e.getMessage());
