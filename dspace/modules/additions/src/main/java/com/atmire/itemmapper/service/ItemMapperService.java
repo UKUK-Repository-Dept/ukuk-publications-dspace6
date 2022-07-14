@@ -16,6 +16,8 @@ public interface ItemMapperService {
 
     public void logCLI(String level, String message);
 
+    public void logCLI(String level, String message, boolean dryRun);
+
     public void mapItem(Context context, Item item, Collection sourceCollection, Collection destinationCollection,
                         boolean dryRun)
         throws SQLException, AuthorizeException;
@@ -80,4 +82,6 @@ public interface ItemMapperService {
     public boolean doesFileExist();
 
     public boolean isLinkValid() throws IOException;
+
+    public void verifyJsonData(CuniMapFile cuniMapFile);
 }

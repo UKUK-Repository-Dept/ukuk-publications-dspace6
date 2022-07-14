@@ -4,8 +4,10 @@ import static com.atmire.itemmapper.ParametrizedItemMappingScript.LOCAL;
 import static com.atmire.itemmapper.ParametrizedItemMappingScript.MAPPED;
 import static com.atmire.itemmapper.ParametrizedItemMappingScript.URL;
 import static com.atmire.itemmapper.ParametrizedItemMappingScript.configurationService;
+import static org.apache.commons.lang.StringUtils.isBlank;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,16 +47,17 @@ public class ItemMapperConsumer implements Consumer {
     @Override
     public void consume(Context ctx, Event event) throws Exception {
         if (CONSUMER_ITEM_MAPPER_ENABLED && event.getSubjectType() == Constants.ITEM && event.getEventType() == Event.INSTALL) {
+            checkConsumerConfig();
 
             Item item = (Item) event.getSubject(ctx);
 
-            if (CONSUMER_MAPPING_FILE_LOCATION.equals(URL) && itemMapperService.isLinkValid()) {
+            if (CONSUMER_MAPPING_FILE_LOCATION.equals(URL)) {
                 log.info("ItemMapperConsumer: Item install event, mapping items based on URL: " + CONSUMER_MAPPING_FILE_PATH);
                 cuniMapFile = itemMapperService.getMapFileFromLink(CONSUMER_MAPPING_FILE_PATH);
                 itemMapperService.addItemToListIfInSourceCollection(ctx, item, cuniMapFile, itemList);
             }
 
-            else if (CONSUMER_MAPPING_FILE_LOCATION.equals(LOCAL) && itemMapperService.doesFileExist()) {
+            else if (CONSUMER_MAPPING_FILE_LOCATION.equals(LOCAL)) {
                 log.info("ItemMapperConsumer: Item install event, mapping items based on local file located at : " + FULL_PATH_TO_FILE);
                 cuniMapFile = itemMapperService.getMapFileFromPath(FULL_PATH_TO_FILE);
                 itemMapperService.addItemToListIfInSourceCollection(ctx, item, cuniMapFile, itemList);
@@ -84,6 +87,21 @@ public class ItemMapperConsumer implements Consumer {
     @Override
     public void finish(Context ctx) throws Exception {
 
+    }
+
+    public void checkConsumerConfig() throws IOException {
+        if (isBlank(CONSUMER_MAPPING_FILE_LOCATION) || isBlank(CONSUMER_MAPPING_FILE_PATH) || isBlank(CONSUMER_MAPPING_FILE_NAME)) {
+            log.error("Missing configuration for one of your consumer properties: " + CONSUMER_MAPPING_FILE_LOCATION_CFG + ", "
+                          + CONSUMER_MAPPING_FILE_PATH_CFG + ", " + CONSUMER_MAPPING_FILE_NAME_CFG);
+        }
+
+        if (CONSUMER_MAPPING_FILE_LOCATION.equalsIgnoreCase(URL) && !itemMapperService.isLinkValid()) {
+                log.error("The given URL does not resolve: " + CONSUMER_MAPPING_FILE_PATH);
+        }
+
+        if (CONSUMER_MAPPING_FILE_LOCATION.equalsIgnoreCase(LOCAL) && !itemMapperService.doesFileExist()) {
+            log.error("The file you supplied is not a valid JSON file: " + FULL_PATH_TO_FILE);
+        }
     }
 
 }
