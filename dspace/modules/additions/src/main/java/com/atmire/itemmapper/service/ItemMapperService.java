@@ -26,7 +26,7 @@ public interface ItemMapperService {
         throws SQLException,
         AuthorizeException;
 
-    public void verifyParams(Context context, String operationmode, String sourceHandle, String destinationHandle,
+    public boolean verifyParams(Context context, String operationmode, String sourceHandle, String destinationHandle,
                              String linkToFile, String pathToFile, boolean dryRun)
         throws SQLException, IOException;
 
@@ -68,9 +68,9 @@ public interface ItemMapperService {
     public void reverseMapFromMappingFile(Context context, String sourceCol, String link, String path, boolean dryRun)
         throws SQLException, IOException, AuthorizeException;
 
-    public void doesURLResolve(String url) throws IOException;
+    public boolean doesURLResolve(String url) throws IOException;
 
-    public void isValidJSONFile(String path) throws IOException;
+    public boolean isValidJSONFile(String path) throws IOException;
 
     public void checkMetadataValuesAndConvertToString(Context context, Iterator<Item> items, CuniMapFile mapFile,
                                                       String mapMode, boolean dryRun)
