@@ -101,7 +101,6 @@ public class ItemMapperServiceImpl implements ItemMapperService {
                 break;
             case ERROR:
                 log.error(message);
-                System.exit(1);
                 break;
             case WARN:
                 log.warn(message);
