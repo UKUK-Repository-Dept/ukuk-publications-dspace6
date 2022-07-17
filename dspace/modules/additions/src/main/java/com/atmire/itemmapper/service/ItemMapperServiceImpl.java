@@ -143,30 +143,31 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     }
 
     @Override
-    public void verifyParams(Context context, String operationMode, String sourceHandle, String destinationHandle,
+    public boolean verifyParams(Context context, String operationMode, String sourceHandle, String destinationHandle,
                              String linkToFile, String pathToFile, boolean dryRun) throws IOException {
 
         if (!Arrays.asList(OPERATIONS).contains(operationMode)) {
             logCLI(ERROR, "No valid operation mode was given", dryRun);
+            return false;
         }
 
         if (operationMode.equals(UNMAPPED) && isBlank(destinationHandle) ) {
                 logCLI(ERROR, "No destination handle was given, this is required when the operation mode is " +
                     "set to unmapped", dryRun);
-                System.exit(1);
+                return false;
         }
 
         if (operationMode.equals(REVERSED)) {
             if (isBlank(destinationHandle) && isNotBlank(sourceHandle)) {
                 logCLI(ERROR, "You should also give a destination parameter when giving a " +
                     "source parameter", dryRun);
-                System.exit(1);
+                return false;
             }
 
             if (isNotBlank(destinationHandle) && isBlank(sourceHandle)) {
                 logCLI(ERROR, "You should also give a source parameter when giving a " +
                     "destination parameter", dryRun);
-                System.exit(1);
+                return false;
             }
         }
 
@@ -178,35 +179,43 @@ public class ItemMapperServiceImpl implements ItemMapperService {
             if (FILE_LOCATION.equals(URL) || isNotBlank(linkToFile)) {
                 if (isBlank(linkToFile)) {
                     linkToFile = MAPPING_FILE_PATH;
+                };
+                if (!doesURLResolve(linkToFile)) {
+                    return false;
                 }
-                doesURLResolve(linkToFile);
             }
 
             else if (FILE_LOCATION.equals(LOCAL) || isNotBlank(pathToFile)) {
                 if (isBlank(pathToFile)) {
                     pathToFile = MAPPING_FILE_PATH + File.separator + MAPPING_FILE_NAME;
                 }
-                isValidJSONFile(pathToFile);
+                if (!isValidJSONFile(pathToFile)) {
+                    return false;
+                }
             }
 
             else {
                 logCLI(ERROR, "No valid JSON data could be resolved please provide either a link to a JSON file " +
                     "or a path to a JSON file. Using either properties in item-mapping.cfg or the command line ", dryRun);
+                return false;
             }
         }
+        return true;
     }
 
     @Override
-    public void isValidJSONFile(String pathToFile) throws IOException {
+    public boolean isValidJSONFile(String pathToFile) throws IOException {
         File jsonFile = new File(pathToFile);
         if (!substringAfterLast(pathToFile, ".").equals("json") || !jsonFile.exists() || !jsonFile.isFile()) {
             logCLI(ERROR, String.format("%s did not resolve to a valid .json file. Either put path to valid json in '%s' option, or set configs %s/%s to point to valid json.",
                                         pathToFile, PATH_OPTION_CHAR, MAPPING_FILE_PATH_CFG, MAPPING_FILE_NAME_CFG));
+            return false;
         }
+        return true;
     }
 
     @Override
-    public void doesURLResolve(String sUrl) throws IOException {
+    public boolean doesURLResolve(String sUrl) throws IOException {
         java.net.URL url = new URL(sUrl);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         int responseCode = connection.getResponseCode();
@@ -215,8 +224,9 @@ public class ItemMapperServiceImpl implements ItemMapperService {
             logCLI(ERROR, "The given file path " + url + " is not a valid URL, please give a valid URL" +
                 " using the -l parameter or in a configuration file using the " + MAPPING_FILE_PATH_CFG + " " +
                 "property");
-            System.exit(1);
+            return false;
         }
+        return true;
     }
 
     @Override
@@ -382,7 +392,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
             resolvedCollection = collectionService.find(context, UUID.fromString(col.getId().getValue()));
             if (resolvedCollection == null) {
                 logCLI(ERROR, "No collection could be resolved with the UUID:" + col.getId().getValue());
-                System.exit(1);
+                return null;
             }
             return resolvedCollection;
         }
@@ -409,7 +419,9 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     @Override
     public CuniMapFile getMapFileFromLink(String link) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        doesURLResolve(link);
+        if (!doesURLResolve(link)) {
+            return null;
+        }
         java.net.URL jsonURL = new URL(link);
         return objectMapper.readValue(jsonURL, CuniMapFile.class);
     }
@@ -445,7 +457,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
                         logCLI(ERROR, String.format("Item (%s | %s) " + "could not be " +
                                                                           "mapped for an unknown reason",
                                                                       item.getHandle(), item.getID()), dryRun);
-                        e.printStackTrace();
+                        log.error(e.getMessage(), e);
                     }
                 });
                 offset += batchSize;
@@ -475,7 +487,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
                         } catch (SQLException | AuthorizeException e) {
                             logCLI(ERROR, String.format("Item (%s | %s) could not be " + "mapped for an unknown " +
                                                             "reason", item.getHandle(), item.getID()), dryRun);
-                            e.printStackTrace();
+                            log.error(e.getMessage(), e);
                         }
                     }));
                     offset += batchSize;
@@ -534,7 +546,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
             } catch (SQLException | AuthorizeException | IOException e) {
                 logCLI(ERROR, String.format("Item (%s | %s) could not be mapped for an unknown reason ",
                                                               item.getHandle(), item.getID()), dryRun);
-                e.printStackTrace();
+                log.error(e.getMessage(), e);
             }
         });
         offset += batchSize;
@@ -549,6 +561,9 @@ public class ItemMapperServiceImpl implements ItemMapperService {
         }
         if (isNotBlank(link)) {
             cuniMapFile = getMapFileFromLink(link);
+            if (cuniMapFile == null) {
+                return;
+            }
         }
         else if (isNotBlank(path)) {
             cuniMapFile = getMapFileFromPath(path);
@@ -574,7 +589,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
             }
         } else {
             for (SourceCollection col : cuniMapFile.getMapfile().getSource_collections()) {
-                Collection collection =  getCorrespondingCollection(context, col);
+                Collection collection = getCorrespondingCollection(context, col);
                 mapItemsFromJson(context, itemService.findAllByCollection(context,collection), cuniMapFile, dryRun,
                                  collection);
             }
@@ -598,10 +613,15 @@ public class ItemMapperServiceImpl implements ItemMapperService {
         CuniMapFile cuniMapFile;
         if (isBlank(link) && isBlank(path) && FILE_LOCATION.equals(URL)) {
             link = MAPPING_FILE_PATH;
-            doesURLResolve(link);
+            if (!doesURLResolve(link)) {
+                return;
+            }
         }
         if (isNotBlank(link)) {
             cuniMapFile = getMapFileFromLink(link);
+            if (cuniMapFile == null) {
+                return;
+            }
         }
         else if (isNotBlank(path)) {
             cuniMapFile = getMapFileFromPath(path);

@@ -100,9 +100,12 @@ public class ParametrizedItemMappingScript extends ContextScript {
             context.turnOffAuthorisationSystem();
 
             currentOperation = operationMode.getValue();
-            itemMapperService.verifyParams(context, operationMode.getValue(), sourceHandle.getValue(),
-                                           destinationHandle.getValue(), linkToFile.getValue(), pathToFile.getValue(),
-                                           dryRun.isSelected());
+            boolean paramsAreValid = itemMapperService.verifyParams(context, operationMode.getValue(),
+                sourceHandle.getValue(), destinationHandle.getValue(), linkToFile.getValue(), pathToFile.getValue(),
+                dryRun.isSelected());
+            if (!paramsAreValid) {
+                System.exit(1);
+            }
 
             if (dryRun.isSelected()) {
                 itemMapperService.logCLI(INFO, "This is a dry run / test run of the script, no changes will be made to the database");
@@ -127,6 +130,7 @@ public class ParametrizedItemMappingScript extends ContextScript {
                 default:
                     itemMapperService.logCLI(ERROR, "The mapping operation resolved to: " + currentOperation + " this" +
                         " is not supported");
+                    System.exit(1);
             }
 
             if (dryRun.isSelected()) {
@@ -135,7 +139,6 @@ public class ParametrizedItemMappingScript extends ContextScript {
             }
         } catch (Exception e) {
             itemMapperService.logCLI(ERROR, "An exception has occurred! => " + e.getMessage());
-            e.printStackTrace();
             throw e;
         }
     }
