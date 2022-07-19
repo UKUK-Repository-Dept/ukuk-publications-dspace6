@@ -13,7 +13,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.annotation.Nullable;
 
 import com.atmire.itemmapper.factory.ItemMapperServiceFactory;
@@ -90,6 +89,7 @@ public class ItemMapperConsumer implements Consumer {
     public void end(Context ctx) throws Exception {
         if (!itemList.isEmpty()) {
             try {
+                itemMapperService.reverseMapItemsInBatch(ctx, itemList.iterator(), null, null, false);
                 itemMapperService.checkMetadataValuesAndConvertToString(ctx, itemList.iterator(), cuniMapFile, MAPPED, false);
             } catch (Exception e) {
                 logMessage(ERROR,"An exception occurred while mapping items", e);

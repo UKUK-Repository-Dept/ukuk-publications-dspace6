@@ -164,12 +164,6 @@ public class ItemMapperServiceImpl implements ItemMapperService {
                     "source parameter", dryRun);
                 return false;
             }
-
-            if (isNotBlank(destinationHandle) && isBlank(sourceHandle)) {
-                logCLI(ERROR, "You should also give a source parameter when giving a " +
-                    "destination parameter", dryRun);
-                return false;
-            }
         }
 
         if (dryRun) {
@@ -269,8 +263,10 @@ public class ItemMapperServiceImpl implements ItemMapperService {
         // if source and destination handle are given resolve them to their collections
         // We only want to remove the items originating from the source collections to be removed from the
         // destination collection (they were previously mapped)
-        if (isNotBlank(sourceHandle) && isNotBlank(destinationHandle)) {
-            resolvedSourceCollections = resolveCollections(context, sourceHandle);
+        if (isNotBlank(destinationHandle)) {
+            if (isNotBlank(sourceHandle)) {
+                resolvedSourceCollections = resolveCollections(context, sourceHandle);
+            }
             resolvedDestinationCollections = resolveCollections(context, destinationHandle);
 
             // If the item is mapped to the collection we want to remove from and that collection is not its owning
@@ -514,6 +510,26 @@ public class ItemMapperServiceImpl implements ItemMapperService {
             }
         }
 
+        // If only destination collection(s) is given we want to remove all mappings from that collection(s).
+        if (isBlank(sourceHandle) && isNotBlank(destinationHandle)) {
+            resolvedDestinationCollections = resolveCollections(context, destinationHandle);
+            for (Collection destinationCollection: resolvedDestinationCollections) {
+                logCLI(INFO, PROCESSING_COLLECTION_CHAR + PROCESSING_COLLECTION_HEADER + destinationCollection.getName() + " " + destinationCollection.getHandle() + " | "
+                    + destinationCollection.getID() + PROCESSING_COLLECTION_CHAR, dryRun);
+                offset = 0;
+                totalItems = itemService.countAllItems(context, destinationCollection);
+
+                // Loop through all of our items in batches
+                for (int i = 1; i <= Math.ceil(totalItems / batchSize); i++) {
+                    itemsToMap = itemService.findAllByCollection(context, destinationCollection, batchSize, offset);
+                    logCLI(INFO, "***** PROCESSING BATCH: " + i + " *****", dryRun);
+
+                    // Reverse map all items in the current batch
+                    reverseMapItemsInBatch(context, itemsToMap, sourceHandle, destinationHandle, dryRun);
+                }
+            }
+        }
+
         // If a destination and source collection is given we want to obtain only the items from the
         // destination collection as this is where we will be reverse mapping (removing) items from
         else if (isNotBlank(destinationHandle)) {
@@ -539,7 +555,8 @@ public class ItemMapperServiceImpl implements ItemMapperService {
         }
     }
 
-    private void reverseMapItemsInBatch(Context context, Iterator<Item> itemsToMap, String sourceHandle,
+    @Override
+    public void reverseMapItemsInBatch(Context context, Iterator<Item> itemsToMap, String sourceHandle,
                                         String destinationHandle, boolean dryRun) {
         itemsToMap.forEachRemaining(item -> {
             try {

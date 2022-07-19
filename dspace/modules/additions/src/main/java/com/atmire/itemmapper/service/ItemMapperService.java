@@ -84,4 +84,7 @@ public interface ItemMapperService {
     public boolean isLinkValid() throws IOException;
 
     public void verifyJsonData(CuniMapFile cuniMapFile);
+
+    public void reverseMapItemsInBatch(Context context, Iterator<Item> itemsToMap, String sourceHandle,
+                                        String destinationHandle, boolean dryRun);
 }
