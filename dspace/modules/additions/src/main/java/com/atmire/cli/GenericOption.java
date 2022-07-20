@@ -5,7 +5,7 @@ import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 
 public abstract class GenericOption implements OptionWrapper {
-    protected final char shortName;
+    protected final char    shortName;
     protected final String longName;
     protected final String description;
     protected boolean hasArg;

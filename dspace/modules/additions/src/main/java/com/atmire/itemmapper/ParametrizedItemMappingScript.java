@@ -11,6 +11,7 @@ import com.atmire.cli.BooleanOption;
 import com.atmire.cli.ContextScript;
 import com.atmire.cli.HelpOption;
 import com.atmire.cli.OptionWrapper;
+import com.atmire.cli.RepeatableStringOption;
 import com.atmire.cli.StringOption;
 import com.atmire.itemmapper.factory.ItemMapperServiceFactory;
 import com.atmire.itemmapper.service.ItemMapperService;
@@ -43,8 +44,8 @@ public class ParametrizedItemMappingScript extends ContextScript {
     static ConfigurationService configurationService = DSpaceServicesFactory.getInstance().getConfigurationService();
 
     StringOption operationMode;
-    StringOption sourceHandle;
-    StringOption destinationHandle;
+    RepeatableStringOption sourceHandle;
+    RepeatableStringOption destinationHandle;
     StringOption linkToFile;
     StringOption pathToFile;
     BooleanOption dryRun;
@@ -71,10 +72,11 @@ public class ParametrizedItemMappingScript extends ContextScript {
         this.helpOption = new HelpOption();
         operationMode = new StringOption('o', "operation",
                                          "the operation mode for the script, should be one of following: " + Arrays.toString(OPERATIONS),true);
-        sourceHandle = new StringOption('s', "source", "handle or uuid of the source collection(s). Note that " +
-            "multiple collections should be between quotes and seperated by a space", false);
-        destinationHandle = new StringOption('d', "destination", "handle or uuid of the destination collection(s). " +
-            "Note that multiple collections should be between quotes and seperated by a space", false);
+        sourceHandle = new RepeatableStringOption('s', "source", "handle or uuid of the source collection(s). Note that multiple collections should be seperated by a comma. It is also possible to provide this " +
+        "parameter multiple times with different collections", true, false, ",");
+        destinationHandle = new RepeatableStringOption('d', "destination", "handle or uuid of the destination collection(s). " +
+            "Note that multiple collections should be seperated by a comma. It is also possible to provide this " +
+            "parameter multiple times with different collections", true, false, ",");
         linkToFile = new StringOption('l',"link", "URL address leading to a valid link containing the raw json data " +
             "of the mapping file", false);
         pathToFile = new StringOption('p',"localpath", "Path to the json mapping file on your local storage system",
@@ -101,7 +103,7 @@ public class ParametrizedItemMappingScript extends ContextScript {
 
             currentOperation = operationMode.getValue();
             boolean paramsAreValid = itemMapperService.verifyParams(context, operationMode.getValue(),
-                sourceHandle.getValue(), destinationHandle.getValue(), linkToFile.getValue(), pathToFile.getValue(),
+                sourceHandle.getValues(), destinationHandle.getValues(), linkToFile.getValue(), pathToFile.getValue(),
                 dryRun.isSelected());
             if (!paramsAreValid) {
                 System.exit(1);
@@ -113,18 +115,20 @@ public class ParametrizedItemMappingScript extends ContextScript {
 
             switch (currentOperation) {
                 case UNMAPPED:
-                    itemMapperService.mapFromParams(context, destinationHandle.getValue(), sourceHandle.getValue(), dryRun.isSelected());
+                    itemMapperService.mapFromParams(context, destinationHandle.getValues(), sourceHandle.getValues(),
+                                                    dryRun.isSelected());
                     break;
                 case REVERSED:
-                    itemMapperService.reverseMapFromParams(context, destinationHandle.getValue(), sourceHandle.getValue(), dryRun.isSelected());
+                    itemMapperService.reverseMapFromParams(context, destinationHandle.getValues(),
+                                                           sourceHandle.getValues(), dryRun.isSelected());
                     break;
                 case MAPPED:
-                    itemMapperService.mapFromMappingFile(context, sourceHandle.getValue(), linkToFile.getValue(),
+                    itemMapperService.mapFromMappingFile(context, sourceHandle.getValues(), linkToFile.getValue(),
                                                          pathToFile.getValue(),
                                                          dryRun.isSelected());
                     break;
                 case REVERSED_MAPPED:
-                    itemMapperService.reverseMapFromMappingFile(context, sourceHandle.getValue(), linkToFile.getValue(),
+                    itemMapperService.reverseMapFromMappingFile(context, sourceHandle.getValues(), linkToFile.getValue(),
                                                                 pathToFile.getValue(), dryRun.isSelected());
                     break;
                 default:

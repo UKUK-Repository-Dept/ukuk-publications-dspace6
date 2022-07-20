@@ -143,22 +143,23 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     }
 
     @Override
-    public boolean verifyParams(Context context, String operationMode, String sourceHandle, String destinationHandle,
-                             String linkToFile, String pathToFile, boolean dryRun) throws IOException {
+    public boolean verifyParams(Context context, String operationMode, List<String> sourceHandle,
+                                List<String> destinationHandle, String linkToFile,
+                                String pathToFile, boolean dryRun) throws IOException {
 
         if (!Arrays.asList(OPERATIONS).contains(operationMode)) {
             logCLI(ERROR, "No valid operation mode was given", dryRun);
             return false;
         }
 
-        if (operationMode.equals(UNMAPPED) && isBlank(destinationHandle) ) {
+        if (operationMode.equals(UNMAPPED) && isBlankList(destinationHandle) ) {
                 logCLI(ERROR, "No destination handle was given, this is required when the operation mode is " +
                     "set to unmapped", dryRun);
                 return false;
         }
 
         if (operationMode.equals(REVERSED)) {
-            if (isBlank(destinationHandle) && isNotBlank(sourceHandle)) {
+            if (isBlankList(destinationHandle) && !sourceHandle.isEmpty()) {
                 logCLI(ERROR, "You should also give a destination parameter when giving a " +
                     "source parameter", dryRun);
                 return false;
@@ -224,9 +225,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     }
 
     @Override
-    public List<Collection> resolveCollections(Context context, String collectionIDs) throws SQLException {
-        collectionIDs = collectionIDs.trim().replaceAll(" +", " ");
-        List<String> collectionIDsList = Arrays.stream(collectionIDs.split(" ")).collect(Collectors.toList());
+    public List<Collection> resolveCollections(Context context, List<String> collectionIDsList) throws SQLException {
         List<Collection> collections = new ArrayList<>();
         for (String id: collectionIDsList) {
             DSpaceObject dso = handleService.resolveToObject(context, id);
@@ -254,7 +253,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
 
 
     @Override
-    public void unmapItem(Context context, Item item, String sourceHandle, String destinationHandle,
+    public void unmapItem(Context context, Item item, List<String> sourceHandle, List<String> destinationHandle,
                           boolean dryRun) throws SQLException, AuthorizeException, IOException {
         List<Collection> itemCollections = item.getCollections();
         Collection itemOwningCollection = item.getOwningCollection();
@@ -262,8 +261,8 @@ public class ItemMapperServiceImpl implements ItemMapperService {
         // if source and destination handle are given resolve them to their collections
         // We only want to remove the items originating from the source collections to be removed from the
         // destination collection (they were previously mapped)
-        if (isNotBlank(destinationHandle)) {
-            if (isNotBlank(sourceHandle)) {
+        if (isNotBlankList(destinationHandle)) {
+            if (isNotBlankList(sourceHandle)) {
                 resolvedSourceCollections = resolveCollections(context, sourceHandle);
             }
             resolvedDestinationCollections = resolveCollections(context, destinationHandle);
@@ -291,7 +290,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     }
 
     @Override
-    public void unmapItem(Context context, Item item, String sourceHandle, boolean dryRun)
+    public void unmapItem(Context context, Item item, List<String> sourceHandle, boolean dryRun)
         throws SQLException, AuthorizeException, IOException {
             unmapItem(context, item, sourceHandle, null, dryRun);
 
@@ -429,13 +428,13 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     }
 
     @Override
-    public void mapFromParams(Context context, String destinationHandle, String sourceHandle, boolean dryRun) throws SQLException {
+    public void mapFromParams(Context context, List<String> destinationHandle, List<String> sourceHandle, boolean dryRun) throws SQLException {
 
         // Destination collection is required when case is unmapped
         resolvedDestinationCollections = resolveCollections(context, destinationHandle);
 
         // If no source collections are given we want to obtain all items
-        if (isBlank(sourceHandle)) {
+        if (isBlankList(sourceHandle)) {
             totalItems = itemService.countTotal(context);
 
             // Loop through all of our items in batches
@@ -461,7 +460,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
         }
 
         // If a source collection is given we want to obtain the items inside that collection
-        else if (isNotBlank(sourceHandle)) {
+        else if (isNotBlankList(sourceHandle)) {
             resolvedSourceCollections = resolveCollections(context, sourceHandle);
             for (Collection sourceCollection: resolvedSourceCollections)
             {
@@ -493,10 +492,10 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     }
 
     @Override
-    public void reverseMapFromParams(Context context, String destinationHandle, String sourceHandle, boolean dryRun) throws SQLException {
+    public void reverseMapFromParams(Context context, List<String> destinationHandle, List<String> sourceHandle, boolean dryRun) throws SQLException {
 
         // If no destination and source collection is given we want to obtain all the items
-        if (isBlank(destinationHandle) && isBlank(sourceHandle)) {
+        if (isBlankList(destinationHandle) && isBlankList(sourceHandle)) {
             totalItems = itemService.countTotal(context);
 
             // Loop through all of our items in batches
@@ -510,7 +509,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
         }
 
         // If only destination collection(s) is given we want to remove all mappings from that collection(s).
-        if (isBlank(sourceHandle) && isNotBlank(destinationHandle)) {
+        if (isBlankList(sourceHandle) && isNotBlankList(destinationHandle)) {
             resolvedDestinationCollections = resolveCollections(context, destinationHandle);
             for (Collection destinationCollection: resolvedDestinationCollections) {
                 logCLI(INFO, PROCESSING_COLLECTION_CHAR + PROCESSING_COLLECTION_HEADER + destinationCollection.getName() + " " + destinationCollection.getHandle() + " | "
@@ -531,7 +530,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
 
         // If a destination and source collection is given we want to obtain only the items from the
         // destination collection as this is where we will be reverse mapping (removing) items from
-        else if (isNotBlank(destinationHandle)) {
+        else if (isNotBlankList(destinationHandle)) {
             resolvedDestinationCollections = resolveCollections(context, destinationHandle);
             resolvedSourceCollections = resolveCollections(context, sourceHandle);
 
@@ -555,8 +554,8 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     }
 
     @Override
-    public void reverseMapItemsInBatch(Context context, Iterator<Item> itemsToMap, String sourceHandle,
-                                        String destinationHandle, boolean dryRun) {
+    public void reverseMapItemsInBatch(Context context, Iterator<Item> itemsToMap, List<String> sourceHandle,
+                                       List<String> destinationHandle, boolean dryRun) {
         itemsToMap.forEachRemaining(item -> {
             try {
                 unmapItem(context, item, sourceHandle, destinationHandle, dryRun);
@@ -570,7 +569,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     }
 
     @Override
-    public void mapFromMappingFile(Context context, String sourceCol, String link, String path, boolean dryRun)
+    public void mapFromMappingFile(Context context, List<String> sourceCol, String link, String path, boolean dryRun)
         throws IOException, SQLException, AuthorizeException {
         CuniMapFile cuniMapFile;
         if (isBlank(link) && isBlank(path) && FILE_LOCATION.equals(URL)) {
@@ -590,7 +589,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
 
         verifyJsonData(cuniMapFile);
 
-        if (isNotBlank(sourceCol)) {
+        if (isNotBlankList(sourceCol)) {
             resolvedSourceCollections = resolveCollections(context, sourceCol);
             for (Collection sourceCollection: resolvedSourceCollections) {
                 mapItemsFromJson(context, itemService.findAllByCollection(context, sourceCollection), cuniMapFile,
@@ -625,7 +624,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     }
 
     @Override
-    public void reverseMapFromMappingFile(Context context, String sourceCol, String link, String path, boolean dryRun)
+    public void reverseMapFromMappingFile(Context context, List<String> sourceCol, String link, String path, boolean dryRun)
         throws SQLException, IOException, AuthorizeException {
         CuniMapFile cuniMapFile;
         if (isBlank(link) && isBlank(path) && FILE_LOCATION.equals(URL)) {
@@ -646,7 +645,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
             cuniMapFile = getMapFileFromPath(MAPPING_FILE_PATH +  File.separator + MAPPING_FILE_NAME);
         }
 
-        if (isNotBlank(sourceCol)) {
+        if (isNotBlankList(sourceCol)) {
             resolvedSourceCollections = resolveCollections(context, sourceCol);
             for (Collection sourceCollection: resolvedSourceCollections) {
                 logCLI(INFO,
@@ -731,8 +730,10 @@ public class ItemMapperServiceImpl implements ItemMapperService {
                     || secondaryStringMdFieldValues.contains(mappingRecord.getMetadata_value())) {
                         for (TargetCollection col : mappingRecord.getTarget_collections()) {
                             Collection correspondingCol = getCorrespondingCollection(context, col);
+                            List<String> handles = new ArrayList<>();
+                            handles.add(correspondingCol.getHandle());
                             if (mapMode.equals(REVERSED_MAPPED)) {
-                                unmapItem(context, item, correspondingCol.getHandle(), dryRun);
+                                unmapItem(context, item, handles, dryRun);
                             }
                             if (mapMode.equals(MAPPED)) {
                                 mapItem(context, item, correspondingCol, dryRun);
@@ -774,6 +775,12 @@ public class ItemMapperServiceImpl implements ItemMapperService {
         }
     }
 
+    public boolean isBlankList(List<String> list) {
+        return list == null || list.isEmpty();
+    }
 
+    public boolean isNotBlankList(List<String> list) {
+        return list != null && !list.isEmpty();
+    }
 }
 
