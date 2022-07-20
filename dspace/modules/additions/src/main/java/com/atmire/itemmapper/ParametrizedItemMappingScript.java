@@ -65,6 +65,8 @@ public class ParametrizedItemMappingScript extends ContextScript {
         REVERSED,
         REVERSED_MAPPED
     };
+    public static final String MULTIPLE_ID_SEPARATOR = configurationService.getProperty("mapping.multiple-id" +
+        "-collections.separator", " ");
 
 
     @Override
@@ -72,11 +74,15 @@ public class ParametrizedItemMappingScript extends ContextScript {
         this.helpOption = new HelpOption();
         operationMode = new StringOption('o', "operation",
                                          "the operation mode for the script, should be one of following: " + Arrays.toString(OPERATIONS),true);
-        sourceHandle = new RepeatableStringOption('s', "source", "handle or uuid of the source collection(s). Note that multiple collections should be seperated by a comma. It is also possible to provide this " +
-        "parameter multiple times with different collections", true, false, ",");
-        destinationHandle = new RepeatableStringOption('d', "destination", "handle or uuid of the destination collection(s). " +
-            "Note that multiple collections should be seperated by a comma. It is also possible to provide this " +
-            "parameter multiple times with different collections", true, false, ",");
+        sourceHandle = new RepeatableStringOption('s', "source", String.format("handle or uuid of the source " +
+            "collection(s). Note that multiple collections should be separated by character '%s'. It is also possible" +
+            " to provide this parameter multiple times with different collections", MULTIPLE_ID_SEPARATOR), true, false,
+            MULTIPLE_ID_SEPARATOR);
+        destinationHandle = new RepeatableStringOption('d', "destination", String.format("handle or uuid of the " +
+            "destination collection(s).multiple collections should be separated by character '%s'. It is also " +
+            "possible to provide this parameter multiple times with different collections", MULTIPLE_ID_SEPARATOR),
+            true, false,
+            MULTIPLE_ID_SEPARATOR);
         linkToFile = new StringOption('l',"link", "URL address leading to a valid link containing the raw json data " +
             "of the mapping file", false);
         pathToFile = new StringOption('p',"localpath", "Path to the json mapping file on your local storage system",
