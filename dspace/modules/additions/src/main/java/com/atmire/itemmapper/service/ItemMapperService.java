@@ -26,20 +26,20 @@ public interface ItemMapperService {
         throws SQLException,
         AuthorizeException;
 
-    public boolean verifyParams(Context context, String operationmode, String sourceHandle, String destinationHandle,
+    public boolean verifyParams(Context context, String operationmode, List<String> sourceHandle, List<String> destinationHandle,
                              String linkToFile, String pathToFile, boolean dryRun)
         throws SQLException, IOException;
 
-    public void unmapItem(Context context, Item item, String sourceHandle, String destinationHandle,
+    public void unmapItem(Context context, Item item, List<String> sourceHandle, List<String> destinationHandle,
                           boolean dryRun)
         throws SQLException, AuthorizeException, IOException;
 
-    public void unmapItem(Context context, Item item, String sourceHandle,  boolean dryRun)
+    public void unmapItem(Context context, Item item, List<String> sourceHandle,  boolean dryRun)
         throws SQLException, AuthorizeException, IOException;
 
     public void showItemsInCollection(Context context, Item item, Collection collection) throws SQLException;
 
-    public List<Collection> resolveCollections(Context context, String collectionIDs) throws SQLException;
+    public List<Collection> resolveCollections(Context context, List<String> collectionIDsList) throws SQLException;
 
     public String getContentFromFile(String filepath) throws IOException;
 
@@ -58,14 +58,15 @@ public interface ItemMapperService {
 
     public CuniMapFile getMapFileFromPath(String path) throws IOException;
 
-    public void mapFromParams(Context context, String destinationHandle, String sourceHandle, boolean dryRun) throws SQLException;
+    public void mapFromParams(Context context, List<String> destinationHandle, List<String> sourceHandle,
+                              boolean dryRun) throws SQLException;
 
-    public void reverseMapFromParams(Context context, String destinationHandle, String sourceHandle, boolean dryRun) throws SQLException;
+    public void reverseMapFromParams(Context context, List<String> destinationHandle, List<String> sourceHandle, boolean dryRun) throws SQLException;
 
-    public void mapFromMappingFile(Context context, String sourceCol, String link, String path, boolean dryRun)
+    public void mapFromMappingFile(Context context, List<String> sourceCol, String link, String path, boolean dryRun)
         throws IOException, SQLException, AuthorizeException;
 
-    public void reverseMapFromMappingFile(Context context, String sourceCol, String link, String path, boolean dryRun)
+    public void reverseMapFromMappingFile(Context context, List<String> sourceCol, String link, String path, boolean dryRun)
         throws SQLException, IOException, AuthorizeException;
 
     public boolean doesURLResolve(String url) throws IOException;
@@ -85,6 +86,6 @@ public interface ItemMapperService {
 
     public void verifyJsonData(CuniMapFile cuniMapFile);
 
-    public void reverseMapItemsInBatch(Context context, Iterator<Item> itemsToMap, String sourceHandle,
-                                        String destinationHandle, boolean dryRun);
+    public void reverseMapItemsInBatch(Context context, Iterator<Item> itemsToMap, List<String> sourceHandle,
+                                       List<String> destinationHandle, boolean dryRun);
 }
