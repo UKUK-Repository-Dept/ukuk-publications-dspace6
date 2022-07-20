@@ -89,7 +89,6 @@ public class ParametrizedItemMappingScript extends ContextScript {
                                       false);
         dryRun = new BooleanOption('t', "test", "script run is dry run, no changes will be made to the database, for " +
             "testing purposes only", false);
-
         HashSet<OptionWrapper> options = new HashSet<>();
         options.add(helpOption);
         options.add(operationMode);

@@ -33,7 +33,11 @@ public class GenericCollection {
     }
 
     public void setId(Id id) {
-        if (id.getValue() == null || id.getType() == null) {
+        if (id == null) {
+            throw new IllegalArgumentException("Id of a collection cannot be null");
+        }
+
+        if (isBlank(id.getValue()) || isBlank(id.getType())) {
             throw new IllegalArgumentException("Id must have a value and type");
         }
 

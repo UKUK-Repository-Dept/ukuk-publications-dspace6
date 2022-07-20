@@ -84,15 +84,6 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     public static final String PROCESSING_COLLECTION_HEADER = "PROCESSING SOURCE COLLECTION: ";
 
     @Override
-    public void verifyJsonData(CuniMapFile cuniMapFile) {
-        cuniMapFile.getMapfile().getSource_collections().forEach(sourceCollection -> {
-            if (sourceCollection.getId() == null) {
-                log.error("Source collection id is null");
-            }
-        });
-    }
-
-    @Override
     public void logCLI(String level, String message) {
         System.out.println(level.toUpperCase() + ": " + message);
         switch (level) {
@@ -338,9 +329,11 @@ public class ItemMapperServiceImpl implements ItemMapperService {
 
     @Override
     public void showItemsInCollection(Context context, Item item, Collection collection) throws SQLException {
-        int itemsCount = itemService.countItems(context, collection);
-        System.out.println("#" + itemsCount + " item " + item.getHandle() + " | " + item.getID() + " from" +
-                               " source collection " + collection.getHandle() + " | " + collection.getID());
+        if (collection != null) {
+            int itemsCount = itemService.countItems(context, collection);
+            System.out.println("#" + itemsCount + " item " + item.getHandle() + " | " + item.getID() + " from" +
+                                   " source collection " + collection.getHandle() + " | " + collection.getID());
+        }
     }
 
     private void addItemToCollection(Context context, Item item, Collection destinationCollection, boolean dryRun)
@@ -588,8 +581,6 @@ public class ItemMapperServiceImpl implements ItemMapperService {
             cuniMapFile = getMapFileFromPath(MAPPING_FILE_PATH + File.separator + MAPPING_FILE_NAME);
         }
 
-        verifyJsonData(cuniMapFile);
-
         if (isNotBlankList(sourceCol)) {
             resolvedSourceCollections = resolveCollections(context, sourceCol);
             for (Collection sourceCollection: resolvedSourceCollections) {
@@ -597,9 +588,10 @@ public class ItemMapperServiceImpl implements ItemMapperService {
                                  dryRun, sourceCollection);
             }
         }
-        else if (cuniMapFile.getMapfile().getSource_collections().isEmpty()) {
+        else if (cuniMapFile.getMapfile().getSource_collections() == null ||
+                 cuniMapFile.getMapfile().getSource_collections().isEmpty()) {
             logCLI(WARN, "No source collections found in mapping file and no -s parameter was given." +
-                          "Mapping will be performed on all items in the repository.", dryRun);
+                          " Mapping will be performed on all items in the repository.", dryRun);
             List<Collection> collections = collectionService.findAll(context);
             for (Collection collection : collections) {
                 mapItemsFromJson(context, itemService.findAllByCollection(context, collection), cuniMapFile, dryRun, collection);
@@ -657,9 +649,10 @@ public class ItemMapperServiceImpl implements ItemMapperService {
             }
         }
 
-       else if (cuniMapFile.getMapfile().getSource_collections().isEmpty()) {
+       else if (cuniMapFile.getMapfile().getSource_collections() == null ||
+                cuniMapFile.getMapfile().getSource_collections().isEmpty()) {
             logCLI(WARN, "No source collections found in mapping file and no -s parameter was given." +
-                "Mapping will be performed on all items in the repository.", dryRun);
+                " Mapping will be performed on all items in the repository.", dryRun);
             List<Collection> collections = collectionService.findAll(context);
             for (Collection collection : collections) {
                 reverseMapItemsFromJson(context, itemService.findAllByCollection(context, collection), cuniMapFile,
