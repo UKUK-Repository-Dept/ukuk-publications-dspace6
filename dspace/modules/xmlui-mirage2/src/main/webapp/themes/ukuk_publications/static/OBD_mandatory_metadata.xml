@@ -37,47 +37,47 @@
             <metadatum id="research_field_secondary" internal_name="Vědní obor vedlejší" obd_section_id="7" obd_field_id="1" order="11">
                 <meta_info system="false" obd_section_translation="section-general-7" obd_field_translation="field-research_fields_classification-general" valid_for="both" obd_section_name="Klasifikace záznamu" obd_field_name="Vnitřní klasifikace vědních oborů UK"/>
             </metadatum>
-            <metadatum id="publisher" internal_name="Vydavatel" obd_section_id="8" obd_field_id="1" order="12">
-                <meta_info system="false" obd_section_translation="section-specific-110-8" obd_field_translation="field-publisher-periodical" valid_for="published" obd_section_name="Sborník, časopis" obd_field_name="Vydavatel"/>
-            </metadatum>
+            <metadatum id="conference_name" internal_name="Název konference" obd_section_id="10" obd_field_id="1" order="12">
+                <meta_info system="false" obd_section_translation="section-specific-110-10" obd_field_translation="field-conference_name-general" valid_for="both" obd_section_name="Konference" obd_field_name="Název konference"/>
+            </metadatum>            
             <metadatum id="publishing_place" internal_name="Místo vydání" obd_section_id="8" obd_field_id="2" order="13">
                 <meta_info system="false" obd_section_translation="section-specific-110-8" obd_field_translation="field-place_of_publication-general" valid_for="published" obd_section_name="Sborník, časopis" obd_field_name="Místo vydání"/>
             </metadatum>
             <metadatum id="source_title" internal_name="Název zdrojového dokumentu" obd_section_id="8" obd_field_id="3" order="14">
                 <meta_info system="false" obd_section_translation="section-specific-110-8" obd_field_translation="field-source_title-journal-proceedings" valid_for="published" obd_section_name="Sborník, časopis" obd_field_name="Název časopisu/sborníku"/>
             </metadatum>
-            <metadatum id="source_issn" internal_name="ISSN zdrojového dokumentu" obd_section_id="8" obd_field_id="4" order="15">
-                <meta_info system="false" obd_section_translation="section-specific-110-8" obd_field_translation="field-source_issn-general" valid_for="published" obd_section_name="Sborník, časopis" obd_field_name="ISSN"/>
-            </metadatum>
-            <metadatum id="source_volume" internal_name="Ročník zdrojového dokumentu" obd_section_id="8" obd_field_id="5" order="16">
-                <meta_info system="false" obd_section_translation="section-specific-110-8" obd_field_translation="field-source_volume-general" valid_for="published" obd_section_name="Sborník, časopis" obd_field_name="Ročník časopisu"/>
-            </metadatum>
-            <metadatum id="source_issue" internal_name="Číslo zdrojového dokumentu" obd_section_id="8" obd_field_id="6" order="17">
-                <meta_info system="false" obd_section_translation="section-specific-110-8" obd_field_translation="field-source_issue-general" valid_for="published" obd_section_name="Sborník, časopis" obd_field_name="Číslo časopisu"/>
-            </metadatum>
-            <metadatum id="source_isbn" internal_name="ISBN zdrojového dokumentu" obd_section_id="8" obd_field_id="7" order="18">
+            <metadatum id="source_isbn" internal_name="ISBN zdrojového dokumentu" obd_section_id="8" obd_field_id="7" order="15">
                 <meta_info system="false" obd_section_translation="section-specific-110-8" obd_field_translation="field-source_isbn-general" valid_for="published" obd_section_name="Sborník, časopis" obd_field_name="ISBN"/>
             </metadatum>
-            <metadatum id="extent" internal_name="Stránkový rozsah od - do" obd_section_id="8" obd_field_id="8" order="19">
-                <meta_info system="false" obd_section_translation="section-specific-110-8" obd_field_translation="field-extent-general" valid_for="published" obd_section_name="Sborník, časopis" obd_field_name="Stránkový rozsah od-do"/>
+            <metadatum id="source_issn" internal_name="ISSN zdrojového dokumentu" obd_section_id="8" obd_field_id="4" order="16">
+                <meta_info system="false" obd_section_translation="section-specific-110-8" obd_field_translation="field-source_issn-general" valid_for="published" obd_section_name="Sborník, časopis" obd_field_name="ISSN"/>
             </metadatum>
-            <metadatum id="series" internal_name="Edice dokumentu" obd_section_id="8" obd_field_id="9" order="20">
-                <meta_info system="false" obd_section_translation="section-specific-110-8" obd_field_translation="field-series-general" valid_for="published" obd_section_name="Sborník, časopis" obd_field_name="Edice, číslo svazku"/>
-            </metadatum>
-            <metadatum id="edition" internal_name="Vydání" obd_section_id="8" obd_field_id="10" order="21">
-                <meta_info system="false" obd_section_translation="section-specific-110-8" obd_field_translation="field-edition-general" valid_for="published" obd_section_name="Sborník, časopis" obd_field_name="Vydání"/>
-            </metadatum>
-            <metadatum id="source_eissn" internal_name="eISSN zdrojového dokumentu" obd_section_id="8" obd_field_id="11" order="22">
+            <metadatum id="source_eissn" internal_name="eISSN zdrojového dokumentu" obd_section_id="8" obd_field_id="11" order="17">
                 <meta_info system="false" obd_section_translation="section-specific-110-8" obd_field_translation="field-source_eissn-general" valid_for="published" obd_section_name="Sborník, časopis" obd_field_name="eISSN"/>
             </metadatum>
-            <metadatum id="id_doi" internal_name="ID - DOI" obd_section_id="9" obd_field_id="1" order="23">
+            <metadatum id="source_volume" internal_name="Ročník zdrojového dokumentu" obd_section_id="8" obd_field_id="5" order="18">
+                <meta_info system="false" obd_section_translation="section-specific-110-8" obd_field_translation="field-source_volume-general" valid_for="published" obd_section_name="Sborník, časopis" obd_field_name="Ročník časopisu"/>
+            </metadatum>
+            <metadatum id="source_issue" internal_name="Číslo zdrojového dokumentu" obd_section_id="8" obd_field_id="6" order="19">
+                <meta_info system="false" obd_section_translation="section-specific-110-8" obd_field_translation="field-source_issue-general" valid_for="published" obd_section_name="Sborník, časopis" obd_field_name="Číslo časopisu"/>
+            </metadatum>
+            <metadatum id="extent" internal_name="Stránkový rozsah od - do" obd_section_id="8" obd_field_id="8" order="20">
+                <meta_info system="false" obd_section_translation="section-specific-110-8" obd_field_translation="field-extent-general" valid_for="published" obd_section_name="Sborník, časopis" obd_field_name="Stránkový rozsah od-do"/>
+            </metadatum>
+            <metadatum id="series" internal_name="Edice dokumentu" obd_section_id="8" obd_field_id="9" order="21">
+                <meta_info system="false" obd_section_translation="section-specific-110-8" obd_field_translation="field-series-general" valid_for="published" obd_section_name="Sborník, časopis" obd_field_name="Edice, číslo svazku"/>
+            </metadatum>
+            <metadatum id="edition" internal_name="Vydání" obd_section_id="8" obd_field_id="10" order="22">
+                <meta_info system="false" obd_section_translation="section-specific-110-8" obd_field_translation="field-edition-general" valid_for="published" obd_section_name="Sborník, časopis" obd_field_name="Vydání"/>
+            </metadatum>
+            <metadatum id="publisher" internal_name="Vydavatel" obd_section_id="8" obd_field_id="1" order="23">
+                <meta_info system="false" obd_section_translation="section-specific-110-8" obd_field_translation="field-publisher-periodical" valid_for="published" obd_section_name="Sborník, časopis" obd_field_name="Vydavatel"/>
+            </metadatum>
+            <metadatum id="id_doi" internal_name="ID - DOI" obd_section_id="9" obd_field_id="1" order="24">
                 <meta_info system="false" obd_section_translation="section-general-9" obd_field_translation="field-id_doi-general" valid_for="published" obd_section_name="Specifické informace" obd_field_name="DOI"/>
             </metadatum>
-            <metadatum id="id_wos" internal_name="ID - Web of Science (UT WoS)" obd_section_id="9" obd_field_id="2" order="24">
+            <metadatum id="id_wos" internal_name="ID - Web of Science (UT WoS)" obd_section_id="9" obd_field_id="2" order="25">
                 <meta_info system="false" obd_section_translation="section-general-9" obd_field_translation="field-id_wos-general" valid_for="published" obd_section_name="Specifické informace" obd_field_name="UT WOS"/>
-            </metadatum>
-            <metadatum id="conference_name" internal_name="Název konference" obd_section_id="10" obd_field_id="1" order="25">
-                <meta_info system="false" obd_section_translation="section-specific-110-10" obd_field_translation="field-conference_name-general" valid_for="both" obd_section_name="Konference" obd_field_name="Název konference"/>
             </metadatum>
             <metadatum id="license_terms" internal_name="Licenční podmínky" obd_section_id="11" obd_field_id="1" order="26">
                 <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-license_terms-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Licence"/>
