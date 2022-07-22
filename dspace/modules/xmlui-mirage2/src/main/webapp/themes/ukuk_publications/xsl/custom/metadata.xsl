@@ -116,7 +116,7 @@
         <!-- TODO: Create table values based on a XML "configuration" file -->
         <!--<xsl:for-each select="$mandatoryMetadataFile//form">-->
             
-            <!--<xsl:variable name="publicationFormID" select="./@id"/>-->
+            <xsl:variable name="formID" select="./@id"/>
             <xsl:choose>
                 <xsl:when test="./@id = $formID">
                     <xsl:for-each select=".//metadatum">
