@@ -184,8 +184,6 @@
 
                 </xsl:otherwise>
             </xsl:choose>
-                          
-        </xsl:for-each>
 
     </xsl:template>
 
