@@ -113,20 +113,20 @@
         <xsl:for-each select="$mandatoryMetadataFile//form">
             
             <xsl:variable name="publicationFormID" select="./@id"/>
-
-            <xsl:for-each select=".//metadatum">
-                <xsl:variable name="systemMetadatum" select="./meta_info/@system"/>
-                <xsl:variable name="obdFieldID" select="./@obd_field_id"/>
-                <xsl:variable name="metadatumID" select="./@id"/>
-                <xsl:variable name="metadatumInternalName" select="./@internal_name"/>
-                <xsl:variable name="obdSectionTranslationKey" select="./meta_info/@obd_section_translation"/>
-                <xsl:variable name="obdFieldTranslationKey" select="./meta_info/@obd_field_translation"/>
-                <xsl:variable name="validForPublicationState" select="./meta_info/@valid_for"/>
-                <xsl:variable name="obdSectionID" select="./@obd_section_id"/>
-                
-                <xsl:if test="./meta_info[@system = 'false']">
-                    <xsl:choose>
-                        <xsl:when test="./@id = $publicationFormID">
+            <xsl:choose>
+                <xsl:when test="./@id = $publicationFormID">
+                    <xsl:for-each select=".//metadatum">
+                        <xsl:variable name="systemMetadatum" select="./meta_info/@system"/>
+                        <xsl:variable name="obdFieldID" select="./@obd_field_id"/>
+                        <xsl:variable name="metadatumID" select="./@id"/>
+                        <xsl:variable name="metadatumInternalName" select="./@internal_name"/>
+                        <xsl:variable name="obdSectionTranslationKey" select="./meta_info/@obd_section_translation"/>
+                        <xsl:variable name="obdFieldTranslationKey" select="./meta_info/@obd_field_translation"/>
+                        <xsl:variable name="validForPublicationState" select="./meta_info/@valid_for"/>
+                        <xsl:variable name="obdSectionID" select="./@obd_section_id"/>
+                        
+                        <xsl:if test="./meta_info[@system = 'false']">
+                    
                             <xsl:choose>
                                 <xsl:when test="following-sibling::metadatum[1]/@obd_section_id = $obdSectionID">
                                 <tr>
@@ -173,13 +173,15 @@
                                     </tr>
                                 </xsl:otherwise> 
                             </xsl:choose>
-                        </xsl:when>
-                        <xsl:otherwise>
+                        </xsl:if>
+                    </xsl:for-each>
+                </xsl:when>
+                
+                <xsl:otherwise>
 
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </xsl:if>
-            </xsl:for-each>
+                </xsl:otherwise>
+            </xsl:choose>
+                          
         </xsl:for-each>
 
     </xsl:template>
