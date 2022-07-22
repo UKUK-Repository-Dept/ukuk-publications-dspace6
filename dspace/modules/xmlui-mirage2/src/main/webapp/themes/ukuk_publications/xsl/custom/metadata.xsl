@@ -103,7 +103,7 @@
                             <!-- <xsl:call-template name="generate-table-data">
                                 <xsl:with-param name="formID" select="$publicationFormID"/>
                             </xsl:call-template> -->
-                            <xsl:apply-templates/>
+                            <xsl:apply-templates select="."/>
                         </tbody>
                     </table>
                 </div>
