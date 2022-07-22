@@ -117,6 +117,8 @@
         <!--<xsl:for-each select="$mandatoryMetadataFile//form">-->
             
             <xsl:variable name="formID" select="./@id"/>
+            <xsl:text><xsl:value-of select="./@id"/></xsl:text>
+            <xsl:text><xsl:value-of select="$formID"/></xsl:text>
             <xsl:choose>
                 <xsl:when test="./@id = $formID">
                     <xsl:for-each select=".//metadatum">
