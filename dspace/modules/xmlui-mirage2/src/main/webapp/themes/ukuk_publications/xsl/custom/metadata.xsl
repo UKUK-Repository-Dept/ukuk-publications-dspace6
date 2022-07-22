@@ -111,6 +111,9 @@
     <xsl:template name="generate-table-data">
         <!-- TODO: Create table values based on a XML "configuration" file -->
         <xsl:for-each select="$mandatoryMetadataFile//form">
+            
+            <xsl:variable name="publicationFormID" select="./@id"/>
+
             <xsl:for-each select=".//metadatum">
                 <xsl:variable name="systemMetadatum" select="./meta_info/@system"/>
                 <xsl:variable name="obdFieldID" select="./@obd_field_id"/>
