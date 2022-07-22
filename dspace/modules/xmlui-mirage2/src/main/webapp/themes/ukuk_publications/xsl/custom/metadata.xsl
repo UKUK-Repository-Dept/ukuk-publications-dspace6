@@ -100,9 +100,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <xsl:call-template name="generate-table-data">
+                            <!-- <xsl:call-template name="generate-table-data">
                                 <xsl:with-param name="formID" select="$publicationFormID"/>
-                            </xsl:call-template>
+                            </xsl:call-template> -->
+                            <xsl:apply-templates/>
                         </tbody>
                     </table>
                 </div>
@@ -110,8 +111,8 @@
         </div>
     </xsl:template>
 
-    <xsl:template name="generate-table-data">
-        <xsl:param name="formID"/>
+    <xsl:template match="form">
+        <!--<xsl:param name="formID"/>-->
         <!-- TODO: Create table values based on a XML "configuration" file -->
         <!--<xsl:for-each select="$mandatoryMetadataFile//form">-->
             
