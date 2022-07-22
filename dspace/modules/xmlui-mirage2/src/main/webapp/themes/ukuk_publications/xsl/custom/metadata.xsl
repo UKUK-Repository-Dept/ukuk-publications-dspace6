@@ -100,7 +100,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <xsl:call-template name="generate-table-data"/>
+                            <xsl:call-template name="generate-table-data">
+                                <xsl:with-param name="formID" select="$publicationFormID"/>
+                            </xsl:call-template>
                         </tbody>
                     </table>
                 </div>
@@ -109,12 +111,13 @@
     </xsl:template>
 
     <xsl:template name="generate-table-data">
+        <xsl:param name="formID"/>
         <!-- TODO: Create table values based on a XML "configuration" file -->
-        <xsl:for-each select="$mandatoryMetadataFile//form">
+        <!--<xsl:for-each select="$mandatoryMetadataFile//form">-->
             
-            <xsl:variable name="publicationFormID" select="./@id"/>
+            <!--<xsl:variable name="publicationFormID" select="./@id"/>-->
             <xsl:choose>
-                <xsl:when test="./@id = $publicationFormID">
+                <xsl:when test="./@id = $formID">
                     <xsl:for-each select=".//metadatum">
                         <xsl:variable name="systemMetadatum" select="./meta_info/@system"/>
                         <xsl:variable name="obdFieldID" select="./@obd_field_id"/>
@@ -129,39 +132,39 @@
                     
                             <xsl:choose>
                                 <xsl:when test="following-sibling::metadatum[1]/@obd_section_id = $obdSectionID">
-                                <tr>
-                                    <td>
-                                        <i18n:text>obd.metadata.metadatum.id.<xsl:value-of select="$metadatumID"/></i18n:text>
-                                    </td>
-                                    <td>
-                                        <i18n:text>
-                                            <xsl:value-of select="concat('obd.metadata.',$obdSectionTranslationKey)"/>
-                                        </i18n:text>
-                                    </td>
-                                    <td>
-                                        <xsl:if test="$obdFieldID != 'none'">
+                                    <tr>
+                                        <td>
+                                            <i18n:text>obd.metadata.metadatum.id.<xsl:value-of select="$metadatumID"/></i18n:text>
+                                        </td>
+                                        <td>
                                             <i18n:text>
-                                                <xsl:value-of select="concat('obd.metadata.', $obdFieldTranslationKey)"/>
+                                                <xsl:value-of select="concat('obd.metadata.',$obdSectionTranslationKey)"/>
                                             </i18n:text>
-                                        </xsl:if>
-                                    </td>
-                                    <xsl:choose>
-                                        <xsl:when test="$validForPublicationState = 'both'">
-                                            <td>X</td>
-                                            <td>X</td>
-                                        </xsl:when>
-                                        <xsl:when test="$validForPublicationState = 'published'">
-                                            <td>X</td>
-                                            <td></td>
-                                        </xsl:when>
-                                        <xsl:when test="$validForPublicationState = 'not_published'">
-                                            <td></td>
-                                            <td>X</td>
-                                        </xsl:when>
-                                        <xsl:otherwise>
-                                        </xsl:otherwise>
-                                    </xsl:choose>
-                                </tr>
+                                        </td>
+                                        <td>
+                                            <xsl:if test="$obdFieldID != 'none'">
+                                                <i18n:text>
+                                                    <xsl:value-of select="concat('obd.metadata.', $obdFieldTranslationKey)"/>
+                                                </i18n:text>
+                                            </xsl:if>
+                                        </td>
+                                        <xsl:choose>
+                                            <xsl:when test="$validForPublicationState = 'both'">
+                                                <td>X</td>
+                                                <td>X</td>
+                                            </xsl:when>
+                                            <xsl:when test="$validForPublicationState = 'published'">
+                                                <td>X</td>
+                                                <td></td>
+                                            </xsl:when>
+                                            <xsl:when test="$validForPublicationState = 'not_published'">
+                                                <td></td>
+                                                <td>X</td>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </tr>
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <tr class="spacer">
