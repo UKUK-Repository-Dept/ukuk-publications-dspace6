@@ -2787,12 +2787,14 @@
 	<message key="obd.metadata.field-date_issued-applicable-year">Year of Application</message>
 	<message key="obd.metadata.field-abstract-annotation-description">Annotation / Description</message>
 	<message key="obd.metadata.field-abstract-description">Description</message>
+	<message key="obd.metadata.field-annotation">Annotation</message>
 	<message key="obd.metadata.field-title-abstract">Abstract Title</message>
 	<message key="obd.metadata.field-title-article">Article Title</message>
 	<message key="obd.metadata.field-title-chapter">Chapter Title</message>
 	<message key="obd.metadata.field-title-book">Book Title</message>
 	<message key="obd.metadata.field-title-submission">Submission Title</message>
 	<message key="obd.metadata.field-title-essay">Essay Title</message>
+	<message key="obd.metadata.field-title-translated-article">Article Title - English</message>
 	<message key="obd.metadata.field-title-translated-chapter">Chapter Title - English</message>
 	<message key="obd.metadata.field-title-translated-book">Book Title - English</message>
 	<message key="obd.metadata.field-title-translated-submission">Submission Title - English</message>
