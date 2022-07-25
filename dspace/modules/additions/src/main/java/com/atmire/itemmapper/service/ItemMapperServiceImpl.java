@@ -1,5 +1,8 @@
 package com.atmire.itemmapper.service;
 
+import static com.atmire.itemmapper.ItemMapperConsumer.CONSUMER_MAPPING_FILE_PATH;
+import static com.atmire.itemmapper.ItemMapperConsumer.CONSUMER_MAPPING_FILE_PATH_CFG;
+import static com.atmire.itemmapper.ItemMapperConsumer.FULL_PATH_TO_FILE;
 import static com.atmire.itemmapper.ParametrizedItemMappingScript.FILE_LOCATION;
 import static com.atmire.itemmapper.ParametrizedItemMappingScript.LOCAL;
 import static com.atmire.itemmapper.ParametrizedItemMappingScript.MAPPED;
@@ -15,7 +18,9 @@ import static org.apache.commons.lang3.StringUtils.substringAfterLast;
 import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -59,10 +64,8 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     HandleService handleService = HandleServiceFactory.getInstance().getHandleService();
     static ConfigurationService configurationService = DSpaceServicesFactory.getInstance().getConfigurationService();
 
-
-
-    Collection resolvedSourceCollection;
-    Collection resolvedDestinationCollection;
+    List<Collection> resolvedDestinationCollections;
+    List<Collection> resolvedSourceCollections;
     Iterator<Item> itemsToMap;
     double totalItems;
     int batchSize = configurationService.getIntProperty("item.mapper.batch.size", 100);
@@ -76,6 +79,9 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     public static final String INFO = "info";
     public static final String ERROR = "error";
     public static final String WARN = "warn";
+    public static final String DRY_RUN_PREFIX = "( DRY RUN )";
+    public static final String PROCESSING_COLLECTION_CHAR = " === ";
+    public static final String PROCESSING_COLLECTION_HEADER = "PROCESSING SOURCE COLLECTION: ";
 
     @Override
     public void logCLI(String level, String message) {
@@ -86,7 +92,6 @@ public class ItemMapperServiceImpl implements ItemMapperService {
                 break;
             case ERROR:
                 log.error(message);
-                System.exit(1);
                 break;
             case WARN:
                 log.warn(message);
@@ -97,7 +102,18 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     }
 
     @Override
-    public void mapItem (Context context, Item item, Collection sourceCollection, Collection destinationCollection,
+    public void logCLI(String level, String message, boolean dryRun) {
+        if (!dryRun) {
+            logCLI(level, message);
+        } else {
+            message = DRY_RUN_PREFIX + " " + message;
+            logCLI(level, message);
+        }
+    }
+
+    @Override
+    public void mapItem (Context context, Item item, Collection sourceCollection,
+                         Collection destinationCollection,
                          boolean dryRun)
         throws SQLException, AuthorizeException {
 
@@ -106,8 +122,8 @@ public class ItemMapperServiceImpl implements ItemMapperService {
 
         } else {
             logCLI(WARN, String.format("Item (%s | %s) was not mapped because it is not owned by " +
-                                                "collection (%s | %s)", item.getHandle(), item.getID(),
-                                            sourceCollection.getHandle(), sourceCollection.getID()));
+                                           "collection (%s | %s)", item.getHandle(), item.getID(),
+                                       sourceCollection.getHandle(), sourceCollection.getID()), dryRun);
         }
 
     }
@@ -115,34 +131,30 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     @Override
     public void mapItem (Context context, Item item, Collection destinationCollection, boolean dryRun)
         throws SQLException, AuthorizeException {
-            addItemToCollection(context, item, destinationCollection, dryRun);
+        addItemToCollection(context, item, destinationCollection, dryRun);
     }
 
     @Override
-    public void verifyParams(Context context, String operationMode, String sourceHandle, String destinationHandle,
-                             String linkToFile, String pathToFile, boolean dryRun) throws IOException {
+    public boolean verifyParams(Context context, String operationMode, List<String> sourceHandle,
+                                List<String> destinationHandle, String linkToFile,
+                                String pathToFile, boolean dryRun) throws IOException {
 
         if (!Arrays.asList(OPERATIONS).contains(operationMode)) {
-            logCLI(ERROR, "No valid operation mode was given");
+            logCLI(ERROR, "No valid operation mode was given", dryRun);
+            return false;
         }
 
-        if (operationMode.equals(UNMAPPED) && isBlank(destinationHandle) ) {
+        if (operationMode.equals(UNMAPPED) && isBlankList(destinationHandle) ) {
                 logCLI(ERROR, "No destination handle was given, this is required when the operation mode is " +
-                    "set to unmapped");
-                System.exit(1);
+                    "set to unmapped", dryRun);
+                return false;
         }
 
         if (operationMode.equals(REVERSED)) {
-            if (isBlank(destinationHandle) && isNotBlank(sourceHandle)) {
+            if (isBlankList(destinationHandle) && !sourceHandle.isEmpty()) {
                 logCLI(ERROR, "You should also give a destination parameter when giving a " +
-                    "source parameter");
-                System.exit(1);
-            }
-
-            if (isNotBlank(destinationHandle) && isBlank(sourceHandle)) {
-                logCLI(ERROR, "You should also give a source parameter when giving a " +
-                    "destination parameter");
-                System.exit(1);
+                    "source parameter", dryRun);
+                return false;
             }
         }
 
@@ -154,35 +166,43 @@ public class ItemMapperServiceImpl implements ItemMapperService {
             if (FILE_LOCATION.equals(URL) || isNotBlank(linkToFile)) {
                 if (isBlank(linkToFile)) {
                     linkToFile = MAPPING_FILE_PATH;
+                };
+                if (!doesURLResolve(linkToFile)) {
+                    return false;
                 }
-                doesURLResolve(linkToFile);
             }
 
             else if (FILE_LOCATION.equals(LOCAL) || isNotBlank(pathToFile)) {
                 if (isBlank(pathToFile)) {
                     pathToFile = MAPPING_FILE_PATH + File.separator + MAPPING_FILE_NAME;
                 }
-                isValidJSONFile(pathToFile);
+                if (!isValidJSONFile(pathToFile)) {
+                    return false;
+                }
             }
 
             else {
                 logCLI(ERROR, "No valid JSON data could be resolved please provide either a link to a JSON file " +
-                    "or a path to a JSON file. Using either properties in item-mapping.cfg or the command line ");
+                    "or a path to a JSON file. Using either properties in item-mapping.cfg or the command line ", dryRun);
+                return false;
             }
         }
+        return true;
     }
 
     @Override
-    public void isValidJSONFile(String pathToFile) throws IOException {
+    public boolean isValidJSONFile(String pathToFile) throws IOException {
         File jsonFile = new File(pathToFile);
         if (!substringAfterLast(pathToFile, ".").equals("json") || !jsonFile.exists() || !jsonFile.isFile()) {
             logCLI(ERROR, String.format("%s did not resolve to a valid .json file. Either put path to valid json in '%s' option, or set configs %s/%s to point to valid json.",
                                         pathToFile, PATH_OPTION_CHAR, MAPPING_FILE_PATH_CFG, MAPPING_FILE_NAME_CFG));
+            return false;
         }
+        return true;
     }
 
     @Override
-    public void doesURLResolve(String sUrl) throws IOException {
+    public boolean doesURLResolve(String sUrl) throws IOException {
         java.net.URL url = new URL(sUrl);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         int responseCode = connection.getResponseCode();
@@ -191,36 +211,41 @@ public class ItemMapperServiceImpl implements ItemMapperService {
             logCLI(ERROR, "The given file path " + url + " is not a valid URL, please give a valid URL" +
                 " using the -l parameter or in a configuration file using the " + MAPPING_FILE_PATH_CFG + " " +
                 "property");
-            System.exit(1);
+            return false;
         }
+        return true;
     }
 
     @Override
-    public Collection resolveCollection(Context context, String collectionID) throws SQLException {
-        DSpaceObject dso = handleService.resolveToObject(context, collectionID);
+    public List<Collection> resolveCollections(Context context, List<String> collectionIDsList) throws SQLException {
+        List<Collection> collections = new ArrayList<>();
+        for (String id: collectionIDsList) {
+            DSpaceObject dso = handleService.resolveToObject(context, id);
 
-        if (dso == null) {
-            try {
-                Collection resolvedCollection = collectionService.find(context, UUID.fromString(collectionID));
-                if (resolvedCollection == null) {
-                    logCLI(ERROR, collectionID + " did not resolve to a valid collection");
+            if (dso == null) {
+                try {
+                    Collection resolvedCollection = collectionService.find(context, UUID.fromString(id));
+                    if (resolvedCollection == null) {
+                        logCLI(ERROR, id + " did not resolve to a valid collection");
+                    }
+                    collections.add(resolvedCollection);
+                } catch (IllegalArgumentException e) {
+                    logCLI(ERROR, id + " is not a valid UUID or handle");
                 }
-                return resolvedCollection;
-            } catch (IllegalArgumentException e) {
-                logCLI(ERROR, collectionID + " is not a valid UUID or handle");
             }
-        }
 
-        else if (dso.getType() != Constants.COLLECTION) {
-            logCLI(ERROR, "Handle:" + collectionID + " resolved to a " + dso.getType());
-        }
+            else if (dso.getType() != Constants.COLLECTION) {
+                logCLI(ERROR, "Handle:" + id + " resolved to a " + dso.getType());
+            }
 
-        return (Collection) dso;
+            collections.add((Collection) dso);
+        }
+        return collections;
     }
 
 
     @Override
-    public void unmapItem(Context context, Item item, String sourceHandle, String destinationHandle,
+    public void unmapItem(Context context, Item item, List<String> sourceHandle, List<String> destinationHandle,
                           boolean dryRun) throws SQLException, AuthorizeException, IOException {
         List<Collection> itemCollections = item.getCollections();
         Collection itemOwningCollection = item.getOwningCollection();
@@ -228,24 +253,28 @@ public class ItemMapperServiceImpl implements ItemMapperService {
         // if source and destination handle are given resolve them to their collections
         // We only want to remove the items originating from the source collections to be removed from the
         // destination collection (they were previously mapped)
-        if (isNotBlank(sourceHandle) && isNotBlank(destinationHandle)) {
-            resolvedSourceCollection = resolveCollection(context, sourceHandle);
-            resolvedDestinationCollection = resolveCollection(context, destinationHandle);
+        if (isNotBlankList(destinationHandle)) {
+            if (isNotBlankList(sourceHandle)) {
+                resolvedSourceCollections = resolveCollections(context, sourceHandle);
+            }
+            resolvedDestinationCollections = resolveCollections(context, destinationHandle);
 
             // If the item is mapped to the collection we want to remove from and that collection is not its owning
             // collection we can go ahead and remove the item from the collection (if the item is not mapped to only
             // that collection which should not be the case but check to be sure)
-            if (itemCollections.contains(resolvedDestinationCollection)
-                && !resolvedDestinationCollection.equals(itemOwningCollection)
-                && item.getCollections().size() > 1) {
+            for (Collection destinationCollection: resolvedDestinationCollections) {
+                if (itemCollections.contains(destinationCollection)
+                    && !destinationCollection.equals(itemOwningCollection)
+                    && item.getCollections().size() > 1) {
 
-                if (!dryRun) {
-                    collectionService.removeItem(context, resolvedDestinationCollection, item);
+                    if (!dryRun) {
+                        collectionService.removeItem(context, destinationCollection, item);
+                    }
+
+                    logCLI("info", String.format("Item (%s | %s) was removed from collection (%s | %s)",
+                                                 item.getHandle(), item.getID(),
+                                                 destinationCollection.getHandle(), destinationCollection.getID()), dryRun);
                 }
-
-                logCLI("info", String.format("Item (%s | %s) was removed from collection (%s | %s)",
-                                             item.getHandle(), item.getID(),
-                                             resolvedDestinationCollection.getHandle(), resolvedDestinationCollection.getID()));
             }
         } else {
             removeItemFromAllCollectionsExceptOwning(context, itemCollections, itemOwningCollection, item, dryRun);
@@ -253,7 +282,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     }
 
     @Override
-    public void unmapItem(Context context, Item item, String sourceHandle, boolean dryRun)
+    public void unmapItem(Context context, Item item, List<String> sourceHandle, boolean dryRun)
         throws SQLException, AuthorizeException, IOException {
             unmapItem(context, item, sourceHandle, null, dryRun);
 
@@ -266,7 +295,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
                 logCLI("info", String.format("Current collection (%s | %s) is the item's (%s | %s) owning " +
                                                  "collection, skipping",
                                              collection.getHandle(), collection.getID(),
-                                             item.getHandle(), item.getID()));
+                                             item.getHandle(), item.getID()), dryRun);
                 continue;
             }
 
@@ -275,14 +304,14 @@ public class ItemMapperServiceImpl implements ItemMapperService {
                                                  "removing it",
                                              item.getHandle(), item.getID(),
                                              item.getCollections().get(0).getHandle(),
-                                             item.getCollections().get(0).getID()));
+                                             item.getCollections().get(0).getID()), dryRun);
 
                 if (!itemService.isOwningCollection(item, item.getCollections().get(0))) {
                     logCLI("warn", String.format("Item (%s | %s) is only left in collection (%s | %s), which " +
                                                      "is not its owning collection, this shouldn't be possible",
                                                  item.getHandle(), item.getID(),
                                                  item.getCollections().get(0).getHandle(),
-                                                 item.getCollections().get(0).getID()));
+                                                 item.getCollections().get(0).getID()), dryRun);
                 }
                 continue;
             }
@@ -294,14 +323,17 @@ public class ItemMapperServiceImpl implements ItemMapperService {
             logCLI("info", String.format("Item (%s | %s) was removed from collection (%s | %s)",
                                          item.getHandle(), item.getID(),
                                          collection.getHandle(),
-                                         collection.getID()));
+                                         collection.getID()), dryRun);
         }
     }
 
     @Override
-    public void showItemsInCollection(Context context, Collection collection) throws SQLException {
-        int itemsCount = itemService.countItems(context, collection);
-        System.out.println("#" + itemsCount + " item of collection: " + collection.getHandle() + ": " + collection.getID());
+    public void showItemsInCollection(Context context, Item item, Collection collection) throws SQLException {
+        if (collection != null) {
+            int itemsCount = itemService.countItems(context, collection);
+            System.out.println("#" + itemsCount + " item " + item.getHandle() + " | " + item.getID() + " from" +
+                                   " source collection " + collection.getHandle() + " | " + collection.getID());
+        }
     }
 
     private void addItemToCollection(Context context, Item item, Collection destinationCollection, boolean dryRun)
@@ -311,16 +343,16 @@ public class ItemMapperServiceImpl implements ItemMapperService {
                                                 "collection (%s | %s),",
                                             item.getHandle(), item.getID(),
                                             destinationCollection.getHandle(),
-                                            destinationCollection.getID()));
+                                            destinationCollection.getID()), dryRun);
         }
 
         else if (!item.getCollections().contains(destinationCollection)) {
-            showItemsInCollection(context, destinationCollection);
+            showItemsInCollection(context, item, item.getOwningCollection());
 
             logCLI(INFO, String.format("Mapping item (%s | %s) to collection (%s | %s)",
                                          item.getHandle(), item.getID(),
                                          destinationCollection.getHandle(),
-                                         destinationCollection.getID()));
+                                         destinationCollection.getID()), dryRun);
             if (!dryRun) {
                 collectionService.addItem(context, destinationCollection, item);
             }
@@ -340,8 +372,8 @@ public class ItemMapperServiceImpl implements ItemMapperService {
         if (col.getId().getType().equals("handle")) {
             resolvedCollection = (Collection) handleService.resolveToObject(context, col.getId().getValue());
             if (resolvedCollection == null) {
-                logCLI(ERROR, "No collection could be resolved with the handle: " + col.getId().getValue());
-                System.exit(1);
+                logCLI(ERROR, "Collection ( " + col.getName_en() + " | " + col.getName_cs()
+                    + " ) could not be resolved with the " + "handle: " + col.getId().getValue());
             }
             return resolvedCollection;
         }
@@ -349,7 +381,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
             resolvedCollection = collectionService.find(context, UUID.fromString(col.getId().getValue()));
             if (resolvedCollection == null) {
                 logCLI(ERROR, "No collection could be resolved with the UUID:" + col.getId().getValue());
-                System.exit(1);
+                return null;
             }
             return resolvedCollection;
         }
@@ -360,8 +392,12 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     }
 
     @Override
-    public void mapItemsFromJson(Context context, Iterator<Item> items, CuniMapFile mapFile, boolean dryRun)
+    public void mapItemsFromJson(Context context, Iterator<Item> items, CuniMapFile mapFile, boolean dryRun,
+                                 Collection collection)
         throws SQLException, AuthorizeException, IOException {
+        logCLI(INFO,
+               PROCESSING_COLLECTION_CHAR + PROCESSING_COLLECTION_HEADER + collection.getName() + " " + collection.getHandle() + " | "
+            + collection.getID() + PROCESSING_COLLECTION_CHAR, dryRun);
         checkMetadataValuesAndConvertToString(context,items, mapFile, MAPPED, dryRun);
     }
 
@@ -372,7 +408,9 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     @Override
     public CuniMapFile getMapFileFromLink(String link) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        doesURLResolve(link);
+        if (!doesURLResolve(link)) {
+            return null;
+        }
         java.net.URL jsonURL = new URL(link);
         return objectMapper.readValue(jsonURL, CuniMapFile.class);
     }
@@ -384,31 +422,31 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     }
 
     @Override
-    public void mapFromParams(Context context, String destinationHandle, String sourceHandle, boolean dryRun) throws SQLException {
+    public void mapFromParams(Context context, List<String> destinationHandle, List<String> sourceHandle, boolean dryRun) throws SQLException {
 
         // Destination collection is required when case is unmapped
-        resolvedDestinationCollection = resolveCollection(context, destinationHandle);
+        resolvedDestinationCollections = resolveCollections(context, destinationHandle);
 
-        // If no source collection is given we want to obtain all items
-        if (isBlank(sourceHandle)) {
+        // If no source collections are given we want to obtain all items
+        if (isBlankList(sourceHandle)) {
             totalItems = itemService.countTotal(context);
 
             // Loop through all of our items in batches
             for (int i = 1; i <= Math.ceil(totalItems / batchSize); i++) {
                 itemsToMap = itemService.findAllWithLimitAndOffset(context, batchSize,  offset);
-                logCLI(INFO, "***** PROCESSING BATCH:" + i + " *****");
+                logCLI(INFO, "***** PROCESSING BATCH: " + i + " *****", dryRun);
 
                 // Map all items in the current batch
                 itemsToMap.forEachRemaining(item -> {
                     try {
-                        logCLI(INFO, String.format("Mapping item (%s | %s) ",
-                                                                     item.getHandle(), item.getID()));
-                        mapItem(context, item, resolvedDestinationCollection, dryRun);
+                        for (Collection destinationCollection: resolvedDestinationCollections) {
+                            mapItem(context, item, destinationCollection, dryRun);
+                        }
                     } catch (SQLException | AuthorizeException e) {
                         logCLI(ERROR, String.format("Item (%s | %s) " + "could not be " +
                                                                           "mapped for an unknown reason",
-                                                                      item.getHandle(), item.getID()));
-                        e.printStackTrace();
+                                                                      item.getHandle(), item.getID()), dryRun);
+                        log.error(e.getMessage(), e);
                     }
                 });
                 offset += batchSize;
@@ -416,82 +454,116 @@ public class ItemMapperServiceImpl implements ItemMapperService {
         }
 
         // If a source collection is given we want to obtain the items inside that collection
-        else if (isNotBlank(sourceHandle)) {
-            resolvedSourceCollection = resolveCollection(context, sourceHandle);
-            totalItems = itemService.countAllItems(context, resolvedSourceCollection);
+        else if (isNotBlankList(sourceHandle)) {
+            resolvedSourceCollections = resolveCollections(context, sourceHandle);
+            for (Collection sourceCollection: resolvedSourceCollections)
+            {
+                logCLI(INFO,
+                       PROCESSING_COLLECTION_CHAR + PROCESSING_COLLECTION_HEADER + sourceCollection.getName() + " " + sourceCollection.getHandle() + " | "
+                    + sourceCollection.getID() + PROCESSING_COLLECTION_CHAR, dryRun);
+                offset = 0;
+                totalItems = itemService.countAllItems(context, sourceCollection);
+                for (int i = 1; i <= Math.ceil(totalItems / batchSize); i++) {
+                    itemsToMap = itemService.findAllByCollection(context, sourceCollection, batchSize, offset);
+                    logCLI(INFO, "***** PROCESSING BATCH: " + i + " *****", dryRun);
 
-            for (int i = 1; i <= Math.ceil(totalItems / batchSize); i++) {
-                itemsToMap = itemService.findAllByCollection(context, resolvedSourceCollection, batchSize, offset);
-                logCLI(INFO, "***** PROCESSING BATCH:" + i + " *****");
-
-                itemsToMap.forEachRemaining((item -> {
-                    try {
-                        logCLI(INFO, String.format("Mapping item (%s | %s) ", item.getHandle(), item.getID()));
-                        mapItem(context, item, resolvedSourceCollection, resolvedDestinationCollection, dryRun);
-                    } catch (SQLException | AuthorizeException e) {
-                        logCLI(ERROR, String.format("Item (%s | %s) could not be " + "mapped for an unknown reason", item.getHandle(), item.getID()));
-                        e.printStackTrace();
-                    }
-                }));
-                offset += batchSize;
+                    itemsToMap.forEachRemaining((item -> {
+                        try {
+                            logCLI(INFO, String.format("Mapping item (%s | %s) ", item.getHandle(), item.getID()), dryRun);
+                            for (Collection destinationCollection: resolvedDestinationCollections) {
+                                mapItem(context, item, sourceCollection, destinationCollection, dryRun);
+                            }
+                        } catch (SQLException | AuthorizeException e) {
+                            logCLI(ERROR, String.format("Item (%s | %s) could not be " + "mapped for an unknown " +
+                                                            "reason", item.getHandle(), item.getID()), dryRun);
+                            log.error(e.getMessage(), e);
+                        }
+                    }));
+                    offset += batchSize;
+                }
             }
         }
     }
 
     @Override
-    public void reverseMapFromParams(Context context, String destinationHandle, String sourceHandle, boolean dryRun) throws SQLException {
+    public void reverseMapFromParams(Context context, List<String> destinationHandle, List<String> sourceHandle, boolean dryRun) throws SQLException {
 
         // If no destination and source collection is given we want to obtain all the items
-        if (isBlank(destinationHandle) && isBlank(sourceHandle)) {
+        if (isBlankList(destinationHandle) && isBlankList(sourceHandle)) {
             totalItems = itemService.countTotal(context);
 
             // Loop through all of our items in batches
             for (int i = 1; i < Math.ceil(totalItems / batchSize) + 1; i++) {
                 itemsToMap = itemService.findAllWithLimitAndOffset(context, batchSize, offset);
-                logCLI(INFO, "***** PROCESSING BATCH:" + i + " *****");
+                logCLI(INFO, "***** PROCESSING BATCH: " + i + " *****", dryRun);
 
                 // Reverse map all items in the current batch
                 reverseMapItemsInBatch(context, itemsToMap, sourceHandle, destinationHandle, dryRun);
+            }
+        }
+
+        // If only destination collection(s) is given we want to remove all mappings from that collection(s).
+        if (isBlankList(sourceHandle) && isNotBlankList(destinationHandle)) {
+            resolvedDestinationCollections = resolveCollections(context, destinationHandle);
+            for (Collection destinationCollection: resolvedDestinationCollections) {
+                logCLI(INFO, PROCESSING_COLLECTION_CHAR + PROCESSING_COLLECTION_HEADER + destinationCollection.getName() + " " + destinationCollection.getHandle() + " | "
+                    + destinationCollection.getID() + PROCESSING_COLLECTION_CHAR, dryRun);
+                offset = 0;
+                totalItems = itemService.countAllItems(context, destinationCollection);
+
+                // Loop through all of our items in batches
+                for (int i = 1; i <= Math.ceil(totalItems / batchSize); i++) {
+                    itemsToMap = itemService.findAllByCollection(context, destinationCollection, batchSize, offset);
+                    logCLI(INFO, "***** PROCESSING BATCH: " + i + " *****", dryRun);
+
+                    // Reverse map all items in the current batch
+                    reverseMapItemsInBatch(context, itemsToMap, sourceHandle, destinationHandle, dryRun);
+                }
             }
         }
 
         // If a destination and source collection is given we want to obtain only the items from the
         // destination collection as this is where we will be reverse mapping (removing) items from
-        else if (isNotBlank(destinationHandle)) {
-            resolvedDestinationCollection =
-                resolveCollection(context, destinationHandle);
-            resolvedSourceCollection =
-                resolveCollection(context, sourceHandle);
+        else if (isNotBlankList(destinationHandle)) {
+            resolvedDestinationCollections = resolveCollections(context, destinationHandle);
+            resolvedSourceCollections = resolveCollections(context, sourceHandle);
 
-            totalItems = itemService.countAllItems(context, resolvedSourceCollection);
+            for (Collection sourceCollection: resolvedSourceCollections) {
+                logCLI(INFO,
+                       PROCESSING_COLLECTION_CHAR + PROCESSING_COLLECTION_HEADER + sourceCollection.getName() + " " + sourceCollection.getHandle() + " | "
+                    + sourceCollection.getID() + PROCESSING_COLLECTION_CHAR, dryRun);
+                offset = 0;
+                totalItems = itemService.countAllItems(context, sourceCollection);
 
-            // Loop through all of our items in batches
-            for (int i = 1; i <= Math.ceil(totalItems / batchSize); i++) {
-                itemsToMap = itemService.findAllByCollection(context, resolvedSourceCollection, batchSize, offset);
-                logCLI(INFO, "***** PROCESSING BATCH:" + i + " *****");
+                // Loop through all of our items in batches
+                for (int i = 1; i <= Math.ceil(totalItems / batchSize); i++) {
+                    itemsToMap = itemService.findAllByCollection(context, sourceCollection, batchSize, offset);
+                    logCLI(INFO, "***** PROCESSING BATCH: " + i + " *****", dryRun);
 
-                // Reverse map all items in the current batch
-                reverseMapItemsInBatch(context, itemsToMap, sourceHandle, destinationHandle, dryRun);
+                    // Reverse map all items in the current batch
+                    reverseMapItemsInBatch(context, itemsToMap, sourceHandle, destinationHandle, dryRun);
+                }
             }
         }
     }
 
-    private void reverseMapItemsInBatch(Context context, Iterator<Item> itemsToMap, String sourceHandle,
-                                        String destinationHandle, boolean dryRun) {
+    @Override
+    public void reverseMapItemsInBatch(Context context, Iterator<Item> itemsToMap, List<String> sourceHandle,
+                                       List<String> destinationHandle, boolean dryRun) {
         itemsToMap.forEachRemaining(item -> {
             try {
                 unmapItem(context, item, sourceHandle, destinationHandle, dryRun);
             } catch (SQLException | AuthorizeException | IOException e) {
                 logCLI(ERROR, String.format("Item (%s | %s) could not be mapped for an unknown reason ",
-                                                              item.getHandle(), item.getID()));
-                e.printStackTrace();
+                                                              item.getHandle(), item.getID()), dryRun);
+                log.error(e.getMessage(), e);
             }
         });
         offset += batchSize;
     }
 
     @Override
-    public void mapFromMappingFile(Context context, String link, String path, boolean dryRun)
+    public void mapFromMappingFile(Context context, List<String> sourceCol, String link, String path, boolean dryRun)
         throws IOException, SQLException, AuthorizeException {
         CuniMapFile cuniMapFile;
         if (isBlank(link) && isBlank(path) && FILE_LOCATION.equals(URL)) {
@@ -499,43 +571,99 @@ public class ItemMapperServiceImpl implements ItemMapperService {
         }
         if (isNotBlank(link)) {
             cuniMapFile = getMapFileFromLink(link);
+            if (cuniMapFile == null) {
+                return;
+            }
         }
         else if (isNotBlank(path)) {
             cuniMapFile = getMapFileFromPath(path);
         } else {
             cuniMapFile = getMapFileFromPath(MAPPING_FILE_PATH + File.separator + MAPPING_FILE_NAME);
         }
-        for (SourceCollection col : cuniMapFile.getMapfile().getSource_collections()) {
-            Collection collection =  getCorrespondingCollection(context, col);
-            mapItemsFromJson(context, itemService.findAllByCollection(context,collection), cuniMapFile, dryRun);
+
+        if (isNotBlankList(sourceCol)) {
+            resolvedSourceCollections = resolveCollections(context, sourceCol);
+            for (Collection sourceCollection: resolvedSourceCollections) {
+                mapItemsFromJson(context, itemService.findAllByCollection(context, sourceCollection), cuniMapFile,
+                                 dryRun, sourceCollection);
+            }
         }
+        else if (cuniMapFile.getMapfile().getSource_collections() == null ||
+                 cuniMapFile.getMapfile().getSource_collections().isEmpty()) {
+            logCLI(WARN, "No source collections found in mapping file and no -s parameter was given." +
+                          " Mapping will be performed on all items in the repository.", dryRun);
+            List<Collection> collections = collectionService.findAll(context);
+            for (Collection collection : collections) {
+                mapItemsFromJson(context, itemService.findAllByCollection(context, collection), cuniMapFile, dryRun, collection);
+            }
+        } else {
+            for (SourceCollection col : cuniMapFile.getMapfile().getSource_collections()) {
+                Collection collection = getCorrespondingCollection(context, col);
+                mapItemsFromJson(context, itemService.findAllByCollection(context,collection), cuniMapFile, dryRun,
+                                 collection);
+            }
+        }
+
     }
 
     @Override
-    public void reverseMapItemsFromJson(Context context, Iterator<Item> items, CuniMapFile mapFile, boolean dryRun)
+    public void reverseMapItemsFromJson(Context context, Iterator<Item> items, CuniMapFile mapFile, boolean dryRun,
+                                        Collection collection)
         throws SQLException, AuthorizeException, IOException {
+        logCLI(INFO,
+               PROCESSING_COLLECTION_CHAR + PROCESSING_COLLECTION_HEADER + collection.getName() + " " + collection.getHandle() + " | "
+            + collection.getID() + PROCESSING_COLLECTION_CHAR, dryRun);
         checkMetadataValuesAndConvertToString(context,items, mapFile, REVERSED_MAPPED, dryRun);
     }
 
     @Override
-    public void reverseMapFromMappingFile(Context context, String link, String path, boolean dryRun)
+    public void reverseMapFromMappingFile(Context context, List<String> sourceCol, String link, String path, boolean dryRun)
         throws SQLException, IOException, AuthorizeException {
         CuniMapFile cuniMapFile;
         if (isBlank(link) && isBlank(path) && FILE_LOCATION.equals(URL)) {
             link = MAPPING_FILE_PATH;
-            doesURLResolve(link);
+            if (!doesURLResolve(link)) {
+                return;
+            }
         }
         if (isNotBlank(link)) {
             cuniMapFile = getMapFileFromLink(link);
+            if (cuniMapFile == null) {
+                return;
+            }
         }
         else if (isNotBlank(path)) {
             cuniMapFile = getMapFileFromPath(path);
         } else {
             cuniMapFile = getMapFileFromPath(MAPPING_FILE_PATH +  File.separator + MAPPING_FILE_NAME);
         }
-        for (SourceCollection col : cuniMapFile.getMapfile().getSource_collections()) {
-            Collection collection =  getCorrespondingCollection(context, col);
-            reverseMapItemsFromJson(context, itemService.findAllByCollection(context,collection), cuniMapFile, dryRun);
+
+        if (isNotBlankList(sourceCol)) {
+            resolvedSourceCollections = resolveCollections(context, sourceCol);
+            for (Collection sourceCollection: resolvedSourceCollections) {
+                logCLI(INFO,
+                       PROCESSING_COLLECTION_CHAR + PROCESSING_COLLECTION_HEADER + sourceCollection.getName() + " " + sourceCollection.getHandle() + " | "
+                    + sourceCollection.getID() + PROCESSING_COLLECTION_CHAR, dryRun);
+                reverseMapItemsFromJson(context, itemService.findAllByCollection(context, sourceCollection),
+                                        cuniMapFile, dryRun, sourceCollection);
+            }
+        }
+
+       else if (cuniMapFile.getMapfile().getSource_collections() == null ||
+                cuniMapFile.getMapfile().getSource_collections().isEmpty()) {
+            logCLI(WARN, "No source collections found in mapping file and no -s parameter was given." +
+                " Mapping will be performed on all items in the repository.", dryRun);
+            List<Collection> collections = collectionService.findAll(context);
+            for (Collection collection : collections) {
+                reverseMapItemsFromJson(context, itemService.findAllByCollection(context, collection), cuniMapFile,
+                                     dryRun, collection);
+            }
+        } else {
+            for (SourceCollection col : cuniMapFile.getMapfile().getSource_collections()) {
+                Collection collection =  getCorrespondingCollection(context, col);
+                reverseMapItemsFromJson(context, itemService.findAllByCollection(context,collection), cuniMapFile,
+                                        dryRun, collection);
+            }
         }
     }
 
@@ -596,8 +724,10 @@ public class ItemMapperServiceImpl implements ItemMapperService {
                     || secondaryStringMdFieldValues.contains(mappingRecord.getMetadata_value())) {
                         for (TargetCollection col : mappingRecord.getTarget_collections()) {
                             Collection correspondingCol = getCorrespondingCollection(context, col);
+                            List<String> handles = new ArrayList<>();
+                            handles.add(correspondingCol.getHandle());
                             if (mapMode.equals(REVERSED_MAPPED)) {
-                                unmapItem(context, item, correspondingCol.getHandle(), dryRun);
+                                unmapItem(context, item, handles, dryRun);
                             }
                             if (mapMode.equals(MAPPED)) {
                                 mapItem(context, item, correspondingCol, dryRun);
@@ -607,5 +737,44 @@ public class ItemMapperServiceImpl implements ItemMapperService {
                 }
             }
         }
+
+    @Override
+    public void addItemToListIfInSourceCollection(Context ctx, Item item, CuniMapFile cuniMapFile,
+                                                  List<Item> itemList) throws SQLException {
+
+        for (SourceCollection col : cuniMapFile.getMapfile().getSource_collections()) {
+            Collection collection =  getCorrespondingCollection(ctx, col);
+            if (collection.getID() == item.getOwningCollection().getID()) {
+                itemList.add(item);
+            }
+        }
+    }
+
+    @Override
+    public boolean doesFileExist() {
+        File jsonFile = new File(FULL_PATH_TO_FILE);
+        return substringAfterLast(FULL_PATH_TO_FILE, ".").equals("json") && jsonFile.exists() && jsonFile.isFile();
+    }
+
+    @Override
+    public boolean isLinkValid() throws IOException {
+        try {
+            java.net.URL url = new URL(CONSUMER_MAPPING_FILE_PATH);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            int responseCode = connection.getResponseCode();
+            return responseCode >= 200 && responseCode <= 300;
+        } catch (UnknownHostException | MalformedURLException e) {
+            log.error("Invalid URL supplied at: " + CONSUMER_MAPPING_FILE_PATH_CFG + ": " + CONSUMER_MAPPING_FILE_PATH);
+            return false;
+        }
+    }
+
+    public boolean isBlankList(List<String> list) {
+        return list == null || list.isEmpty();
+    }
+
+    public boolean isNotBlankList(List<String> list) {
+        return list != null && !list.isEmpty();
+    }
 }
 

@@ -1,6 +1,7 @@
 package com.atmire.itemmapper;
 
 import static com.atmire.itemmapper.service.ItemMapperServiceImpl.ERROR;
+import static com.atmire.itemmapper.service.ItemMapperServiceImpl.INFO;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -10,6 +11,7 @@ import com.atmire.cli.BooleanOption;
 import com.atmire.cli.ContextScript;
 import com.atmire.cli.HelpOption;
 import com.atmire.cli.OptionWrapper;
+import com.atmire.cli.RepeatableStringOption;
 import com.atmire.cli.StringOption;
 import com.atmire.itemmapper.factory.ItemMapperServiceFactory;
 import com.atmire.itemmapper.service.ItemMapperService;
@@ -42,8 +44,8 @@ public class ParametrizedItemMappingScript extends ContextScript {
     static ConfigurationService configurationService = DSpaceServicesFactory.getInstance().getConfigurationService();
 
     StringOption operationMode;
-    StringOption sourceHandle;
-    StringOption destinationHandle;
+    RepeatableStringOption sourceHandle;
+    RepeatableStringOption destinationHandle;
     StringOption linkToFile;
     StringOption pathToFile;
     BooleanOption dryRun;
@@ -63,6 +65,8 @@ public class ParametrizedItemMappingScript extends ContextScript {
         REVERSED,
         REVERSED_MAPPED
     };
+    public static final String MULTIPLE_ID_SEPARATOR = configurationService.getProperty("mapping.multiple-id" +
+        "-collections.separator", " ");
 
 
     @Override
@@ -70,13 +74,21 @@ public class ParametrizedItemMappingScript extends ContextScript {
         this.helpOption = new HelpOption();
         operationMode = new StringOption('o', "operation",
                                          "the operation mode for the script, should be one of following: " + Arrays.toString(OPERATIONS),true);
-        sourceHandle = new StringOption('s', "source", "handle or uuid of the source collection", false);
-        destinationHandle = new StringOption('d', "destination", "handle or uuid of the destination collection", false);
-        linkToFile = new StringOption('l',"link", "URL address leading to the mapped file", false);
-        pathToFile = new StringOption('p',"localpath", "Path to the mapped file in local storage system", false);
+        sourceHandle = new RepeatableStringOption('s', "source", String.format("handle or uuid of the source " +
+            "collection(s). Note that multiple collections should be separated by character '%s'. It is also possible" +
+            " to provide this parameter multiple times with different collections", MULTIPLE_ID_SEPARATOR), true, false,
+            MULTIPLE_ID_SEPARATOR);
+        destinationHandle = new RepeatableStringOption('d', "destination", String.format("handle or uuid of the " +
+            "destination collection(s).multiple collections should be separated by character '%s'. It is also " +
+            "possible to provide this parameter multiple times with different collections", MULTIPLE_ID_SEPARATOR),
+            true, false,
+            MULTIPLE_ID_SEPARATOR);
+        linkToFile = new StringOption('l',"link", "URL address leading to a valid link containing the raw json data " +
+            "of the mapping file", false);
+        pathToFile = new StringOption('p',"localpath", "Path to the json mapping file on your local storage system",
+                                      false);
         dryRun = new BooleanOption('t', "test", "script run is dry run, no changes will be made to the database, for " +
             "testing purposes only", false);
-
         HashSet<OptionWrapper> options = new HashSet<>();
         options.add(helpOption);
         options.add(operationMode);
@@ -95,28 +107,47 @@ public class ParametrizedItemMappingScript extends ContextScript {
             context.turnOffAuthorisationSystem();
 
             currentOperation = operationMode.getValue();
-            itemMapperService.verifyParams(context, operationMode.getValue(), sourceHandle.getValue(),
-                                           destinationHandle.getValue(), linkToFile.getValue(), pathToFile.getValue(),
-                                           dryRun.isSelected());
+            boolean paramsAreValid = itemMapperService.verifyParams(context, operationMode.getValue(),
+                sourceHandle.getValues(), destinationHandle.getValues(), linkToFile.getValue(), pathToFile.getValue(),
+                dryRun.isSelected());
+            if (!paramsAreValid) {
+                System.exit(1);
+            }
+
+            if (dryRun.isSelected()) {
+                itemMapperService.logCLI(INFO, "This is a dry run / test run of the script, no changes will be made to the database");
+            }
+
             switch (currentOperation) {
                 case UNMAPPED:
-                    itemMapperService.mapFromParams(context, destinationHandle.getValue(), sourceHandle.getValue(), dryRun.isSelected());
+                    itemMapperService.mapFromParams(context, destinationHandle.getValues(), sourceHandle.getValues(),
+                                                    dryRun.isSelected());
                     break;
                 case REVERSED:
-                    itemMapperService.reverseMapFromParams(context, destinationHandle.getValue(), sourceHandle.getValue(), dryRun.isSelected());
+                    itemMapperService.reverseMapFromParams(context, destinationHandle.getValues(),
+                                                           sourceHandle.getValues(), dryRun.isSelected());
                     break;
                 case MAPPED:
-                    itemMapperService.mapFromMappingFile(context, linkToFile.getValue(), pathToFile.getValue(), dryRun.isSelected());
+                    itemMapperService.mapFromMappingFile(context, sourceHandle.getValues(), linkToFile.getValue(),
+                                                         pathToFile.getValue(),
+                                                         dryRun.isSelected());
                     break;
                 case REVERSED_MAPPED:
-                    itemMapperService.reverseMapFromMappingFile(context, linkToFile.getValue(), pathToFile.getValue(), dryRun.isSelected());
+                    itemMapperService.reverseMapFromMappingFile(context, sourceHandle.getValues(), linkToFile.getValue(),
+                                                                pathToFile.getValue(), dryRun.isSelected());
                     break;
                 default:
-                    itemMapperService.logCLI(ERROR, "The mapping operation resolved to: " + currentOperation + " this is not supported");
+                    itemMapperService.logCLI(ERROR, "The mapping operation resolved to: " + currentOperation + " this" +
+                        " is not supported");
+                    System.exit(1);
+            }
+
+            if (dryRun.isSelected()) {
+                itemMapperService.logCLI(INFO, "This was a dry run / test run of the script, no changes have been " +
+                    "made to the database");
             }
         } catch (Exception e) {
             itemMapperService.logCLI(ERROR, "An exception has occurred! => " + e.getMessage());
-            e.printStackTrace();
             throw e;
         }
     }

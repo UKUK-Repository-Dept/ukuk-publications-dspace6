@@ -4,22 +4,22 @@ import static com.atmire.itemmapper.ParametrizedItemMappingScript.LOCAL;
 import static com.atmire.itemmapper.ParametrizedItemMappingScript.MAPPED;
 import static com.atmire.itemmapper.ParametrizedItemMappingScript.URL;
 import static com.atmire.itemmapper.ParametrizedItemMappingScript.configurationService;
-import static org.apache.commons.lang3.StringUtils.substringAfterLast;
+import static com.atmire.itemmapper.service.ItemMapperServiceImpl.ERROR;
+import static com.atmire.itemmapper.service.ItemMapperServiceImpl.INFO;
+import static com.atmire.itemmapper.service.ItemMapperServiceImpl.WARN;
+import static org.apache.commons.lang.StringUtils.isBlank;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.Nullable;
 
 import com.atmire.itemmapper.factory.ItemMapperServiceFactory;
 import com.atmire.itemmapper.model.CuniMapFile;
-import com.atmire.itemmapper.model.SourceCollection;
 import com.atmire.itemmapper.service.ItemMapperService;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.dspace.content.Collection;
 import org.dspace.content.Item;
 import org.dspace.content.factory.ContentServiceFactory;
 import org.dspace.content.service.ItemService;
@@ -29,9 +29,10 @@ import org.dspace.event.Consumer;
 import org.dspace.event.Event;
 
 public class ItemMapperConsumer implements Consumer {
-    private static Logger log = Logger.getLogger(ItemMapperConsumer.class);
+    private static final Logger log = org.apache.log4j.LogManager.getLogger(ItemMapperConsumer.class);
     protected ItemService itemService = ContentServiceFactory.getInstance().getItemService();
-    ItemMapperService itemMapperService = ItemMapperServiceFactory.getInstance().getItemMapperService();
+    private final ItemMapperService itemMapperService =
+        ItemMapperServiceFactory.getInstance().getItemMapperService();
     public static final String CONSUMER_MAPPING_FILE_LOCATION_CFG = "consumer.mapping.file.location";
     public static final String CONSUMER_MAPPING_FILE_NAME_CFG = "consumer.mapping.file.name";
     public static final String CONSUMER_MAPPING_FILE_PATH_CFG = "consumer.mapping.file.path";
@@ -43,34 +44,43 @@ public class ItemMapperConsumer implements Consumer {
                                                                                                             ".item.mapper.enabled", true);
     List<Item> itemList = new ArrayList<>();
     CuniMapFile cuniMapFile;
+    private boolean validConsumerConfig = false;
 
     @Override
-    public void initialize() throws Exception {
+    public void initialize() {
 
     }
 
     @Override
     public void consume(Context ctx, Event event) throws Exception {
-        if (CONSUMER_ITEM_MAPPER_ENABLED && event.getSubjectType() == Constants.ITEM && event.getEventType() == Event.INSTALL) {
+        if (CONSUMER_ITEM_MAPPER_ENABLED && event.getSubjectType() == Constants.ITEM && (event.getEventType() == Event.INSTALL || event.getEventType() == Event.MODIFY_METADATA)) {
+            if (!validConsumerConfig) {
+                checkConsumerConfig();
+                if (!validConsumerConfig) {
+                    return;
+                }
+            }
 
             Item item = (Item) event.getSubject(ctx);
 
-            if (CONSUMER_MAPPING_FILE_LOCATION.equals(URL) && isLinkValid()) {
-                log.info("ItemMapperConsumer: Item install event, mapping items based on URL: " + CONSUMER_MAPPING_FILE_PATH);
+            if (CONSUMER_MAPPING_FILE_LOCATION.equals(URL)) {
+                logMessage(INFO,
+                    "Item install event, mapping items based on URL: " + CONSUMER_MAPPING_FILE_PATH, null);
                 cuniMapFile = itemMapperService.getMapFileFromLink(CONSUMER_MAPPING_FILE_PATH);
-                addItemToListIfInSourceCollection(ctx, item);
+                itemMapperService.addItemToListIfInSourceCollection(ctx, item, cuniMapFile, itemList);
             }
 
-            else if (CONSUMER_MAPPING_FILE_LOCATION.equals(LOCAL) && doesFileExist()) {
-                log.info("ItemMapperConsumer: Item install event, mapping items based on local file located at : " + FULL_PATH_TO_FILE);
+            else if (CONSUMER_MAPPING_FILE_LOCATION.equals(LOCAL)) {
+                logMessage(INFO,
+                    "Item install event, mapping items based on local file located at : " + FULL_PATH_TO_FILE, null);
                 cuniMapFile = itemMapperService.getMapFileFromPath(FULL_PATH_TO_FILE);
-                addItemToListIfInSourceCollection(ctx, item);
+                itemMapperService.addItemToListIfInSourceCollection(ctx, item, cuniMapFile, itemList);
             }
             else {
-                log.error("ItemMapperConsumer: Item install event was called but the path to the file is not " +
-                              "set correctly, please double check your consumer properties:" +
-                              CONSUMER_MAPPING_FILE_LOCATION_CFG + ", " + CONSUMER_MAPPING_FILE_NAME_CFG + " and" + CONSUMER_MAPPING_FILE_LOCATION_CFG);
-
+                logMessage(INFO, "Item install event was called but the path to the file is not " +
+                    "set correctly, please double check your consumer properties:" +
+                    CONSUMER_MAPPING_FILE_LOCATION_CFG + ", " + CONSUMER_MAPPING_FILE_NAME_CFG + " and" +
+                    CONSUMER_MAPPING_FILE_LOCATION_CFG, null);
             }
         }
     }
@@ -79,9 +89,10 @@ public class ItemMapperConsumer implements Consumer {
     public void end(Context ctx) throws Exception {
         if (!itemList.isEmpty()) {
             try {
+                itemMapperService.reverseMapItemsInBatch(ctx, itemList.iterator(), null, null, false);
                 itemMapperService.checkMetadataValuesAndConvertToString(ctx, itemList.iterator(), cuniMapFile, MAPPED, false);
             } catch (Exception e) {
-                log.error("ItemMapperConsumer: An exception occurred while mapping items", e);
+                logMessage(ERROR,"An exception occurred while mapping items", e);
             } finally {
                 itemList.clear();
             }
@@ -89,28 +100,49 @@ public class ItemMapperConsumer implements Consumer {
     }
 
     @Override
-    public void finish(Context ctx) throws Exception {
+    public void finish(Context ctx) {
 
     }
 
-    public void addItemToListIfInSourceCollection(Context ctx, Item item) throws SQLException {
-        for (SourceCollection col : cuniMapFile.getMapfile().getSource_collections()) {
-            Collection collection =  itemMapperService.getCorrespondingCollection(ctx, col);
-            if (collection.getID() == item.getOwningCollection().getID()) {
-                itemList.add(item);
+    public void checkConsumerConfig() throws IOException {
+        String message = null;
+        if (isBlank(CONSUMER_MAPPING_FILE_LOCATION) || isBlank(CONSUMER_MAPPING_FILE_PATH) ||
+            isBlank(CONSUMER_MAPPING_FILE_NAME)) {
+            message =
+                "Missing configuration for one of your consumer properties: " + CONSUMER_MAPPING_FILE_LOCATION_CFG +
+                    ", " + CONSUMER_MAPPING_FILE_PATH_CFG + ", " + CONSUMER_MAPPING_FILE_NAME_CFG;
+        }
+        if (CONSUMER_MAPPING_FILE_LOCATION.equalsIgnoreCase(URL) && !itemMapperService.isLinkValid()) {
+            message = "The given URL does not resolve: " + CONSUMER_MAPPING_FILE_PATH;
+        }
+        if (CONSUMER_MAPPING_FILE_LOCATION.equalsIgnoreCase(LOCAL) && !itemMapperService.doesFileExist()) {
+            message = "The file you supplied is not a valid JSON file: " + FULL_PATH_TO_FILE;
+        }
+        if (message != null) {
+            validConsumerConfig = false;
+            logMessage(ERROR, message, null);
+        } else {
+            validConsumerConfig = true;
+        }
+    }
+
+    private void logMessage(String level, String message, @Nullable Exception e) {
+        if (StringUtils.isNotBlank(message)) {
+            message = "ItemMapperConsumer: " + message;
+            switch (level) {
+                case INFO:
+                    log.info(message);
+                    break;
+                case ERROR:
+                    log.error(message, e);
+                    break;
+                case WARN:
+                    log.warn(message);
+                    break;
+                default:
+                    throw new IllegalArgumentException(level + "is not a valid log level");
             }
         }
     }
 
-    public boolean doesFileExist() {
-        File jsonFile = new File(FULL_PATH_TO_FILE);
-        return substringAfterLast(FULL_PATH_TO_FILE, ".").equals("json") && jsonFile.exists() && jsonFile.isFile();
-    }
-
-    public boolean isLinkValid() throws IOException {
-        java.net.URL url = new URL(CONSUMER_MAPPING_FILE_PATH);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        int responseCode = connection.getResponseCode();
-        return responseCode >= 200 && responseCode <= 300;
-    }
 }
