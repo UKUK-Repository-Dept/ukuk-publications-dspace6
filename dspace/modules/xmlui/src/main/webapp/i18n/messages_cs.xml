@@ -2931,6 +2931,8 @@
 	<message key="obd.metadata.metadatum.id.keywords">Klíčová slova</message>
 	<message key="obd.metadata.metadatum.id.title">Název dokumentu</message>
 	<message key="obd.metadata.metadatum.id.title_translated">Přeložený název dokumentu</message>
+	<message key="obd.metadata.metadatum.id.keywords_translated">Přeložená klíčová slova</message>
+	<message key="obd.metadata.metadatum.id.abstract_translated">Přeložený abstrakt</message>
 	<message key="obd.metadata.metadatum.id.financing_source">Zdroj financování</message>
 	<message key="obd.metadata.metadatum.id.research_field_primary">Vědní obor hlavní</message>
 	<message key="obd.metadata.metadatum.id.research_field_secondary">Vědní obor vedlejší</message>
@@ -2984,12 +2986,27 @@
 	<message key="obd.metadata.section-general-9">Specifické informace</message>
 	<message key="obd.metadata.section-general-10">Zvláštní údaje pro RIV</message>
 	<message key="obd.metadata.section-general-11">Přiložené soubory</message>
+	<!-- END OF: OBD METADATA SECTIONS TRANSLATIONS - GENERAL -->
 
-	<!-- Metadata Fields -->
+	<!-- OBD METADATA SECTIONS TRANSLATIONS - FORM SPECIFIC -->
+	<!-- Metadata Sections -->
+	<message key="obd.metadata.section-specific-110-8">Sborník, časopis</message>
+	<message key="obd.metadata.section-specific-73-8">Časopis</message>
+	<message key="obd.metadata.section-specific-67-8">Kniha</message>
+	<message key="obd.metadata.section-specific-63-8">Kniha</message>
+	<message key="obd.metadata.section-specific-131-8">Kniha</message>
+	<message key="obd.metadata.section-specific-57-8">Sborník</message>
+	<message key="obd.metadata.section-specific-106-8">Sborník</message>
+	<message key="obd.metadata.section-specific-57-9">Konference</message>
+	<message key="obd.metadata.section-specific-110-10">Konference</message>
+	<!-- END OF: OBD METADATA SECTIONS TRANSLATIONS - FORM SPECIFIC -->
+
+	<!-- Metadata Fields - GENERAL -->
 	<message key="obd.metadata.field-date_issued-general">Rok</message>
 	<message key="obd.metadata.field-abstract-general">Anotace</message>
 	<message key="obd.metadata.field-language-general">Jazyk</message>
 	<message key="obd.metadata.field-keywords-general">Klíčová slova</message>
+	<message key="obd.metadata.field-keywords-translated-general">Anglická klíčová slova</message>
 	<message key="obd.metadata.field-title-general">Název</message>
 	<message key="obd.metadata.field-title-translated-general">Název anglicky</message>
 	<message key="obd.metadata.field-research_fields_classification-general">Vnitřní klasifikace vědních oborů UK</message>
@@ -3020,29 +3037,20 @@
 	<message key="obd.metadata.field-id_scopus-general">EID záznamu ve Scopus</message>
 	<message key="obd.metadata.field-id_pubmed-general">PubMed ID</message>
 	<message key="obd.metadata.field-organizer_name-general">Organizátor akce</message>
-	<!-- END OF: OBD METADATA SECTIONS TRANSLATIONS - GENERAL -->
-
-	<!-- OBD METADATA SECTIONS TRANSLATIONS - FORM SPECIFIC -->
-	<!-- Metadata Sections -->
-	<message key="obd.metadata.section-specific-110-8">Sborník, časopis</message>
-	<message key="obd.metadata.section-specific-73-8">Časopis</message>
-	<message key="obd.metadata.section-specific-67-8">Kniha</message>
-	<message key="obd.metadata.section-specific-63-8">Kniha</message>
-	<message key="obd.metadata.section-specific-131-8">Kniha</message>
-	<message key="obd.metadata.section-specific-57-8">Sborník</message>
-	<message key="obd.metadata.section-specific-106-8">Sborník</message>
-	<message key="obd.metadata.section-specific-57-9">Konference</message>
-	<message key="obd.metadata.section-specific-110-10">Konference</message>
-	<!-- Metadata Fields -->
+	
+	<!-- Metadata Fields - SPECIFIC -->
 	<message key="obd.metadata.field-date_issued-applicable-year">Rok uplatnění</message>
 	<message key="obd.metadata.field-abstract-annotation-description">Anotace / popis</message>
 	<message key="obd.metadata.field-abstract-description">Popis</message>
+	<message key="obd.metadata.field-annotation">Anotace</message>
+	<message key="obd.metadata.field-annotation-translated">Anotace anglicky</message>
 	<message key="obd.metadata.field-title-abstract">Název abstraktu</message>
 	<message key="obd.metadata.field-title-article">Název článku</message>
 	<message key="obd.metadata.field-title-chapter">Název kapitoly</message>
 	<message key="obd.metadata.field-title-book">Název knihy</message>
 	<message key="obd.metadata.field-title-submission">Název příspěvku</message>
 	<message key="obd.metadata.field-title-essay">Název stati</message>
+	<message key="obd.metadata.field-title-translated-article">Název článku anglicky</message>
 	<message key="obd.metadata.field-title-translated-chapter">Název kapitoly anglicky</message>
 	<message key="obd.metadata.field-title-translated-book">Název knihy anglicky</message>
 	<message key="obd.metadata.field-title-translated-submission">Název příspěvku anglicky</message>
@@ -3071,7 +3079,7 @@
 	<message key="obd.metadata.field-id_isbn-ismn">ISBN/ISMN</message>
 	<message key="obd.metadata.field-organizer_name-conference">Organizátor konference</message>
 
-	<!-- END OF: OBD METADATA SECTIONS TRANSLATIONS - FORM SPECIFIC -->
+	
 
 	<!-- END OF: <JR> - 22-06-16: page/metadata -->
 
