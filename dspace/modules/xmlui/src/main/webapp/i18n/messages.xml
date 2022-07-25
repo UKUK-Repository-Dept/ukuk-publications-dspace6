@@ -2683,6 +2683,8 @@
 	<message key="obd.metadata.metadatum.id.keywords">Keywords</message>
 	<message key="obd.metadata.metadatum.id.title">Document Title</message>
 	<message key="obd.metadata.metadatum.id.title_translated">Document Translated Title</message>
+	<message key="obd.metadata.metadatum.id.abstract_translated">Translated Abstract / Annotation</message>
+	<message key="obd.metadata.metadatum.id.keywords_translated">Translated Keywords</message>
 	<message key="obd.metadata.metadatum.id.financing_source">Source of the Financing</message>
 	<message key="obd.metadata.metadatum.id.research_field_primary">Research Field - Primary</message>
 	<message key="obd.metadata.metadatum.id.research_field_secondary">Research Field - Secondary</message>
@@ -2740,6 +2742,7 @@
 	<message key="obd.metadata.field-abstract-general">Annotation</message>
 	<message key="obd.metadata.field-language-general">Language</message>
 	<message key="obd.metadata.field-keywords-general">Keywords</message>
+	<message key="obd.metadata.field-keywords-translated-general">Keywords - English</message>
 	<message key="obd.metadata.field-title-general">Title</message>
 	<message key="obd.metadata.field-title-translated-general">English Title</message>
 	<message key="obd.metadata.field-research_fields_classification-general">Internal Research Fields Classification</message>
@@ -2788,6 +2791,7 @@
 	<message key="obd.metadata.field-abstract-annotation-description">Annotation / Description</message>
 	<message key="obd.metadata.field-abstract-description">Description</message>
 	<message key="obd.metadata.field-annotation">Annotation</message>
+	<message key="obd.metadata.field-annotation-translated">Anotace - English</message>
 	<message key="obd.metadata.field-title-abstract">Abstract Title</message>
 	<message key="obd.metadata.field-title-article">Article Title</message>
 	<message key="obd.metadata.field-title-chapter">Chapter Title</message>
