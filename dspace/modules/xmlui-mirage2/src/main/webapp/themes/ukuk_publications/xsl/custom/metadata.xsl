@@ -101,6 +101,7 @@
                                             <xsl:variable name="systemMetadatum" select="./meta_info/@system"/>
                                             <xsl:variable name="metadatumID" select="./@id"/>
                                             <xsl:variable name="metadatumInternalName" select="./@internal_name"/>
+                                            <xsl:variable name="obdFieldID" select="./@obd_field_id"/>
                                             <xsl:variable name="obdSectionTranslationKey" select="./meta_info/@obd_section_translation"/>
                                             <xsl:variable name="obdFieldTranslationKey" select="./meta_info/@obd_field_translation"/>
                                             <xsl:variable name="validForPublicationState" select="./meta_info/@valid_for"/>
@@ -116,9 +117,14 @@
                                                         </i18n:text>
                                                     </td>
                                                     <td>
-                                                        <i18n:text>
-                                                            <xsl:value-of select="concat('obd.metadata.', $obdFieldTranslationKey)"/>
-                                                        </i18n:text>
+                                                        <xsl:choose>
+                                                            <xsl:when test="$obdFieldID != 'none'">
+                                                                <i18n:text>
+                                                                    <xsl:value-of select="concat('obd.metadata.', $obdFieldTranslationKey)"/>
+                                                                </i18n:text>
+                                                            </xsl:when>
+                                                            <xsl:otherwise></xsl:otherwise>
+                                                        </xsl:choose>
                                                     </td>
                                                     <xsl:choose>
                                                         <xsl:when test="$validForPublicationState = 'both'">
