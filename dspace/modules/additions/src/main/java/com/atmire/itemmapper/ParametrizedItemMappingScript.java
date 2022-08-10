@@ -140,8 +140,8 @@ public class ParametrizedItemMappingScript extends ContextScript {
             }
             context.commit();
         } catch (Exception e) {
-            itemMapperService.logCLI(ERROR, "An exception has occurred! => " + e.getMessage());
-            e.printStackTrace();
+            itemMapperService.logCLI(ERROR, String.format("An exception has occurred! => %s%n%s", e.getMessage(),
+                e.toString()));
             throw e;
         }
     }

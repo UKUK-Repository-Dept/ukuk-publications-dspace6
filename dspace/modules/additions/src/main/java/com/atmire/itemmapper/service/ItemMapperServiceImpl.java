@@ -24,6 +24,8 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import javax.annotation.Nullable;
+
 import com.atmire.itemmapper.ParametrizedItemMappingScript;
 import com.atmire.itemmapper.model.CuniMapFile;
 import com.atmire.itemmapper.model.GenericCollection;
@@ -78,14 +80,23 @@ public class ItemMapperServiceImpl implements ItemMapperService {
 
     @Override
     public void logCLI(String level, String message) {
+        this.logCLI(level, message, null);
+    }
+
+
+    @Override
+    public void logCLI(String level, String message, @Nullable Exception e) {
         System.out.println(level.toUpperCase() + ": " + message);
         switch (level) {
             case INFO:
                 log.info(message);
                 break;
             case ERROR:
-                log.error(message);
-                System.exit(1);
+                if (e == null) {
+                    log.error(message);
+                } else {
+                    log.error(message, e);
+                }
                 break;
             case WARN:
                 log.warn(message);
@@ -96,9 +107,18 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     }
 
     @Override
-    public void mapItem (Context context, Item item, Collection sourceCollection, Collection destinationCollection,
-                         boolean dryRun)
-        throws SQLException, AuthorizeException {
+    public void logCLI(String level, String message, boolean dryRun) {
+        if (!dryRun) {
+            logCLI(level, message);
+        } else {
+            message = DRY_RUN_PREFIX + " " + message;
+            logCLI(level, message);
+        }
+    }
+
+    @Override
+    public void mapItem(Context context, Item item, Collection sourceCollection, Collection destinationCollection,
+        boolean dryRun) throws SQLException, AuthorizeException {
 
         if (itemService.isOwningCollection(item, sourceCollection)) {
             addItemToCollection(context, item, destinationCollection, dryRun);
@@ -217,9 +237,10 @@ public class ItemMapperServiceImpl implements ItemMapperService {
                 } catch (IllegalArgumentException e) {
                     logCLI(ERROR, id + " is not a valid UUID or handle");
                 }
-                return resolvedCollection;
-            } catch (IllegalArgumentException e) {
-                logCLI(ERROR, collectionID + " is not a valid UUID or handle");
+            } else if (dso.getType() != Constants.COLLECTION) {
+                logCLI(ERROR, "Handle:" + id + " resolved to a " + dso.getType());
+            } else {
+                collections.add((Collection) dso);
             }
         }
 
