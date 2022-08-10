@@ -14,78 +14,72 @@ import org.dspace.core.Context;
 
 public interface ItemMapperService {
 
-    public void logCLI(String level, String message);
+    void logCLI(String level, String message);
 
-    public void logCLI(String level, String message, Exception e);
+    void logCLI(String level, String message, Exception e);
 
-    public void logCLI(String level, String message, boolean dryRun);
+    void logCLI(String level, String message, boolean dryRun);
 
-    public void mapItem(Context context, Item item, Collection sourceCollection, Collection destinationCollection,
-                        boolean dryRun)
+    void mapItem(Context context, Item item, Collection sourceCollection, Collection destinationCollection,
+        boolean dryRun) throws SQLException, AuthorizeException;
+
+    void mapItem(Context context, Item item, Collection destinationCollection, boolean dryRun)
         throws SQLException, AuthorizeException;
 
-    public void mapItem(Context context, Item item, Collection destinationCollection, boolean dryRun)
-        throws SQLException,
-        AuthorizeException;
-
-    public boolean verifyParams(Context context, String operationmode, List<String> sourceHandle, List<String> destinationHandle,
-                             String linkToFile, String pathToFile, boolean dryRun)
+    boolean verifyParams(Context context, String operationmode, List<Collection> validSources,
+        List<Collection> validDestinations, String linkToFile, String pathToFile, boolean dryRun)
         throws SQLException, IOException;
 
-    public void unmapItem(Context context, Item item, List<String> sourceHandle, List<String> destinationHandle,
-                          boolean dryRun)
+    void unmapItem(Context context, Item item, List<Collection> sources, List<Collection> destinations,
+        boolean dryRun) throws SQLException, AuthorizeException, IOException;
+
+    void unmapItem(Context context, Item item, List<Collection> sources, boolean dryRun)
         throws SQLException, AuthorizeException, IOException;
 
-    public void unmapItem(Context context, Item item, List<String> sourceHandle,  boolean dryRun)
-        throws SQLException, AuthorizeException, IOException;
+    void showItemsInCollection(Context context, Item item, Collection collection) throws SQLException;
 
-    public void showItemsInCollection(Context context, Item item, Collection collection) throws SQLException;
+    List<Collection> resolveCollections(Context context, List<String> collectionIDsList) throws SQLException;
 
-    public List<Collection> resolveCollections(Context context, List<String> collectionIDsList) throws SQLException;
+    String getContentFromFile(String filepath) throws IOException;
 
-    public String getContentFromFile(String filepath) throws IOException;
+    Collection getCorrespondingCollection(Context context, GenericCollection col) throws SQLException;
 
-    public Collection getCorrespondingCollection(Context context, GenericCollection col)
+    void mapItemsFromJson(Context context, Iterator<Item> items, CuniMapFile mapFile, boolean dryRun,
+        Collection collection) throws SQLException, AuthorizeException, IOException;
+
+    void reverseMapItemsFromJson(Context context, Iterator<Item> items, CuniMapFile mapFile, boolean dryRun,
+        Collection collection) throws SQLException, AuthorizeException, IOException;
+
+    CuniMapFile getMapFileFromLink(String link) throws IOException;
+
+    CuniMapFile getMapFileFromPath(String path) throws IOException;
+
+    void mapFromParams(Context context, List<Collection> destinations, List<Collection> sources, boolean dryRun)
         throws SQLException;
 
-    public void mapItemsFromJson(Context context, Iterator<Item> items, CuniMapFile mapFile, boolean dryRun,
-                                 Collection collection)
-        throws SQLException, AuthorizeException, IOException;
+    void reverseMapFromParams(Context context, List<Collection> destinations, List<Collection> sources, boolean dryRun)
+        throws SQLException;
 
-    public void reverseMapItemsFromJson(Context context, Iterator<Item> items, CuniMapFile mapFile, boolean dryRun,
-                                        Collection collection)
-        throws SQLException, AuthorizeException, IOException;
-
-    public CuniMapFile getMapFileFromLink(String link) throws IOException;
-
-    public CuniMapFile getMapFileFromPath(String path) throws IOException;
-
-    public void mapFromParams(Context context, List<String> destinationHandle, List<String> sourceHandle,
-                              boolean dryRun) throws SQLException;
-
-    public void reverseMapFromParams(Context context, List<String> destinationHandle, List<String> sourceHandle, boolean dryRun) throws SQLException;
-
-    public void mapFromMappingFile(Context context, List<String> sourceCol, String link, String path, boolean dryRun)
+    void mapFromMappingFile(Context context, List<Collection> sources, String link, String path, boolean dryRun)
         throws IOException, SQLException, AuthorizeException;
 
-    public void reverseMapFromMappingFile(Context context, List<String> sourceCol, String link, String path, boolean dryRun)
+    void reverseMapFromMappingFile(Context context, List<Collection> sources, String link, String path, boolean dryRun)
         throws SQLException, IOException, AuthorizeException;
 
-    public boolean doesURLResolve(String url) throws IOException;
+    boolean doesURLResolve(String url) throws IOException;
 
-    public boolean isValidJSONFile(String path) throws IOException;
+    boolean isValidJSONFile(String path) throws IOException;
 
-    public void checkMetadataValuesAndConvertToString(Context context, Iterator<Item> items, CuniMapFile mapFile,
-                                                      String mapMode, boolean dryRun)
-        throws SQLException, AuthorizeException, IOException;
+    void checkMetadataValuesAndConvertToString(Context context, Iterator<Item> items, CuniMapFile mapFile,
+        String mapMode, boolean dryRun) throws SQLException, AuthorizeException, IOException;
 
-    public void addItemToListIfInSourceCollection(Context ctx, Item item, CuniMapFile cuniMapFile,
-                                                  List<Item> itemList) throws SQLException;
+    void addItemToListIfInSourceCollection(Context ctx, Item item, CuniMapFile cuniMapFile,
+        List<Item> itemList) throws SQLException;
 
-    public boolean doesFileExist();
+    boolean doesFileExist();
 
-    public boolean isLinkValid() throws IOException;
+    boolean isLinkValid() throws IOException;
 
-    public void reverseMapItemsInBatch(Context context, Iterator<Item> itemsToMap, List<String> sourceHandle,
-                                       List<String> destinationHandle, boolean dryRun);
+    void reverseMapItemsInBatch(Context context, Iterator<Item> itemsToMap, List<Collection> sources,
+        List<Collection> destinations, boolean dryRun) throws SQLException;
 }

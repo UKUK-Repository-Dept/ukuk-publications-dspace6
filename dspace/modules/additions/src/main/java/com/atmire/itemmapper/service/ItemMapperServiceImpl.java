@@ -65,8 +65,6 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     HandleService handleService = HandleServiceFactory.getInstance().getHandleService();
     static ConfigurationService configurationService = DSpaceServicesFactory.getInstance().getConfigurationService();
 
-    List<Collection> resolvedDestinationCollections;
-    List<Collection> resolvedSourceCollections;
     Iterator<Item> itemsToMap;
     double totalItems;
     int batchSize = configurationService.getIntProperty("item.mapper.batch.size", 100);
@@ -82,7 +80,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     public static final String WARN = "warn";
     public static final String DRY_RUN_PREFIX = "( DRY RUN )";
     public static final String PROCESSING_COLLECTION_CHAR = " === ";
-    public static final String PROCESSING_COLLECTION_HEADER = "PROCESSING SOURCE COLLECTION: ";
+    public static final String PROCESSING_COLLECTION_HEADER = "PROCESSING COLLECTION: ";
 
     @Override
     public void logCLI(String level, String message) {
@@ -144,25 +142,25 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     }
 
     @Override
-    public boolean verifyParams(Context context, String operationMode, List<String> sourceHandle,
-                                List<String> destinationHandle, String linkToFile,
-                                String pathToFile, boolean dryRun) throws IOException {
+    public boolean verifyParams(Context context, String operationMode, List<Collection> validSources,
+        List<Collection> validDestinations, String linkToFile, String pathToFile, boolean dryRun)
+        throws IOException {
 
         if (!Arrays.asList(OPERATIONS).contains(operationMode)) {
             logCLI(ERROR, "No valid operation mode was given", dryRun);
             return false;
         }
 
-        if (operationMode.equals(UNMAPPED) && isBlankList(destinationHandle) ) {
-                logCLI(ERROR, "No destination handle was given, this is required when the operation mode is " +
+        if (operationMode.equals(UNMAPPED) && isBlankList(validDestinations) ) {
+                logCLI(ERROR, "No valid destination id was given, this is required when the operation mode is " +
                     "set to unmapped", dryRun);
                 return false;
         }
 
         if (operationMode.equals(REVERSED)) {
-            if (isBlankList(destinationHandle) && !sourceHandle.isEmpty()) {
-                logCLI(ERROR, "You should also give a destination parameter when giving a " +
-                    "source parameter", dryRun);
+            if (isBlankList(validDestinations) && isNotBlankList(validSources)) {
+                logCLI(ERROR, "You should also give a valid destination parameter when giving a " +
+                    "valid source parameter", dryRun);
                 return false;
             }
         }
@@ -175,22 +173,18 @@ public class ItemMapperServiceImpl implements ItemMapperService {
             if (FILE_LOCATION.equals(URL) || isNotBlank(linkToFile)) {
                 if (isBlank(linkToFile)) {
                     linkToFile = MAPPING_FILE_PATH;
-                };
+                }
                 if (!doesURLResolve(linkToFile)) {
                     return false;
                 }
-            }
-
-            else if (FILE_LOCATION.equals(LOCAL) || isNotBlank(pathToFile)) {
+            } else if (FILE_LOCATION.equals(LOCAL) || isNotBlank(pathToFile)) {
                 if (isBlank(pathToFile)) {
                     pathToFile = MAPPING_FILE_PATH + File.separator + MAPPING_FILE_NAME;
                 }
                 if (!isValidJSONFile(pathToFile)) {
                     return false;
                 }
-            }
-
-            else {
+            } else {
                 logCLI(ERROR, "No valid JSON data could be resolved please provide either a link to a JSON file " +
                     "or a path to a JSON file. Using either properties in item-mapping.cfg or the command line ", dryRun);
                 return false;
@@ -200,7 +194,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     }
 
     @Override
-    public boolean isValidJSONFile(String pathToFile) throws IOException {
+    public boolean isValidJSONFile(String pathToFile) {
         File jsonFile = new File(pathToFile);
         if (!substringAfterLast(pathToFile, ".").equals("json") || !jsonFile.exists() || !jsonFile.isFile()) {
             logCLI(ERROR, String.format("%s did not resolve to a valid .json file. Either put path to valid json in '%s' option, or set configs %s/%s to point to valid json.",
@@ -212,22 +206,33 @@ public class ItemMapperServiceImpl implements ItemMapperService {
 
     @Override
     public boolean doesURLResolve(String sUrl) throws IOException {
-        java.net.URL url = new URL(sUrl);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        int responseCode = connection.getResponseCode();
+        try {
+            java.net.URL url = new URL(sUrl);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            int responseCode = connection.getResponseCode();
 
-        if (responseCode < 200 || responseCode > 300) {
-            logCLI(ERROR, "The given file path " + url + " is not a valid URL, please give a valid URL" +
-                " using the -l parameter or in a configuration file using the " + MAPPING_FILE_PATH_CFG + " " +
-                "property");
+            if (responseCode < 200 || responseCode > 300) {
+                logCLI(ERROR,
+                    "The given file path " + url + " is not a valid URL (code: " + responseCode + ") please " +
+                        "give a valid URL using the -l parameter or in a configuration file using the " +
+                        MAPPING_FILE_PATH_CFG + " property");
+                return false;
+            } else {
+                return true;
+            }
+        } catch (Exception e) {
+            logCLI(ERROR, String.format("Something went wrong trying to check if url (%s) is valid:%n%s", sUrl,
+                e.toString()));
             return false;
         }
-        return true;
     }
 
     @Override
     public List<Collection> resolveCollections(Context context, List<String> collectionIDsList) throws SQLException {
         List<Collection> collections = new ArrayList<>();
+        if (isBlankList(collectionIDsList)) {
+            return collections;
+        }
         for (String id: collectionIDsList) {
             DSpaceObject dso = handleService.resolveToObject(context, id);
             if (dso == null) {
@@ -250,26 +255,19 @@ public class ItemMapperServiceImpl implements ItemMapperService {
         return collections;
     }
 
-
     @Override
-    public void unmapItem(Context context, Item item, List<String> sourceHandle, List<String> destinationHandle,
+    public void unmapItem(Context context, Item item, List<Collection> sources, List<Collection> destinations,
                           boolean dryRun) throws SQLException, AuthorizeException, IOException {
         List<Collection> itemCollections = item.getCollections();
         Collection itemOwningCollection = item.getOwningCollection();
-
         // if source and destination handle are given resolve them to their collections
         // We only want to remove the items originating from the source collections to be removed from the
         // destination collection (they were previously mapped)
-        if (isNotBlankList(destinationHandle)) {
-            if (isNotBlankList(sourceHandle)) {
-                resolvedSourceCollections = resolveCollections(context, sourceHandle);
-            }
-            resolvedDestinationCollections = resolveCollections(context, destinationHandle);
-
+        if (isNotBlankList(destinations)) {
             // If the item is mapped to the collection we want to remove from and that collection is not its owning
             // collection we can go ahead and remove the item from the collection (if the item is not mapped to only
             // that collection which should not be the case but check to be sure)
-            for (Collection destinationCollection: resolvedDestinationCollections) {
+            for (Collection destinationCollection: destinations) {
                 if (itemCollections.contains(destinationCollection)
                     && !destinationCollection.equals(itemOwningCollection)
                     && item.getCollections().size() > 1) {
@@ -289,20 +287,21 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     }
 
     @Override
-    public void unmapItem(Context context, Item item, List<String> sourceHandle, boolean dryRun)
+    public void unmapItem(Context context, Item item, List<Collection> sources, boolean dryRun)
         throws SQLException, AuthorizeException, IOException {
-            unmapItem(context, item, sourceHandle, null, dryRun);
+            unmapItem(context, item, sources, null, dryRun);
 
     }
 
-    public void removeItemFromAllCollectionsExceptOwning(Context context, List<Collection> itemCollections, Collection itemOwningCollection,
-                                                         Item item, boolean dryRun) throws SQLException, AuthorizeException, IOException {
+    public void removeItemFromAllCollectionsExceptOwning(Context context, List<Collection> itemCollections,
+        Collection itemOwningCollection, Item item, boolean dryRun) 
+        throws SQLException, AuthorizeException, IOException {
+        
         for (Collection collection : itemCollections) {
             if (collection.equals(itemOwningCollection)) {
                 logCLI("info", String.format("Current collection (%s | %s) is the item's (%s | %s) owning " +
-                                                 "collection, skipping",
-                                             collection.getHandle(), collection.getID(),
-                                             item.getHandle(), item.getID()), dryRun);
+                        "collection, skipping", collection.getHandle(), collection.getID(), item.getHandle(),
+                    item.getID()), dryRun);
                 continue;
             }
 
@@ -429,13 +428,12 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     }
 
     @Override
-    public void mapFromParams(Context context, List<String> destinationHandle, List<String> sourceHandle, boolean dryRun) throws SQLException {
+    public void mapFromParams(Context context, List<Collection> destinations, List<Collection> sources,
+        boolean dryRun) throws SQLException {
 
         // Destination collection is required when case is unmapped
-        resolvedDestinationCollections = resolveCollections(context, destinationHandle);
-
         // If no source collections are given we want to obtain all items
-        if (isBlankList(sourceHandle)) {
+        if (isBlankList(sources)) {
             totalItems = itemService.countTotal(context);
 
             // Loop through all of our items in batches
@@ -446,7 +444,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
                 // Map all items in the current batch
                 itemsToMap.forEachRemaining(item -> {
                     try {
-                        for (Collection destinationCollection: resolvedDestinationCollections) {
+                        for (Collection destinationCollection: destinations) {
                             mapItem(context, item, destinationCollection, dryRun);
                         }
                     } catch (SQLException | AuthorizeException e) {
@@ -457,13 +455,12 @@ public class ItemMapperServiceImpl implements ItemMapperService {
                     }
                 });
                 offset += batchSize;
+                this.commitAndLog(context);
             }
         }
-
         // If a source collection is given we want to obtain the items inside that collection
-        else if (isNotBlankList(sourceHandle)) {
-            resolvedSourceCollections = resolveCollections(context, sourceHandle);
-            for (Collection sourceCollection: resolvedSourceCollections)
+        else if (isNotBlankList(sources)) {
+            for (Collection sourceCollection: sources)
             {
                 logCLI(INFO,
                        PROCESSING_COLLECTION_CHAR + PROCESSING_COLLECTION_HEADER + sourceCollection.getName() + " " + sourceCollection.getHandle() + " | "
@@ -477,7 +474,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
                     itemsToMap.forEachRemaining((item -> {
                         try {
                             logCLI(INFO, String.format("Mapping item (%s | %s) ", item.getHandle(), item.getID()), dryRun);
-                            for (Collection destinationCollection: resolvedDestinationCollections) {
+                            for (Collection destinationCollection: destinations) {
                                 mapItem(context, item, sourceCollection, destinationCollection, dryRun);
                             }
                         } catch (SQLException | AuthorizeException e) {
@@ -487,16 +484,18 @@ public class ItemMapperServiceImpl implements ItemMapperService {
                         }
                     }));
                     offset += batchSize;
+                    this.commitAndLog(context);
                 }
             }
         }
     }
 
     @Override
-    public void reverseMapFromParams(Context context, List<String> destinationHandle, List<String> sourceHandle, boolean dryRun) throws SQLException {
+    public void reverseMapFromParams(Context context, List<Collection> destinations, List<Collection> sources, boolean dryRun) throws SQLException {
 
         // If no destination and source collection is given we want to obtain all the items
-        if (isBlankList(destinationHandle) && isBlankList(sourceHandle)) {
+        if (isBlankList(destinations) && isBlankList(sources)) {
+            logCLI(INFO, "No valid destinations, no valid sources, reversing all items");
             totalItems = itemService.countTotal(context);
 
             // Loop through all of our items in batches
@@ -505,14 +504,14 @@ public class ItemMapperServiceImpl implements ItemMapperService {
                 logCLI(INFO, "***** PROCESSING BATCH: " + i + " *****", dryRun);
 
                 // Reverse map all items in the current batch
-                reverseMapItemsInBatch(context, itemsToMap, sourceHandle, destinationHandle, dryRun);
+                reverseMapItemsInBatch(context, itemsToMap, sources, destinations, dryRun);
             }
         }
 
         // If only destination collection(s) is given we want to remove all mappings from that collection(s).
-        if (isBlankList(sourceHandle) && isNotBlankList(destinationHandle)) {
-            resolvedDestinationCollections = resolveCollections(context, destinationHandle);
-            for (Collection destinationCollection: resolvedDestinationCollections) {
+        if (isBlankList(sources) && isNotBlankList(destinations)) {
+            logCLI(INFO, "No valid sources, 1 or more valid destinations, reversing all items from destinations.");
+            for (Collection destinationCollection: destinations) {
                 logCLI(INFO, PROCESSING_COLLECTION_CHAR + PROCESSING_COLLECTION_HEADER + destinationCollection.getName() + " " + destinationCollection.getHandle() + " | "
                     + destinationCollection.getID() + PROCESSING_COLLECTION_CHAR, dryRun);
                 offset = 0;
@@ -524,18 +523,15 @@ public class ItemMapperServiceImpl implements ItemMapperService {
                     logCLI(INFO, "***** PROCESSING BATCH: " + i + " *****", dryRun);
 
                     // Reverse map all items in the current batch
-                    reverseMapItemsInBatch(context, itemsToMap, sourceHandle, destinationHandle, dryRun);
+                    reverseMapItemsInBatch(context, itemsToMap, sources, destinations, dryRun);
                 }
             }
         }
 
         // If a destination and source collection is given we want to obtain only the items from the
         // destination collection as this is where we will be reverse mapping (removing) items from
-        else if (isNotBlankList(destinationHandle)) {
-            resolvedDestinationCollections = resolveCollections(context, destinationHandle);
-            resolvedSourceCollections = resolveCollections(context, sourceHandle);
-
-            for (Collection sourceCollection: resolvedSourceCollections) {
+        else if (isNotBlankList(destinations)) {
+            for (Collection sourceCollection: sources) {
                 logCLI(INFO,
                        PROCESSING_COLLECTION_CHAR + PROCESSING_COLLECTION_HEADER + sourceCollection.getName() + " " + sourceCollection.getHandle() + " | "
                     + sourceCollection.getID() + PROCESSING_COLLECTION_CHAR, dryRun);
@@ -548,18 +544,18 @@ public class ItemMapperServiceImpl implements ItemMapperService {
                     logCLI(INFO, "***** PROCESSING BATCH: " + i + " *****", dryRun);
 
                     // Reverse map all items in the current batch
-                    reverseMapItemsInBatch(context, itemsToMap, sourceHandle, destinationHandle, dryRun);
+                    reverseMapItemsInBatch(context, itemsToMap, sources, destinations, dryRun);
                 }
             }
         }
     }
 
     @Override
-    public void reverseMapItemsInBatch(Context context, Iterator<Item> itemsToMap, List<String> sourceHandle,
-                                       List<String> destinationHandle, boolean dryRun) {
+    public void reverseMapItemsInBatch(Context context, Iterator<Item> itemsToMap, List<Collection> sources,
+                                       List<Collection> destinations, boolean dryRun) throws SQLException {
         itemsToMap.forEachRemaining(item -> {
             try {
-                unmapItem(context, item, sourceHandle, destinationHandle, dryRun);
+                unmapItem(context, item, sources, destinations, dryRun);
             } catch (SQLException | AuthorizeException | IOException e) {
                 logCLI(ERROR, String.format("Item (%s | %s) could not be mapped for an unknown reason ",
                                                               item.getHandle(), item.getID()), dryRun);
@@ -567,10 +563,11 @@ public class ItemMapperServiceImpl implements ItemMapperService {
             }
         });
         offset += batchSize;
+        this.commitAndLog(context);
     }
 
     @Override
-    public void mapFromMappingFile(Context context, List<String> sourceCol, String link, String path, boolean dryRun)
+    public void mapFromMappingFile(Context context, List<Collection> sources, String link, String path, boolean dryRun)
         throws IOException, SQLException, AuthorizeException {
         CuniMapFile cuniMapFile;
         if (isBlank(link) && isBlank(path) && FILE_LOCATION.equals(URL)) {
@@ -588,9 +585,8 @@ public class ItemMapperServiceImpl implements ItemMapperService {
             cuniMapFile = getMapFileFromPath(MAPPING_FILE_PATH + File.separator + MAPPING_FILE_NAME);
         }
 
-        if (isNotBlankList(sourceCol)) {
-            resolvedSourceCollections = resolveCollections(context, sourceCol);
-            for (Collection sourceCollection: resolvedSourceCollections) {
+        if (isNotBlankList(sources)) {
+            for (Collection sourceCollection: sources) {
                 mapItemsFromJson(context, itemService.findAllByCollection(context, sourceCollection), cuniMapFile,
                                  dryRun, sourceCollection);
             }
@@ -610,7 +606,6 @@ public class ItemMapperServiceImpl implements ItemMapperService {
                                  collection);
             }
         }
-
     }
 
     @Override
@@ -624,7 +619,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     }
 
     @Override
-    public void reverseMapFromMappingFile(Context context, List<String> sourceCol, String link, String path, boolean dryRun)
+    public void reverseMapFromMappingFile(Context context, List<Collection> sources, String link, String path, boolean dryRun)
         throws SQLException, IOException, AuthorizeException {
         CuniMapFile cuniMapFile;
         if (isBlank(link) && isBlank(path) && FILE_LOCATION.equals(URL)) {
@@ -645,9 +640,8 @@ public class ItemMapperServiceImpl implements ItemMapperService {
             cuniMapFile = getMapFileFromPath(MAPPING_FILE_PATH +  File.separator + MAPPING_FILE_NAME);
         }
 
-        if (isNotBlankList(sourceCol)) {
-            resolvedSourceCollections = resolveCollections(context, sourceCol);
-            for (Collection sourceCollection: resolvedSourceCollections) {
+        if (isNotBlankList(sources)) {
+            for (Collection sourceCollection: sources) {
                 logCLI(INFO,
                        PROCESSING_COLLECTION_CHAR + PROCESSING_COLLECTION_HEADER + sourceCollection.getName() + " " + sourceCollection.getHandle() + " | "
                     + sourceCollection.getID() + PROCESSING_COLLECTION_CHAR, dryRun);
@@ -685,6 +679,8 @@ public class ItemMapperServiceImpl implements ItemMapperService {
                 List<String> secondaryStringMdFieldValues = new ArrayList<>();
 
                 Item item = items.next();
+                // Reload since attached metadata/bundles/etc hibernate error when from consumer
+                item = context.reloadEntity(item);
 
                 for (MetadataField mdField :mapFile.getMapfile().getMetadata_fields()) {
                     if (mdField.getField_type().equals("primary")) {
@@ -734,7 +730,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
                             List<String> handles = new ArrayList<>();
                             handles.add(correspondingCol.getHandle());
                             if (mapMode.equals(REVERSED_MAPPED)) {
-                                unmapItem(context, item, handles, dryRun);
+                                unmapItem(context, item, this.resolveCollections(context, handles), dryRun);
                             }
                             if (mapMode.equals(MAPPED)) {
                                 mapItem(context, item, correspondingCol, dryRun);
@@ -776,12 +772,17 @@ public class ItemMapperServiceImpl implements ItemMapperService {
         }
     }
 
-    public boolean isBlankList(List<String> list) {
+    public boolean isBlankList(List list) {
         return list == null || list.isEmpty();
     }
 
-    public boolean isNotBlankList(List<String> list) {
+    public boolean isNotBlankList(List list) {
         return list != null && !list.isEmpty();
+    }
+
+    private void commitAndLog(Context context) throws SQLException {
+        logCLI(INFO, "=Committing changes=");
+        context.commit();
     }
 }
 
