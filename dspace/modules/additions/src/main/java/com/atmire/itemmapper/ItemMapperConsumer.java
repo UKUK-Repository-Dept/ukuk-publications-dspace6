@@ -86,7 +86,7 @@ public class ItemMapperConsumer implements Consumer {
     }
 
     @Override
-    public void end(Context ctx) throws Exception {
+    public void end(Context ctx) {
         if (!itemList.isEmpty()) {
             try {
                 itemMapperService.checkMetadataValuesAndConvertToString(ctx, itemList.iterator(), cuniMapFile, MAPPED, false);
