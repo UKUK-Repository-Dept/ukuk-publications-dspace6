@@ -16,7 +16,9 @@ public interface ItemMapperService {
 
     void logCLI(String level, String message);
 
-    void logCLI(String level, String message, Exception e);
+    public void logCLI(String level, String message, Exception e);
+
+    public void logCLI(String level, String message, boolean dryRun);
 
     void logCLI(String level, String message, boolean dryRun);
 
