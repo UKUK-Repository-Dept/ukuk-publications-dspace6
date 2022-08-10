@@ -16,6 +16,8 @@ public interface ItemMapperService {
 
     public void logCLI(String level, String message);
 
+    public void logCLI(String level, String message, Exception e);
+
     public void logCLI(String level, String message, boolean dryRun);
 
     public void mapItem(Context context, Item item, Collection sourceCollection, Collection destinationCollection,
