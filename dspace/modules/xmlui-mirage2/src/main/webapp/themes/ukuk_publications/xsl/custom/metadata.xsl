@@ -106,7 +106,7 @@
                 <ul class="dropdown-menu">
                     <xsl:for-each select="$typologyFile//form">
                         <xsl:variable name="formValue" select="./@id"/>
-                        <li role="presentation" data-toggle="collapse hidden" data-target="#collapse{$formValue}">
+                        <li role="presentation" data-toggle="collapse" data-target="#collapse{$formValue}">
                             <!-- TODO: Implement anchor link fix from CU Digital Repository before linking to a specific anchor in panel -->
                             <!-- <a href="#collapse{$formValue}"><i18n:text><xsl:value-of select="concat('obd.typology.form.id.',./@id)"/></i18n:text></a> -->
                             <a href="#"><i18n:text><xsl:value-of select="concat('obd.typology.form.id.',./@id)"/></i18n:text></a>
@@ -131,12 +131,12 @@
         <xsl:param name="publicationFormID"/>
 
         <div class="panel panel-default">
-            <div class="panel-heading">
+            <!--<div class="panel-heading">
                 <h4 class="panel-title" data-toggle="collapse" data-target="#collapse{$publicationFormID}">
                     Tabulka povinných údajů - <i18n:text><xsl:value-of select="concat('obd.typology.form.id.', $publicationFormID)"/></i18n:text>
                 </h4>
-            </div>
-            <div id="collapse{$publicationFormID}" class="panel-collapse collapse hidden">
+            </div>-->
+            <div id="collapse{$publicationFormID}" class="panel-collapse collapse">
 
                 <div class="panel-body">
                     <table class="table">
