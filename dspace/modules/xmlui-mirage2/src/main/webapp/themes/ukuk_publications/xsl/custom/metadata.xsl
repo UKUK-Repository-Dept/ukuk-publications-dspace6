@@ -41,50 +41,59 @@
 
     <xsl:template name="metadata-general-info">
         <br/>
-        <p>
-            <i18n:text>xmlui.mirage2.static-pages.metadata.section.intro.para.1</i18n:text>
-        </p>
+        <p><i18n:text>xmlui.mirage2.static-pages.metadata.section.intro.para.1</i18n:text></p>
+        <br/>
         <blockquote>
             <p><i18n:text>xmlui.mirage2.static-pages.metadata.section.intro.para.2</i18n:text></p>
         </blockquote>
         <br/>
-        <table class="table-bordered">
-            <caption class="sr-only">Rozdíly mezi povinnými a podmíněně povinnými popisnými údaji</caption>
-            <tbody>
-                <tr>
-                    <td>
-                        <b><i18n:text>xmlui.mirage2.static-pages.metadata.section.intro.para.2.mandatory-metadata.title</i18n:text></b>
-                    </td>
-                    <td>
-                        <i18n:text>xmlui.mirage2.static-pages.metadata.section.intro.para.2.mandatory-metadata.description.1</i18n:text>
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>
-                        <i18n:text>xmlui.mirage2.static-pages.metadata.section.intro.para.2.mandatory-metadata.description.2</i18n:text>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <b><i18n:text>xmlui.mirage2.static-pages.metadata.section.intro.para.2.mandatory-if-apliacable-metadata.title</i18n:text></b>
-                    </td>
-                    <td>
-                        <i18n:text>xmlui.mirage2.static-pages.metadata.section.intro.para.2.mandatory-if-apliacable-metadata.description.1</i18n:text>
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>
-                        <i18n:text>xmlui.mirage2.static-pages.metadata.section.intro.para.2.mandatory-if-apliacable-metadata.description.2</i18n:text>
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td><i18n:text>xmlui.mirage2.static-pages.metadata.section.intro.para.2.mandatory-if-apliacable-metadata.description.3</i18n:text></td>
-                </tr>
-            </tbody>
-        </table>
+        <p><i18n:text>xmlui.mirage2.static-pages.metadata.section.intro.para.3</i18n:text></p>
+        <br/>
+        <div class=".table-responsive">
+            <table class="table-bordered table-condensed">
+                <caption class="sr-only">Rozdíly mezi povinnými a podmíněně povinnými popisnými údaji</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">typ údaje</th>
+                        <th scope="col">popis</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <b><i18n:text>xmlui.mirage2.static-pages.metadata.section.intro.para.2.mandatory-metadata.title</i18n:text></b>
+                        </td>
+                        <td>
+                            <i18n:text>xmlui.mirage2.static-pages.metadata.section.intro.para.2.mandatory-metadata.description.1</i18n:text>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <i18n:text>xmlui.mirage2.static-pages.metadata.section.intro.para.2.mandatory-metadata.description.2</i18n:text>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b><i18n:text>xmlui.mirage2.static-pages.metadata.section.intro.para.2.mandatory-if-apliacable-metadata.title</i18n:text></b>
+                        </td>
+                        <td>
+                            <i18n:text>xmlui.mirage2.static-pages.metadata.section.intro.para.2.mandatory-if-apliacable-metadata.description.1</i18n:text>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <i18n:text>xmlui.mirage2.static-pages.metadata.section.intro.para.2.mandatory-if-apliacable-metadata.description.2</i18n:text>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><i18n:text>xmlui.mirage2.static-pages.metadata.section.intro.para.2.mandatory-if-apliacable-metadata.description.3</i18n:text></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </xsl:template>
 
     <xsl:template name="metadata-forms-process-xml-file-list">
