@@ -3079,8 +3079,24 @@
 	<message key="obd.metadata.field-id_isbn-ismn">ISBN/ISMN</message>
 	<message key="obd.metadata.field-organizer_name-conference">Organizátor konference</message>
 
-	
+	<message key="xmlui.mirage2.static-pages.metadata.section.intro.para.1">Pro účely uložení a zpřístupnění výsledku v repozitáři publikační činnosti UK vyžadujeme sadu 
+		<b>povinných</b> a tzv. <b>podmíněně povinných</b> popisných údajů. Rozdíly mezi těmito typy popisných údajů jsou uvedeny v tabulce níže:</message>
+	<message key="xmlui.mirage2.static-pages.metadata.section.intro.para.2.mandatory-metadata.title">povinné údaje</message>
+	<message key="xmlui.mirage2.static-pages.metadata.section.intro.para.2.mandatory-metadata.description.1">
+		pro všechny <a href="https://topi.is.cuni.cz/page/typology" target="_blank">formy výsledků přijímané do repozitáře</a> jsou shodné</message>
+	<message key="xmlui.mirage2.static-pages.metadata.section.intro.para.2.mandatory-metadata.description.2">bez jejich uvedení ve formuláři výsledku 
+		v modulu OBD IS Věda nebude výsledek schválen k přenosu do repozitáře</message>
 
+	<message key="xmlui.mirage2.static-pages.metadata.section.intro.para.2.mandatory-if-apliacable-metadata.title">podmíněně povinné údaje</message>
+	<message key="xmlui.mirage2.static-pages.metadata.section.intro.para.2.mandatory-if-apliacable-metadata.description.1">povinné, pouze pokud jsou k dispozici</message>
+	<message key="xmlui.mirage2.static-pages.metadata.section.intro.para.2.mandatory-if-apliacable-metadata.description.2">mohou být specifické pouze pro 
+		určitou formu výsledku</message>
+	<message key="xmlui.mirage2.static-pages.metadata.section.intro.para.2.mandatory-if-apliacable-metadata.description.3">pokud je údaj možné zjistit, 
+		ale nebude uveden ve formuláři výsledku v modulu OBD IS Věda, výsledek nebude schválen k přenosu do repozitáře</message>
+	
+		<!--<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.heading">Povinné popisné údaje</message>-->
+	<!--<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.1">Povinné popisné údaje jsou pro 
+		všechny <a href="https://topi.is.cuni.cz/page/typology" target="_blank">formy výsledků přijímané do repozitáře</a> shodné. Minimáln</message>-->
 	<!-- END OF: <JR> - 22-06-16: page/metadata -->
 
 	<!-- <JR> - 22-02-01: page/disclaimer-->

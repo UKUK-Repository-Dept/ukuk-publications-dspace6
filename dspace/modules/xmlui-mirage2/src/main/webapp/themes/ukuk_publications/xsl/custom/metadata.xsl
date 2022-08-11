@@ -34,8 +34,43 @@
 
     <xsl:template name="metadata-general">
         
+        <xsl:call-template name="metadata-general-info"/>
         <xsl:call-template name="metadata-forms-process-xml-file-list"/>
 
+    </xsl:template>
+
+    <xsl:template name="metadata-general-info">
+        <br/>
+        <p>
+            <i18n:text>xmlui.mirage2.static-pages.metadata.section.intro.para.1</i18n:text>
+        </p>
+        <table class="table">
+            <caption class="sr-only">Rozdíly mezi povinnými a podmíněně povinnými popisnými údaji</caption>
+            <tbody>
+                <tr>
+                    <td>
+                        <i18n:text>xmlui.mirage2.static-pages.metadata.section.intro.para.2.mandatory-metadata.title</i18n:text>
+                    </td>
+                    <td><i18n:text>xmlui.mirage2.static-pages.metadata.section.intro.para.2.mandatory-metadata.description.1</i18n:text></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><i18n:text>xmlui.mirage2.static-pages.metadata.section.intro.para.2.mandatory-metadata.description.2</i18n:text></td>
+                </tr>
+                <tr>
+                    <td><i18n:text>xmlui.mirage2.static-pages.metadata.section.intro.para.2.mandatory-if-apliacable-metadata.title</i18n:text></td>
+                    <td><i18n:text>xmlui.mirage2.static-pages.metadata.section.intro.para.2.mandatory-if-apliacable-metadata.description.1</i18n:text></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><i18n:text>xmlui.mirage2.static-pages.metadata.section.intro.para.2.mandatory-if-apliacable-metadata.description.2</i18n:text></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><i18n:text>xmlui.mirage2.static-pages.metadata.section.intro.para.2.mandatory-if-apliacable-metadata.description.3</i18n:text></td>
+                </tr>
+            </tbody>
+        </table>
     </xsl:template>
 
     <xsl:template name="metadata-forms-process-xml-file-list">
