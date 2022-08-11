@@ -3094,7 +3094,7 @@
 	<message key="xmlui.mirage2.static-pages.metadata.section.intro.para.2.mandatory-if-apliacable-metadata.title">podmíněně povinné údaje</message>
 	<message key="xmlui.mirage2.static-pages.metadata.section.intro.para.2.mandatory-if-apliacable-metadata.description.1">povinné, pouze pokud jsou k dispozici</message>
 	<message key="xmlui.mirage2.static-pages.metadata.section.intro.para.2.mandatory-if-apliacable-metadata.description.2">mohou být specifické pouze pro 
-		určitou <a href="https://topi.is.cuni.cz/page/typology" target="_blank">formu výsledku přijímanou do repozitáře</a> nebo stav publikování výsledku</message>
+		určitou <a href="https://topi.is.cuni.cz/page/typology" target="_blank">formu výsledku přijímanou do repozitáře</a>, stav publikování / vydání výsledku, respektive verzi výsledku (preprint, postprint, atp.)</message>
 	<message key="xmlui.mirage2.static-pages.metadata.section.intro.para.2.mandatory-if-apliacable-metadata.description.3">pokud je údaj k dispozici / je možné ho zjistit 
 		nebo získat, ale nebude uveden ve formuláři výsledku v modulu OBD IS Věda, <b>výsledek nebude schválen</b> k přenosu do repozitáře</message>
 	
@@ -3104,8 +3104,8 @@
 	</message>
 	<message key="xmlui.mirage2.static-pages.metadata.section.intro.para.4.other-metadata-list.item.1">zobrazovat doplňující informace v náhledu záznamu výsledku v repozitáři</message>
 	<message key="xmlui.mirage2.static-pages.metadata.section.intro.para.4.other-metadata-list.item.2">zvýšit pravděpodobnost vyhledání relevantních výsledku v repozitáři</message>
-	<message key="xmlui.mirage2.static-pages.metadata.section.intro.para.4.other-metadata-list.item.2">generovat bibliografické citace k výsledkům uloženým v repozitáři</message>
-	<message key="xmlui.mirage2.static-pages.metadata.section.intro.para.4.other-metadata-list.item.2">zajišťovat shromažďování dodatečných statistických informací o výsledku uloženém v repozitáři</message>
+	<message key="xmlui.mirage2.static-pages.metadata.section.intro.para.4.other-metadata-list.item.3">generovat bibliografické citace k výsledkům uloženým v repozitáři</message>
+	<message key="xmlui.mirage2.static-pages.metadata.section.intro.para.4.other-metadata-list.item.4">zajišťovat shromažďování dodatečných statistických informací o výsledku uloženém v repozitáři</message>
 	
 		<!--<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.heading">Povinné popisné údaje</message>-->
 	<!--<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.1">Povinné popisné údaje jsou pro 

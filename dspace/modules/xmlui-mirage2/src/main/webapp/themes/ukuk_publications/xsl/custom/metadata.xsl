@@ -88,6 +88,16 @@
                 </tbody>
             </table>
         </div>
+        
+        <br/>
+
+        <p><i18n:text>xmlui.mirage2.static-pages.metadata.section.intro.para.4</i18n:text></p>
+        <ul>
+            <li><i18n:text>xmlui.mirage2.static-pages.metadata.section.intro.para.4.other-metadata-list.item.1</i18n:text></li>
+            <li><i18n:text>xmlui.mirage2.static-pages.metadata.section.intro.para.4.other-metadata-list.item.2</i18n:text></li>
+            <li><i18n:text>xmlui.mirage2.static-pages.metadata.section.intro.para.4.other-metadata-list.item.3</i18n:text></li>
+            <li><i18n:text>xmlui.mirage2.static-pages.metadata.section.intro.para.4.other-metadata-list.item.4</i18n:text></li>
+        </ul>
     </xsl:template>
 
     <xsl:template name="metadata-forms-process-xml-file-list">
