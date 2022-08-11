@@ -64,12 +64,6 @@
                             <b><i18n:text>xmlui.mirage2.static-pages.metadata.section.intro.para.2.mandatory-metadata.title</i18n:text></b>
                         </td>
                         <td>
-                            <i18n:text>xmlui.mirage2.static-pages.metadata.section.intro.para.2.mandatory-metadata.description.1</i18n:text>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>
                             <i18n:text>xmlui.mirage2.static-pages.metadata.section.intro.para.2.mandatory-metadata.description.2</i18n:text>
                         </td>
                     </tr>
@@ -131,11 +125,11 @@
         <xsl:param name="publicationFormID"/>
 
         <div class="panel panel-default">
-            <!--<div class="panel-heading">
+            <div class="panel-heading">
                 <h4 class="panel-title" data-toggle="collapse" data-target="#collapse{$publicationFormID}">
                     Tabulka povinných údajů - <i18n:text><xsl:value-of select="concat('obd.typology.form.id.', $publicationFormID)"/></i18n:text>
                 </h4>
-            </div>-->
+            </div>
             <div id="collapse{$publicationFormID}" class="panel-collapse collapse">
 
                 <div class="panel-body">
