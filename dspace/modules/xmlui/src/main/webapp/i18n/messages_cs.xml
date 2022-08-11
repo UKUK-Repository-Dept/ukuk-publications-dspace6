@@ -3081,9 +3081,10 @@
 
 	<message key="xmlui.mirage2.static-pages.metadata.section.intro.para.1">Pro účely uložení a zpřístupnění výsledku v repozitáři publikační činnosti UK vyžadujeme sadu 
 		<b>povinných</b> a tzv. <b>podmíněně povinných</b> popisných údajů. Oba dva typy těchto popisných údajů jsou povinné, ale v případě podmíněně povinných údajů lze při jejich
-		vyplňování brát v potaz, zda daný údaj je možné zjistit či získat pro danou formu výsledku nebo pro aktuální stav publikace výsledku.</message>
+		vyplňování (a následné kontrole) brát v potaz, zda daný údaj je možné zjistit či získat pro danou formu výsledku nebo pro aktuální stav publikace výsledku.</message>
 	<message key="xmlui.mirage2.static-pages.metadata.section.intro.para.2">Ne všechny výsledky mohou mít například uvedený identifikátor DOI, 
-		pokud jim byl ale přidělen, je nutné jej vyplnit do příslušné pole formuláře výsledku v modulu OBD IS Věda. Rozdíly mezi těmito typy popisných údajů jsou uvedeny v tabulce níže:</message>
+		pokud jim byl ale přidělen, je nutné jej vyplnit do příslušné pole formuláře výsledku v modulu OBD IS Věda.</message>
+	<message key="xmlui.mirage2.static-pages.metadata.section.intro.para.3">Rozdíly mezi těmito typy popisných údajů jsou uvedeny v tabulce níže:</message>
 	<message key="xmlui.mirage2.static-pages.metadata.section.intro.para.2.mandatory-metadata.title">povinné údaje</message>
 	<message key="xmlui.mirage2.static-pages.metadata.section.intro.para.2.mandatory-metadata.description.1">
 		pro všechny <a href="https://topi.is.cuni.cz/page/typology" target="_blank">formy výsledků přijímané do repozitáře</a> jsou shodné</message>
