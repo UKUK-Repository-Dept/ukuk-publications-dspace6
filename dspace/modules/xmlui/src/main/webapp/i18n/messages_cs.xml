@@ -3090,14 +3090,16 @@
 		pro všechny <a href="https://topi.is.cuni.cz/page/typology" target="_blank">formy výsledků přijímané do repozitáře</a> jsou shodné</message>-->
 	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.mandatory-metadata.description.2"><b>bez uvedení všech těchto údajů</b> ve formuláři výsledku 
 		v modulu OBD IS Věda <b>nebude výsledek schválen</b> k přenosu do repozitáře</message>
-
 	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.mandatory-if-apliacable-metadata.title">podmíněně povinné údaje</message>
 	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.mandatory-if-apliacable-metadata.description.1">povinné, pouze pokud jsou k dispozici</message>
 	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.mandatory-if-apliacable-metadata.description.2">mohou být specifické pouze pro 
 		určitou <a href="https://topi.is.cuni.cz/page/typology" target="_blank">formu výsledku přijímanou do repozitáře</a>, stav publikování / vydání výsledku, respektive verzi výsledku (preprint, postprint, atp.)</message>
 	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.mandatory-if-apliacable-metadata.description.3">pokud je údaj k dispozici / je možné ho zjistit 
 		nebo získat, ale nebude uveden ve formuláři výsledku v modulu OBD IS Věda, <b>výsledek nebude schválen</b> k přenosu do repozitáře</message>
-	
+	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.1">V tabulce níže jsou vypsány povinné (označeny v tabulce příznakem <b>M</b> (mandatory)
+		a podmíněně povinné (označeny v tabulce příznakem <b>MA</b> (mandatory if available/applicable) popisné údaje a jejich umístění ve formuláři OBD. 
+		Pro zobrazení povinných a podmíněně povinných popisných údajů vyberte příslušnou formu v rozbalovacím seznamu (zvlášť pro povinné a zvlášť pro podmíněně povinné údaje).</message>
+
 	<message key="xmlui.mirage2.static-pages.metadata.section.optional-metadata.title">Volitelné popisné údaje</message>
 	<message key="xmlui.mirage2.static-pages.metadata.section.optional-metadata.para.1">Kromě povinných a podmíněně povinných popisných údajů výsledku je v modulu OBD IS Věda 
 		možné vyplnit také další, <b>z hlediska uložení a zpřístupnění v repozitáři volitelné</b>, popisné údaje. Vyplnění a správnost těchto nepovinných údajů 
