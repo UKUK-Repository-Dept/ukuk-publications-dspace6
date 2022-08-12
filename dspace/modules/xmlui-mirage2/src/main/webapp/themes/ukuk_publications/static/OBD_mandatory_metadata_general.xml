@@ -25,7 +25,7 @@
         <metadatum id="id_doi" internal_name="ID - DOI" obd_section_id="10" obd_field_id="1" order="17">
             <meta_info system="false" obd_section_translation="section-general-10" obd_field_translation="field-id_doi-general" valid_for="published" obd_section_name="Zvláštní údaje pro RIV" obd_field_name="DOI"/>
         </metadatum>
-        <metadatum id="author_name" internal_name="Příjmení a jméno spoluautora/ů" obd_section_id="2" obd_field_id="none" order="2">
+        <metadatum id="co-author_name" internal_name="Příjmení a jméno spoluautora/ů" obd_section_id="2" obd_field_id="none" order="2">
             <meta_info system="false" obd_section_translation="section-general-2" obd_field_translation="section-general-2-none" valid_for="both" obd_section_name="AUTOR" obd_field_name="none"/>
         </metadatum>
         <metadatum id="editor_name" internal_name="Příjmení a jméno editora" obd_section_id="3" obd_field_id="none" order="3">
