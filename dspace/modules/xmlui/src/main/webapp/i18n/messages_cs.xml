@@ -3098,12 +3098,18 @@
 		určitou <a href="https://topi.is.cuni.cz/page/typology" target="_blank">formu výsledku přijímanou do repozitáře</a>, stav publikování / vydání výsledku, respektive verzi výsledku (preprint, postprint, atp.)</message>
 	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.mandatory-if-aplicable-metadata.description.3">pokud je údaj k dispozici / je možné ho zjistit 
 		nebo získat, ale nebude uveden ve formuláři výsledku v modulu OBD IS Věda, <b>výsledek nebude schválen</b> k přenosu do repozitáře</message>
-	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.1">V tabulce níže jsou uvedeny všechny povinné a podmíněně povinné údaje pro všechny formy 
-		výsledků přijímané do repozitáře
+	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.1">V seznamech níže jsou uvedeny všechny povinné a podmíněně povinné údaje pro všechny formy 
+		výsledků přijímané do repozitáře. Pro zobrazení dané skupiny popisných údajů klikněte na příslušnou záložku.
 	</message>
-	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.2">V tabulce níže jsou vypsány povinné (označeny v tabulce příznakem <b>M</b> (mandatory)
-		a podmíněně povinné (označeny v tabulce příznakem <b>MA</b> (mandatory if available/applicable) popisné údaje a jejich umístění ve formuláři OBD. 
-		Pro zobrazení povinných a podmíněně povinných popisných údajů vyberte příslušnou formu v rozbalovacím seznamu (zvlášť pro povinné a zvlášť pro podmíněně povinné údaje).</message>
+	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.2">Pro snazší orientaci ve formuláři OBD, jak při jeho vyplňování, tak při následné kontrole, jsme 
+		připravili tabulku poskytující přehled o tom, kde ve formuláři výsledku v OBD se daný údaj pro danou formu vyskytuje. 
+		
+		Pro zobrazení povinných údajů a jejich umístění ve formuláři výsledku v OBD pro danou formu výsledku postupujte následovně:
+	</message>
+	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.2.list.item.1">klikněte na záložku "povinné údaje",</message>
+	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.2.list.item.2">z rozbalovacího seznamu vyberte formu výsledku a kliněte na ni.</message>
+	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.3">Pod záložkou se následně zobrazí tabulka, ze které se dozvíte, v jaké sekci, 
+		v jakém poli a případně v jakém podpoli formuláře výsledku v OBD máte daný údaj hledat a vyplnit.</message>
 
 	<message key="xmlui.mirage2.static-pages.metadata.section.optional-metadata.title">Volitelné popisné údaje</message>
 	<message key="xmlui.mirage2.static-pages.metadata.section.optional-metadata.para.1">Kromě povinných a podmíněně povinných popisných údajů výsledku je v modulu OBD IS Věda 
