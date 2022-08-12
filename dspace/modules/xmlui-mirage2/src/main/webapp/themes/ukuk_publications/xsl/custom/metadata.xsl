@@ -103,20 +103,22 @@
             <tbody>
                 <xsl:for-each select="$mandatoryMetadataGeneralFile//metadata">
                     <xsl:variable name="metadata_type" select="./@type"/>
-
-                    <tr>
-                        <td><i18n:text>obd.metadata.metadatum.id.<xsl:value-of select="$metadatumID"/></i18n:text></td>
-                        <td>
-                            <xsl:if test="$metadata_type = 'mandatory'">
-                                <xsl:text>X</xsl:text>
-                            </xsl:if>
-                        </td>
-                        <td>
-                            <xsl:if test="$metadata_type = 'mandatory-if-aplicable'">
-                                <xsl:text>X</xsl:text>
-                            </xsl:if>
-                        </td>
-                    </tr>
+                    
+                    <xsl:for-each select="//metadatum">
+                        <tr>
+                            <td><i18n:text>obd.metadata.metadatum.id.<xsl:value-of select="$metadatumID"/></i18n:text></td>
+                            <td>
+                                <xsl:if test="$metadata_type = 'mandatory'">
+                                    <xsl:text>X</xsl:text>
+                                </xsl:if>
+                            </td>
+                            <td>
+                                <xsl:if test="$metadata_type = 'mandatory-if-aplicable'">
+                                    <xsl:text>X</xsl:text>
+                                </xsl:if>
+                            </td>
+                        </tr>
+                    </xsl:for-each>
                 </xsl:for-each>
             </tbody>
         </table>
