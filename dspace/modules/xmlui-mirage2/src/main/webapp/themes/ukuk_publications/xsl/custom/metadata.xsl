@@ -184,7 +184,7 @@
     <xsl:template name="create_general_mandatory_metadata_tabs">
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
-                <xsl:for-each select="mandatoryMetadataGeneralFile//metadata">
+                <xsl:for-each select="$mandatoryMetadataGeneralFile//metadata">
                     <xsl:variable name="metadata_type" select="./@type"/>
                     
                     <li role="presentation">
