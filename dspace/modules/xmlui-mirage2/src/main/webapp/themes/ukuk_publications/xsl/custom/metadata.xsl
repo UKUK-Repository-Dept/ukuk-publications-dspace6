@@ -90,37 +90,33 @@
             </table>
         </div>
         <br/>
-        <p><i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.2</i18n:text></p>
+        <p><i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.1</i18n:text></p>
         
         <div class="table-responsive">
             <table class="table">
                 <caption class="sr-only">Tabulka povinných a podmíněně povinných údajů</caption>
                 <thead>
                     <tr>
-                        <th scope="col">název údaje</th>
-                        <th scope="col">povinný údaj</th>
-                        <th scope="col">povinně volitelný údaj</th>
+                        <th scope="col">povinné údaje (M)</th>
+                        <th scope="col">podmíněně povinné údaje (MA)</th>
                     </tr>
                 </thead>
                 <tbody>
-                    
-                        <xsl:for-each select="//metadatum">
-                            <xsl:variable name="metadata_type" select="../@type"/>
-                            <tr>
-                                <td><i18n:text>obd.metadata.metadatum.id.<xsl:value-of select="./@id"/></i18n:text></td>
-                                <td>
-                                    <xsl:if test="$metadata_type = 'mandatory'">
-                                        <xsl:text>X</xsl:text>
-                                    </xsl:if>
-                                </td>
-                                <td>
-                                    <xsl:if test="$metadata_type = 'mandatory-if-aplicable'">
-                                        <xsl:text>X</xsl:text>
-                                    </xsl:if>
-                                </td>
-                            </tr>
-                        </xsl:for-each>
-                    
+                    <xsl:for-each select="$mandatoryMetadataGeneralFile//metadatum">
+                        <xsl:variable name="metadata_type" select="../@type"/>
+                        <tr>
+                            <td>
+                                <xsl:if test="$metadata_type = 'mandatory'">
+                                    <i18n:text>obd.metadata.metadatum.id.<xsl:value-of select="./@id"/></i18n:text>
+                                </xsl:if>
+                            </td>
+                            <td>
+                                <xsl:if test="$metadata_type = 'mandatory-if-aplicable'">
+                                    <i18n:text>obd.metadata.metadatum.id.<xsl:value-of select="./@id"/></i18n:text>
+                                </xsl:if>
+                            </td>
+                        </tr>
+                    </xsl:for-each>
                 </tbody>
             </table>
         </div>
