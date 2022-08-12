@@ -26,6 +26,7 @@
     <xsl:output indent="yes"/>
     <xsl:param name="typologyFile" select="document('../../static/OBD_publication_types_accepted.xml')"/>
     <xsl:param name="mandatoryMetadataFile" select="document('../../static/OBD_mandatory_metadata.xml')"/>
+    <xsl:param name="mandatoryMetadataGeneralFile" select="document(../../static/OBD_mandatory_metadata_general.xml"/>
 
     <xsl:template name="metadata-create">
             <xsl:call-template name="metadata-general"/>
@@ -89,7 +90,38 @@
             </table>
         </div>
         <br/>
-        <p><i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.1</i18n:text></p>
+        <p><i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.2</i18n:text></p>
+        <table>
+            <caption class="sr-only">Tabulka povinných údajů - <i18n:text><xsl:value-of select="concat('obd.typology.form.id.', $publicationFormID)"/></i18n:text></caption>
+            <thead>
+                <tr>
+                    <th scope="col">název údaje</th>
+                    <th scope="col">povinný údaj</th>
+                    <th scope="col">povinně volitelný údaj</th>
+                </tr>
+            </thead>
+            <tbody>
+                <xsl:for-each select="$mandatoryMetadataGeneralFile//metadata">
+                    <xsl:variable name="metadata_type" select="./@type"/>
+
+                    <tr>
+                        <td><i18n:text>obd.metadata.metadatum.id.<xsl:value-of select="$metadatumID"/></i18n:text></td>
+                        <td>
+                            <xsl:if test="$metadata_type = 'mandatory'">
+                                <xsl:text>X</xsl:text>
+                            </xsl:if>
+                        </td>
+                        <td>
+                            <xsl:if test="$metadata_type = 'mandatory-if-aplicable'">
+                                <xsl:text>X</xsl:text>
+                            </xsl:if>
+                        </td>
+                    </tr>
+                </xsl:for-each>
+            </tbody>
+        </table>
+        
+        <p><i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.2</i18n:text></p>
         <br/>
         <!-- MANDATORY / MANDATORY IF APPLICABLE METADATA TABLES-->
         <div>
@@ -133,12 +165,6 @@
                     </div>
                 </xsl:for-each>
             </div>
-            <!-- <div class="tab-content">
-              <div role="tabpanel" class="tab-pane active" id="home">...</div>
-              <div role="tabpanel" class="tab-pane" id="profile">...</div>
-              <div role="tabpanel" class="tab-pane" id="messages">...</div>
-              <div role="tabpanel" class="tab-pane" id="settings">...</div>
-            </div> -->
           
         </div>
         <br/>
