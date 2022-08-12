@@ -97,14 +97,14 @@
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
                 <li role="presentation" class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="mandatory-metadata-dropdown" href="#" aria-haspopup="true" aria-expanded="false">
+                    <a href="#" id="mandatory-metadata-dropdown" class="dropdown-toggle" data-toggle="dropdown" aria-controls="mandatory-metadata-dropdown-contents" aria-haspopup="true" aria-expanded="false">
                         <i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.mandatory-metadata.title</i18n:text> <span class="carret"></span>
                     </a>
-                    <ul>
+                    <ul class="dropdown-menu" aria-labelledby="mandatory-metadata-dropdown" id="mandatory-metadata-dropdown-contents" aria-expanded="false">
                         <xsl:for-each select="$typologyFile//form">
                             <xsl:variable name="formValue" select="./@id"/>
                             <li role="presentation">
-                                <a href="#mandatory-metadata-{$formValue}" aria-controls="mandatory-metadata-{$formValue}" data-toggle="tab">
+                                <a href="#mandatory-metadata-dropdown-{$formValue}" aria-expanded="false" aria-controls="mandatory-metadata-contents-{$formValue}" data-toggle="tab">
                                     <i18n:text><xsl:value-of select="concat('obd.typology.form.id.',./@id)"/></i18n:text>
                                 </a>
                             </li>
@@ -126,7 +126,7 @@
                 <xsl:for-each select="$typologyFile//form">
                     <xsl:variable name="formValueID" select="./@id"/>
 
-                    <div role="tabpanel" class="tab-pane" id="mandatory-metadata-{$formValueID}">
+                    <div role="tabpanel" class="tab-pane fade" id="mandatory-metadata-contents-{$formValueID}">
                         <xsl:call-template name="metadata-forms-generate-tables">
                             <xsl:with-param name="publicationFormID" select="$formValueID"/>
                         </xsl:call-template>
