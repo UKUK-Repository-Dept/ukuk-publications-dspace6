@@ -183,13 +183,13 @@
                             </div>
                         </xsl:when>
                         <xsl:otherwise>
+                            <div role="tabpanel" class="tab-pane fade" id="{$metadata_type_name}-metadata-contents" aria-labelledby="${metadata_type_name}-metadata-general">
+                                <xsl:call-template name="create_general_mandatory_metadata_tables">
+                                    <xsl:with-param name="meta_type" select="$metadata_type_name"/>
+                                </xsl:call-template>
+                            </div>
                         </xsl:otherwise>
                     </xsl:choose>
-                    <div role="tabpanel" class="tab-pane fade" id="{$metadata_type_name}-metadata-contents">
-                        <xsl:call-template name="create_general_mandatory_metadata_tables">
-                            <xsl:with-param name="meta_type" select="$metadata_type_name"/>
-                        </xsl:call-template>
-                    </div>
                 </xsl:for-each>
             </div>
           
