@@ -94,8 +94,6 @@
         
         <div>
             <xsl:call-template name="create_general_mandatory_metadata_tabs" />
-
-            <xsl:call-template name="create_general_mandatory_metadata_tables" />
         </div>
 
         <p><i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.2</i18n:text></p>
@@ -194,7 +192,7 @@
                             <i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.<xsl:value-of select="$metadata_type"/>-metadata.title</i18n:text> <span class="caret"></span>
                         </a>
                     </li>
-                    
+
                 </xsl:for-each>
             </ul>
           
