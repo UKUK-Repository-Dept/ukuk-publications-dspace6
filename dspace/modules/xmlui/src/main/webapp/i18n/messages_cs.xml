@@ -2925,7 +2925,8 @@
 	<!-- All metadata internal names translations -->
 	<message key="obd.metadata.metadatum.id.date_issued">Datum (rok) vydání dokumentu</message>
 	<message key="obd.metadata.metadatum.id.author_name">Příjmení a jméno autora dokumentu</message>
-	<message key="obd.metadata.metadatum.id.editor_name">Příjmení a jméno osoby s podílem na vzniku dokumentu: Editor dokumentu</message>
+	<message key="obd.metadata.metadatum.id.co-author_name">Příjmení a jméno spoluautora/ů dokumentu</message>
+	<message key="obd.metadata.metadatum.id.editor_name">Příjmení a jméno editora dokumentu</message>
 	<message key="obd.metadata.metadatum.id.abstract">Abstrakt</message>
 	<message key="obd.metadata.metadatum.id.language">Jazyk dokumentu</message>
 	<message key="obd.metadata.metadatum.id.keywords">Klíčová slova</message>
@@ -2943,6 +2944,7 @@
 	<message key="obd.metadata.metadatum.id.source_volume">Ročník zdrojového dokumentu</message>
 	<message key="obd.metadata.metadatum.id.source_issue">Číslo zdrojového dokumentu</message>
 	<message key="obd.metadata.metadatum.id.source_isbn">ISBN zdrojového dokumentu</message>
+	<message key="obd.metadata.metadatum.id.source_monograph_author_name">Autor celé monografie</message>
 	<message key="obd.metadata.metadatum.id.extent">Stránkový rozsah od - do</message>
 	<message key="obd.metadata.metadatum.id.series">Edice dokumentu</message>
 	<message key="obd.metadata.metadatum.id.edition">Vydání</message>

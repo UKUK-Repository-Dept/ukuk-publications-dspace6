@@ -185,9 +185,17 @@
                 <xsl:for-each select="$mandatoryMetadataGeneralFile//metadata">
                     <xsl:variable name="metadata_type" select="./@type"/>
                     
+                    <xsl:if test="$metadata_type = 'mandatory'">
+                        <li role="presentation" class="active">
+                            <a href="#{$metadata_type}-metadata-contents" id="{$metadata_type}-metadata-general" data-toggle="tab" aria-haspopup="true" aria-expanded="false">
+                                <i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.<xsl:value-of select="$metadata_type"/>-metadata.title</i18n:text>
+                            </a>
+                        </li>
+                    </xsl:if>
+
                     <li role="presentation">
                         <a href="#{$metadata_type}-metadata-contents" id="{$metadata_type}-metadata-general" data-toggle="tab" aria-haspopup="true" aria-expanded="false">
-                            <i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.<xsl:value-of select="$metadata_type"/>-metadata.title</i18n:text> <span class="caret"></span>
+                            <i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.<xsl:value-of select="$metadata_type"/>-metadata.title</i18n:text>
                         </a>
                     </li>
 
