@@ -106,7 +106,7 @@
                     
                     <xsl:for-each select="//metadatum">
                         <tr>
-                            <td><i18n:text>obd.metadata.metadatum.id.<xsl:value-of select="$metadatumID"/></i18n:text></td>
+                            <td><i18n:text>obd.metadata.metadatum.id.<xsl:value-of select="./@id"/></i18n:text></td>
                             <td>
                                 <xsl:if test="$metadata_type = 'mandatory'">
                                     <xsl:text>X</xsl:text>
