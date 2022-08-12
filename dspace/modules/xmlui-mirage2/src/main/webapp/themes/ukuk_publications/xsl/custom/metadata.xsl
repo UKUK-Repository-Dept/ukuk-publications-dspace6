@@ -70,21 +70,21 @@
                     </tr>
                     <tr>
                         <td>
-                            <b><i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.mandatory-if-apliacable-metadata.title</i18n:text></b>
+                            <b><i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.mandatory-if-aplicable-metadata.title</i18n:text></b>
                         </td>
                         <td>
-                            <i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.mandatory-if-apliacable-metadata.description.1</i18n:text>
+                            <i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.mandatory-if-aplicable-metadata.description.1</i18n:text>
                         </td>
                     </tr>
                     <tr>
                         <td></td>
                         <td>
-                            <i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.mandatory-if-apliacable-metadata.description.2</i18n:text>
+                            <i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.mandatory-if-aplicable-metadata.description.2</i18n:text>
                         </td>
                     </tr>
                     <tr>
                         <td></td>
-                        <td><i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.mandatory-if-apliacable-metadata.description.3</i18n:text></td>
+                        <td><i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.mandatory-if-aplicable-metadata.description.3</i18n:text></td>
                     </tr>
                 </tbody>
             </table>
@@ -167,14 +167,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <xsl:for-each select="$mandatoryMetadataGeneralFile//metadatum">
-                        <tr>
-                            <td>
-                                <xsl:if test="$meta_type = 'mandatory'">
-                                    <i18n:text>obd.metadata.metadatum.id.<xsl:value-of select="./@id"/></i18n:text>
-                                </xsl:if>
-                            </td>
-                        </tr>
+                    <xsl:for-each select=".//metadatum">
+                        <!--<xsl:if test="$meta_type = 'mandatory'">-->
+                            <tr>
+                                <td><i18n:text>obd.metadata.metadatum.id.<xsl:value-of select="./@id"/></i18n:text></td>
+                            </tr>
+                        <!--</xsl:if>-->
                     </xsl:for-each>
                 </tbody>
             </table>

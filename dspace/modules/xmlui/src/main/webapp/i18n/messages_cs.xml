@@ -3090,11 +3090,11 @@
 		pro všechny <a href="https://topi.is.cuni.cz/page/typology" target="_blank">formy výsledků přijímané do repozitáře</a> jsou shodné</message>-->
 	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.mandatory-metadata.description.2"><b>bez uvedení všech těchto údajů</b> ve formuláři výsledku 
 		v modulu OBD IS Věda <b>nebude výsledek schválen</b> k přenosu do repozitáře</message>
-	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.mandatory-if-apliacable-metadata.title">podmíněně povinné údaje</message>
-	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.mandatory-if-apliacable-metadata.description.1">povinné, pouze pokud jsou k dispozici</message>
-	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.mandatory-if-apliacable-metadata.description.2">mohou být specifické pouze pro 
+	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.mandatory-if-aplicable-metadata.title">podmíněně povinné údaje</message>
+	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.mandatory-if-aplicable-metadata.description.1">povinné, pouze pokud jsou k dispozici</message>
+	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.mandatory-if-aplicable-metadata.description.2">mohou být specifické pouze pro 
 		určitou <a href="https://topi.is.cuni.cz/page/typology" target="_blank">formu výsledku přijímanou do repozitáře</a>, stav publikování / vydání výsledku, respektive verzi výsledku (preprint, postprint, atp.)</message>
-	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.mandatory-if-apliacable-metadata.description.3">pokud je údaj k dispozici / je možné ho zjistit 
+	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.mandatory-if-aplicable-metadata.description.3">pokud je údaj k dispozici / je možné ho zjistit 
 		nebo získat, ale nebude uveden ve formuláři výsledku v modulu OBD IS Věda, <b>výsledek nebude schválen</b> k přenosu do repozitáře</message>
 	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.1">V tabulce níže jsou uvedeny všechny povinné a podmíněně povinné údaje pro všechny formy 
 		výsledků přijímané do repozitáře
