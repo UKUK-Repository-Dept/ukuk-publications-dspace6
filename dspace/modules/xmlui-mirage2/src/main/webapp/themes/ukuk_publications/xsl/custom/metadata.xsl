@@ -154,7 +154,7 @@
                     <xsl:choose>
                         <xsl:when test="$metadata_type = 'mandatory'">
                             <li role="presentation" class="active">
-                                <a href="#{$metadata_type}-metadata-contents" id="{$metadata_type}-metadata-general" data-toggle="tab" aria-haspopup="true" aria-expanded="false">
+                                <a href="#{$metadata_type}-metadata-contents" id="{$metadata_type}-metadata-general" data-toggle="tab" aria-haspopup="true" aria-expanded="true">
                                     <i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.<xsl:value-of select="$metadata_type"/>-metadata.title</i18n:text>
                                 </a>
                             </li>
@@ -199,9 +199,6 @@
                                 <i18n:text><xsl:value-of select="concat('obd.typology.form.id.',./@id)"/></i18n:text>
                             </a>
                         </li>
-                        <!-- TODO: Implement anchor link fix from CU Digital Repository before linking to a specific anchor in panel -->
-                        <!-- <a href="#collapse{$formValue}"><i18n:text><xsl:value-of select="concat('obd.typology.form.id.',./@id)"/></i18n:text></a> -->
-                        <!--<a href="#"><i18n:text><xsl:value-of select="concat('obd.typology.form.id.',./@id)"/></i18n:text></a>-->
                     </xsl:for-each>
                 </ul>
             </li>
