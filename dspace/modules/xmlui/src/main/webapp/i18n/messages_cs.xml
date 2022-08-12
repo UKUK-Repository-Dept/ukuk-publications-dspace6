@@ -3110,8 +3110,8 @@
 	</message>
 	<message key="xmlui.mirage2.static-pages.metadata.section.optional-metadata.list.item.1">zobrazovat doplňující informace v náhledu záznamu výsledku v repozitáři</message>
 	<message key="xmlui.mirage2.static-pages.metadata.section.optional-metadata.list.item.2">zvýšit pravděpodobnost vyhledání relevantních výsledku v repozitáři</message>
-	<message key="xmlui.mirage2.static-pages.metadata.section.section.optional-metadata.list.item.3">generovat bibliografické citace k výsledkům uloženým v repozitáři</message>
-	<message key="xmlui.mirage2.static-pages.metadata.section.section.optional-metadata.list.item.4">zajišťovat shromažďování dodatečných statistických informací o výsledku uloženém v repozitáři</message>
+	<message key="xmlui.mirage2.static-pages.metadata.section.optional-metadata.list.item.3">generovat bibliografické citace k výsledkům uloženým v repozitáři</message>
+	<message key="xmlui.mirage2.static-pages.metadata.section.optional-metadata.list.item.4">zajišťovat shromažďování dodatečných statistických informací o výsledku uloženém v repozitáři</message>
 	
 		<!--<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.heading">Povinné popisné údaje</message>-->
 	<!--<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.1">Povinné popisné údaje jsou pro 
