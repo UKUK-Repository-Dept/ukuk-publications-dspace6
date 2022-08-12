@@ -92,7 +92,7 @@
         <br/>
         <p><i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.2</i18n:text></p>
         <table>
-            <caption class="sr-only">Tabulka povinných údajů - <i18n:text><xsl:value-of select="concat('obd.typology.form.id.', $publicationFormID)"/></i18n:text></caption>
+            <caption class="sr-only">Tabulka povinných a podmíněně povinných údajů</caption>
             <thead>
                 <tr>
                     <th scope="col">název údaje</th>
