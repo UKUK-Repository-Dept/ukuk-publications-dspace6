@@ -105,7 +105,7 @@
                             <xsl:variable name="formValue" select="./@id"/>
                             <li role="presentation">
                                 <a href="#mandatory-metadata-{$formValue}" aria-controls="mandatory-metadata-{$formValue}" data-toggle="tab">
-                                    <xsl:value-of select="$formValue"/>
+                                    <i18n:text><xsl:value-of select="concat('obd.typology.form.id.',./@id)"/></i18n:text>
                                 </a>
                             </li>
                                 
