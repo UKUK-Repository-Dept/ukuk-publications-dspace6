@@ -92,33 +92,10 @@
         <br/>
         <p><i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.1</i18n:text></p>
         
-        <div class="table-responsive">
-            <table class="table">
-                <caption class="sr-only">Tabulka povinných a podmíněně povinných údajů</caption>
-                <thead>
-                    <tr>
-                        <th scope="col">povinné údaje (M)</th>
-                        <th scope="col">podmíněně povinné údaje (MA)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <xsl:for-each select="$mandatoryMetadataGeneralFile//metadatum">
-                        <xsl:variable name="metadata_type" select="../@type"/>
-                        <tr>
-                            <td>
-                                <xsl:if test="$metadata_type = 'mandatory'">
-                                    <i18n:text>obd.metadata.metadatum.id.<xsl:value-of select="./@id"/></i18n:text>
-                                </xsl:if>
-                            </td>
-                            <td>
-                                <xsl:if test="$metadata_type = 'mandatory-if-aplicable'">
-                                    <i18n:text>obd.metadata.metadatum.id.<xsl:value-of select="./@id"/></i18n:text>
-                                </xsl:if>
-                            </td>
-                        </tr>
-                    </xsl:for-each>
-                </tbody>
-            </table>
+        <div>
+            <xsl:call-template name="create_general_mandatory_metadata_tabs" />
+
+            <xsl:call-template name="create_general_mandatory_metadata_tables" />
         </div>
 
         <p><i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.2</i18n:text></p>
@@ -178,6 +155,61 @@
             <li><i18n:text>xmlui.mirage2.static-pages.metadata.section.optional-metadata.list.item.3</i18n:text></li>
             <li><i18n:text>xmlui.mirage2.static-pages.metadata.section.optional-metadata.list.item.4</i18n:text></li>
         </ul>
+    </xsl:template>
+
+    <xsl:template name="create_general_mandatory_metadata_tables">
+        <xsl:param name="meta_type"/>
+       
+        <div class="table-responsive">
+            <table class="table">
+                <!--<caption class="sr-only">Seznam povinných údajů</caption>-->
+                <thead>
+                    <tr>
+                        <th scope="col">údaj</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <xsl:for-each select="$mandatoryMetadataGeneralFile//metadatum">
+                        <tr>
+                            <td>
+                                <xsl:if test="$meta_type = 'mandatory'">
+                                    <i18n:text>obd.metadata.metadatum.id.<xsl:value-of select="./@id"/></i18n:text>
+                                </xsl:if>
+                            </td>
+                        </tr>
+                    </xsl:for-each>
+                </tbody>
+            </table>
+        </div>
+    </xsl:template>
+
+    <xsl:template name="create_general_mandatory_metadata_tabs">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <xsl:for-each select="mandatoryMetadataGeneralFile//metadata">
+                    <xsl:variable name="metadata_type" select="./@type"/>
+                    
+                    <li role="presentation">
+                        <a href="#{$metadata_type}-metadata-contents" id="{$metadata_type}-metadata-general" data-toggle="tab" aria-haspopup="true" aria-expanded="false">
+                            <i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.<xsl:value-of select="$metadata_type"/>-metadata.title</i18n:text> <span class="caret"></span>
+                        </a>
+                    </li>
+                    
+                </xsl:for-each>
+            </ul>
+          
+             <!-- Tab panes -->
+            <div class="tab-content">
+                <xsl:for-each select="$mandatoryMetadataGeneralFile//metadata">
+                    <xsl:variable name="metadata_type_name" select="./@type"/>
+                    <div role="tabpanel" class="tab-pane fade" id="{$metadata_type_name}-metadata-contents">
+                        <xsl:call-template name="create_general_mandatory_metadata_tables">
+                            <xsl:with-param name="meta_type" select="$metadata_type_name"/>
+                        </xsl:call-template>
+                    </div>
+                </xsl:for-each>
+            </div>
+          
     </xsl:template>
 
     <xsl:template name="metadata-forms-process-xml-file-list">
