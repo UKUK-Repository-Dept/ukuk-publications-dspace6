@@ -50,7 +50,7 @@
         <br/>
         <p><i18n:text>xmlui.mirage2.static-pages.metadata.section.intro.para.3</i18n:text></p>
         <br/>
-        <div class=".table-responsive">
+        <div class="table-responsive">
             <table class="table-bordered table-condensed">
                 <caption class="sr-only">Rozdíly mezi povinnými a podmíněně povinnými popisnými údaji</caption>
                 <thead>
@@ -91,38 +91,40 @@
         </div>
         <br/>
         <p><i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.2</i18n:text></p>
-        <table>
-            <caption class="sr-only">Tabulka povinných a podmíněně povinných údajů</caption>
-            <thead>
-                <tr>
-                    <th scope="col">název údaje</th>
-                    <th scope="col">povinný údaj</th>
-                    <th scope="col">povinně volitelný údaj</th>
-                </tr>
-            </thead>
-            <tbody>
-                <xsl:for-each select="$mandatoryMetadataGeneralFile//metadata">
-                    <xsl:variable name="metadata_type" select="./@type"/>
-                    
-                    <xsl:for-each select="//metadatum">
-                        <tr>
-                            <td><i18n:text>obd.metadata.metadatum.id.<xsl:value-of select="./@id"/></i18n:text></td>
-                            <td>
-                                <xsl:if test="$metadata_type = 'mandatory'">
-                                    <xsl:text>X</xsl:text>
-                                </xsl:if>
-                            </td>
-                            <td>
-                                <xsl:if test="$metadata_type = 'mandatory-if-aplicable'">
-                                    <xsl:text>X</xsl:text>
-                                </xsl:if>
-                            </td>
-                        </tr>
-                    </xsl:for-each>
-                </xsl:for-each>
-            </tbody>
-        </table>
         
+        <div class="table-responsive">
+            <table class="table">
+                <caption class="sr-only">Tabulka povinných a podmíněně povinných údajů</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">název údaje</th>
+                        <th scope="col">povinný údaj</th>
+                        <th scope="col">povinně volitelný údaj</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                        <xsl:for-each select="//metadatum">
+                            <xsl:variable name="metadata_type" select="../@type"/>
+                            <tr>
+                                <td><i18n:text>obd.metadata.metadatum.id.<xsl:value-of select="./@id"/></i18n:text></td>
+                                <td>
+                                    <xsl:if test="$metadata_type = 'mandatory'">
+                                        <xsl:text>X</xsl:text>
+                                    </xsl:if>
+                                </td>
+                                <td>
+                                    <xsl:if test="$metadata_type = 'mandatory-if-aplicable'">
+                                        <xsl:text>X</xsl:text>
+                                    </xsl:if>
+                                </td>
+                            </tr>
+                        </xsl:for-each>
+                    
+                </tbody>
+            </table>
+        </div>
+
         <p><i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.2</i18n:text></p>
         <br/>
         <!-- MANDATORY / MANDATORY IF APPLICABLE METADATA TABLES-->
