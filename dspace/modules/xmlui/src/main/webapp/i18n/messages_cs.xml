@@ -3096,7 +3096,10 @@
 		určitou <a href="https://topi.is.cuni.cz/page/typology" target="_blank">formu výsledku přijímanou do repozitáře</a>, stav publikování / vydání výsledku, respektive verzi výsledku (preprint, postprint, atp.)</message>
 	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.mandatory-if-apliacable-metadata.description.3">pokud je údaj k dispozici / je možné ho zjistit 
 		nebo získat, ale nebude uveden ve formuláři výsledku v modulu OBD IS Věda, <b>výsledek nebude schválen</b> k přenosu do repozitáře</message>
-	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.1">V tabulce níže jsou vypsány povinné (označeny v tabulce příznakem <b>M</b> (mandatory)
+	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.1">V tabulce níže jsou uvedeny všechny povinné a podmíněně povinné údaje pro všechny formy 
+		výsledků přijímané do repozitáře
+	</message>
+	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.2">V tabulce níže jsou vypsány povinné (označeny v tabulce příznakem <b>M</b> (mandatory)
 		a podmíněně povinné (označeny v tabulce příznakem <b>MA</b> (mandatory if available/applicable) popisné údaje a jejich umístění ve formuláři OBD. 
 		Pro zobrazení povinných a podmíněně povinných popisných údajů vyberte příslušnou formu v rozbalovacím seznamu (zvlášť pro povinné a zvlášť pro podmíněně povinné údaje).</message>
 
