@@ -97,50 +97,16 @@
         </div>
 
         <p><i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.2</i18n:text></p>
+        <ul>
+            <li><i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.2.list.item.1</i18n:text></li>
+            <li><i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.2.list.item.2</i18n:text></li>
+        </ul>
+        <p><i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.3</i18n:text></p>
         <br/>
+        
         <!-- MANDATORY / MANDATORY IF APPLICABLE METADATA TABLES-->
         <div>
-
-            <!-- Nav tabs -->
-            <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="dropdown">
-                    <a href="#" id="mandatory-metadata-dropdown" class="dropdown-toggle" data-toggle="dropdown" aria-controls="mandatory-metadata-dropdown-contents" aria-haspopup="true" aria-expanded="false">
-                        <i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.mandatory-metadata.title</i18n:text> <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="mandatory-metadata-dropdown" id="mandatory-metadata-dropdown-contents" aria-expanded="false">
-                        <xsl:for-each select="$typologyFile//form">
-                            <xsl:variable name="formValue" select="./@id"/>
-                            <li role="presentation">
-                                <a href="#mandatory-metadata-contents-{$formValue}" aria-expanded="false" aria-controls="mandatory-metadata-contents-{$formValue}" data-toggle="tab">
-                                    <i18n:text><xsl:value-of select="concat('obd.typology.form.id.',./@id)"/></i18n:text>
-                                </a>
-                            </li>
-                                
-                            <!-- TODO: Implement anchor link fix from CU Digital Repository before linking to a specific anchor in panel -->
-                            <!-- <a href="#collapse{$formValue}"><i18n:text><xsl:value-of select="concat('obd.typology.form.id.',./@id)"/></i18n:text></a> -->
-                            <!--<a href="#"><i18n:text><xsl:value-of select="concat('obd.typology.form.id.',./@id)"/></i18n:text></a>-->
-                        </xsl:for-each>
-                    </ul>
-                        <!-- <td><i18n:text><xsl:value-of select="concat('obd.typology.subform.id.',./subforms/subform/@id)"/></i18n:text></td> -->
-                </li>
-                <!-- <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
-                <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>
-                <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li> -->
-            </ul>
-          
-            <!-- Tab panes -->
-            <div class="tab-content">
-                <xsl:for-each select="$typologyFile//form">
-                    <xsl:variable name="formValueID" select="./@id"/>
-
-                    <div role="tabpanel" class="tab-pane fade" id="mandatory-metadata-contents-{$formValueID}">
-                        <xsl:call-template name="metadata-forms-generate-tables-for-tabpanel">
-                            <xsl:with-param name="publicationFormID" select="$formValueID"/>
-                        </xsl:call-template>
-                    </div>
-                </xsl:for-each>
-            </div>
-          
+            <xsl:call-template name="generate-metadata-tables-by-form"/>
         </div>
         <br/>
 
@@ -185,20 +151,22 @@
                 <xsl:for-each select="$mandatoryMetadataGeneralFile//metadata">
                     <xsl:variable name="metadata_type" select="./@type"/>
                     
-                    <xsl:if test="$metadata_type = 'mandatory'">
-                        <li role="presentation" class="active">
-                            <a href="#{$metadata_type}-metadata-contents" id="{$metadata_type}-metadata-general" data-toggle="tab" aria-haspopup="true" aria-expanded="false">
-                                <i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.<xsl:value-of select="$metadata_type"/>-metadata.title</i18n:text>
-                            </a>
-                        </li>
-                    </xsl:if>
-
-                    <li role="presentation">
-                        <a href="#{$metadata_type}-metadata-contents" id="{$metadata_type}-metadata-general" data-toggle="tab" aria-haspopup="true" aria-expanded="false">
-                            <i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.<xsl:value-of select="$metadata_type"/>-metadata.title</i18n:text>
-                        </a>
-                    </li>
-
+                    <xsl:choose>
+                        <xsl:when test="$metadata_type = 'mandatory'">
+                            <li role="presentation" class="active">
+                                <a href="#{$metadata_type}-metadata-contents" id="{$metadata_type}-metadata-general" data-toggle="tab" aria-haspopup="true" aria-expanded="false">
+                                    <i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.<xsl:value-of select="$metadata_type"/>-metadata.title</i18n:text>
+                                </a>
+                            </li>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <li role="presentation">
+                                <a href="#{$metadata_type}-metadata-contents" id="{$metadata_type}-metadata-general" data-toggle="tab" aria-haspopup="true" aria-expanded="false">
+                                    <i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.<xsl:value-of select="$metadata_type"/>-metadata.title</i18n:text>
+                                </a>
+                            </li>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:for-each>
             </ul>
           
@@ -214,6 +182,44 @@
                 </xsl:for-each>
             </div>
           
+    </xsl:template>
+
+    <xsl:template name="generate-metadata-tables-by-form">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="dropdown">
+                <a href="#" id="mandatory-metadata-dropdown" class="dropdown-toggle" data-toggle="dropdown" aria-controls="mandatory-metadata-dropdown-contents" aria-haspopup="true" aria-expanded="false">
+                    <i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.mandatory-metadata.title</i18n:text> <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="mandatory-metadata-dropdown" id="mandatory-metadata-dropdown-contents" aria-expanded="false">
+                    <xsl:for-each select="$typologyFile//form">
+                        <xsl:variable name="formValue" select="./@id"/>
+                        <li role="presentation">
+                            <a href="#mandatory-metadata-contents-{$formValue}" aria-expanded="false" aria-controls="mandatory-metadata-contents-{$formValue}" data-toggle="tab">
+                                <i18n:text><xsl:value-of select="concat('obd.typology.form.id.',./@id)"/></i18n:text>
+                            </a>
+                        </li>
+                        <!-- TODO: Implement anchor link fix from CU Digital Repository before linking to a specific anchor in panel -->
+                        <!-- <a href="#collapse{$formValue}"><i18n:text><xsl:value-of select="concat('obd.typology.form.id.',./@id)"/></i18n:text></a> -->
+                        <!--<a href="#"><i18n:text><xsl:value-of select="concat('obd.typology.form.id.',./@id)"/></i18n:text></a>-->
+                    </xsl:for-each>
+                </ul>
+            </li>
+            
+        </ul>
+      
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <xsl:for-each select="$typologyFile//form">
+                <xsl:variable name="formValueID" select="./@id"/>
+
+                <div role="tabpanel" class="tab-pane fade" id="mandatory-metadata-contents-{$formValueID}">
+                    <xsl:call-template name="metadata-forms-generate-tables-for-tabpanel">
+                        <xsl:with-param name="publicationFormID" select="$formValueID"/>
+                    </xsl:call-template>
+                </div>
+            </xsl:for-each>
+        </div>
     </xsl:template>
 
     <xsl:template name="metadata-forms-process-xml-file-list">
