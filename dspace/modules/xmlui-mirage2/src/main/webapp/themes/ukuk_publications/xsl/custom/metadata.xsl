@@ -154,14 +154,14 @@
                     <xsl:choose>
                         <xsl:when test="$metadata_type = 'mandatory'">
                             <li role="presentation" class="active">
-                                <a href="#{$metadata_type}-metadata-contents" id="{$metadata_type}-metadata-general" data-toggle="tab" aria-haspopup="true" aria-expanded="true">
+                                <a href="#{$metadata_type}-metadata-contents" id="{$metadata_type}-metadata-general" data-toggle="tab" aria-expanded="true">
                                     <i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.<xsl:value-of select="$metadata_type"/>-metadata.title</i18n:text>
                                 </a>
                             </li>
                         </xsl:when>
                         <xsl:otherwise>
                             <li role="presentation">
-                                <a href="#{$metadata_type}-metadata-contents" id="{$metadata_type}-metadata-general" data-toggle="tab" aria-haspopup="true" aria-expanded="false">
+                                <a href="#{$metadata_type}-metadata-contents" id="{$metadata_type}-metadata-general" data-toggle="tab" aria-expanded="false">
                                     <i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.<xsl:value-of select="$metadata_type"/>-metadata.title</i18n:text>
                                 </a>
                             </li>
@@ -174,6 +174,17 @@
             <div class="tab-content">
                 <xsl:for-each select="$mandatoryMetadataGeneralFile//metadata">
                     <xsl:variable name="metadata_type_name" select="./@type"/>
+                    <xsl:choose>
+                        <xsl:when test="$metadata_type_name = 'mandatory'">
+                            <div role="tabpanel" class="tab-pane fade in active" id="{$metadata_type_name}-metadata-contents" aria-labelledby="${metadata_type_name}-metadata-general">
+                                <xsl:call-template name="create_general_mandatory_metadata_tables">
+                                    <xsl:with-param name="meta_type" select="$metadata_type_name"/>
+                                </xsl:call-template>
+                            </div>
+                        </xsl:when>
+                        <xsl:otherwise>
+                        </xsl:otherwise>
+                    </xsl:choose>
                     <div role="tabpanel" class="tab-pane fade" id="{$metadata_type_name}-metadata-contents">
                         <xsl:call-template name="create_general_mandatory_metadata_tables">
                             <xsl:with-param name="meta_type" select="$metadata_type_name"/>
