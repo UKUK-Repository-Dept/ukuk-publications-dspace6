@@ -26,7 +26,7 @@
     <xsl:output indent="yes"/>
     <xsl:param name="typologyFile" select="document('../../static/OBD_publication_types_accepted.xml')"/>
     <xsl:param name="mandatoryMetadataFile" select="document('../../static/OBD_mandatory_metadata.xml')"/>
-    <xsl:param name="mandatoryMetadataGeneralFile" select="document(../../static/OBD_mandatory_metadata_general.xml"/>
+    <xsl:param name="mandatoryMetadataGeneralFile" select="document('../../static/OBD_mandatory_metadata_general.xml')"/>
 
     <xsl:template name="metadata-create">
             <xsl:call-template name="metadata-general"/>
