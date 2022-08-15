@@ -263,14 +263,21 @@
         <xsl:param name="metadata-type"/>
         
         <table class="table">
-            <caption>Tabulka povinných údajů - <i18n:text><xsl:value-of select="concat('obd.typology.form.id.', $publicationFormID)"/></i18n:text></caption>
+            <xsl:choose>
+                <xsl:when test="$metadata-type = 'mandatory'">
+                    <caption>Tabulka povinných údajů - <i18n:text><xsl:value-of select="concat('obd.typology.form.id.', $publicationFormID)"/></i18n:text></caption>
+                </xsl:when>
+                <xsl:when test="$metadata-type = 'mandatory-if-applicable'">
+                    <caption>Tabulka podmíněně povinných údajů - <i18n:text><xsl:value-of select="concat('obd.typology.form.id.', $publicationFormID)"/></i18n:text></caption>
+                </xsl:when>
+                <xsl:otherwise></xsl:otherwise>
+            </xsl:choose>
+
             <thead>
                 <tr>
                     <th scope="col">název údaje</th>
                     <th scope="col">OBD: sekce formuláře</th>
                     <th scope="col">OBD: pole formuláře</th>
-                    <th scope="col">vydaný výsledek</th>
-                    <th scope="col">nevydaný výsledek</th>
                 </tr>
             </thead>
             <tbody>
@@ -304,22 +311,6 @@
                                     <xsl:otherwise></xsl:otherwise>
                                 </xsl:choose>
                             </td>
-                            <xsl:choose>
-                                <xsl:when test="$validForPublicationState = 'both'">
-                                    <td>X</td>
-                                    <td>X</td>
-                                </xsl:when>
-                                <xsl:when test="$validForPublicationState = 'published'">
-                                    <td>X</td>
-                                    <td></td>
-                                </xsl:when>
-                                <xsl:when test="$validForPublicationState = 'not_published'">
-                                    <td></td>
-                                    <td>X</td>
-                                </xsl:when>
-                                <xsl:otherwise>
-                                </xsl:otherwise>
-                            </xsl:choose>
                         </tr>
                     </xsl:if>
                 </xsl:for-each>

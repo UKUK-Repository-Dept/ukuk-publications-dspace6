@@ -2677,6 +2677,7 @@
 
 	<message key="obd.metadata.metadatum.id.date_issued">Date (year) of publication</message>
 	<message key="obd.metadata.metadatum.id.author_name">Surname and Name of the author</message>
+	<message key="obd.metadata.metadatum.id.coauthor_name">Surname and Name of the co-author(s)</message>
 	<message key="obd.metadata.metadatum.id.editor_name">Surname and Name of the person responsible for creation of the document: Editor</message>
 	<message key="obd.metadata.metadatum.id.abstract">Abstract / Annotation / Description</message>
 	<message key="obd.metadata.metadatum.id.language">Language</message>
