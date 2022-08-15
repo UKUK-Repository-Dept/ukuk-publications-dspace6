@@ -248,10 +248,6 @@
                     </div>
                 </xsl:for-each>
                 
-
-                
-                
-                
                 <!-- <div role="tabpanel" class="tab-pane fade" id="mandatory-metadata-contents-{$formValueID}">
                     <xsl:call-template name="metadata-forms-generate-tables-for-tabpanel">
                         <xsl:with-param name="publicationFormID" select="$formValueID"/>
@@ -261,42 +257,13 @@
         </div>
     </xsl:template>
 
-    <xsl:template name="metadata-forms-process-xml-file-list">
-        
-        <ul class="nav nav-pills"><!--<xsl:copy-of select="document('../../static/OBD_publication_types_accepted.xml')" />-->
-            <li role="presentation" class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                    Forma výsledku <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                    <xsl:for-each select="$typologyFile//form">
-                        <xsl:variable name="formValue" select="./@id"/>
-                        <li role="presentation" data-toggle="collapse" data-target="#collapse{$formValue}">
-                            <!-- TODO: Implement anchor link fix from CU Digital Repository before linking to a specific anchor in panel -->
-                            <!-- <a href="#collapse{$formValue}"><i18n:text><xsl:value-of select="concat('obd.typology.form.id.',./@id)"/></i18n:text></a> -->
-                            <a href="#"><i18n:text><xsl:value-of select="concat('obd.typology.form.id.',./@id)"/></i18n:text></a>
-                        </li>
-                        
-                        <!-- <td><i18n:text><xsl:value-of select="concat('obd.typology.subform.id.',./subforms/subform/@id)"/></i18n:text></td> -->
-                    </xsl:for-each>
-                </ul>
-            </li>
-        </ul>
-
-        <xsl:for-each select="$typologyFile//form">
-            <xsl:variable name="formValueID" select="./@id"/>
-            <xsl:call-template name="metadata-forms-generate-tables">
-                <xsl:with-param name="publicationFormID" select="$formValueID"/>
-            </xsl:call-template>
-        </xsl:for-each>
-
-    </xsl:template>
+    
 
     <xsl:template name="metadata-forms-generate-tables-for-tabpanel">
         <xsl:param name="publicationFormID"/>
         <xsl:param name="metadata-type"/>
         
-        <div role="tabpanel" class="tab-pane fade" id="{$metadata-type}-metadata-contents-{$formValueID}">
+        <div role="tabpanel" class="tab-pane fade" id="{$metadata-type}-metadata-contents-{$publicationFormID}">
         
             <table class="table">
                 <caption class="sr-only">Tabulka povinných údajů - <i18n:text><xsl:value-of select="concat('obd.typology.form.id.', $publicationFormID)"/></i18n:text></caption>
@@ -374,7 +341,7 @@
 
     </xsl:template>
 
-    <xsl:template name="metadata-forms-generate-tables">
+    <!-- <xsl:template name="metadata-forms-generate-tables">
         <xsl:param name="publicationFormID"/>
 
         <div class="panel panel-default">
@@ -397,9 +364,9 @@
                                 <th scope="col">nevydaný výsledek</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody> -->
                             <!-- TODO: Create table values based on a XML "configuration" file -->
-                            <xsl:for-each select="$mandatoryMetadataFile//form">
+                            <!-- <xsl:for-each select="$mandatoryMetadataFile//form">
                                 <xsl:choose>
                                     <xsl:when test="./@id = $publicationFormID">
                                         <xsl:for-each select=".//metadatum">
@@ -462,6 +429,37 @@
             </div>
         </div>
 
-    </xsl:template>
+    </xsl:template> -->
+
+    <!-- <xsl:template name="metadata-forms-process-xml-file-list">
+        
+        <ul class="nav nav-pills">--><!-- <xsl:copy-of select="document('../../static/OBD_publication_types_accepted.xml')" /> -->
+            <!-- <li role="presentation" class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                    Forma výsledku <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <xsl:for-each select="$typologyFile//form">
+                        <xsl:variable name="formValue" select="./@id"/>
+                        <li role="presentation" data-toggle="collapse" data-target="#collapse{$formValue}"> -->
+                            <!-- TODO: Implement anchor link fix from CU Digital Repository before linking to a specific anchor in panel -->
+                            <!-- <a href="#collapse{$formValue}"><i18n:text><xsl:value-of select="concat('obd.typology.form.id.',./@id)"/></i18n:text></a> -->
+                            <!-- <a href="#"><i18n:text><xsl:value-of select="concat('obd.typology.form.id.',./@id)"/></i18n:text></a>
+                        </li> -->
+                        
+                        <!-- <td><i18n:text><xsl:value-of select="concat('obd.typology.subform.id.',./subforms/subform/@id)"/></i18n:text></td> -->
+                    <!-- </xsl:for-each>
+                </ul>
+            </li>
+        </ul> -->
+
+        <!-- <xsl:for-each select="$typologyFile//form">
+            <xsl:variable name="formValueID" select="./@id"/>
+            <xsl:call-template name="metadata-forms-generate-tables">
+                <xsl:with-param name="publicationFormID" select="$formValueID"/>
+            </xsl:call-template>
+        </xsl:for-each>
+
+    </xsl:template> -->
 
 </xsl:stylesheet>
