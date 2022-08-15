@@ -238,12 +238,12 @@
             <xsl:for-each select="$mandatoryMetadataFile//form">
                 <xsl:variable name="formValueID" select="./@id"/>
 
-                <xsl:for-each select="./metadata">
+                <xsl:for-each select=".//metadata">
                     <xsl:variable name="metadata-typeID" select="./@type"/>
                     <div role="tabpanel" class="tab-pane fade" id="{$metadata-typeID}-metadata-contents-{$formValueID}">
                         <xsl:call-template name="metadata-forms-generate-tables-for-tabpanel">
                             <xsl:with-param name="publicationFormID" select="$formValueID"/>
-                            <xsl:with-param name="metadata-type" select="./metadata/@type"/>
+                            <xsl:with-param name="metadata-type" select="$metadata-typeID"/>
                         </xsl:call-template>
                     </div>
                 </xsl:for-each>
