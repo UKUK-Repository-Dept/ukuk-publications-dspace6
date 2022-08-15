@@ -3107,10 +3107,10 @@
 		
 		Pro zobrazení povinných údajů a jejich umístění ve formuláři výsledku v OBD pro danou formu výsledku postupujte následovně:
 	</message>
-	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.2.list.item.1">klikněte na záložku "povinné údaje",</message>
+	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.2.list.item.1">klikněte na záložku "povinné údaje" nebo "podmíněně povinné údaje",</message>
 	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.2.list.item.2">z rozbalovacího seznamu vyberte formu výsledku a kliněte na ni.</message>
 	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.3">Pod záložkou se následně zobrazí tabulka, ze které se dozvíte, v jaké sekci, 
-		v jakém poli a případně v jakém podpoli formuláře výsledku v OBD máte daný údaj hledat a vyplnit.</message>
+		v jakém poli a případně v jakém podpoli formuláře výsledku v OBD máte daný údaj hledat a vyplnit nebo zkontrolovat.</message>
 
 	<message key="xmlui.mirage2.static-pages.metadata.section.optional-metadata.title">Volitelné popisné údaje</message>
 	<message key="xmlui.mirage2.static-pages.metadata.section.optional-metadata.para.1">Kromě povinných a podmíněně povinných popisných údajů výsledku je v modulu OBD IS Věda 
