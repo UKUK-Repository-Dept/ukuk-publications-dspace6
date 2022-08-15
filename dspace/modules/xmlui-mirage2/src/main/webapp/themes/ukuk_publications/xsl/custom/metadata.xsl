@@ -25,7 +25,7 @@
 
     <xsl:output indent="yes"/>
     <xsl:param name="typologyFile" select="document('../../static/OBD_publication_types_accepted.xml')"/>
-    <xsl:param name="mandatoryMetadataFile" select="document('../../static/OBD_mandatory_metadata.xml')"/>
+    <xsl:param name="mandatoryMetadataFile" select="document('../../static/OBD_mandatory_metadata_by_form.xml')"/>
     <xsl:param name="mandatoryMetadataGeneralFile" select="document('../../static/OBD_mandatory_metadata_general.xml')"/>
 
     <xsl:template name="metadata-create">
@@ -257,7 +257,6 @@
         </div>
     </xsl:template>
 
-    
 
     <xsl:template name="metadata-forms-generate-tables-for-tabpanel">
         <xsl:param name="publicationFormID"/>
