@@ -36,7 +36,7 @@
     <xsl:template name="metadata-general">
         
         <xsl:call-template name="metadata-general-info"/>
-        <xsl:call-template name="metadata-forms-process-xml-file-list"/>
+        <!-- <xsl:call-template name="metadata-forms-process-xml-file-list"/> -->
 
     </xsl:template>
 
