@@ -34,6 +34,9 @@
         <metadatum id="source_monograph_author_name" internal_name="Příjmení a jméno autora celé monografie" obd_section_id="4" obd_field_id="none" order="4">
             <meta_info system="false" obd_section_translation="section-general-4" obd_field_translation="section-general-4-none" valid_for="both" obd_section_name="AUTOR CELÉ MONOGRAFIE" obd_field_name="none"/>
         </metadatum>
+        <metadatum id="publisher" internal_name="Vydavatel / Nakladatel" obd_section_id="8" obd_field_id="1" order="25">
+            <meta_info system="false" obd_section_translation="section-specific-110-8" obd_field_translation="field-publisher-periodical" valid_for="published" obd_section_name="Sborník, časopis" obd_field_name="Vydavatel"/>
+        </metadatum>
         <metadatum id="language" internal_name="Jazyk dokumentu" obd_section_id="5" obd_field_id="2" order="5">
             <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-language-general" valid_for="both" obd_section_name="Tituly" obd_field_name="Jazyk"/>
         </metadatum>
