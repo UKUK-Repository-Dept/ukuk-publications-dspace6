@@ -2925,6 +2925,7 @@
 	<!-- All metadata internal names translations -->
 	<message key="obd.metadata.metadatum.id.date_issued">Datum (rok) vydání / publikování dokumentu</message>
 	<message key="obd.metadata.metadatum.id.author_name">Příjmení a jméno autora dokumentu</message>
+	<message key="obd.metadata.metadatum.id.coauthor_name">Příjmení a jméno spoluautora/ů dokumentu</message>
 	<message key="obd.metadata.metadatum.id.co-author_name">Příjmení a jméno spoluautora/ů dokumentu</message>
 	<message key="obd.metadata.metadatum.id.editor_name">Příjmení a jméno editora dokumentu</message>
 	<message key="obd.metadata.metadatum.id.abstract">Anotace / abstrakt / popis dokumentu</message>
