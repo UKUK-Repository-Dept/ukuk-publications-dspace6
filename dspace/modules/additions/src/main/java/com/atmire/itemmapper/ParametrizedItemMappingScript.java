@@ -5,6 +5,7 @@ import static com.atmire.itemmapper.service.ItemMapperServiceImpl.INFO;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.atmire.cli.BooleanOption;
@@ -15,6 +16,7 @@ import com.atmire.cli.RepeatableStringOption;
 import com.atmire.cli.StringOption;
 import com.atmire.itemmapper.factory.ItemMapperServiceFactory;
 import com.atmire.itemmapper.service.ItemMapperService;
+import org.dspace.content.Collection;
 import org.dspace.content.factory.ContentServiceFactory;
 import org.dspace.content.service.CollectionService;
 import org.dspace.content.service.ItemService;
@@ -44,8 +46,8 @@ public class ParametrizedItemMappingScript extends ContextScript {
     static ConfigurationService configurationService = DSpaceServicesFactory.getInstance().getConfigurationService();
 
     StringOption operationMode;
-    RepeatableStringOption sourceHandle;
-    RepeatableStringOption destinationHandle;
+    RepeatableStringOption sourceIdOption;
+    RepeatableStringOption destinationIdOption;
     StringOption linkToFile;
     StringOption pathToFile;
     BooleanOption dryRun;
@@ -74,11 +76,11 @@ public class ParametrizedItemMappingScript extends ContextScript {
         this.helpOption = new HelpOption();
         operationMode = new StringOption('o', "operation",
                                          "the operation mode for the script, should be one of following: " + Arrays.toString(OPERATIONS),true);
-        sourceHandle = new RepeatableStringOption('s', "source", String.format("handle or uuid of the source " +
+        sourceIdOption = new RepeatableStringOption('s', "source", String.format("handle or uuid of the source " +
             "collection(s). Note that multiple collections should be separated by character '%s'. It is also possible" +
             " to provide this parameter multiple times with different collections", MULTIPLE_ID_SEPARATOR), true, false,
             MULTIPLE_ID_SEPARATOR);
-        destinationHandle = new RepeatableStringOption('d', "destination", String.format("handle or uuid of the " +
+        destinationIdOption = new RepeatableStringOption('d', "destination", String.format("handle or uuid of the " +
             "destination collection(s).multiple collections should be separated by character '%s'. It is also " +
             "possible to provide this parameter multiple times with different collections", MULTIPLE_ID_SEPARATOR),
             true, false,
@@ -92,8 +94,8 @@ public class ParametrizedItemMappingScript extends ContextScript {
         HashSet<OptionWrapper> options = new HashSet<>();
         options.add(helpOption);
         options.add(operationMode);
-        options.add(sourceHandle);
-        options.add(destinationHandle);
+        options.add(sourceIdOption);
+        options.add(destinationIdOption);
         options.add(linkToFile);
         options.add(pathToFile);
         options.add(dryRun);
@@ -107,8 +109,11 @@ public class ParametrizedItemMappingScript extends ContextScript {
             context.turnOffAuthorisationSystem();
 
             currentOperation = operationMode.getValue();
+            List<Collection> validSources = itemMapperService.resolveCollections(context, sourceIdOption.getValues());
+            List<Collection> validDestinations =
+                itemMapperService.resolveCollections(context, destinationIdOption.getValues());
             boolean paramsAreValid = itemMapperService.verifyParams(context, operationMode.getValue(),
-                sourceHandle.getValues(), destinationHandle.getValues(), linkToFile.getValue(), pathToFile.getValue(),
+                validSources, validDestinations, linkToFile.getValue(), pathToFile.getValue(),
                 dryRun.isSelected());
             if (!paramsAreValid) {
                 System.exit(1);
@@ -120,20 +125,17 @@ public class ParametrizedItemMappingScript extends ContextScript {
 
             switch (currentOperation) {
                 case UNMAPPED:
-                    itemMapperService.mapFromParams(context, destinationHandle.getValues(), sourceHandle.getValues(),
-                                                    dryRun.isSelected());
+                    itemMapperService.mapFromParams(context, validDestinations, validSources, dryRun.isSelected());
                     break;
                 case REVERSED:
-                    itemMapperService.reverseMapFromParams(context, destinationHandle.getValues(),
-                                                           sourceHandle.getValues(), dryRun.isSelected());
+                    itemMapperService.reverseMapFromParams(context, validDestinations, validSources, dryRun.isSelected());
                     break;
                 case MAPPED:
-                    itemMapperService.mapFromMappingFile(context, sourceHandle.getValues(), linkToFile.getValue(),
-                                                         pathToFile.getValue(),
-                                                         dryRun.isSelected());
+                    itemMapperService.mapFromMappingFile(context, validSources, linkToFile.getValue(),
+                                                         pathToFile.getValue(), dryRun.isSelected());
                     break;
                 case REVERSED_MAPPED:
-                    itemMapperService.reverseMapFromMappingFile(context, sourceHandle.getValues(), linkToFile.getValue(),
+                    itemMapperService.reverseMapFromMappingFile(context, validSources, linkToFile.getValue(),
                                                                 pathToFile.getValue(), dryRun.isSelected());
                     break;
                 default:
@@ -146,8 +148,10 @@ public class ParametrizedItemMappingScript extends ContextScript {
                 itemMapperService.logCLI(INFO, "This was a dry run / test run of the script, no changes have been " +
                     "made to the database");
             }
+            context.commit();
         } catch (Exception e) {
-            itemMapperService.logCLI(ERROR, "An exception has occurred! => " + e.getMessage());
+            itemMapperService.logCLI(ERROR, String.format("An exception has occurred! => %s%n%s", e.getMessage(),
+                e.toString()));
             throw e;
         }
     }
