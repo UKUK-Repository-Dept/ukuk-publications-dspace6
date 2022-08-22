@@ -90,12 +90,13 @@
             </table>
         </div>
         <br/>
+        <h2><i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.h2.1</i18n:text></h2>
         <p><i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.1</i18n:text></p>
         
         <div>
             <xsl:call-template name="create_general_mandatory_metadata_tabs" />
         </div>
-
+        <h2><i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.h2.2</i18n:text></h2>
         <p><i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.2</i18n:text></p>
         <ul>
             <li><i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.2.list.item.1</i18n:text></li>
