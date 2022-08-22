@@ -268,18 +268,6 @@
             <xsl:for-each select="$mandatoryMetadataFile//form">
                 <xsl:variable name="formValueID" select="./@id"/>
                 
-
-                <xsl:choose>
-                    <xsl:when test="position() = 1">
-                        <div role="tabpanel" class="tab-pane fade active in" id="metadata-contents-{$formValueID}">
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <div role="tabpanel" class="tab-pane fade" id="metadata-contents-{$formValueID}">
-                    </xsl:othewise>
-                </xsl:choose>
-
-                
-
                 <!-- <JR> - 2022-08-22 - předchozí funkční verze -->
                 <!-- <xsl:for-each select=".//metadata">
                     <xsl:variable name="metadata-typeID" select="./@type"/>
@@ -293,6 +281,12 @@
                 
                 <div role="tabpanel" class="tab-pane fade" id="metadata-contents-{$formValueID}"> -->
                 <!-- END OF: <JR> - 2022-08-22 - předchozí funkční verze -->
+                <xsl:if test="position() = 1">
+                    <div role="tabpanel" class="tab-pane fade active in" id="metadata-contents-{$formValueID}">
+                </xsl:if>
+                <xsl:if test="position() > 1">
+                    <div role="tabpanel" class="tab-pane fade" id="metadata-contents-{$formValueID}">
+                </xsl:if>
                     <xsl:for-each select=".//metadata">
                         <xsl:variable name="metadata-typeID" select="./@type"/>
                         <xsl:call-template name="metadata-forms-generate-tables-for-tabpanel">
