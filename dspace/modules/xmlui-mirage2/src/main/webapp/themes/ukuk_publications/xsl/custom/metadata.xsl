@@ -70,21 +70,21 @@
                     </tr>
                     <tr>
                         <td>
-                            <b><i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.mandatory-if-aplicable-metadata.title</i18n:text></b>
+                            <b><i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.mandatory-if-applicable-metadata.title</i18n:text></b>
                         </td>
                         <td>
-                            <i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.mandatory-if-aplicable-metadata.description.1</i18n:text>
+                            <i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.mandatory-if-applicable-metadata.description.1</i18n:text>
                         </td>
                     </tr>
                     <tr>
                         <td></td>
                         <td>
-                            <i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.mandatory-if-aplicable-metadata.description.2</i18n:text>
+                            <i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.mandatory-if-applicable-metadata.description.2</i18n:text>
                         </td>
                     </tr>
                     <tr>
                         <td></td>
-                        <td><i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.mandatory-if-aplicable-metadata.description.3</i18n:text></td>
+                        <td><i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.mandatory-if-applicable-metadata.description.3</i18n:text></td>
                     </tr>
                 </tbody>
             </table>
