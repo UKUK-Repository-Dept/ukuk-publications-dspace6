@@ -3103,7 +3103,7 @@
 	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.1">V seznamech níže jsou uvedeny všechny povinné a podmíněně povinné údaje pro všechny formy 
 		výsledků přijímané do repozitáře. Pro zobrazení dané skupiny popisných údajů klikněte na příslušnou záložku.
 	</message>
-	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.h2.2">Umístění povinných údajů ve formuláři OBD pro jednotlivé formy</message>
+	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.h2.2">Umístění povinných údajů ve formuláři OBD pro jednotlivé formy výsledků</message>
 	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.2">Pro snazší orientaci ve formuláři OBD, jak při jeho vyplňování, tak při následné kontrole, jsme 
 		připravili tabulku poskytující přehled o tom, kde ve formuláři výsledku v OBD se daný údaj pro danou formu vyskytuje. 
 		
