@@ -281,24 +281,39 @@
                 
                 <div role="tabpanel" class="tab-pane fade" id="metadata-contents-{$formValueID}"> -->
                 <!-- END OF: <JR> - 2022-08-22 - předchozí funkční verze -->
-                <xsl:if test="position() = 1">
-                    <div role="tabpanel" class="tab-pane fade active in" id="metadata-contents-{$formValueID}">
-                </xsl:if>
-                <xsl:if test="position() > 1">
-                    <div role="tabpanel" class="tab-pane fade" id="metadata-contents-{$formValueID}">
-                </xsl:if>
-                    <xsl:for-each select=".//metadata">
-                        <xsl:variable name="metadata-typeID" select="./@type"/>
-                        <xsl:call-template name="metadata-forms-generate-tables-for-tabpanel">
-                            <xsl:with-param name="publicationFormID" select="$formValueID"/>
-                            <xsl:with-param name="metadata-type" select="$metadata-typeID"/>
-                        </xsl:call-template>
-                    </xsl:for-each>
-                </div>
+                <xsl:choose>
+                    <xsl:when test="position() = 1">
+                        <div role="tabpanel" class="tab-pane fade active in" id="metadata-contents-{$formValueID}">
+                            <xsl:call-template name="start-generating-tables">
+                                <xsl:with-param name="form-valueID" select="$formValueID"/>
+                            </xsl:call-template>
+                        </div>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <div role="tabpanel" class="tab-pane fade" id="metadata-contents-{$formValueID}">
+                            <xsl:call-template name="start-generating-tables">
+                                <xsl:with-param name="form-valueID" select="$formValueID"/>
+                            </xsl:call-template>
+                        </div>
+                    </xsl:otherwise>
+                </xsl:choose>
+                    
+                
             </xsl:for-each>
         </div>
     </xsl:template>
 
+    <xsl:template name="start-generating-tables">
+        <xsl:param name="form-valueID"/>
+
+        <xsl:for-each select=".//metadata">
+            <xsl:variable name="metadata-typeID" select="./@type"/>
+            <xsl:call-template name="metadata-forms-generate-tables-for-tabpanel">
+                <xsl:with-param name="publicationFormID" select="$form-valueID"/>
+                <xsl:with-param name="metadata-type" select="$metadata-typeID"/>
+            </xsl:call-template>
+        </xsl:for-each>
+    </xsl:template>
 
     <xsl:template name="metadata-forms-generate-tables-for-tabpanel">
         <xsl:param name="publicationFormID"/>
