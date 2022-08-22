@@ -3099,9 +3099,11 @@
 		určitou <a href="https://topi.is.cuni.cz/page/typology" target="_blank">formu výsledku přijímanou do repozitáře</a>, stav publikování / vydání výsledku, respektive verzi výsledku (preprint, postprint, atp.)</message>
 	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.mandatory-if-applicable-metadata.description.3">pokud je údaj k dispozici / je možné ho zjistit 
 		nebo získat, ale nebude uveden ve formuláři výsledku v modulu OBD IS Věda, <b>výsledek nebude schválen</b> k přenosu do repozitáře</message>
+	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.h2.1">Jaké povinné a podmíněně povinné údaje vyžadujeme?</message>
 	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.1">V seznamech níže jsou uvedeny všechny povinné a podmíněně povinné údaje pro všechny formy 
 		výsledků přijímané do repozitáře. Pro zobrazení dané skupiny popisných údajů klikněte na příslušnou záložku.
 	</message>
+	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.h2.2">Umístění povinných údajů ve formuláři OBD pro jednotlivé formy</message>
 	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.2">Pro snazší orientaci ve formuláři OBD, jak při jeho vyplňování, tak při následné kontrole, jsme 
 		připravili tabulku poskytující přehled o tom, kde ve formuláři výsledku v OBD se daný údaj pro danou formu vyskytuje. 
 		
