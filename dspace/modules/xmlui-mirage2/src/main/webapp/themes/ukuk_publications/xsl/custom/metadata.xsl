@@ -201,25 +201,34 @@
             <!-- List of forms in dropdown for "mandatory metadata by form" dispaly  -->
             <li role="presentation" class="dropdown">
                 <a href="#" id="mandatory-metadata-dropdown" class="dropdown-toggle" data-toggle="dropdown" aria-controls="mandatory-metadata-dropdown-contents" aria-expanded="true">
-                    <i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.mandatory-metadata.title</i18n:text> <span class="caret"></span>
+                    <i18n:text>xmlui.mirage2.static-pages.metadata.dropdown.title.mandatory-metadata-by-form</i18n:text> <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="mandatory-metadata-dropdown" id="mandatory-metadata-dropdown-contents" aria-expanded="false">
                     <xsl:for-each select="$typologyFile//form">
                         <xsl:variable name="formValue" select="./@id"/>
                         <xsl:variable name="ariaExpanded"><xsl:text>false</xsl:text></xsl:variable>
+
                         <xsl:choose>
                             <xsl:when test="position() = 1">
                                 <xsl:variable name="ariaExpanded"><xsl:text>true</xsl:text></xsl:variable>
+
+                                <li role="presentation" class="active">
+                                    <a href="#metadata-contents-{$formValue}" aria-expanded="{$ariaExpanded}" aria-controls="metadata-contents-{$formValue}" data-toggle="tab">
+                                        <i18n:text><xsl:value-of select="concat('obd.typology.form.id.',./@id)"/></i18n:text>
+                                    </a>
+                                </li>
+                                
                             </xsl:when>
                             <xsl:otherwise>
                                 <xsl:variable name="ariaExpanded"><xsl:text>false</xsl:text></xsl:variable>
+
+                                <li role="presentation">
+                                    <a href="#metadata-contents-{$formValue}" aria-expanded="{$ariaExpanded}" aria-controls="metadata-contents-{$formValue}" data-toggle="tab">
+                                        <i18n:text><xsl:value-of select="concat('obd.typology.form.id.',./@id)"/></i18n:text>
+                                    </a>
+                                </li>
                             </xsl:otherwise>
                         </xsl:choose>
-                        <li role="presentation">
-                            <a href="#metadata-contents-{$formValue}" aria-expanded="{$ariaExpanded}" aria-controls="metadata-contents-{$formValue}" data-toggle="tab">
-                                <i18n:text><xsl:value-of select="concat('obd.typology.form.id.',./@id)"/></i18n:text>
-                            </a>
-                        </li>
                         <!-- <JR> - 2022-08-22 - předchozí funkční verze -->
                         <!-- 
                         <li role="presentation">
@@ -258,6 +267,18 @@
         <div class="tab-content">
             <xsl:for-each select="$mandatoryMetadataFile//form">
                 <xsl:variable name="formValueID" select="./@id"/>
+                
+
+                <xsl:choose>
+                    <xsl:when test="position() = 1">
+                        <div role="tabpanel" class="tab-pane fade active in" id="metadata-contents-{$formValueID}">
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <div role="tabpanel" class="tab-pane fade" id="metadata-contents-{$formValueID}">
+                    </xsl:othewise>
+                </xsl:choose>
+
+                
 
                 <!-- <JR> - 2022-08-22 - předchozí funkční verze -->
                 <!-- <xsl:for-each select=".//metadata">
@@ -268,9 +289,10 @@
                             <xsl:with-param name="metadata-type" select="$metadata-typeID"/>
                         </xsl:call-template>
                     </div>
-                </xsl:for-each> -->
+                </xsl:for-each>
+                
+                <div role="tabpanel" class="tab-pane fade" id="metadata-contents-{$formValueID}"> -->
                 <!-- END OF: <JR> - 2022-08-22 - předchozí funkční verze -->
-                <div role="tabpanel" class="tab-pane fade" id="metadata-contents-{$formValueID}">
                     <xsl:for-each select=".//metadata">
                         <xsl:variable name="metadata-typeID" select="./@type"/>
                         <xsl:call-template name="metadata-forms-generate-tables-for-tabpanel">

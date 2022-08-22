@@ -3107,7 +3107,7 @@
 		
 		Pro zobrazení povinných údajů a jejich umístění ve formuláři výsledku v OBD pro danou formu výsledku postupujte následovně:
 	</message>
-	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.2.list.item.1">klikněte na záložku "povinné údaje" nebo "podmíněně povinné údaje",</message>
+	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.2.list.item.1">klikněte na záložku "povinné údaje podle formy",</message>
 	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.2.list.item.2">z rozbalovacího seznamu vyberte formu výsledku a kliněte na ni.</message>
 	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.3">Pod záložkou se následně zobrazí tabulka, ze které se dozvíte, v jaké sekci, 
 		v jakém poli a případně v jakém podpoli formuláře výsledku v OBD máte daný údaj hledat a vyplnit nebo zkontrolovat.</message>
@@ -3122,9 +3122,7 @@
 	<message key="xmlui.mirage2.static-pages.metadata.section.optional-metadata.list.item.3">generovat bibliografické citace k výsledkům uloženým v repozitáři</message>
 	<message key="xmlui.mirage2.static-pages.metadata.section.optional-metadata.list.item.4">zajišťovat shromažďování dodatečných statistických informací o výsledku uloženém v repozitáři</message>
 	
-		<!--<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.heading">Povinné popisné údaje</message>-->
-	<!--<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.1">Povinné popisné údaje jsou pro 
-		všechny <a href="https://topi.is.cuni.cz/page/typology" target="_blank">formy výsledků přijímané do repozitáře</a> shodné. Minimáln</message>-->
+	<message key="xmlui.mirage2.static-pages.metadata.dropdown.title.mandatory-metadata-by-form">povinné údaje podle formy</message>
 	<!-- END OF: <JR> - 22-06-16: page/metadata -->
 
 	<!-- <JR> - 22-02-01: page/disclaimer-->
