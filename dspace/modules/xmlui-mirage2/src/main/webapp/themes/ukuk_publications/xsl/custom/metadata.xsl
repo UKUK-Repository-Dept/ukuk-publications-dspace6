@@ -201,7 +201,7 @@
             <!-- List of forms in dropdown for "mandatory metadata by form" dispaly  -->
             <li role="presentation" class="dropdown">
                 <a href="#" id="mandatory-metadata-dropdown" class="dropdown-toggle" data-toggle="dropdown" aria-controls="mandatory-metadata-dropdown-contents" aria-expanded="true">
-                    <i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.mandatory-metadata.title</i18n:text> <span class="caret"></span>
+                    <i18n:text>xmlui.mirage2.static-pages.metadata.dropdown.title.mandatory-metadata-by-form</i18n:text> <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="mandatory-metadata-dropdown" id="mandatory-metadata-dropdown-contents" aria-expanded="false">
                     <xsl:for-each select="$typologyFile//form">
