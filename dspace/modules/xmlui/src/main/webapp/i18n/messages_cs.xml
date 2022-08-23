@@ -2781,11 +2781,16 @@
 
     <message key="xmlui.swordclient.SwordResponse.title">Odpověď SWORD</message>
     <message key="xmlui.swordclient.SwordResponse.trail">Odpověď SWORD</message>
+
+	<!-- EXTRA MENU FOR STATIC PAGES -->
+	<!-- <JR> - 2022-08-23 -->
+	<message key="sidebar.menu.about-repo.head">O repozitáři</message>
 	<!-- STATIC PAGES -->
 	<!-- <JR> - 20.1. 2022 - Custom static pages titles -->
 	<message key="xmlui.mirage2.static-pages.title.faq">F.A.Q.</message>
 	<message key="xmlui.mirage2.static-pages.title.typology">Akceptované formy výsledků</message>
 	<message key="xmlui.mirage2.static-pages.title.metadata">Povinné popisné údaje</message>
+	<message key="xmlui.mirage2.static-pages.title.disclaimer">Poučení</message>
 
 	<!-- <JR> - 20.1. 2022 - Custom static pages headings -->
 	<message key="xmlui.mirage2.static-pages.heading.faq">Často kladené otázky</message>
@@ -3128,7 +3133,7 @@
 	<!-- END OF: <JR> - 22-06-16: page/metadata -->
 
 	<!-- <JR> - 22-02-01: page/disclaimer-->
-	<message key="xmlui.mirage2.static-pages.title.disclaimer">Poučení</message>
+	
 	<!-- page/disclaimer - section headings -->
 	<message key="xmlui.mirage2.static-pages.disclaimer.section.cooauthors">Potvrzení získání souhlasu spoluautorů s uložením a zpřístupněním výsledku v repozitáři</message>
 	<message key="xmlui.mirage2.static-pages.disclaimer.section.publisher-third-parties">Potvrzení prohlášení o neporušování práv vydavatele či třetí strany</message>
