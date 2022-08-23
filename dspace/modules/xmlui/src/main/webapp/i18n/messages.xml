@@ -2508,6 +2508,10 @@
     <message key="xmlui.Submission.submit.StartSubmissionLookupStep.submit_publication_item">Imported publication Record</message>
     <message key="xmlui.Submission.submit.progressbar.lookup">Lookup</message>
 
+	<!-- EXTRA MENU FOR STATIC PAGES -->
+	<!-- <JR> - 2022-08-23 -->
+	<message key="sidebar.menu.about-repo.head">About Repository</message>
+
 	<!-- STATIC PAGES -->
 	<!-- <JR> - 20.1. 2022 - Custom static pages titles -->
 	<message key="xmlui.mirage2.static-pages.title.faq">F.A.Q.</message>

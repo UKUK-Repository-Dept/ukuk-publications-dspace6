@@ -122,7 +122,14 @@
                     </form>
                 </div>
             </xsl:if>
-            <xsl:apply-templates/>
+            <!-- <xsl:apply-templates/> -->
+            <!-- <JR> - 2022-08-23 - Added according to A. Schweer:
+            https://dspace-tech.narkive.com/Sth573Ni/adding-menu-items-to-manikin-interface -->
+            <xsl:apply-templates select="dri:list[@id='sidebar.menu.about-repo']" />
+            <xsl:apply-templates select="dri:list[@id='aspect.viewArtifacts.Navigation.list.browse']" />
+            <xsl:apply-templates select="dri:list[@id='aspect.viewArtifacts.Navigation.list.context']" />
+            <xsl:apply-templates select="dri:list[@id='aspect.viewArtifacts.Navigation.list.administrative']" />
+            <xsl:apply-templates select="dri:list[@id='aspect.discovery.Navigation.list.discovery']" />
             <!-- DS-984 Add RSS Links to Options Box -->
             <xsl:if test="count(/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='feed']) != 0">
                 <div>
