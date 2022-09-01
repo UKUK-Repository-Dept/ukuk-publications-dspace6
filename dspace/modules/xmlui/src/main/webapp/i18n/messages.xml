@@ -2514,7 +2514,7 @@
 
 	<!-- STATIC PAGES -->
 	<!-- <JR> - 20.1. 2022 - Custom static pages titles -->
-	<message key="xmlui.mirage2.static-pages.title.faq">F.A.Q.</message>
+	<message key="xmlui.mirage2.static-pages.title.faq">FAQ</message>
 	<message key="xmlui.mirage2.static-pages.title.typology">Research outputs typology</message>
 	<message key="xmlui.mirage2.static-pages.title.metadata">Required metadata</message>
 
@@ -2650,6 +2650,213 @@
 	<message key="obd.typology.subform.secondary.id.136">abstract in e-form</message>
 	<message key="obd.typology.subform.secondary.id.462">abstract in conference proceedings</message>
 	<message key="obd.typology.subform.secondary.id.135">abstract in journal</message>										
+
+	<!-- <JR> - 22-06-16: page/metadata -->
+	
+	<!-- All metadata internal names translations -->
+	<message key="obd.metadata.metadatum.id.date_issued">Date Issued / Publishing Date</message>
+	<message key="obd.metadata.metadatum.id.author_name">Author's Surname and Name</message>
+	<message key="obd.metadata.metadatum.id.coauthor_name">Surname and Name of the Co-author(s)</message>
+	<message key="obd.metadata.metadatum.id.co-author_name">Surname and Name of the Co-author(s)</message>
+	<message key="obd.metadata.metadatum.id.editor_name">Surname and Name of the Editor(s)</message>
+	<message key="obd.metadata.metadatum.id.abstract">Annotation / abstract / Description of the Document</message>
+	<message key="obd.metadata.metadatum.id.language">Language of the Document</message>
+	<message key="obd.metadata.metadatum.id.keywords">Keywords</message>
+	<message key="obd.metadata.metadatum.id.title">Title of the Document</message>
+	<message key="obd.metadata.metadatum.id.title_translated">Translated Title of the Document</message>
+	<message key="obd.metadata.metadatum.id.keywords_translated">Translated Keywords</message>
+	<message key="obd.metadata.metadatum.id.abstract_translated">Translated Annotation / Abstract / Description</message>
+	<message key="obd.metadata.metadatum.id.financing_source">Source of the Financing</message>
+	<message key="obd.metadata.metadatum.id.research_field_primary">Primary Research Subject Term</message>
+	<message key="obd.metadata.metadatum.id.research_field_secondary">Secondary Research Subject Tern</message>
+	<message key="obd.metadata.metadatum.id.publisher">Publisher</message>
+	<message key="obd.metadata.metadatum.id.publishing_place">Place of Publication</message>
+	<message key="obd.metadata.metadatum.id.source_title">Source Document Title</message>
+	<message key="obd.metadata.metadatum.id.source_issn">Source Document ISSN</message>
+	<message key="obd.metadata.metadatum.id.source_volume">Source Document Year</message>
+	<message key="obd.metadata.metadatum.id.source_issue">Source Document Issue</message>
+	<message key="obd.metadata.metadatum.id.source_isbn">Source Document ISBN</message>
+	<message key="obd.metadata.metadatum.id.source_monograph_author_name">Surname and Name of the author of the whole monograph</message>
+	<message key="obd.metadata.metadatum.id.extent">Pagination</message>
+	<message key="obd.metadata.metadatum.id.series">Document Series</message>
+	<message key="obd.metadata.metadatum.id.edition">Document Edition</message>
+	<message key="obd.metadata.metadatum.id.source_eissn">Source Document eISSN</message>
+	<message key="obd.metadata.metadatum.id.id_doi">ID - DOI</message>
+	<message key="obd.metadata.metadatum.id.id_wos">ID - Web of Science (UT WoS)</message>
+	<message key="obd.metadata.metadatum.id.conference_name">Conference Name / Title</message>
+	<message key="obd.metadata.metadatum.id.license_terms">License Terms</message>
+	<message key="obd.metadata.metadatum.id.license_terms_url">License Terms URL</message>
+	<message key="obd.metadata.metadatum.id.license_terms_date_start">License Terms Start Date</message>
+	<message key="obd.metadata.metadatum.id.license_terms_date_end">License Terms End Date</message>
+	<message key="obd.metadata.metadatum.id.availability">Availability</message>
+	<message key="obd.metadata.metadatum.id.file_version">File Version</message>
+	<message key="obd.metadata.metadatum.id.embargo_date_end">Embargo End Date</message>
+	<message key="obd.metadata.metadatum.id.other_output_id_internal">Numeral Document Identification</message>
+	<message key="obd.metadata.metadatum.id.methodology_id_internal">Identification Number</message>
+	<message key="obd.metadata.metadatum.id.methodology_number">Identification Number</message>
+	<message key="obd.metadata.metadatum.id.methodology_parameters_technical">Technical Parameters</message>
+	<message key="obd.metadata.metadatum.id.methodology_parameters_economical">Economic Parameters</message>
+	<message key="obd.metadata.metadatum.id.methodology_date_certified">Certification Date</message>
+	<message key="obd.metadata.metadatum.id.methodology_certification_authority">Certification Authority</message>
+	<message key="obd.metadata.metadatum.id.methodology_usage">Usage</message>
+	<message key="obd.metadata.metadatum.id.extent_total">Extent</message>
+	<message key="obd.metadata.metadatum.id.id_isbn">Document ISBN</message>
+	<message key="obd.metadata.metadatum.id.id_issn">Document ISSN</message>
+	<message key="obd.metadata.metadatum.id.id_eissn">Document eISSN</message>
+	<message key="obd.metadata.metadatum.id.id_scopus">ID - Scopus (EID)</message>
+	<message key="obd.metadata.metadatum.id.id_pubmed">ID - PubMed</message>
+	<message key="obd.metadata.metadatum.id.organizer_name">Event Organizer</message>
+	<!-- END OF: All metadata internal names translations -->
+
+	<!-- OBD METADATA SECTIONS TRANSLATIONS - GENERAL -->
+	<!-- Metadata Sections -->
+	<message key="obd.metadata.section-general-1">Basic Information</message>
+	<message key="obd.metadata.section-general-2">AUTHOR</message>
+	<message key="obd.metadata.section-general-3">EDITOR</message>
+	<message key="obd.metadata.section-general-4">WHOLE MONOGRAPH AUTHOR</message>
+	<message key="obd.metadata.section-general-5">Title</message>
+	<message key="obd.metadata.section-general-6">Financing</message>
+	<message key="obd.metadata.section-general-7">Record Classification</message>
+	<message key="obd.metadata.section-general-9">Specific Information</message>
+	<message key="obd.metadata.section-general-10">Special information for RIV</message>
+	<message key="obd.metadata.section-general-11">Attached Files</message>
+	<!-- END OF: OBD METADATA SECTIONS TRANSLATIONS - GENERAL -->
+
+	<!-- OBD METADATA SECTIONS TRANSLATIONS - FORM SPECIFIC -->
+	<!-- Metadata Sections -->
+	<message key="obd.metadata.section-specific-110-8">Proceedings, journal</message>
+	<message key="obd.metadata.section-specific-73-8">Journal</message>
+	<message key="obd.metadata.section-specific-67-8">Book</message>
+	<message key="obd.metadata.section-specific-63-8">Book</message>
+	<message key="obd.metadata.section-specific-131-8">Book</message>
+	<message key="obd.metadata.section-specific-57-8">Proceedings</message>
+	<message key="obd.metadata.section-specific-106-8">Proceedings</message>
+	<message key="obd.metadata.section-specific-57-9">Conference</message>
+	<message key="obd.metadata.section-specific-110-10">Conference</message>
+	<!-- END OF: OBD METADATA SECTIONS TRANSLATIONS - FORM SPECIFIC -->
+
+	<!-- Metadata Fields - GENERAL -->
+	<message key="obd.metadata.field-date_issued-general">Year</message>
+	<message key="obd.metadata.field-abstract-general">Annotation</message>
+	<message key="obd.metadata.field-language-general">Language</message>
+	<message key="obd.metadata.field-keywords-general">Keywords</message>
+	<message key="obd.metadata.field-keywords-translated-general">English Keywords</message>
+	<message key="obd.metadata.field-title-general">Title</message>
+	<message key="obd.metadata.field-title-translated-general">English Title</message>
+	<message key="obd.metadata.field-research_fields_classification-general">Internal  Research Subject Classification</message>
+	<message key="obd.metadata.field-place_of_publication-general">Place of Publication</message>
+	<message key="obd.metadata.field-source_title-general">Source Title</message>
+	<message key="obd.metadata.field-source_issn-general">ISSN</message>
+	<message key="obd.metadata.field-source_volume-general">Journal Year</message>
+	<message key="obd.metadata.field-source_issue-general">Journal Issue</message>
+	<message key="obd.metadata.field-source_isbn-general">ISBN</message>
+	<message key="obd.metadata.field-extent-general">Pagination</message>
+	<message key="obd.metadata.field-series-general">Series, volume number</message>
+	<message key="obd.metadata.field-edition-general">Edition</message>
+	<message key="obd.metadata.field-source_eissn-general">e-ISSN</message>
+	<message key="obd.metadata.field-id_doi-general">DOI</message>
+	<message key="obd.metadata.field-id_wos-general">UT WOS</message>
+	<message key="obd.metadata.field-conference_name-general">Conference Name</message>
+	<message key="obd.metadata.field-license_terms-general">License Terms</message>
+	<message key="obd.metadata.field-license_terms_url-general">License Terms – URL</message>
+	<message key="obd.metadata.field-license_terms_date_start-general">Valid from:</message>
+	<message key="obd.metadata.field-license_terms_date_end-general">Valid until:</message>
+	<message key="obd.metadata.field-availability-general">Availability</message>
+	<message key="obd.metadata.field-file_version-general">Attachment Type</message>
+	<message key="obd.metadata.field-embargo_date_end-general">Available From</message>
+	<message key="obd.metadata.field-extent_total-general">Extent</message>
+	<message key="obd.metadata.field-id_isbn-general">ISBN</message>
+	<message key="obd.metadata.field-id_issn-general">ISSN</message>
+	<message key="obd.metadata.field-id_eissn-general">eISSN</message>
+	<message key="obd.metadata.field-id_scopus-general">EID of the Record in Scopus</message>
+	<message key="obd.metadata.field-id_pubmed-general">PubMed ID</message>
+	<message key="obd.metadata.field-organizer_name-general">Event Organizer</message>
+	
+	<!-- Metadata Fields - SPECIFIC -->
+	<message key="obd.metadata.field-date_issued-applicable-year">Year of Application</message>
+	<message key="obd.metadata.field-abstract-annotation-description">Annotation / Description</message>
+	<message key="obd.metadata.field-abstract-description">Description</message>
+	<message key="obd.metadata.field-annotation">Annotation</message>
+	<message key="obd.metadata.field-annotation-translated">English Annotation</message>
+	<message key="obd.metadata.field-title-abstract">Title of the Abstract</message>
+	<message key="obd.metadata.field-title-article">Title of the Article</message>
+	<message key="obd.metadata.field-title-chapter">Title of the Book Chapter</message>
+	<message key="obd.metadata.field-title-book">Title of the Book</message>
+	<message key="obd.metadata.field-title-submission">Title of the Submission</message>
+	<message key="obd.metadata.field-title-essay">Title of the Essay</message>
+	<message key="obd.metadata.field-title-translated-article">English Title of the Article</message>
+	<message key="obd.metadata.field-title-translated-chapter">English Title of the Book Chapter</message>
+	<message key="obd.metadata.field-title-translated-book">English Title of the Book</message>
+	<message key="obd.metadata.field-title-translated-submission">English Title of the Submission</message>
+	<message key="obd.metadata.field-title-translated-essay">English Title of the Essay</message>
+	<message key="obd.metadata.field-publisher-periodical">Publisher</message>
+	<message key="obd.metadata.field-publisher-monographic">Publisher</message>
+	<message key="obd.metadata.field-publisher-client">Customer</message>
+	<message key="obd.metadata.field-source_title-journal-proceedings">Title of the Journal/Proceedings</message>
+	<message key="obd.metadata.field-source_title-journal">Title of the Journal</message>
+	<message key="obd.metadata.field-source_title-book">Title of the Book</message>
+	<message key="obd.metadata.field-source_title-proceedings">Title of the Proceedings</message>
+	<message key="obd.metadata.field-series-name">Series Name</message>
+	<message key="obd.metadata.field-series-version-number">Version Number</message>
+	<message key="obd.metadata.field-edition-order-in-series">Order is Series</message>
+	<message key="obd.metadata.field-source_eissn-second-issn">Second ISSN (eISSN)</message>
+	<message key="obd.metadata.field-conference_name-event-name">Event Name / Title</message>
+	<message key="obd.metadata.field-methodology_id_internal">Internal Identification</message>
+	<message key="obd.metadata.field-methodology_number">Document Number</message>
+	<message key="obd.metadata.field-methodology_parameters_technical">Technical Parameters</message>
+	<message key="obd.metadata.field-methodology_parameters_economical">Economic Parameters</message>
+	<message key="obd.metadata.field-methodology_date_certified">Certification Date</message>
+	<message key="obd.metadata.field-methodology_certification_authority">Certification Authority</message>
+	<message key="obd.metadata.field-methodology_usage">Usage</message>
+	<message key="obd.metadata.field-directive_number">Directive Number</message>
+	<message key="obd.metadata.field-extent_total-output">Research Output Extent</message>
+	<message key="obd.metadata.field-id_isbn-ismn">ISBN/ISMN</message>
+	<message key="obd.metadata.field-organizer_name-conference">Conference Organizer</message>
+
+	<message key="xmlui.mirage2.static-pages.metadata.section.intro.para.1">Pro účely uložení a zpřístupnění výsledku v repozitáři publikační činnosti UK vyžadujeme sadu 
+		<b>povinných</b> a tzv. <b>podmíněně povinných</b> popisných údajů. Oba dva typy těchto popisných údajů jsou povinné, ale v případě podmíněně povinných údajů lze při jejich
+		vyplňování (a následné kontrole) brát v potaz, zda daný údaj je možné zjistit či získat pro danou formu výsledku nebo pro aktuální stav publikace výsledku.</message>
+	<message key="xmlui.mirage2.static-pages.metadata.section.intro.para.2">Ne všechny výsledky mohou mít například uvedený identifikátor DOI, 
+		pokud jim byl ale přidělen, je nutné jej vyplnit do příslušné pole formuláře výsledku v modulu OBD IS Věda.</message>
+	<message key="xmlui.mirage2.static-pages.metadata.section.intro.para.3">Rozdíly mezi těmito typy popisných údajů jsou uvedeny v tabulce níže:</message>
+	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.mandatory-metadata.title">povinné údaje</message>
+	<!--<message key="xmlui.mirage2.static-pages.metadata.section.intro.para.2.mandatory-metadata.description.1">
+		pro všechny <a href="https://topi.is.cuni.cz/page/typology" target="_blank">formy výsledků přijímané do repozitáře</a> jsou shodné</message>-->
+	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.mandatory-metadata.description.2"><b>bez uvedení všech těchto údajů</b> ve formuláři výsledku 
+		v modulu OBD IS Věda <b>nebude výsledek schválen</b> k přenosu do repozitáře</message>
+	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.mandatory-if-applicable-metadata.title">podmíněně povinné údaje</message>
+	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.mandatory-if-applicable-metadata.description.1">povinné, pokud jsou k dispozici</message>
+	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.mandatory-if-applicable-metadata.description.2">mohou být specifické pouze pro 
+		určitou <a href="https://topi.is.cuni.cz/page/typology" target="_blank">formu výsledku přijímanou do repozitáře</a>, stav publikování / vydání výsledku, respektive verzi výsledku (preprint, postprint, atp.)</message>
+	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.mandatory-if-applicable-metadata.description.3">pokud je údaj k dispozici / je možné ho zjistit 
+		nebo získat, ale nebude uveden ve formuláři výsledku v modulu OBD IS Věda, <b>výsledek nebude schválen</b> k přenosu do repozitáře</message>
+	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.h2.1">Jaké povinné a podmíněně povinné údaje vyžadujeme?</message>
+	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.1">V seznamech níže jsou uvedeny všechny povinné a podmíněně povinné údaje pro všechny formy 
+		výsledků přijímané do repozitáře. Pro zobrazení dané skupiny popisných údajů klikněte na příslušnou záložku.
+	</message>
+	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.h2.2">Umístění povinných údajů ve formuláři OBD pro jednotlivé formy výsledků</message>
+	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.2">Pro snazší orientaci ve formuláři OBD, jak při jeho vyplňování, tak při následné kontrole, jsme 
+		připravili tabulku poskytující přehled o tom, kde ve formuláři výsledku v OBD se daný údaj pro danou formu vyskytuje. 
+		
+		Pro zobrazení povinných údajů a jejich umístění ve formuláři výsledku v OBD pro danou formu výsledku postupujte následovně:
+	</message>
+	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.2.list.item.1">klikněte na záložku "povinné údaje podle formy",</message>
+	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.2.list.item.2">z rozbalovacího seznamu vyberte formu výsledku a kliněte na ni.</message>
+	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.3">Pod záložkou se následně zobrazí tabulka, ze které se dozvíte, v jaké sekci, 
+		v jakém poli a případně v jakém podpoli formuláře výsledku v OBD máte daný údaj hledat a vyplnit nebo zkontrolovat.</message>
+
+	<message key="xmlui.mirage2.static-pages.metadata.section.optional-metadata.title">Volitelné popisné údaje</message>
+	<message key="xmlui.mirage2.static-pages.metadata.section.optional-metadata.para.1">Kromě povinných a podmíněně povinných popisných údajů výsledku je v modulu OBD IS Věda 
+		možné vyplnit také další, <b>z hlediska uložení a zpřístupnění v repozitáři volitelné</b>, popisné údaje. Vyplnění a správnost těchto nepovinných údajů 
+		není před přijetím výsledku do repozitáře kontrolováno. Vyplnění volitelných údajů ale umožňuje například:
+	</message>
+	<message key="xmlui.mirage2.static-pages.metadata.section.optional-metadata.list.item.1">zobrazovat doplňující informace v náhledu záznamu výsledku v repozitáři</message>
+	<message key="xmlui.mirage2.static-pages.metadata.section.optional-metadata.list.item.2">zvýšit pravděpodobnost vyhledání relevantních výsledku v repozitáři</message>
+	<message key="xmlui.mirage2.static-pages.metadata.section.optional-metadata.list.item.3">generovat bibliografické citace k výsledkům uloženým v repozitáři</message>
+	<message key="xmlui.mirage2.static-pages.metadata.section.optional-metadata.list.item.4">zajišťovat shromažďování dodatečných statistických informací o výsledku uloženém v repozitáři</message>
+	
+	<message key="xmlui.mirage2.static-pages.metadata.dropdown.title.mandatory-metadata-by-form">povinné údaje podle formy</message>
+	<!-- END OF: <JR> - 22-06-16: page/metadata -->
 
 	<!-- <JR> - 22-02-01: page/disclaimer-->
 	<message key="xmlui.mirage2.static-pages.title.disclaimer">Disclaimer</message>
@@ -2924,5 +3131,8 @@
 	<message key="obd.faq.section.repository.heading">Repository</message>
 
 	<!-- END OF: page/faq-->
+
+	<!-- Skip link -->
+	<message key="xmlui.tab.navigation.skip-to-main">Skip to main content</message>
 	
 </catalogue>

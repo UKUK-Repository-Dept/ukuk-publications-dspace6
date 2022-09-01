@@ -106,7 +106,7 @@
 
                                 <div class="row row-offcanvas row-offcanvas-right">
                                     <div class="horizontal-slider clearfix">
-                                        <div class="col-xs-12 col-sm-12 col-md-9 main-content">
+                                        <div id="main-content" class="col-xs-12 col-sm-12 col-md-9 main-content">
                                             <xsl:apply-templates select="*[not(self::dri:options)]"/>
 
                                             <div class="visible-xs visible-sm">
@@ -349,7 +349,28 @@
 
 
         <header>
+            <xsl:variable name="main-content">
+                <xsl:choose>
+                    <xsl:when test="//dri:div[@n='community-home']">
+                        <xsl:text>#aspect_artifactbrowser_CommunityViewer_div_community-view</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="//dri:div[@n='collection-home']">
+                        <xsl:text>#aspect_discovery_CollectionRecentSubmissions_div_collection-recent-submission</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="//dri:div[@n='search']">
+                        <xsl:text>#aspect_discovery_SimpleSearch_div_search-results</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>#main-content</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:variable>
             <div class="navbar navbar-default navbar-static-top" role="navigation">
+                <a tabindex="0" href="{$main-content}" class="main-content-tabber">
+                    <span>
+                        <i18n:text>xmlui.tab.navigation.skip-to-main</i18n:text>
+                    </span>
+                </a>
                 <div class="container">
                     <div class="navbar-header">
 
