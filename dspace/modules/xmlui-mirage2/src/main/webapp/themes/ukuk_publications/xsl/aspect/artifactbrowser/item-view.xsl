@@ -136,7 +136,7 @@
         <xsl:variable name="solrURL">
             <xsl:text>http://localhost:8080/solr/search</xsl:text>
         </xsl:variable>
-        <xsl:apply-templates select="document(concat($solrURL,'/select?q=search.resourcetype%3A2+AND+handle%3A+123456789%2F1393&amp;fl=uk.author.identifier&amp;wt=xml&amp;indent=true'" mode="solrTest"/>
+        <xsl:apply-templates select="document(concat($solrURL,'/select?q=search.resourcetype%3A2+AND+handle%3A+123456789%2F1393&amp;fl=uk.author.identifier&amp;wt=xml&amp;indent=true'))" mode="solrTest"/>
     </xsl:template>
 
     <xsl:template match="*" mode="solrTest">
