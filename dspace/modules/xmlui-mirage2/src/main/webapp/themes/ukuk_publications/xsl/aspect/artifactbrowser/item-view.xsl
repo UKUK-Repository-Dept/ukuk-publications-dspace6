@@ -141,7 +141,7 @@
 
     <xsl:template match="*" mode="solrTest">
         <div class="simple-item-view-solrTest word-break item-page-field-wrapper table">    
-            <xsl:for-each select="/response/doc/arr/str">
+            <xsl:for-each select="/result/doc/arr/str">
             
                 <p><xsl:copy-of select="substring-before(substring-after(., 'orcid_'), '|')"/></p>
             
