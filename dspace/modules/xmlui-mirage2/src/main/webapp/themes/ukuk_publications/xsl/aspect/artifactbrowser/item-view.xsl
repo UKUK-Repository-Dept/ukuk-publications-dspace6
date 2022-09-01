@@ -125,7 +125,6 @@
                 <div class="col-sm-8">
                     <xsl:call-template name="itemSummaryView-DIM-abstract"/>
                     <xsl:call-template name="itemSummaryView-DIM-URI"/>
-                    <xsl:call-template name="itemSummaryView-DIM-provenance"/>
                     <xsl:call-template name="itemSummaryView-collections"/>
                 </div>
             </div>
@@ -283,24 +282,6 @@
                             <xsl:copy-of select="./node()"/>
                         </a>
                         <xsl:if test="count(following-sibling::dim:field[@element='identifier' and @qualifier='uri']) != 0">
-                            <br/>
-                        </xsl:if>
-                    </xsl:for-each>
-                </span>
-            </div>
-        </xsl:if>
-    </xsl:template>
-
-    <xsl:template name="itemSummaryView-DIM-provenance">
-        <xsl:if test="dim:field[@element='identifier' and @qualifier='uri' and descendant::text()]">
-            <div class="simple-item-view-provenance item-page-field-wrapper table">
-                <h5>Provenance</h5>
-                <span>
-                    <xsl:for-each select="dim:field[@element='description' and @qualifier='provenance']">
-                        
-                        <xsl:copy-of select="./node()"/>
-                        
-                        <xsl:if test="count(following-sibling::dim:field[@element='description' and @qualifier='provenance']) != 0">
                             <br/>
                         </xsl:if>
                     </xsl:for-each>
