@@ -59,3 +59,29 @@
     margin-bottom:5px;
   }
 }
+
+// Issue with homepage display being stretched out
+
+.horizontal-slider {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    #main-content, #sidebar {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+// Skip link
+.main-content-tabber, .main-content-tabber:hover {
+	position: absolute;
+	top: 0;
+	left: 0;
+	color: transparent;
+}
+
+.main-content-tabber:focus, .main-content-tabber:active {
+	color: #b72c32;
+}

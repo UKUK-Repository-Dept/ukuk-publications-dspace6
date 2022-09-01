@@ -2787,7 +2787,7 @@
 	<message key="sidebar.menu.about-repo.head">O repozitáři</message>
 	<!-- STATIC PAGES -->
 	<!-- <JR> - 20.1. 2022 - Custom static pages titles -->
-	<message key="xmlui.mirage2.static-pages.title.faq">F.A.Q.</message>
+	<message key="xmlui.mirage2.static-pages.title.faq">FAQ.</message>
 	<message key="xmlui.mirage2.static-pages.title.typology">Akceptované formy výsledků</message>
 	<message key="xmlui.mirage2.static-pages.title.metadata">Povinné popisné údaje</message>
 	<message key="xmlui.mirage2.static-pages.title.disclaimer">Poučení</message>
@@ -2979,7 +2979,7 @@
 	<message key="obd.metadata.metadatum.id.id_eissn">eISSN publikace</message>
 	<message key="obd.metadata.metadatum.id.id_scopus">ID - Scopus (EID)</message>
 	<message key="obd.metadata.metadatum.id.id_pubmed">ID - PubMed</message>
-	<message key="obd.metadata.metadatum.id.organizer_name">Příjmení a jméno osoby s podílem na vzniku dokumentu: Organizátor</message>
+	<message key="obd.metadata.metadatum.id.organizer_name">Organizátor akce</message>
 	<!-- END OF: All metadata internal names translations -->
 
 	<!-- OBD METADATA SECTIONS TRANSLATIONS - GENERAL -->
@@ -3253,4 +3253,7 @@
 		Níže naleznete odpovědi na časté dotazy týkající se ukládání a zpřístupňování plných textů výsledků tvůrčí činnosti UK v tomto repozitáři. 
 	</message>
 	<message key="obd.faq.section.repository.heading">Repozitář</message>
+	<!-- END OF: page/faq -->
+	<!-- Skip link -->
+	<message key="xmlui.tab.navigation.skip-to-main">Přeskočit na obsah</message>
 </catalogue>
