@@ -139,13 +139,14 @@
         <xsl:apply-templates select="document(concat($solrURL,'/select?q=search.resourcetype%3A2+AND+handle%3A+123456789%2F1393&amp;fl=uk.author.identifier&amp;wt=xml&amp;indent=true'))" mode="solrTest"/>
     </xsl:template>
 
-    <xsl:template match="/" mode="solrTest">
-        <xsl:for-each select="/response/doc/arr[@name='uk.author.identifier']/str">
-            <div class="simple-item-view-solrTest word-break item-page-field-wrapper table">
+    <xsl:template match="*" mode="solrTest">
+        <div class="simple-item-view-solrTest word-break item-page-field-wrapper table">    
+            <xsl:for-each select="/response/doc/arr/str">
+            
                 <p><xsl:copy-of select="substring-before(substring-after(., 'orcid_'), '|')"/></p>
-            </div>
-        </xsl:for-each>
-        
+            
+            </xsl:for-each>
+        </div>
     </xsl:template>
 
     <xsl:template name="itemSummaryView-DIM-title">
