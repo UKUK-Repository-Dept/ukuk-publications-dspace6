@@ -125,7 +125,7 @@
                 <div class="col-sm-8">
                     <xsl:call-template name="itemSummaryView-DIM-abstract"/>
                     <xsl:call-template name="itemSummaryView-DIM-URI"/>
-                    <xsl:call-template name="itemSummaryView-DIM-SOLR-test"/>
+                    <!-- <xsl:call-template name="itemSummaryView-DIM-SOLR-test"/> -->
                     <xsl:call-template name="itemSummaryView-collections"/>
                 </div>
             </div>
