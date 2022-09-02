@@ -132,7 +132,8 @@
         </div>
     </xsl:template>
 
-    <xsl:template name="itemSummaryView-DIM-SOLR-test">
+    <!-- <JR> - 2022-09-02 - THIS EXAMPLE WORKS -->
+    <!-- <xsl:template name="itemSummaryView-DIM-SOLR-test">
         <xsl:variable name="solrURL">
             <xsl:text>http://localhost:8080/solr/search</xsl:text>
         </xsl:variable>
@@ -147,7 +148,7 @@
             
             </xsl:for-each>
         </div>
-    </xsl:template>
+    </xsl:template> -->
 
     <xsl:template name="itemSummaryView-DIM-title">
         <xsl:choose>
