@@ -52,5 +52,8 @@
     <xsl:import href="aspect/submission/submission.xsl"/>
     <xsl:output indent="yes"/>
 
+    <xsl:template match="/dri:document/dri:body/dri:div[@id='file.news.div.news'][@n='news']">
+        <h2>Ahoj z theme.xsl</h2>
+    </xsl:template>
 
 </xsl:stylesheet>
