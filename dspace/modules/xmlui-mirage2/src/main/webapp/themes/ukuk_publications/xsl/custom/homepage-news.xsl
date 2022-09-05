@@ -9,7 +9,6 @@
     <xsl:output indent="yes"/>
 
 <xsl:template match="/dri:document/dri:body/dri:div[@id='file.news.div.news'][@n='news']">
-    <h2>Ahoj z homepage-news.xsl</h2>
 </xsl:template>
 
 </xsl:stylesheet>
