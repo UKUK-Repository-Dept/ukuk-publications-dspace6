@@ -204,7 +204,22 @@
     <xsl:template match="dri:metadata[@element='javascript'][@qualifier='static'][text() = 'loadJQuery.js']"/>
 
     <!-- <JR> 21. 1. 2022 - TRAIL TEMPLATES FOR CUSTOM STATIC PAGES -->
-    <!-- F.A.Q. page -->
+    
+        <!-- page/about -->
+    <xsl:template match="dri:pageMeta[dri:metadata[@element = 'request'][@qualifier = 'URI']/text() = 'page/about']">
+        <pageMeta>
+            <xsl:call-template name="copy-attributes"/>
+            <xsl:apply-templates select="*[not(self::dri:trail)]"/>
+            <trail target="{$context-path}/">
+                <i18n:text catalogue="default">xmlui.general.dspace_home</i18n:text>
+            </trail>
+            <trail>
+                <i18n:text>xmlui.mirage2.page-structure.aboutThisRepository</i18n:text>
+            </trail>
+        </pageMeta>
+    </xsl:template>
+    
+    <!-- FAQ page -->
     <xsl:template match="dri:pageMeta[dri:metadata[@element = 'request'][@qualifier = 'URI']/text() = 'page/faq']">
         <pageMeta>
             <xsl:call-template name="copy-attributes"/>
@@ -214,20 +229,6 @@
             </trail>
             <trail>
                 <i18n:text>xmlui.mirage2.static-pages.title.faq</i18n:text>
-            </trail>
-        </pageMeta>
-    </xsl:template>
-
-    <!-- OBD required metadata for publications accepted into repository -->
-    <xsl:template match="dri:pageMeta[dri:metadata[@element = 'request'][@qualifier = 'URI']/text() = 'page/metadata']">
-        <pageMeta>
-            <xsl:call-template name="copy-attributes"/>
-            <xsl:apply-templates select="*[not(self::dri:trail)]"/>
-            <trail target="{$context-path}/">
-                <i18n:text catalogue="default">xmlui.general.dspace_home</i18n:text>
-            </trail>
-            <trail>
-                <i18n:text>xmlui.mirage2.static-pages.title.metadata</i18n:text>
             </trail>
         </pageMeta>
     </xsl:template>
@@ -247,6 +248,21 @@
         </pageMeta>
     </xsl:template>
 
+    <!-- OBD required metadata for publications accepted into repository -->
+    <xsl:template match="dri:pageMeta[dri:metadata[@element = 'request'][@qualifier = 'URI']/text() = 'page/metadata']">
+        <pageMeta>
+            <xsl:call-template name="copy-attributes"/>
+            <xsl:apply-templates select="*[not(self::dri:trail)]"/>
+            <trail target="{$context-path}/">
+                <i18n:text catalogue="default">xmlui.general.dspace_home</i18n:text>
+            </trail>
+            <trail>
+                <i18n:text>xmlui.mirage2.static-pages.title.metadata</i18n:text>
+            </trail>
+        </pageMeta>
+    </xsl:template>
+
+    <!-- page/disclaimer -->
     <xsl:template match="dri:pageMeta[dri:metadata[@element = 'request'][@qualifier = 'URI']/text() = 'page/disclaimer']">
         <pageMeta>
             <xsl:call-template name="copy-attributes"/>
@@ -260,7 +276,8 @@
         </pageMeta>
     </xsl:template>
 
-    <xsl:template match="dri:pageMeta[dri:metadata[@element = 'request'][@qualifier = 'URI']/text() = 'page/disclaimer']">
+    <!-- page/licenses -->
+    <xsl:template match="dri:pageMeta[dri:metadata[@element = 'request'][@qualifier = 'URI']/text() = 'page/licenses']">
         <pageMeta>
             <xsl:call-template name="copy-attributes"/>
             <xsl:apply-templates select="*[not(self::dri:trail)]"/>
