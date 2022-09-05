@@ -3174,8 +3174,9 @@
 
 		<message key="xmlui.mirage2.static-pages.licenses.heading">Licence Creative Commons - základní informace</message>
 		<message key="xmlui.mirage2.static-pages.licenses.general-info.heading">Creative Commons licence obecně</message>
-		<message key="xmlui.mirage2.static-pages.licenses.general-info.text.1">Soubory uložené v repozitáři s některou z licencí Creative Commons jsou v repozitáři otevřeně přístupné (případně otevřeně přístupné po uplynutí určitého
-			času od jejich uložení do repozitáře, tzv. období embarga). Záleží na konkrétní licenci, v jakém rozsahu mohou uživatelé repozitáře příslušný soubor užívat. 
+		<message key="xmlui.mirage2.static-pages.licenses.general-info.text.1">Soubory uložené v repozitáři s některou z licencí 
+			Creative Commons jsou v repozitáři otevřeně přístupné (případně otevřeně přístupné po uplynutí určitého
+			času od jejich uložení do repozitáře, tzv. <i>období embarga</i>). Záleží na konkrétní licenci, v jakém rozsahu mohou uživatelé repozitáře příslušný soubor užívat. 
 			Práva a povinnosti plynoucí z licencí Creative Commons jsou definovány čtyřmi licenčními prvky (<i>BY</i>, <i>SA</i>, <i>ND</i>, <i>NC</i>). 
 			Tyto prvky a jejich kombinace pak tvoří šest variant licencí popsaných níže.
 		</message>
@@ -3191,60 +3192,71 @@
 		<message key="xmlui.mirage2.static-pages.licenses.variants.cc-by.heading">CC BY: Uveďte původ</message>
 		<message key="xmlui.mirage2.static-pages.licenses.variants.cc-by.text">
 			Tato licence je tou nejliberálnější z licencí Creative Commons. Zvolíte-li ji, dáváte tím oprávnění uživatelům k tomu, 
-			aby plný text užívali všemi možnými způsoby (např. překládali, užívali jako součást svých děl, sdíleli, …), 
-			avšak za dodržení podmínky, že při každém takovém užití uvedou následující informace: název díla, jméno autora, 
-			zdroj a licenci, pod kterou byl plný text zpřístupněn. Uvedením těchto informací je splněna podmínka licenčního prvku BY, 
-			který je přítomen u všech variant licencí Creative Commons. Znamená to, že je tyto informace o plném textu musí uživatel uvádět vždy, 
-			když užívá dílo podléhající jedné z licencí Creative Commons. Nemělo by se tak stát, že autorství nebude uvedeno či si ho přisvojí některý z uživatelů.
+			aby plný text užívali všemi možnými způsoby (např. <i>překládali</i>, <i>užívali jako součást svých děl</i>, 
+			<i>sdíleli</i>, …), avšak za dodržení podmínky, že při každém takovém užití uvedou následující informace: 
+			<i>název díla</i>, <i>jméno autora</i>, <i>zdroj</i> a <i>licenci, pod kterou byl plný text zpřístupněn</i>. 
+			Uvedením těchto informací je splněna podmínka licenčního prvku <i>BY</i>, který je přítomen u všech variant licencí 
+			Creative Commons. Znamená to, že je tyto informace o plném textu musí uživatel uvádět vždy, když užívá dílo 
+			podléhající jedné z licencí Creative Commons. Nemělo by se tak stát, že autorství nebude uvedeno či si ho 
+			přisvojí některý z uživatelů.
 		</message>
 		
 		<message key="xmlui.mirage2.static-pages.licenses.variants.cc-by-sa.heading">CC BY-SA: Uveďte původ-Zachovejte licenci</message>
 		<message key="xmlui.mirage2.static-pages.licenses.variants.cc-by-sa.text">
-			Jak bylo zmíněno výše, i tato licence obsahuje prvek BY; při každém užití plného textu zpřístupněného pod touto licencí tedy uživatel musí uvést název díla, 
-			jméno autora, zdroj a licenci. Nadto je zde přítomen licenční prvek SA, který představuje podmínku zachování licence. Znamená to, že pokud uživatel vytvoří 
-			tzv. odvozené dílo (zcela nové dílo, jehož autorem je uživatel, avšak které je založené na původním díle), musí ho v případě sdílení opatřit shodnou licencí, 
-			tj. licencí CC BY-SA (ve verzi stejné nebo novější).
+			Jak bylo zmíněno výše, i tato licence obsahuje prvek <i>BY</i>; při každém užití plného textu zpřístupněného 
+			pod touto licencí tedy uživatel musí uvést <i>název díla</i>, <i>jméno autora</i>, <i>zdroj</i> a <i>licenci</i>. 
+			Nadto je zde přítomen licenční prvek <i>SA</i>, který představuje podmínku zachování licence. Znamená to, 
+			že pokud uživatel vytvoří tzv. <i>odvozené dílo</i> (zcela <i>nové dílo</i>, jehož autorem je uživatel, 
+			avšak které je <i>založené na původním díle</i>), musí ho v případě sdílení opatřit shodnou licencí, 
+			tj. licencí <i>CC BY-SA</i> (ve <i>verzi stejné nebo novější</i>).
 		</message>
 		
 		<message key="xmlui.mirage2.static-pages.licenses.variants.cc-by-nd.heading">CC BY-ND: Uveďte původ-Nezpracovávejte</message>
 		<message key="xmlui.mirage2.static-pages.licenses.variants.cc-by-nd.text">
-			I u této licence je nutné naplnit licenční prvek BY; uživatelé tedy dílo budou moci užít, uvedou-li název díla, jméno autora, zdroj a licenci. 
-			Licenci obsahující licenční prvek ND autor většinou volí, pokud si nepřeje, aby bylo jeho dílo měněno či aby do něj bylo jakkoliv zasahováno. 
+			I u této licence je nutné naplnit licenční prvek <i>BY</i>; uživatelé tedy dílo budou moci užít, 
+			uvedou-li <i>název díla</i>, <i>jméno autora</i>, <i>zdroj</i> a <i>licenci</i>. 
+			Licenci obsahující licenční prvek <i>ND</i> autor většinou volí, pokud si nepřeje, aby bylo jeho dílo měněno či aby do něj bylo jakkoliv zasahováno. 
 			Je-li tedy dílo opatřeno licencí s licenčním prvkem ND, není možné takové dílo zpracovávat, tedy tvořit díla nová, od původního díla odvozená. 
-			Díla opatřená touto licencí tak není možné např. překládat.
+			Díla opatřená touto licencí tak <i>není možné např. překládat</i>.
 		</message>
 		
 		<message key="xmlui.mirage2.static-pages.licenses.variants.cc-by-nc.heading">CC BY-NC: Uveďte původ-Neužívejte komerčně</message>
 		<message key="xmlui.mirage2.static-pages.licenses.variants.cc-by-nc.text">
-			Prvek NC říká, že autor zakazuje komerční využití svého díla. Uživatel tedy dílo může užívat všemi způsoby, pokud z takového užití nebude mít komerční prospěch. 
-			Nadto musí samozřejmě splnit podmínku licenčního prvku BY, tedy uvést název díla, jméno autora, zdroj a licenci.
+			Prvek <i>NC</i> říká, že autor zakazuje komerční využití svého díla. Uživatel tedy dílo může užívat všemi způsoby, 
+			pokud z takového užití <i>nebude mít komerční prospěch</i>. 
+			Nadto musí samozřejmě splnit podmínku licenčního prvku <i>BY</i>, tedy uvést <i>název díla</i>, <i>jméno autora</i>, 
+			<i>zdroj</i> a <i>licenci</i>.
 		</message>
 
 		<message key="xmlui.mirage2.static-pages.licenses.variants.cc-by-nc-sa.heading">CC BY-NC-SA: Uveďte původ-Neužívejte komerčně-Zachovejte licenci</message>
 		<message key="xmlui.mirage2.static-pages.licenses.variants.cc-by-nc-sa.text">
-			Tato licence umožňuje uživatelům užívat dílo všemi způsoby, a to za podmínky, že takové užití nebude komerční. Vytvoří-li uživatel nové (odvozené) dílo, 
-			které bude chtít opatřit licencí, musí zvolit shodnou licenci, tj. CC BY-NC-SA (ve verzi stejné či novější). Samozřejmě i zde musí uživatel při každém užití díla 
-			uvést náležité informace o díle: název díla, jména autora, zdroj a licenci.
+			Tato licence umožňuje uživatelům užívat dílo všemi způsoby, a to za podmínky, že takové užití <i>nebude komerční</i>. 
+			Vytvoří-li uživatel nové (<i>odvozené</i>) dílo, které bude chtít opatřit licencí, musí zvolit shodnou licenci, 
+			tj. <i>CC BY-NC-SA</i> (ve <i>verzi stejné či novější</i>). Samozřejmě i zde musí uživatel při každém užití díla 
+			uvést náležité informace o díle: <i>název díla</i>, <i>jména autora</i>, <i>zdroj</i> a <i>licenci</i>.
 		</message>
 
 		<message key="xmlui.mirage2.static-pages.licenses.variants.cc-by-nc-nd.heading">CC BY-NC-ND: Uveďte původ-Neužívejte komerčně-Nezpracovávejte</message>
 		<message key="xmlui.mirage2.static-pages.licenses.variants.cc-by-nc-nd.text">
-			Tuto licenci volí autoři, kteří si nepřejí, aby bylo jejich dílo jakkoliv zpracováváno či měněno (tedy např. překládáno), ani aby bylo jejich dílo možné komerčně využít. 
-			Opět je zde povinnost uživatele při užití díla uvést název díla, jména autora, zdroj a licenci.
+			Tuto licenci volí autoři, kteří si <i>nepřejí</i>, aby bylo jejich dílo jakkoliv zpracováváno či měněno 
+			(tedy např. <i>překládáno</i>), ani aby bylo jejich dílo možné <i>komerčně využít</i>. 
+			Opět je zde povinnost uživatele při užití díla uvést <i>název díla</i>, <i>jména autora</i>, <i>zdroj</i> a <i>licenci</i>.
 		</message>
 
 		<message key="xmlui.mirage2.static-pages.licenses.versions-adaptations.heading">Verze Creative Commons licence a její národní adaptace</message>
 		<message key="xmlui.mirage2.static-pages.licenses.versions-adaptations.versions.text">
-			Verze licencí jsou značeny číslem; jde o různá znění licencí číslovaných vzestupně dle roku vzniku. Nejstarší verze licencí je verze 1.0 z roku 2002, 
-			nejnovější je verze 4.0 z roku 2013.
+			Verze licencí jsou značeny číslem; jde o různá znění licencí číslovaných vzestupně dle roku vzniku. 
+			Nejstarší verze licencí je verze <i>1.0</i> z roku 2002, nejnovější je verze <i>4.0</i> z roku 2013.
 		</message>
 		<message key="xmlui.mirage2.static-pages.licenses.versions-adaptations.adaptations.text">
-			U licencí ve verzi 3.0 a starší existuje jednak tzv. obecná či generická licence (u verzí 1.0, 2.0 a 2.5 označená jako Generic, 
-			u verze 3.0 jako Unported), jednak několik národních (adaptovaných) znění, tedy znění s obsahovými odchylkami plynoucími z odlišností mezi právními řády 
-			jednotlivých států. Adaptovaná znění licencí jsou značená zkratkou daného státu (např. zkratka AT v licenci CC BY 2.0 AT značí licenci ve verzi 2.0 
-			adaptovanou na rakouský právní řád). U nejnovější verze 4.0 již adaptovaná znění neexistují, neboť je jako jediná z verzí mezinárodní. 
-			Znamená to, že text všech variant licencí ve verzi 4.0 je souladný s právními řády všech států (značí se vždy jako 4.0 International). 
-			Z tohoto důvodu nelze než doporučit zvolení nejnovější mezinárodní verze 4.0. 
+			U licencí ve verzi <i>3.0</i> a starší existuje jednak tzv. <i>obecná či generická</i> licence (u verzí <i>1.0</i>, <i>2.0</i> 
+			a <i>2.5</i> označená jako <i>Generic</i>, u verze <i>3.0</i> jako <i>Unported</i>), jednak několik národních 
+			(adaptovaných) znění, tedy znění s obsahovými odchylkami plynoucími z odlišností mezi právními řády 
+			jednotlivých států. Adaptovaná znění licencí jsou značená zkratkou daného státu (např. zkratka <i>AT</i> v licenci 
+			<i>CC BY 2.0 AT</i> značí licenci ve <i>verzi 2.0 adaptovanou na rakouský právní řád</i>). U nejnovější verze <i>4.0</i> 
+			již adaptovaná znění neexistují, neboť je jako <i>jediná z verzí mezinárodní</i>. Znamená to, že text všech variant 
+			licencí ve <i>verzi 4.0 je souladný s právními řády všech států</i> (značí se vždy jako <i>4.0 International</i>). 
+			Z tohoto důvodu <b>nelze než doporučit</b> zvolení nejnovější mezinárodní verze <i>4.0</i>. 
 		</message>
 		<!-- END OF: page/licenses translations -->
 
