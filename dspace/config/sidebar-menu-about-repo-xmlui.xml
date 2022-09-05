@@ -5,6 +5,9 @@
 		<list id="sidebar.menu.about-repo" n="about-repo">
 			<head><i18n:text>sidebar.menu.about-repo.head</i18n:text></head>
 			<item>
+				<xref target="/page/about"><i18n:text>xmlui.mirage2.page-structure.aboutThisRepository</i18n:text></xref>
+			</item>
+			<item>
 				<xref target="/page/faq"><i18n:text>xmlui.mirage2.static-pages.title.faq</i18n:text></xref>
 			</item>
             <item>
@@ -15,6 +18,9 @@
 			</item>
             <item>
 				<xref target="/page/disclaimer"><i18n:text>xmlui.mirage2.static-pages.title.disclaimer</i18n:text></xref>
+			</item>
+			<item>
+				<xref target="/page/licenses"><i18n:text>xmlui.mirage2.static-pages.title.licenses</i18n:text></xref>
 			</item>
 			<!-- <list id="extra.menu.help.authorhelp" n="authorhelp">
 				<head>For authors</head>
