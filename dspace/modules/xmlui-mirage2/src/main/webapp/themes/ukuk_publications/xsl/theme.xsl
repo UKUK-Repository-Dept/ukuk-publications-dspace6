@@ -50,10 +50,14 @@
     <xsl:import href="aspect/discovery/discovery.xsl"/>
     <xsl:import href="aspect/artifactbrowser/one-offs.xsl"/>
     <xsl:import href="aspect/submission/submission.xsl"/>
+    <!-- <JR> - 2022-09-05 - Trying to import custom homepage-news.xsl, so all related templates could be stored there, 
+        therefore avoiding cluttering main theme.xsl file -->
+    <xsl:import href="custom/homepage-news.xsl"/>
     <xsl:output indent="yes"/>
 
-    <xsl:template match="/dri:document/dri:body/dri:div[@id='file.news.div.news'][@n='news']">
+    <!-- <JR> - 2022-09-05 - THIS WORKS FOR PLAYING WITH NEWS ON HOMEPAGE, WHEN CALLED FROM HERE -->
+    <!-- <xsl:template match="/dri:document/dri:body/dri:div[@id='file.news.div.news'][@n='news']">
         <h2>Ahoj z theme.xsl</h2>
-    </xsl:template>
+    </xsl:template> -->
 
 </xsl:stylesheet>
