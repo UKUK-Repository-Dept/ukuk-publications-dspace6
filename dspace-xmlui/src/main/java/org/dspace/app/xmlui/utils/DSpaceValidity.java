@@ -287,7 +287,6 @@ public class DSpaceValidity implements SourceValidity
             validityKey.append("Item:");
             validityKey.append(item.getHandle());            
             validityKey.append(item.getOwningCollection());
-            validityKey.append(item.getCollections());
             validityKey.append(item.getLastModified());
             // Include all metadata values in the validity key.
             List<MetadataValue> dcvs = itemService.getMetadata(item, Item.ANY, Item.ANY,Item.ANY,Item.ANY);
@@ -330,7 +329,7 @@ public class DSpaceValidity implements SourceValidity
             validityKey.append(bitstream.getDescription());
             validityKey.append(bitstream.getChecksum());
             validityKey.append(bitstream.getChecksumAlgorithm());
-            validityKey.append(bitstream.getSize());
+            validityKey.append(bitstream.getSizeBytes());
             validityKey.append(bitstream.getUserFormatDescription());
             validityKey.append(bitstream.getFormat(context).getDescription());
         }
