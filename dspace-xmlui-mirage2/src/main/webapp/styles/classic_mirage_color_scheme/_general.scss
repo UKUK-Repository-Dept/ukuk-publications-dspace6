@@ -216,11 +216,12 @@ footer {
     background-color: white;
     padding-top: $center-section-padding-top;
     padding-bottom: $center-section-padding-bottom;
-    // Huge padding, and equal negative margin (minus the padding we need) fix the column height
-    @media(min-width: $screen-md-min){
+    // Huge padding, and equal negative margin (minus the padding we need) 
+    // fix the column height
+    /* @media(min-width: $screen-md-min){
         padding-bottom: 99999px;
         margin-bottom: -99999px + $center-section-padding-bottom;
-    }
+    } */
 }
 
 .sidebar-col {

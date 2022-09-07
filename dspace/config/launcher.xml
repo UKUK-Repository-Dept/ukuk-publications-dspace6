@@ -373,4 +373,11 @@
             <class>org.dspace.app.util.Version</class>
         </step>
     </command>
+    <command>
+        <name>map-items</name>
+        <description>map items between collections</description>
+        <step>
+            <class>com.atmire.itemmapper.ParametrizedItemMappingScript</class>
+        </step>
+    </command>
 </commands>

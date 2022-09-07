@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<document xmlns="http://di.tamu.edu/DRI/1.0/" xmlns:i18n="http://apache.org/cocoon/i18n/2.1" version="1.1">
+	<body/>
+	<options>
+		<list id="sidebar.menu.about-repo" n="about-repo">
+			<head><i18n:text>sidebar.menu.about-repo.head</i18n:text></head>
+			<item>
+				<xref target="/page/about"><i18n:text>xmlui.mirage2.page-structure.aboutThisRepository</i18n:text></xref>
+			</item>
+			<item>
+				<xref target="/page/faq"><i18n:text>xmlui.mirage2.static-pages.title.faq</i18n:text></xref>
+			</item>
+            <item>
+				<xref target="/page/typology"><i18n:text>xmlui.mirage2.static-pages.title.typology</i18n:text></xref>
+			</item>
+            <item>
+				<xref target="/page/metadata"><i18n:text>xmlui.mirage2.static-pages.title.metadata</i18n:text></xref>
+			</item>
+            <item>
+				<xref target="/page/disclaimer"><i18n:text>xmlui.mirage2.static-pages.title.disclaimer</i18n:text></xref>
+			</item>
+			<item>
+				<xref target="/page/licenses"><i18n:text>xmlui.mirage2.static-pages.title.licenses</i18n:text></xref>
+			</item>
+			<!-- <list id="extra.menu.help.authorhelp" n="authorhelp">
+				<head>For authors</head>
+				<item>
+					<xref target="(some link)">(some text)</xref>
+				</item>
+			</list> -->
+		</list>
+	</options>
+	<meta/>
+</document>

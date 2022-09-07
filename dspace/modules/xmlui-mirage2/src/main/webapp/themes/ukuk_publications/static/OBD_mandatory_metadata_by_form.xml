@@ -1,0 +1,758 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<forms>
+    <!-- ABSTRAKT -->
+    <form id="110">
+        <metadata type="mandatory">
+            <metadatum id="date_issued" internal_name="Datum (rok) vydání dokumentu" obd_section_id="1" obd_field_id="1" order="1">
+                <meta_info system="false" obd_section_translation="section-general-1" obd_field_translation="field-date_issued-general" valid_for="both" obd_section_name="Základní informace" obd_field_nme="Rok"/>
+            </metadatum>
+            <metadatum id="author_name" internal_name="Příjmení a jméno autora dokumentu" obd_section_id="2" obd_field_id="none" order="2">
+                <meta_info system="false" obd_section_translation="section-general-2" obd_field_translation="section-general-2-none" valid_for="both" obd_section_name="AUTOR" obd_field_name="none"/>
+            </metadatum>
+            <metadatum id="title" internal_name="Název dokumentu" obd_section_id="5" obd_field_id="4" order="7">
+                <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-title-abstract" valid_for="both" obd_section_name="Tituly" obd_field_name="Název abstraktu"/>
+            </metadatum>
+            <metadatum id="license_terms" internal_name="Licenční podmínky" obd_section_id="11" obd_field_id="1" order="28">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-license_terms-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Licence"/>
+            </metadatum>
+            <metadatum id="availability" internal_name="Dostupnost výsledku v repozitáři" obd_section_id="11" obd_field_id="5" order="32">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-availability-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Dostupnost"/>
+            </metadatum>
+            <metadatum id="file_version" internal_name="Verze souboru" obd_section_id="11" obd_field_id="6" order="33">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-file_version-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Typ přílohy"/>
+            </metadatum>
+        </metadata>
+        <metadata type="mandatory-if-applicable">
+            <metadatum id="coauthor_name" internal_name="Příjmení a jméno spoluautora" obd_section_id="2" obd_field_id="none" order="3">
+                <meta_info system="false" obd_section_translation="section-general-2" obd_field_translation="section-general-2-none" valid_for="both" obd_section_name="AUTOR" obd_field_name="none"/>
+            </metadatum>
+            <metadatum id="editor_name" internal_name="Příjmení a jméno editora" obd_section_id="3" obd_field_id="none" order="3">
+                <meta_info system="false" obd_section_translation="section-general-3" obd_field_translation="section-general-3-none" valid_for="both" obd_section_name="EDITOR" obd_field_name="none"/>
+            </metadatum>
+            <metadatum id="abstract" internal_name="Anotace / abstrakt / popis výsledku" obd_section_id="5" obd_field_id="1" order="4">
+                <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-abstract-annotation-description" valid_for="both" obd_section_name="Tituly" obd_field_name="Anotace / popis"/>
+            </metadatum>
+            <metadatum id="language" internal_name="Jazyk dokumentu (OBD pošle pouze ISO kód)" obd_section_id="5" obd_field_id="2" order="5">
+                <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-language-general" valid_for="both" obd_section_name="Tituly" obd_field_name="Jazyk"/>
+            </metadatum>
+            <metadatum id="keywords" internal_name="Klíčová slova" obd_section_id="5" obd_field_id="3" order="6">
+                <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-keywords-general" valid_for="both" obd_section_name="Tituly" obd_field_name="Klíčová slova"/>
+            </metadatum>
+            <metadatum id="financing_source" internal_name="Zdroj financování" obd_section_id="6" obd_field_id="none" order="11">
+                <meta_info system="false" obd_section_translation="section-general-6" obd_field_translation="section-general-6-none" valid_for="both" obd_section_name="Způsob financování" obd_field_name="none"/>
+            </metadatum>
+            <metadatum id="research_field_primary" internal_name="Vědní obor hlavní" obd_section_id="7" obd_field_id="1" order="12">
+                <meta_info system="false" obd_section_translation="section-general-7" obd_field_translation="field-research_fields_classification-general" valid_for="both" obd_section_name="Klasifikace záznamu" obd_field_name="Vnitřní klasifikace vědních oborů UK"/>
+            </metadatum>
+            <metadatum id="research_field_secondary" internal_name="Vědní obor vedlejší" obd_section_id="7" obd_field_id="1" order="13">
+                <meta_info system="false" obd_section_translation="section-general-7" obd_field_translation="field-research_fields_classification-general" valid_for="both" obd_section_name="Klasifikace záznamu" obd_field_name="Vnitřní klasifikace vědních oborů UK"/>
+            </metadatum>
+            <metadatum id="publisher" internal_name="Vydavatel" obd_section_id="8" obd_field_id="1" order="25">
+                <meta_info system="false" obd_section_translation="section-specific-110-8" obd_field_translation="field-publisher-periodical" valid_for="published" obd_section_name="Sborník, časopis" obd_field_name="Vydavatel"/>
+            </metadatum>
+            <metadatum id="id_doi" internal_name="ID - DOI" obd_section_id="9" obd_field_id="1" order="26">
+                <meta_info system="false" obd_section_translation="section-general-9" obd_field_translation="field-id_doi-general" valid_for="published" obd_section_name="Specifické informace" obd_field_name="DOI"/>
+            </metadatum>
+            <metadatum id="license_terms_url" internal_name="Odkaz na podmínky k užití díla" obd_section_id="11" obd_field_id="2" order="29">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-license_terms_url-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Licence – URL"/>
+            </metadatum>
+            <metadatum id="embargo_date_end" internal_name="Datum konce embarga" obd_section_id="11" obd_field_id="7" order="34">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-embargo_date_end-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Datum zveřejnění"/>
+            </metadatum>
+        </metadata>
+    </form>
+    <!-- ČLÁNEK V ČASOPISU -->
+    <form id="73">
+        <metadata type="mandatory">
+            <metadatum id="date_issued" internal_name="Datum (rok) vydání dokumentu" obd_section_id="1" obd_field_id="1" order="1">
+                <meta_info system="false" obd_section_translation="section-general-1" obd_field_translation="field-date_issued-general" valid_for="both" obd_section_name="Základní informace" obd_field_name="Rok"/>
+            </metadatum>
+            <metadatum id="author_name" internal_name="Příjmení a jméno autora dokumentu" obd_section_id="2" obd_field_id="none" order="2">
+                <meta_info system="false" obd_section_translation="section-general-2" obd_field_translation="section-general-2-none" valid_for="both" obd_section_name="AUTOR" obd_field_name="none"/>
+            </metadatum>
+            <metadatum id="title" internal_name="Název dokumentu" obd_section_id="5" obd_field_id="2" order="4">
+                <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-title-article" valid_for="both" obd_section_name="Tituly" obd_field_name="Název článku"/>
+            </metadatum>
+            <metadatum id="license_terms" internal_name="Licenční podmínky" obd_section_id="11" obd_field_id="1" order="22">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-license_terms-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Licence"/>
+            </metadatum>
+            <metadatum id="availability" internal_name="Dostupnost výsledku v repozitáři" obd_section_id="11" obd_field_id="5" order="26">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-availability-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Dostupnost"/>
+            </metadatum>
+            <metadatum id="file_version" internal_name="Verze souboru" obd_section_id="11" obd_field_id="6" order="27">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-file_version-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Typ přílohy"/>
+            </metadatum>
+        </metadata>
+        <metadata type="mandatory-if-applicable">
+            <metadatum id="coauthor_name" internal_name="Příjmení a jméno spoluautora" obd_section_id="2" obd_field_id="none" order="3">
+                <meta_info system="false" obd_section_translation="section-general-2" obd_field_translation="section-general-2-none" valid_for="both" obd_section_name="AUTOR" obd_field_name="none"/>
+            </metadatum>
+            <metadatum id="editor_name" internal_name="Příjmení a jméno osoby s podílem na vzniku dokumentu: Editor dokumentu" obd_section_id="3" obd_field_id="none" order="3">
+                <meta_info system="false" obd_section_translation="section-general-3" obd_field_translation="section-general-3-none" valid_for="both" obd_section_name="EDITOR" obd_field_name="none"/>
+            </metadatum>
+            <metadatum id="language" internal_name="Jazyk dokumentu (OBD pošle pouze ISO kód)" obd_section_id="5" obd_field_id="1" order="3">
+                <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-language-general" valid_for="both" obd_section_name="Tituly" obd_field_name="Jazyk"/>
+            </metadatum>
+            <metadatum id="abstract" internal_name="Anotace / abstrakt / popis výsledku" obd_section_id="5" obd_field_id="3" order="5">
+                <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-annotation" valid_for="both" obd_section_name="Tituly" obd_field_name="Anotace"/>
+            </metadatum>
+            <metadatum id="keywords" internal_name="Klíčová slova" obd_section_id="5" obd_field_id="4" order="6">
+                <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-keywords-general" valid_for="both" obd_section_name="Tituly" obd_field_name="Klíčová slova"/>
+            </metadatum>
+            <metadatum id="financing_source" internal_name="Zdroj financování" obd_section_id="6" obd_field_id="none" order="9">
+                <meta_info system="false" obd_section_translation="section-general-6" obd_field_translation="section-general-6-none" valid_for="both" obd_section_name="Způsob financování" obd_field_name="none"/>
+            </metadatum>
+            <metadatum id="research_field_primary" internal_name="Vědní obor hlavní" obd_section_id="7" obd_field_id="1" order="10">
+                <meta_info system="false" obd_section_translation="section-general-7" obd_field_translation="field-research_fields_classification-general" valid_for="both" obd_section_name="Klasifikace záznamu" obd_field_name="Vnitřní klasifikace vědních oborů UK"/>
+            </metadatum>
+            <metadatum id="research_field_secondary" internal_name="Vědní obor vedlejší" obd_section_id="7" obd_field_id="1" order="11">
+                <meta_info system="false" obd_section_translation="section-general-7" obd_field_translation="field-research_fields_classification-general" valid_for="both" obd_section_name="Klasifikace záznamu" obd_field_name="Vnitřní klasifikace vědních oborů UK"/>
+            </metadatum>
+            <metadatum id="id_doi" internal_name="ID - DOI" obd_section_id="10" obd_field_id="1" order="18">
+                <meta_info system="false" obd_section_translation="section-general-10" obd_field_translation="field-id_doi-general" valid_for="published" obd_section_name="Zvláštní údaje pro RIV" obd_field_name="DOI"/>
+            </metadatum>
+            <metadatum id="license_terms_url" internal_name="Odkaz na podmínky k užití díla" obd_section_id="11" obd_field_id="2" order="29">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-license_terms_url-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Licence – URL"/>
+            </metadatum>
+            <metadatum id="embargo_date_end" internal_name="Datum konce embarga" obd_section_id="11" obd_field_id="7" order="28">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-embargo_date_end-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Datum zveřejnění"/>
+            </metadatum>
+        </metadata>
+    </form>
+    <!-- FSV: working paper -->
+    <form id="117">
+        <metadata type="mandatory">
+            <metadatum id="date_issued" internal_name="Datum (rok) vydání dokumentu" obd_section_id="1" obd_field_id="1" order="1">
+                <meta_info system="false" obd_section_translation="section-general-1" obd_field_translation="field-date_issued-general" valid_for="both" obd_section_name="Základní informace" obd_field_name="Rok"/>
+            </metadatum>
+            <metadatum id="author_name" internal_name="Příjmení a jméno autora dokumentu" obd_section_id="2" obd_field_id="none" order="2">
+                <meta_info system="false" obd_section_translation="section-general-2" obd_field_translation="section-general-2-none" valid_for="both" obd_section_name="AUTOR" obd_field_name="none"/>
+            </metadatum>
+            <metadatum id="title" internal_name="Název dokumentu" obd_section_id="5" obd_field_id="4" order="6">
+                <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-title-general" valid_for="both" obd_section_name="Tituly" obd_field_name="Název"/>
+            </metadatum>
+            <metadatum id="license_terms" internal_name="Licenční podmínky" obd_section_id="11" obd_field_id="1" order="17">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-license_terms-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Licence"/>
+            </metadatum>
+            <metadatum id="availability" internal_name="Dostupnost výsledku v repozitáři" obd_section_id="11" obd_field_id="5" order="21">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-availability-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Dostupnost"/>
+            </metadatum>
+            <metadatum id="file_version" internal_name="Verze souboru" obd_section_id="11" obd_field_id="6" order="22">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-file_version-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Typ přílohy"/>
+            </metadatum>
+        </metadata>
+        <metadata type="mandatory-if-applicable">
+            <metadatum id="coauthor_name" internal_name="Příjmení a jméno spoluautora" obd_section_id="2" obd_field_id="none" order="3">
+                <meta_info system="false" obd_section_translation="section-general-2" obd_field_translation="section-general-2-none" valid_for="both" obd_section_name="AUTOR" obd_field_name="none"/>
+            </metadatum>
+            <metadatum id="language" internal_name="Jazyk dokumentu" obd_section_id="5" obd_field_id="2" order="4">
+                <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-language-general" valid_for="both" obd_section_name="Tituly" obd_field_name="Jazyk"/>
+            </metadatum>
+            <metadatum id="abstract" internal_name="Anotace / abstrakt / popis výsledku" obd_section_id="5" obd_field_id="1" order="3">
+                <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-abstract-annotation-description" valid_for="both" obd_section_name="Tituly" obd_field_name="Anotace / popis"/>
+            </metadatum>
+            <metadatum id="keywords" internal_name="Klíčová slova" obd_section_id="5" obd_field_id="3" order="5">
+                <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-keywords-general" valid_for="both" obd_section_name="Tituly" obd_field_name="Klíčová slova"/>
+            </metadatum>
+            <metadatum id="financing_source" internal_name="Zdroj financování" obd_section_id="6" obd_field_id="none" order="8">
+                <meta_info system="false" obd_section_translation="section-general-6" obd_field_translation="section-general-6-none" valid_for="both" obd_section_name="Způsob financování" obd_field_name="none"/>
+            </metadatum>
+            <metadatum id="research_field_primary" internal_name="Vědní obor hlavní" obd_section_id="7" obd_field_id="1" order="9">
+                <meta_info system="false" obd_section_translation="section-general-7" obd_field_translation="field-research_fields_classification-general" valid_for="both" obd_section_name="Klasifikace záznamu" obd_field_name="Vnitřní klasifikace vědních oborů UK"/>
+            </metadatum>
+            <metadatum id="research_field_secondary" internal_name="Vědní obor vedlejší" obd_section_id="7" obd_field_id="1" order="10">
+                <meta_info system="false" obd_section_translation="section-general-7" obd_field_translation="field-research_fields_classification-general" valid_for="both" obd_section_name="Klasifikace záznamu" obd_field_name="Vnitřní klasifikace vědních oborů UK"/>
+            </metadatum>
+            <metadatum id="publisher" internal_name="Vydavatel" obd_section_id="9" obd_field_id="1" order="11">
+                <meta_info system="false" obd_section_translation="section-general-9" obd_field_translation="field-publisher-monographic" valid_for="published" obd_section_name="Specifické informace" obd_field_name="Nakladatel"/>
+            </metadatum>
+            <metadatum id="id_doi" internal_name="ID - DOI" obd_section_id="10" obd_field_id="1" order="16">
+                <meta_info system="false" obd_section_translation="section-general-10" obd_field_translation="field-id_doi-general" valid_for="published" obd_section_name="Zvláštní údaje pro RIV" obd_field_name="DOI"/>
+            </metadatum>
+            <metadatum id="license_terms_url" internal_name="Odkaz na podmínky k užití díla" obd_section_id="11" obd_field_id="2" order="29">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-license_terms_url-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Licence – URL"/>
+            </metadatum>
+            <metadatum id="embargo_date_end" internal_name="Datum konce embarga" obd_section_id="11" obd_field_id="7" order="23">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-embargo_date_end-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Datum zveřejnění"/>
+            </metadatum>
+        </metadata>
+    </form>
+    <!-- JINÝ VÝSLEDEK -->
+    <form id="121">
+        <metadata type="mandatory">
+            <metadatum id="date_issued" internal_name="Datum (rok) vydání dokumentu" obd_section_id="1" obd_field_id="1" order="1">
+                <meta_info system="false" obd_section_translation="section-general-1" obd_field_translation="field-date_issued-general" valid_for="both" obd_section_name="Základní informace" obd_field_name="Rok"/>
+            </metadatum>
+            <metadatum id="author_name" internal_name="Příjmení a jméno autora dokumentu" obd_section_id="2" obd_field_id="none" order="2">
+                <meta_info system="false" obd_section_translation="section-general-2" obd_field_translation="section-general-2-none" valid_for="both" obd_section_name="AUTOR" obd_field_name="none"/>
+            </metadatum>
+            <metadatum id="title" internal_name="Název dokumentu" obd_section_id="5" obd_field_id="4" order="7">
+                <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-title-general" valid_for="both" obd_section_name="Tituly" obd_field_name="Název"/>
+            </metadatum>
+            <metadatum id="license_terms" internal_name="Licenční podmínky" obd_section_id="11" obd_field_id="1" order="23">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-license_terms-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Licence"/>
+            </metadatum>
+            <metadatum id="availability" internal_name="Dostupnost výsledku v repozitáři" obd_section_id="11" obd_field_id="5" order="27">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-availability-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Dostupnost"/>
+            </metadatum>
+            <metadatum id="file_version" internal_name="Verze souboru" obd_section_id="11" obd_field_id="6" order="28">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-file_version-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Typ přílohy"/>
+            </metadatum>
+        </metadata>
+        <metadata type="mandatory-if-applicable">
+            <metadatum id="coauthor_name" internal_name="Příjmení a jméno spoluautora" obd_section_id="2" obd_field_id="none" order="3">
+                <meta_info system="false" obd_section_translation="section-general-2" obd_field_translation="section-general-2-none" valid_for="both" obd_section_name="AUTOR" obd_field_name="none"/>
+            </metadatum>
+            <metadatum id="editor_name" internal_name="Příjmení a jméno osoby s podílem na vzniku dokumentu: Editor dokumentu" obd_section_id="3" obd_field_id="none" order="3">
+                <meta_info system="false" obd_section_translation="section-general-3" obd_field_translation="section-general-3-none" valid_for="both" obd_section_name="EDITOR" obd_field_name="none"/>
+            </metadatum>
+            <metadatum id="language" internal_name="Jazyk dokumentu" obd_section_id="5" obd_field_id="2" order="5">
+                <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-language-general" valid_for="both" obd_section_name="Tituly" obd_field_name="Jazyk"/>
+            </metadatum>
+            <metadatum id="abstract" internal_name="Anotace / abstrakt / popis výsledku" obd_section_id="5" obd_field_id="1" order="4">
+                <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-abstract-annotation-description" valid_for="both" obd_section_name="Tituly" obd_field_name="Anotace / popis"/>
+            </metadatum>
+            <metadatum id="keywords" internal_name="Klíčová slova" obd_section_id="5" obd_field_id="3" order="6">
+                <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-keywords-general" valid_for="both" obd_section_name="Tituly" obd_field_name="Klíčová slova"/>
+            </metadatum>
+            <metadatum id="financing_source" internal_name="Zdroj financování" obd_section_id="6" obd_field_id="none" order="9">
+                <meta_info system="false" obd_section_translation="section-general-6" obd_field_translation="section-general-6-none" valid_for="both" obd_section_name="Způsob financování" obd_field_name="none"/>
+            </metadatum>
+            <metadatum id="research_field_primary" internal_name="Vědní obor hlavní" obd_section_id="7" obd_field_id="1" order="10">
+                <meta_info system="false" obd_section_translation="section-general-7" obd_field_translation="field-research_fields_classification-general" valid_for="both" obd_section_name="Klasifikace záznamu" obd_field_name="Vnitřní klasifikace vědních oborů UK"/>
+            </metadatum>
+            <metadatum id="research_field_secondary" internal_name="Vědní obor vedlejší" obd_section_id="7" obd_field_id="1" order="11">
+                <meta_info system="false" obd_section_translation="section-general-7" obd_field_translation="field-research_fields_classification-general" valid_for="both" obd_section_name="Klasifikace záznamu" obd_field_name="Vnitřní klasifikace vědních oborů UK"/>
+            </metadatum>
+            <metadatum id="publisher" internal_name="Vydavatel" obd_section_id="10" obd_field_id="1" order="13">
+                <meta_info system="false" obd_section_translation="section-general-10" obd_field_translation="field-publisher-periodical" valid_for="published" obd_section_name="Zvláštní údaje pro RIV" obd_field_name="Vydavatel"/>
+            </metadatum>
+            <metadatum id="id_doi" internal_name="ID - DOI" obd_section_id="9" obd_field_id="1" order="12">
+                <meta_info system="false" obd_section_translation="section-general-9" obd_field_translation="field-id_doi-general" valid_for="published" obd_section_name="Specifické informace" obd_field_name="DOI"/>
+            </metadatum>
+            <metadatum id="license_terms_url" internal_name="Odkaz na podmínky k užití díla" obd_section_id="11" obd_field_id="2" order="29">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-license_terms_url-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Licence – URL"/>
+            </metadatum>
+            <metadatum id="embargo_date_end" internal_name="Datum konce embarga" obd_section_id="11" obd_field_id="7" order="29">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-embargo_date_end-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Datum zveřejnění"/>
+            </metadatum>
+        </metadata>
+    </form>
+    <!-- KAPITOLA V KNIZE -->
+    <form id="67">
+        <metadata type="mandatory">
+            <metadatum id="date_issued" internal_name="Datum (rok) vydání dokumentu" obd_section_id="1" obd_field_id="1" order="1">
+                <meta_info system="false" obd_section_translation="section-general-1" obd_field_translation="field-date_issued-general" valid_for="both" obd_section_name="Základní informace" obd_field_name="Rok"/>
+            </metadatum>
+            <metadatum id="author_name" internal_name="Příjmení a jméno autora dokumentu" obd_section_id="2" obd_field_id="none" order="2">
+                <meta_info system="false" obd_section_translation="section-general-2" obd_field_translation="section-general-2-none" valid_for="both" obd_section_name="AUTOR" obd_field_name="none"/>
+            </metadatum>
+            <metadatum id="title" internal_name="Název dokumentu" obd_section_id="5" obd_field_id="4" order="8">
+                <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-title-chapter" valid_for="both" obd_section_name="Tituly" obd_field_name="Název kapitoly"/>
+            </metadatum>
+            <metadatum id="license_terms" internal_name="Licenční podmínky" obd_section_id="11" obd_field_id="1" order="25">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-license_terms-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Licence"/>
+            </metadatum>
+            <metadatum id="availability" internal_name="Dostupnost výsledku v repozitáři" obd_section_id="11" obd_field_id="5" order="29">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-availability-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Dostupnost"/>
+            </metadatum>
+            <metadatum id="file_version" internal_name="Verze souboru" obd_section_id="11" obd_field_id="6" order="30">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-file_version-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Typ přílohy"/>
+            </metadatum>
+        </metadata>
+        <metadata type="mandatory-if-applicable">
+            <metadatum id="coauthor_name" internal_name="Příjmení a jméno spoluautora" obd_section_id="2" obd_field_id="none" order="3">
+                <meta_info system="false" obd_section_translation="section-general-2" obd_field_translation="section-general-2-none" valid_for="both" obd_section_name="AUTOR" obd_field_name="none"/>
+            </metadatum>
+            <metadatum id="editor_name" internal_name="Příjmení a jméno osoby s podílem na vzniku dokumentu: Editor dokumentu" obd_section_id="3" obd_field_id="none" order="3">
+                <meta_info system="false" obd_section_translation="section-general-3" obd_field_translation="section-general-3-none" valid_for="published" obd_section_name="EDITOR" obd_field_name="none"/>
+            </metadatum>
+            <metadatum id="source_monograph_author_name" internal_name="Příjmení a jméno osoby s podílem na vzniku dokumentu - autor celé monografie" obd_section_id="4" obd_field_id="none" order="4">
+                <meta_info system="false" obd_section_translation="section-general-4" obd_field_translation="section-general-4-none" valid_for="both" obd_section_name="AUTOR CELÉ MONOGRAFIE" obd_field_name="none"/>
+            </metadatum>
+            <metadatum id="language" internal_name="Jazyk dokumentu" obd_section_id="5" obd_field_id="2" order="6">
+                <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-language-general" valid_for="both" obd_section_name="Tituly" obd_field_name="Jazyk"/>
+            </metadatum>
+            <metadatum id="abstract" internal_name="Anotace / abstrakt / popis výsledku" obd_section_id="5" obd_field_id="1" order="5">
+                <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-abstract-general" valid_for="both" obd_section_name="Tituly" obd_field_name="Anotace"/>
+            </metadatum>
+            <metadatum id="keywords" internal_name="Klíčová slova" obd_section_id="5" obd_field_id="3" order="7">
+                <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-keywords-general" valid_for="both" obd_section_name="Tituly" obd_field_name="Klíčová slova"/>
+            </metadatum>
+            <metadatum id="financing_source" internal_name="Zdroj financování" obd_section_id="6" obd_field_id="none" order="10">
+                <meta_info system="false" obd_section_translation="section-general-6" obd_field_translation="section-general-6-none" valid_for="both" obd_section_name="Způsob financování" obd_field_name="none"/>
+            </metadatum>
+            <metadatum id="research_field_primary" internal_name="Vědní obor hlavní" obd_section_id="7" obd_field_id="1" order="11">
+                <meta_info system="false" obd_section_translation="section-general-7" obd_field_translation="field-research_fields_classification-general" valid_for="both" obd_section_name="Klasifikace záznamu" obd_field_name="Vnitřní klasifikace vědních oborů UK"/>
+            </metadatum>
+            <metadatum id="research_field_secondary" internal_name="Vědní obor vedlejší" obd_section_id="7" obd_field_id="1" order="12">
+                <meta_info system="false" obd_section_translation="section-general-7" obd_field_translation="field-research_fields_classification-general" valid_for="both" obd_section_name="Klasifikace záznamu" obd_field_name="Vnitřní klasifikace vědních oborů UK"/>
+            </metadatum>
+            <metadatum id="publisher" internal_name="Vydavatel" obd_section_id="8" obd_field_id="1" order="13">
+                <meta_info system="false" obd_section_translation="section-specific-67-8" obd_field_translation="field-publisher-monographic" valid_for="published" obd_section_name="Kniha" obd_field_name="Nakladatel"/>
+            </metadatum>
+            <metadatum id="id_doi" internal_name="ID - DOI" obd_section_id="10" obd_field_id="1" order="22">
+                <meta_info system="false" obd_section_translation="section-general-10" obd_field_translation="field-id_doi-general" valid_for="published" obd_section_name="Zvláštní údaje pro RIV" obd_field_name="DOI"/>
+            </metadatum>
+            <metadatum id="license_terms_url" internal_name="Odkaz na podmínky k užití díla" obd_section_id="11" obd_field_id="2" order="29">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-license_terms_url-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Licence – URL"/>
+            </metadatum>
+            <metadatum id="embargo_date_end" internal_name="Datum konce embarga" obd_section_id="11" obd_field_id="7" order="31">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-embargo_date_end-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Datum zveřejnění"/>
+            </metadatum>
+        </metadata>
+    </form>
+    <!-- KNIHA -->
+    <form id="63">
+        <metadata type="mandatory">
+            <metadatum id="date_issued" internal_name="Datum (rok) vydání dokumentu" obd_section_id="1" obd_field_id="1" order="1">
+                <meta_info system="false" obd_section_translation="section-general-1" obd_field_translation="field-date_issued-general" valid_for="both" obd_section_name="Základní informace" obd_field_name="Rok"/>
+            </metadatum>
+            <metadatum id="author_name" internal_name="Příjmení a jméno autora dokumentu" obd_section_id="2" obd_field_id="none" order="2">
+                <meta_info system="false" obd_section_translation="section-general-2" obd_field_translation="section-general-2-none" valid_for="both" obd_section_name="AUTOR" obd_field_name="none"/>
+            </metadatum>
+            <metadatum id="title" internal_name="Název dokumentu" obd_section_id="5" obd_field_id="4" order="7">
+                <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-title-book" valid_for="both" obd_section_name="Tituly" obd_field_name="Název knihy"/>
+            </metadatum>
+            <metadatum id="license_terms" internal_name="Licenční podmínky" obd_section_id="11" obd_field_id="1" order="21">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-license_terms-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Licence"/>
+            </metadatum>
+            <metadatum id="availability" internal_name="Dostupnost výsledku v repozitáři" obd_section_id="11" obd_field_id="5" order="25">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-availability-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Dostupnost"/>
+            </metadatum>
+            <metadatum id="file_version" internal_name="Verze souboru" obd_section_id="11" obd_field_id="6" order="26">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-file_version-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Typ přílohy"/>
+            </metadatum>
+        </metadata>
+        <metadata type="mandatory-if-applicable">
+            <metadatum id="coauthor_name" internal_name="Příjmení a jméno spoluautora" obd_section_id="2" obd_field_id="none" order="3">
+                <meta_info system="false" obd_section_translation="section-general-2" obd_field_translation="section-general-2-none" valid_for="both" obd_section_name="AUTOR" obd_field_name="none"/>
+            </metadatum>
+            <metadatum id="editor_name" internal_name="Příjmení a jméno osoby s podílem na vzniku dokumentu: Editor dokumentu" obd_section_id="3" obd_field_id="none" order="3">
+                <meta_info system="false" obd_section_translation="section-general-3" obd_field_translation="section-general-3-none" valid_for="published" obd_section_name="EDITOR" obd_field_name="none"/>
+            </metadatum>
+            <metadatum id="language" internal_name="Jazyk dokumentu" obd_section_id="5" obd_field_id="2" order="5">
+                <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-language-general" valid_for="both" obd_section_name="Tituly" obd_field_name="Jazyk"/>
+            </metadatum>
+            <metadatum id="abstract" internal_name="Anotace / abstrakt / popis výsledku" obd_section_id="5" obd_field_id="1" order="4">
+                <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-abstract-general" valid_for="both" obd_section_name="Tituly" obd_field_name="Anotace"/>
+            </metadatum>
+            <metadatum id="keywords" internal_name="Klíčová slova" obd_section_id="5" obd_field_id="3" order="6">
+                <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-keywords-general" valid_for="both" obd_section_name="Tituly" obd_field_name="Klíčová slova"/>
+            </metadatum>
+            <metadatum id="financing_source" internal_name="Zdroj financování" obd_section_id="6" obd_field_id="none" order="9">
+                <meta_info system="false" obd_section_translation="section-general-6" obd_field_translation="section-general-6-none" valid_for="both" obd_section_name="Způsob financování" obd_field_name="none"/>
+            </metadatum>
+            <metadatum id="research_field_primary" internal_name="Vědní obor hlavní" obd_section_id="7" obd_field_id="1" order="10">
+                <meta_info system="false" obd_section_translation="section-general-7" obd_field_translation="field-research_fields_classification-general" valid_for="both" obd_section_name="Klasifikace záznamu" obd_field_name="Vnitřní klasifikace vědních oborů UK"/>
+            </metadatum>
+            <metadatum id="research_field_secondary" internal_name="Vědní obor vedlejší" obd_section_id="7" obd_field_id="1" order="11">
+                <meta_info system="false" obd_section_translation="section-general-7" obd_field_translation="field-research_fields_classification-general" valid_for="both" obd_section_name="Klasifikace záznamu" obd_field_name="Vnitřní klasifikace vědních oborů UK"/>
+            </metadatum>
+            <metadatum id="publisher" internal_name="Vydavatel" obd_section_id="8" obd_field_id="1" order="12">
+                <meta_info system="false" obd_section_translation="section-specific-63-8" obd_field_translation="field-publisher-monographic" valid_for="published" obd_section_name="Kniha" obd_field_name="Nakladatel"/>
+            </metadatum>
+            <metadatum id="id_doi" internal_name="ID - DOI" obd_section_id="10" obd_field_id="1" order="18">
+                <meta_info system="false" obd_section_translation="section-general-10" obd_field_translation="field-id_doi-general" valid_for="published" obd_section_name="Zvláštní údaje pro RIV" obd_field_name="DOI"/>
+            </metadatum>
+            <metadatum id="license_terms_url" internal_name="Odkaz na podmínky k užití díla" obd_section_id="11" obd_field_id="2" order="29">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-license_terms_url-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Licence – URL"/>
+            </metadatum>
+            <metadatum id="embargo_date_end" internal_name="Datum konce embarga" obd_section_id="11" obd_field_id="7" order="27">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-embargo_date_end-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Datum zveřejnění"/>
+            </metadatum>
+        </metadata>
+    </form>
+    <!-- Kniha pouze s editory (editor=autor) -->
+    <form id="131">
+        <metadata type="mandatory">
+            <metadatum id="date_issued" internal_name="Datum (rok) vydání dokumentu" obd_section_id="1" obd_field_id="1" order="1">
+                <meta_info system="false" obd_section_translation="section-general-1" obd_field_translation="field-date_issued-general" valid_for="both" obd_section_name="Základní informace" obd_field_name="Rok"/>
+            </metadatum>
+            <metadatum id="author_name" internal_name="Příjmení a jméno autora dokumentu" obd_section_id="2" obd_field_id="none" order="2">
+                <meta_info system="false" obd_section_translation="section-general-2" obd_field_translation="section-general-2-none" valid_for="both" obd_section_name="AUTOR" obd_field_name="none"/>
+            </metadatum>
+            <metadatum id="title" internal_name="Název dokumentu" obd_section_id="5" obd_field_id="4" order="6">
+                <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-title-book" valid_for="both" obd_section_name="Tituly" obd_field_name="Název knihy"/>
+            </metadatum>
+            <metadatum id="license_terms" internal_name="Licenční podmínky" obd_section_id="11" obd_field_id="1" order="18">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-license_terms-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Licence"/>
+            </metadatum>
+            <metadatum id="availability" internal_name="Dostupnost výsledku v repozitáři" obd_section_id="11" obd_field_id="5" order="22">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-availability-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Dostupnost"/>
+            </metadatum>
+            <metadatum id="file_version" internal_name="Verze souboru" obd_section_id="11" obd_field_id="6" order="23">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-file_version-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Typ přílohy"/>
+            </metadatum>
+        </metadata>
+        <metadata type="mandatory-if-applicable">
+            <metadatum id="coauthor_name" internal_name="Příjmení a jméno spoluautora" obd_section_id="2" obd_field_id="none" order="3">
+                <meta_info system="false" obd_section_translation="section-general-2" obd_field_translation="section-general-2-none" valid_for="both" obd_section_name="AUTOR" obd_field_name="none"/>
+            </metadatum>
+            <metadatum id="language" internal_name="Jazyk dokumentu" obd_section_id="5" obd_field_id="2" order="4">
+                <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-language-general" valid_for="both" obd_section_name="Tituly" obd_field_name="Jazyk"/>
+            </metadatum>
+            <metadatum id="abstract" internal_name="Anotace / abstrakt / popis výsledku" obd_section_id="5" obd_field_id="1" order="3">
+                <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-abstract-general" valid_for="both" obd_section_name="Tituly" obd_field_name="Anotace"/>
+            </metadatum>
+            <metadatum id="keywords" internal_name="Klíčová slova" obd_section_id="5" obd_field_id="3" order="5">
+                <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-keywords-general" valid_for="both" obd_section_name="Tituly" obd_field_name="Klíčová slova"/>
+            </metadatum>
+            <metadatum id="financing_source" internal_name="Zdroj financování" obd_section_id="6" obd_field_id="none" order="8">
+                <meta_info system="false" obd_section_translation="section-general-6" obd_field_translation="section-general-6-none" valid_for="both" obd_section_name="Způsob financování" obd_field_name="none"/>
+            </metadatum>
+            <metadatum id="research_field_primary" internal_name="Vědní obor hlavní" obd_section_id="7" obd_field_id="1" order="9">
+                <meta_info system="false" obd_section_translation="section-general-7" obd_field_translation="field-research_fields_classification-general" valid_for="both" obd_section_name="Klasifikace záznamu" obd_field_name="Vnitřní klasifikace vědních oborů UK"/>
+            </metadatum>
+            <metadatum id="research_field_secondary" internal_name="Vědní obor vedlejší" obd_section_id="7" obd_field_id="1" order="10">
+                <meta_info system="false" obd_section_translation="section-general-7" obd_field_translation="field-research_fields_classification-general" valid_for="both" obd_section_name="Klasifikace záznamu" obd_field_name="Vnitřní klasifikace vědních oborů UK"/>
+            </metadatum>
+            <metadatum id="publisher" internal_name="Vydavatel" obd_section_id="8" obd_field_id="1" order="11">
+                <meta_info system="false" obd_section_translation="section-specific-131-8" obd_field_translation="field-publisher-monographic" valid_for="published" obd_section_name="Kniha" obd_field_name="Nakladatel"/>
+            </metadatum>
+            <metadatum id="id_doi" internal_name="ID - DOI" obd_section_id="10" obd_field_id="1" order="17">
+                <meta_info system="false" obd_section_translation="section-general-10" obd_field_translation="field-id_doi-general" valid_for="published" obd_section_name="Zvláštní údaje pro RIV" obd_field_name="DOI"/>
+            </metadatum>
+            <metadatum id="license_terms_url" internal_name="Odkaz na podmínky k užití díla" obd_section_id="11" obd_field_id="2" order="29">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-license_terms_url-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Licence – URL"/>
+            </metadatum>
+            <metadatum id="embargo_date_end" internal_name="Datum konce embarga" obd_section_id="11" obd_field_id="7" order="24">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-embargo_date_end-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Datum zveřejnění"/>
+            </metadatum>
+        </metadata>
+    </form>
+    <!-- METODIKA, POSTUP -->
+    <form id="129">
+        <metadata type="mandatory">
+            <metadatum id="date_issued" internal_name="Datum (rok) vydání dokumentu" obd_section_id="1" obd_field_id="1" order="1">
+                <meta_info system="false" obd_section_translation="section-general-1" obd_field_translation="field-date_issued-applicable-year" valid_for="both" obd_section_name="Základní informace" obd_field_name="Rok uplatnění"/>
+            </metadatum>
+            <metadatum id="author_name" internal_name="Příjmení a jméno autora dokumentu" obd_section_id="2" obd_field_id="none" order="2">
+                <meta_info system="false" obd_section_translation="section-general-2" obd_field_translation="section-general-2-none" valid_for="both" obd_section_name="AUTOR" obd_field_name="none"/>
+            </metadatum>
+            <metadatum id="title" internal_name="Název dokumentu" obd_section_id="5" obd_field_id="4" order="6">
+                <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-title-general" valid_for="both" obd_section_name="Tituly" obd_field_name="Název"/>
+            </metadatum>
+            <metadatum id="license_terms" internal_name="Licenční podmínky" obd_section_id="11" obd_field_id="1" order="18">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-license_terms-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Licence"/>
+            </metadatum>
+            <metadatum id="availability" internal_name="Dostupnost výsledku v repozitáři" obd_section_id="11" obd_field_id="5" order="22">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-availability-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Dostupnost"/>
+            </metadatum>
+            <metadatum id="file_version" internal_name="Verze souboru" obd_section_id="11" obd_field_id="6" order="23">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-file_version-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Typ přílohy"/>
+            </metadatum>
+        </metadata>
+        <metadata type="mandatory-if-applicable">
+            <metadatum id="coauthor_name" internal_name="Příjmení a jméno spoluautora" obd_section_id="2" obd_field_id="none" order="3">
+                <meta_info system="false" obd_section_translation="section-general-2" obd_field_translation="section-general-2-none" valid_for="both" obd_section_name="AUTOR" obd_field_name="none"/>
+            </metadatum>
+            <metadatum id="language" internal_name="Jazyk dokumentu" obd_section_id="5" obd_field_id="2" order="4">
+                <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-language-general" valid_for="both" obd_section_name="Tituly" obd_field_name="Jazyk"/>
+            </metadatum>
+            <metadatum id="abstract" internal_name="Anotace / abstrakt / popis výsledku" obd_section_id="5" obd_field_id="1" order="3">
+                <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-abstract-description" valid_for="both" obd_section_name="Tituly" obd_field_name="Popis"/>
+            </metadatum>
+            <metadatum id="keywords" internal_name="Klíčová slova" obd_section_id="5" obd_field_id="3" order="5">
+                <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-keywords-general" valid_for="both" obd_section_name="Tituly" obd_field_name="Klíčová slova"/>
+            </metadatum>
+            <metadatum id="financing_source" internal_name="Zdroj financování" obd_section_id="6" obd_field_id="none" order="8">
+                <meta_info system="false" obd_section_translation="section-general-6" obd_field_translation="section-general-6-none" valid_for="both" obd_section_name="Způsob financování" obd_field_name="none"/>
+            </metadatum>
+            <metadatum id="research_field_primary" internal_name="Vědní obor hlavní" obd_section_id="7" obd_field_id="1" order="9">
+                <meta_info system="false" obd_section_translation="section-general-7" obd_field_translation="field-research_fields_classification-general" valid_for="both" obd_section_name="Klasifikace záznamu" obd_field_name="Vnitřní klasifikace vědních oborů UK"/>
+            </metadatum>
+            <metadatum id="research_field_secondary" internal_name="Vědní obor vedlejší" obd_section_id="7" obd_field_id="1" order="10">
+                <meta_info system="false" obd_section_translation="section-general-7" obd_field_translation="field-research_fields_classification-general" valid_for="both" obd_section_name="Klasifikace záznamu" obd_field_name="Vnitřní klasifikace vědních oborů UK"/>
+            </metadatum>
+            <metadatum id="license_terms_url" internal_name="Odkaz na podmínky k užití díla" obd_section_id="11" obd_field_id="2" order="29">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-license_terms_url-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Licence – URL"/>
+            </metadatum>
+            <metadatum id="embargo_date_end" internal_name="Datum konce embarga" obd_section_id="11" obd_field_id="7" order="24">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-embargo_date_end-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Datum zveřejnění"/>
+            </metadatum>
+        </metadata>
+    </form>
+    <!-- PŘEDNÁŠKA, POSTER -->
+    <form id="81">
+        <metadata type="mandatory">
+            <metadatum id="date_issued" internal_name="Datum (rok) vydání dokumentu" obd_section_id="1" obd_field_id="1" order="1">
+                <meta_info system="false" obd_section_translation="section-general-1" obd_field_translation="field-date_issued-applicable-year" valid_for="both" obd_section_name="Základní informace" obd_field_name="Rok uplatnění"/>
+            </metadatum>
+            <metadatum id="author_name" internal_name="Příjmení a jméno autora dokumentu" obd_section_id="2" obd_field_id="none" order="2">
+                <meta_info system="false" obd_section_translation="section-general-2" obd_field_translation="section-general-2-none" valid_for="both" obd_section_name="AUTOR" obd_field_name="none"/>
+            </metadatum>
+            <metadatum id="title" internal_name="Název dokumentu" obd_section_id="5" obd_field_id="4" order="6">
+                <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-title-general" valid_for="both" obd_section_name="Tituly" obd_field_name="Název (titul)"/>
+            </metadatum>
+            <metadatum id="license_terms" internal_name="Licenční podmínky" obd_section_id="11" obd_field_id="1" order="13">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-license_terms-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Licence"/>
+            </metadatum>
+            <metadatum id="availability" internal_name="Dostupnost výsledku v repozitáři" obd_section_id="11" obd_field_id="5" order="17">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-availability-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Dostupnost"/>
+            </metadatum>
+            <metadatum id="file_version" internal_name="Verze souboru" obd_section_id="11" obd_field_id="6" order="18">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-file_version-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Typ přílohy"/>
+            </metadatum>
+        </metadata>
+        <metadata type="mandatory-if-applicable">
+            <metadatum id="coauthor_name" internal_name="Příjmení a jméno spoluautora" obd_section_id="2" obd_field_id="none" order="3">
+                <meta_info system="false" obd_section_translation="section-general-2" obd_field_translation="section-general-2-none" valid_for="both" obd_section_name="AUTOR" obd_field_name="none"/>
+            </metadatum>
+            <metadatum id="language" internal_name="Jazyk dokumentu" obd_section_id="5" obd_field_id="2" order="4">
+                <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-language-general" valid_for="both" obd_section_name="Tituly" obd_field_name="Jazyk"/>
+            </metadatum>
+            <metadatum id="abstract" internal_name="Anotace / abstrakt / popis výsledku" obd_section_id="5" obd_field_id="1" order="3">
+                <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-abstract-description" valid_for="both" obd_section_name="Tituly" obd_field_name="Popis"/>
+            </metadatum>
+            <metadatum id="keywords" internal_name="Klíčová slova" obd_section_id="5" obd_field_id="3" order="5">
+                <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-keywords-general" valid_for="both" obd_section_name="Tituly" obd_field_name="Klíčová slova"/>
+            </metadatum>
+            <metadatum id="financing_source" internal_name="Zdroj financování" obd_section_id="6" obd_field_id="none" order="8">
+                <meta_info system="false" obd_section_translation="section-general-6" obd_field_translation="section-general-6-none" valid_for="both" obd_section_name="Způsob financování" obd_field_name="none"/>
+            </metadatum>
+            <metadatum id="research_field_primary" internal_name="Vědní obor hlavní" obd_section_id="7" obd_field_id="1" order="9">
+                <meta_info system="false" obd_section_translation="section-general-7" obd_field_translation="field-research_fields_classification-general" valid_for="both" obd_section_name="Klasifikace záznamu" obd_field_name="Vnitřní klasifikace vědních oborů UK"/>
+            </metadatum>
+            <metadatum id="research_field_secondary" internal_name="Vědní obor vedlejší" obd_section_id="7" obd_field_id="1" order="10">
+                <meta_info system="false" obd_section_translation="section-general-7" obd_field_translation="field-research_fields_classification-general" valid_for="both" obd_section_name="Klasifikace záznamu" obd_field_name="Vnitřní klasifikace vědních oborů UK"/>
+            </metadatum>
+            <metadatum id="license_terms_url" internal_name="Odkaz na podmínky k užití díla" obd_section_id="11" obd_field_id="2" order="29">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-license_terms_url-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Licence – URL"/>
+            </metadatum>
+            <metadatum id="embargo_date_end" internal_name="Datum konce embarga" obd_section_id="11" obd_field_id="7" order="19">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-embargo_date_end-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Datum zveřejnění"/>
+            </metadatum>
+        </metadata>
+    </form>
+    <!-- PŘÍSPĚVEK V KONFERENČNÍM SBORNÍKU -->
+    <form id="57">
+        <metadata type="mandatory">
+            <metadatum id="date_issued" internal_name="Datum (rok) vydání dokumentu" obd_section_id="1" obd_field_id="1" order="1">
+                <meta_info system="false" obd_section_translation="section-general-1" obd_field_translation="field-date_issued-general" valid_for="both" obd_section_name="Základní informace" obd_field_name="Rok"/>
+            </metadatum>
+            <metadatum id="author_name" internal_name="Příjmení a jméno autora dokumentu" obd_section_id="2" obd_field_id="none" order="2">
+                <meta_info system="false" obd_section_translation="section-general-2" obd_field_translation="section-general-2-none" valid_for="both" obd_section_name="AUTOR" obd_field_name="none"/>
+            </metadatum>
+            <metadatum id="title" internal_name="Název dokumentu" obd_section_id="5" obd_field_id="4" order="7">
+                <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-title-submission" valid_for="both" obd_section_name="Tituly" obd_field_name="Název příspěvku"/>
+            </metadatum>
+            <metadatum id="license_terms" internal_name="Licenční podmínky" obd_section_id="11" obd_field_id="1" order="26">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-license_terms-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Licence"/>
+            </metadatum>
+            <metadatum id="availability" internal_name="Dostupnost výsledku v repozitáři" obd_section_id="11" obd_field_id="5" order="30">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-availability-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Dostupnost"/>
+            </metadatum>
+            <metadatum id="file_version" internal_name="Verze souboru" obd_section_id="11" obd_field_id="6" order="31">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-file_version-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Typ přílohy"/>
+            </metadatum>
+        </metadata>
+        <metadata type="mandatory-if-applicable">
+            <metadatum id="coauthor_name" internal_name="Příjmení a jméno spoluautora" obd_section_id="2" obd_field_id="none" order="3">
+                <meta_info system="false" obd_section_translation="section-general-2" obd_field_translation="section-general-2-none" valid_for="both" obd_section_name="AUTOR" obd_field_name="none"/>
+            </metadatum>
+            <metadatum id="editor_name" internal_name="Příjmení a jméno osoby s podílem na vzniku dokumentu: Editor dokumentu" obd_section_id="3" obd_field_id="none" order="3">
+                <meta_info system="false" obd_section_translation="section-general-3" obd_field_translation="section-general-3-none" valid_for="published" obd_section_name="EDITOR" obd_field_name="none"/>
+            </metadatum>
+            <metadatum id="language" internal_name="Jazyk dokumentu" obd_section_id="5" obd_field_id="2" order="5">
+                <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-language-general" valid_for="both" obd_section_name="Tituly" obd_field_name="Jazyk"/>
+            </metadatum>
+            <metadatum id="abstract" internal_name="Anotace / abstrakt / popis výsledku" obd_section_id="5" obd_field_id="1" order="4">
+                <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-abstract-general" valid_for="both" obd_section_name="Tituly" obd_field_name="Anotace"/>
+            </metadatum>
+            <metadatum id="keywords" internal_name="Klíčová slova" obd_section_id="5" obd_field_id="3" order="6">
+                <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-keywords-general" valid_for="both" obd_section_name="Tituly" obd_field_name="Klíčová slova"/>
+            </metadatum>
+            <metadatum id="financing_source" internal_name="Zdroj financování" obd_section_id="6" obd_field_id="none" order="9">
+                <meta_info system="false" obd_section_translation="section-general-6" obd_field_translation="section-general-6-none" valid_for="both" obd_section_name="Způsob financování" obd_field_name="none"/>
+            </metadatum>
+            <metadatum id="research_field_primary" internal_name="Vědní obor hlavní" obd_section_id="7" obd_field_id="1" order="10">
+                <meta_info system="false" obd_section_translation="section-general-7" obd_field_translation="field-research_fields_classification-general" valid_for="both" obd_section_name="Klasifikace záznamu" obd_field_name="Vnitřní klasifikace vědních oborů UK"/>
+            </metadatum>
+            <metadatum id="research_field_secondary" internal_name="Vědní obor vedlejší" obd_section_id="7" obd_field_id="1" order="11">
+                <meta_info system="false" obd_section_translation="section-general-7" obd_field_translation="field-research_fields_classification-general" valid_for="both" obd_section_name="Klasifikace záznamu" obd_field_name="Vnitřní klasifikace vědních oborů UK"/>
+            </metadatum>
+            <metadatum id="publisher" internal_name="Vydavatel" obd_section_id="8" obd_field_id="1" order="12">
+                <meta_info system="false" obd_section_translation="section-specific-57-8" obd_field_translation="field-publisher-periodical" valid_for="published" obd_section_name="Sborník" obd_field_name="Vydavatel"/>
+            </metadatum>
+            <metadatum id="id_doi" internal_name="ID - DOI" obd_section_id="10" obd_field_id="1" order="23">
+                <meta_info system="false" obd_section_translation="section-general-10" obd_field_translation="field-id_doi-general" valid_for="published" obd_section_name="Zvláštní údaje pro RIV" obd_field_name="DOI"/>
+            </metadatum>
+            <metadatum id="license_terms_url" internal_name="Odkaz na podmínky k užití díla" obd_section_id="11" obd_field_id="2" order="29">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-license_terms_url-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Licence – URL"/>
+            </metadatum>
+            <metadatum id="embargo_date_end" internal_name="Datum konce embarga" obd_section_id="11" obd_field_id="7" order="32">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-embargo_date_end-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Datum zveřejnění"/>
+            </metadatum>
+        </metadata>
+    </form>
+    <!-- SOUHRNNÁ VÝZKUMNÁ ZPRÁVA -->
+    <form id="213">
+        <metadata type="mandatory">
+            <metadatum id="date_issued" internal_name="Datum (rok) vydání dokumentu" obd_section_id="1" obd_field_id="1" order="1">
+                <meta_info system="false" obd_section_translation="section-general-1" obd_field_translation="field-date_issued-general" valid_for="both" obd_section_name="Základní informace" obd_field_name="Rok"/>
+            </metadatum>
+            <metadatum id="author_name" internal_name="Příjmení a jméno autora dokumentu" obd_section_id="2" obd_field_id="none" order="2">
+                <meta_info system="false" obd_section_translation="section-general-2" obd_field_translation="section-general-2-none" valid_for="both" obd_section_name="AUTOR" obd_field_name="none"/>
+            </metadatum>
+            <metadatum id="title" internal_name="Název dokumentu" obd_section_id="5" obd_field_id="4" order="6">
+                <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-title-general" valid_for="both" obd_section_name="Tituly" obd_field_name="Název"/>
+            </metadatum>
+            <metadatum id="license_terms" internal_name="Licenční podmínky" obd_section_id="11" obd_field_id="1" order="16">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-license_terms-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Licence"/>
+            </metadatum>
+            <metadatum id="availability" internal_name="Dostupnost výsledku v repozitáři" obd_section_id="11" obd_field_id="5" order="20">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-availability-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Dostupnost"/>
+            </metadatum>
+            <metadatum id="file_version" internal_name="Verze souboru" obd_section_id="11" obd_field_id="6" order="21">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-file_version-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Typ přílohy"/>
+            </metadatum>
+        </metadata>
+        <metadata type="mandatory-if-applicable">
+            <metadatum id="coauthor_name" internal_name="Příjmení a jméno spoluautora" obd_section_id="2" obd_field_id="none" order="3">
+                <meta_info system="false" obd_section_translation="section-general-2" obd_field_translation="section-general-2-none" valid_for="both" obd_section_name="AUTOR" obd_field_name="none"/>
+            </metadatum>
+            <metadatum id="language" internal_name="Jazyk dokumentu" obd_section_id="5" obd_field_id="2" order="4">
+                <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-language-general" valid_for="both" obd_section_name="Tituly" obd_field_name="Jazyk"/>
+            </metadatum>
+            <metadatum id="abstract" internal_name="Anotace / abstrakt / popis výsledku" obd_section_id="5" obd_field_id="1" order="3">
+                <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-abstract-general" valid_for="both" obd_section_name="Tituly" obd_field_name="Anotace"/>
+            </metadatum>
+            <metadatum id="keywords" internal_name="Klíčová slova" obd_section_id="5" obd_field_id="3" order="5">
+                <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-keywords-general" valid_for="both" obd_section_name="Tituly" obd_field_name="Klíčová slova"/>
+            </metadatum>
+            <metadatum id="financing_source" internal_name="Zdroj financování" obd_section_id="6" obd_field_id="none" order="8">
+                <meta_info system="false" obd_section_translation="section-general-6" obd_field_translation="section-general-6-none" valid_for="both" obd_section_name="Způsob financování" obd_field_name="none"/>
+            </metadatum>
+            <metadatum id="research_field_primary" internal_name="Vědní obor hlavní" obd_section_id="7" obd_field_id="1" order="9">
+                <meta_info system="false" obd_section_translation="section-general-7" obd_field_translation="field-research_fields_classification-general" valid_for="both" obd_section_name="Klasifikace záznamu" obd_field_name="Vnitřní klasifikace vědních oborů UK"/>
+            </metadatum>
+            <metadatum id="research_field_secondary" internal_name="Vědní obor vedlejší" obd_section_id="7" obd_field_id="1" order="10">
+                <meta_info system="false" obd_section_translation="section-general-7" obd_field_translation="field-research_fields_classification-general" valid_for="both" obd_section_name="Klasifikace záznamu" obd_field_name="Vnitřní klasifikace vědních oborů UK"/>
+            </metadatum>
+            <metadatum id="publisher" internal_name="Vydavatel" obd_section_id="9" obd_field_id="4" order="14">
+                <meta_info system="false" obd_section_translation="section-general-9" obd_field_translation="field-publisher-client" valid_for="published" obd_section_name="Specifické informace" obd_field_name="Objednatel"/>
+            </metadatum>
+            <metadatum id="license_terms_url" internal_name="Odkaz na podmínky k užití díla" obd_section_id="11" obd_field_id="2" order="29">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-license_terms_url-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Licence – URL"/>
+            </metadatum>
+            <metadatum id="embargo_date_end" internal_name="Datum konce embarga" obd_section_id="11" obd_field_id="7" order="22">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-embargo_date_end-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Datum zveřejnění"/>
+            </metadatum>
+        </metadata>
+    </form>
+    <!-- STAŤ VE SBORNÍKU PRACÍ (nekonferenčním) -->
+    <form id="106">
+        <metadata type="mandatory">
+            <metadatum id="date_issued" internal_name="Datum (rok) vydání dokumentu" obd_section_id="1" obd_field_id="1" order="1">
+                <meta_info system="false" obd_section_translation="section-general-1" obd_field_translation="field-date_issued-general" valid_for="both" obd_section_name="Základní informace" obd_field_name="Rok"/>
+            </metadatum>
+            <metadatum id="author_name" internal_name="Příjmení a jméno autora dokumentu" obd_section_id="2" obd_field_id="none" order="2">
+                <meta_info system="false" obd_section_translation="section-general-2" obd_field_translation="section-general-2-none" valid_for="both" obd_section_name="AUTOR" obd_field_name="none"/>
+            </metadatum>
+            <metadatum id="title" internal_name="Název dokumentu" obd_section_id="5" obd_field_id="4" order="7">
+                <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-title-essay" valid_for="both" obd_section_name="Tituly" obd_field_name="Název stati"/>
+            </metadatum>
+            <metadatum id="license_terms" internal_name="Licenční podmínky" obd_section_id="11" obd_field_id="1" order="21">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-license_terms-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Licence"/>
+            </metadatum>
+            <metadatum id="availability" internal_name="Dostupnost výsledku v repozitáři" obd_section_id="11" obd_field_id="5" order="25">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-availability-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Dostupnost"/>
+            </metadatum>
+            <metadatum id="file_version" internal_name="Verze souboru" obd_section_id="11" obd_field_id="6" order="26">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-file_version-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Typ přílohy"/>
+            </metadatum>
+        </metadata>
+        <metadata type="mandatory-if-applicable">
+            <metadatum id="coauthor_name" internal_name="Příjmení a jméno spoluautora" obd_section_id="2" obd_field_id="none" order="3">
+                <meta_info system="false" obd_section_translation="section-general-2" obd_field_translation="section-general-2-none" valid_for="both" obd_section_name="AUTOR" obd_field_name="none"/>
+            </metadatum>
+            <metadatum id="editor_name" internal_name="Příjmení a jméno osoby s podílem na vzniku dokumentu: Editor dokumentu" obd_section_id="3" obd_field_id="none" order="3">
+                <meta_info system="false" obd_section_translation="section-general-3" obd_field_translation="section-general-3-none" valid_for="published" obd_section_name="EDITOR" obd_field_name="none"/>
+            </metadatum>
+            <metadatum id="language" internal_name="Jazyk dokumentu" obd_section_id="5" obd_field_id="2" order="5">
+                <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-language-general" valid_for="both" obd_section_name="Tituly" obd_field_name="Jazyk"/>
+            </metadatum>
+            <metadatum id="abstract" internal_name="Anotace / abstrakt / popis výsledku" obd_section_id="5" obd_field_id="1" order="4">
+                <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-abstract-general" valid_for="both" obd_section_name="Tituly" obd_field_name="Anotace"/>
+            </metadatum>
+            <metadatum id="keywords" internal_name="Klíčová slova" obd_section_id="5" obd_field_id="3" order="6">
+                <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-keywords-general" valid_for="both" obd_section_name="Tituly" obd_field_name="Klíčová slova"/>
+            </metadatum>
+            <metadatum id="financing_source" internal_name="Zdroj financování" obd_section_id="6" obd_field_id="none" order="9">
+                <meta_info system="false" obd_section_translation="section-general-6" obd_field_translation="section-general-6-none" valid_for="both" obd_section_name="Způsob financování" obd_field_name="none"/>
+            </metadatum>
+            <metadatum id="research_field_primary" internal_name="Vědní obor hlavní" obd_section_id="7" obd_field_id="1" order="10">
+                <meta_info system="false" obd_section_translation="section-general-7" obd_field_translation="field-research_fields_classification-general" valid_for="both" obd_section_name="Klasifikace záznamu" obd_field_name="Vnitřní klasifikace vědních oborů UK"/>
+            </metadatum>
+            <metadatum id="research_field_secondary" internal_name="Vědní obor vedlejší" obd_section_id="7" obd_field_id="1" order="11">
+                <meta_info system="false" obd_section_translation="section-general-7" obd_field_translation="field-research_fields_classification-general" valid_for="both" obd_section_name="Klasifikace záznamu" obd_field_name="Vnitřní klasifikace vědních oborů UK"/>
+            </metadatum>
+            <metadatum id="publisher" internal_name="Vydavatel" obd_section_id="8" obd_field_id="1" order="12">
+                <meta_info system="false" obd_section_translation="section-specific-106-8" obd_field_translation="field-publisher-periodical" valid_for="published" obd_section_name="Sborník" obd_field_name="Vydavatel"/>
+            </metadatum>
+            <metadatum id="id_doi" internal_name="ID - DOI" obd_section_id="10" obd_field_id="1" order="20">
+                <meta_info system="false" obd_section_translation="section-general-10" obd_field_translation="field-id_doi-general" valid_for="published" obd_section_name="Zvláštní údaje pro RIV" obd_field_name="DOI"/>
+            </metadatum>
+            <metadatum id="license_terms_url" internal_name="Odkaz na podmínky k užití díla" obd_section_id="11" obd_field_id="2" order="29">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-license_terms_url-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Licence – URL"/>
+            </metadatum>
+            <metadatum id="embargo_date_end" internal_name="Datum konce embarga" obd_section_id="11" obd_field_id="7" order="27">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-embargo_date_end-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Datum zveřejnění"/>
+            </metadatum>
+        </metadata>
+    </form>
+    <!-- VÝSLEDEK REALIZOVANÝ POSKYTOVATELEM -->
+    <form id="122">
+        <metadata type="mandatory">
+            <metadatum id="date_issued" internal_name="Datum (rok) vydání dokumentu" obd_section_id="1" obd_field_id="1" order="1">
+                <meta_info system="false" obd_section_translation="section-general-1" obd_field_translation="field-date_issued-applicable-year" valid_for="both" obd_section_name="Základní informace" obd_field_name="Rok uplatnění"/>
+            </metadatum>
+            <metadatum id="author_name" internal_name="Příjmení a jméno autora dokumentu" obd_section_id="2" obd_field_id="none" order="2">
+                <meta_info system="false" obd_section_translation="section-general-2" obd_field_translation="section-general-2-none" valid_for="both" obd_section_name="AUTOR" obd_field_name="none"/>
+            </metadatum>
+            <metadatum id="title" internal_name="Název dokumentu" obd_section_id="5" obd_field_id="4" order="6">
+                <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-title-general" valid_for="both" obd_section_name="Tituly" obd_field_name="Název"/>
+            </metadatum>
+            <metadatum id="license_terms" internal_name="Licenční podmínky" obd_section_id="11" obd_field_id="1" order="12">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-license_terms-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Licence"/>
+            </metadatum>
+            <metadatum id="availability" internal_name="Dostupnost výsledku v repozitáři" obd_section_id="11" obd_field_id="5" order="16">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-availability-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Dostupnost"/>
+            </metadatum>
+            <metadatum id="file_version" internal_name="Verze souboru" obd_section_id="11" obd_field_id="6" order="17">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-file_version-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Typ přílohy"/>
+            </metadatum>
+        </metadata>
+        <metadata type="mandatory-if-applicable">
+            <metadatum id="coauthor_name" internal_name="Příjmení a jméno spoluautora" obd_section_id="2" obd_field_id="none" order="3">
+                <meta_info system="false" obd_section_translation="section-general-2" obd_field_translation="section-general-2-none" valid_for="both" obd_section_name="AUTOR" obd_field_name="none"/>
+            </metadatum>
+            <metadatum id="language" internal_name="Jazyk dokumentu" obd_section_id="5" obd_field_id="2" order="4">
+                <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-language-general" valid_for="both" obd_section_name="Tituly" obd_field_name="Jazyk"/>
+            </metadatum>
+            <metadatum id="abstract" internal_name="Anotace / abstrakt / popis výsledku" obd_section_id="5" obd_field_id="1" order="3">
+                <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-abstract-description" valid_for="both" obd_section_name="Tituly" obd_field_name="Popis"/>
+            </metadatum>
+            <metadatum id="keywords" internal_name="Klíčová slova" obd_section_id="5" obd_field_id="3" order="5">
+                <meta_info system="false" obd_section_translation="section-general-5" obd_field_translation="field-keywords-general" valid_for="both" obd_section_name="Tituly" obd_field_name="Klíčová slova"/>
+            </metadatum>
+            <metadatum id="financing_source" internal_name="Zdroj financování" obd_section_id="6" obd_field_id="none" order="8">
+                <meta_info system="false" obd_section_translation="section-general-6" obd_field_translation="section-general-6-none" valid_for="both" obd_section_name="Způsob financování" obd_field_name="none"/>
+            </metadatum>
+            <metadatum id="research_field_primary" internal_name="Vědní obor hlavní" obd_section_id="7" obd_field_id="1" order="9">
+                <meta_info system="false" obd_section_translation="section-general-7" obd_field_translation="field-research_fields_classification-general" valid_for="both" obd_section_name="Klasifikace záznamu" obd_field_name="Vnitřní klasifikace vědních oborů UK"/>
+            </metadatum>
+            <metadatum id="research_field_secondary" internal_name="Vědní obor vedlejší" obd_section_id="7" obd_field_id="1" order="10">
+                <meta_info system="false" obd_section_translation="section-general-7" obd_field_translation="field-research_fields_classification-general" valid_for="both" obd_section_name="Klasifikace záznamu" obd_field_name="Vnitřní klasifikace vědních oborů UK"/>
+            </metadatum>
+            <metadatum id="license_terms_url" internal_name="Odkaz na podmínky k užití díla" obd_section_id="11" obd_field_id="2" order="29">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-license_terms_url-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Licence – URL"/>
+            </metadatum>
+            <metadatum id="embargo_date_end" internal_name="Datum konce embarga" obd_section_id="11" obd_field_id="7" order="18">
+                <meta_info system="false" obd_section_translation="section-general-11" obd_field_translation="field-embargo_date_end-general" valid_for="both" obd_section_name="Přiložené soubory" obd_field_name="Datum zveřejnění"/>
+            </metadatum>
+        </metadata>
+    </form>
+</forms>
