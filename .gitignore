@@ -1,26 +1,13 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 ## Ignore Docker
 Dockerfile*
 docker-*
 docker/
 
-=======
->>>>>>> master
 ## Ignore the MVN compiled output directories from version tracking
-## Ignore Docker
-Dockerfile*
-docker-*
-docker/
-=======
-
 target/
 
 ## Ignore project files created by Eclipse
 .settings/
-=======
-## Ignore the MVN compiled output directories from version tracking
-target/
 
 ## Ignore tags index files created by Exuberant Ctags
 tags
@@ -28,7 +15,6 @@ tags
 ## Ignore project files created by Eclipse
 .settings/
 /bin/
->>>>>>> upgrade-dspace-6.4
 .project
 .classpath
 
@@ -49,7 +35,6 @@ nbactions.xml
 nb-configuration.xml
 META-INF/
 
-<<<<<<< HEAD
 ## Ignore all *.cfg files, EXCEPT the ones prefix by !
 *.cfg
 !dspace.cfg
@@ -58,16 +43,9 @@ META-INF/
 ## Ignore all *.sh files in root folder
 /*.sh
 
-<<<<<<< HEAD
-=======
-## Ignore config files
-authentication-ip.cfg
-authentication-shibboleth.cfg
-
 ## Custom folders
 custom-config/
 
->>>>>>> master
 ## Ignore vscode directiories
 .vscode/
 dspace-services/
@@ -84,15 +62,9 @@ dspace-services/
 .*.sw[pon]
 /bin/
 
-<<<<<<< HEAD
-=======
-# Config
-dspace.cfg
-
->>>>>>> master
 # Other
 .bash*
-=======
+
 ## Ignore all *.properties file in root folder, EXCEPT build.properties (the default)
 ## KEPT FOR BACKWARDS COMPATIBILITY WITH 5.x (build.properties is now replaced with local.cfg)
 /*.properties
@@ -103,16 +75,5 @@ dspace.cfg
 # Also ignore it under dspace/config
 /dspace/config/local.cfg
 
-##Mac noise
-.DS_Store
->>>>>>> upgrade-dspace-6.4
-
-## Ignore config files
-authentication-ip.cfg
-authentication-shibboleth.cfg
-
 ## Custom folders
 custom-config/
-
-# Config
-dspace.cfg
