@@ -1,3 +1,9 @@
+# CU Research Publications Repository
+
+Charles University Research Publications repository built on top of DSpace 6.4 system.
+
+* customized/developed at: [Central Library, Charles University in Prague](http://knihovna.cuni.cz/)
+* contact: admin-repozitar[at]cuni.cz
 
 # DSpace
 
