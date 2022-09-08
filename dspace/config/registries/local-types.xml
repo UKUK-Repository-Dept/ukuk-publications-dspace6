@@ -23,6 +23,23 @@
     <namespace>http://dspace.org/namespace/local/</namespace>
   </dc-schema>
 
+  <dc-schema>
+    <name>uk</name>
+    <namespace>http://dspace.org/namespace/uk/</namespace>
+  </dc-schema>
+
+  <dc-type>
+    <schema>uk</schema>
+    <element>secondaryDepartment</element>
+    <qualifier>identifier</qualifier>
+  </dc-type>
+
+  <dc-type>
+    <schema>uk</schema>
+    <element>secondaryFaculty</element>
+    <qualifier>identifier</qualifier>
+  </dc-type>
+
 <!--
   <dc-type>
     <schema>local</schema>

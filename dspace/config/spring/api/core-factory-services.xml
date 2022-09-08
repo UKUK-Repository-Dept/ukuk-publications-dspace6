@@ -24,7 +24,7 @@
     <bean id="contentServiceFactory" class="org.dspace.content.factory.ContentServiceFactoryImpl"/>
     <bean id="coreServiceFactory" class="org.dspace.core.factory.CoreServiceFactoryImpl"/>
     <bean id="curateServiceFactory" class="org.dspace.curate.factory.CurateServiceFactoryImpl"/>
-
+    <bean id="itemMapperServiceFactory" class="com.atmire.itemmapper.factory.ItemMapperServiceFactoryImpl"/>
 
     <bean id="disseminateServiceFactory" class="org.dspace.disseminate.factory.DisseminateServiceFactoryImpl"/>
     <bean id="embargoServiceFactory" class="org.dspace.embargo.factory.EmbargoServiceFactoryImpl"/>

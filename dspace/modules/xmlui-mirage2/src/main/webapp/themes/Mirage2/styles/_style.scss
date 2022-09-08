@@ -11,6 +11,21 @@
  * It will be included in all color schemes
  */
 
+
+// Issue with homepage display being stretched out
+
+.horizontal-slider {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  #main-content, #sidebar {
+      display: flex;
+      flex-direction: column;
+  }
+}
+
 //example mixin to set the text-selection style
 @mixin selection {
     ::-moz-selection { @content; }
@@ -58,4 +73,16 @@
   #aspect_submission_StepTransformer_item_publication-title{
     margin-bottom:5px;
   }
+}
+
+// Skip link
+.main-content-tabber, .main-content-tabber:hover {
+	position: absolute;
+	top: 0;
+	left: 0;
+	color: transparent;
+}
+
+.main-content-tabber:focus, .main-content-tabber:active {
+  color: #b72c32;
 }
