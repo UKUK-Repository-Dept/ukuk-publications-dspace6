@@ -28,7 +28,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
-
 import javax.annotation.Nullable;
 
 import com.atmire.itemmapper.ParametrizedItemMappingScript;
@@ -205,7 +204,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     }
 
     @Override
-    public boolean doesURLResolve(String sUrl) throws IOException {
+    public boolean doesURLResolve(String sUrl) {
         try {
             java.net.URL url = new URL(sUrl);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -429,11 +428,11 @@ public class ItemMapperServiceImpl implements ItemMapperService {
 
     @Override
     public void mapFromParams(Context context, List<Collection> destinations, List<Collection> sources,
-        boolean dryRun) throws SQLException {
+        boolean sourcesSpecified, boolean dryRun) throws SQLException {
 
         // Destination collection is required when case is unmapped
         // If no source collections are given we want to obtain all items
-        if (isBlankList(sources)) {
+        if (!sourcesSpecified) {
             totalItems = itemService.countTotal(context);
 
             // Loop through all of our items in batches
@@ -455,13 +454,16 @@ public class ItemMapperServiceImpl implements ItemMapperService {
                     }
                 });
                 offset += batchSize;
-                this.commitAndLog(context);
+                this.commitAndLog(context, dryRun);
             }
+        } else if (isBlankList(sources)) {
+            logCLI(ERROR, "No valid source collections were found, no mapping was performed", dryRun);
         }
         // If a source collection is given we want to obtain the items inside that collection
         else if (isNotBlankList(sources)) {
             for (Collection sourceCollection: sources)
             {
+                sourceCollection = context.reloadEntity(sourceCollection);
                 logCLI(INFO,
                        PROCESSING_COLLECTION_CHAR + PROCESSING_COLLECTION_HEADER + sourceCollection.getName() + " " + sourceCollection.getHandle() + " | "
                     + sourceCollection.getID() + PROCESSING_COLLECTION_CHAR, dryRun);
@@ -471,11 +473,12 @@ public class ItemMapperServiceImpl implements ItemMapperService {
                     itemsToMap = itemService.findAllByCollection(context, sourceCollection, batchSize, offset);
                     logCLI(INFO, "***** PROCESSING BATCH: " + i + " *****", dryRun);
 
+                    final Collection finalSourceCollection = sourceCollection;
                     itemsToMap.forEachRemaining((item -> {
                         try {
                             logCLI(INFO, String.format("Mapping item (%s | %s) ", item.getHandle(), item.getID()), dryRun);
                             for (Collection destinationCollection: destinations) {
-                                mapItem(context, item, sourceCollection, destinationCollection, dryRun);
+                                mapItem(context, item, finalSourceCollection, destinationCollection, dryRun);
                             }
                         } catch (SQLException | AuthorizeException e) {
                             logCLI(ERROR, String.format("Item (%s | %s) could not be mapped for an unknown reason",
@@ -484,10 +487,11 @@ public class ItemMapperServiceImpl implements ItemMapperService {
                         }
                     }));
                     offset += batchSize;
-                    this.commitAndLog(context);
+                    this.commitAndLog(context, dryRun);
                 }
             }
         }
+
     }
 
     @Override
@@ -519,7 +523,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
 
                 // Loop through all of our items in batches
                 for (int i = 1; i <= Math.ceil(totalItems / batchSize); i++) {
-                    itemsToMap = itemService.findAllByCollection(context, destinationCollection, batchSize, offset);
+                    itemsToMap = itemService.findAllByCollection(context, destinationCollection, batchSize, 0);
                     logCLI(INFO, "***** PROCESSING BATCH: " + i + " *****", dryRun);
 
                     // Reverse map all items in the current batch
@@ -563,7 +567,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
             }
         });
         offset += batchSize;
-        this.commitAndLog(context);
+        this.commitAndLog(context, dryRun);
     }
 
     @Override
@@ -743,12 +747,17 @@ public class ItemMapperServiceImpl implements ItemMapperService {
 
     @Override
     public void addItemToListIfInSourceCollection(Context ctx, Item item, CuniMapFile cuniMapFile,
-                                                  List<Item> itemList) throws SQLException {
+                                                  java.util.Collection<Item> itemList) throws SQLException {
 
-        for (SourceCollection col : cuniMapFile.getMapfile().getSource_collections()) {
-            Collection collection =  getCorrespondingCollection(ctx, col);
-            if (collection.getID() == item.getOwningCollection().getID()) {
-                itemList.add(item);
+        if (cuniMapFile.getMapfile().getSource_collections() == null) {
+            // If no source collections provided the item can be from any collection
+            itemList.add(item);
+        } else {
+            for (SourceCollection col : cuniMapFile.getMapfile().getSource_collections()) {
+                Collection collection =  getCorrespondingCollection(ctx, col);
+                if (collection.getID() == item.getOwningCollection().getID()) {
+                    itemList.add(item);
+                }
             }
         }
     }
@@ -765,9 +774,10 @@ public class ItemMapperServiceImpl implements ItemMapperService {
             java.net.URL url = new URL(CONSUMER_MAPPING_FILE_PATH);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             int responseCode = connection.getResponseCode();
+            log.info("Trying to open a connection to " + CONSUMER_MAPPING_FILE_PATH + " resulted in response code: " + responseCode);
             return responseCode >= 200 && responseCode <= 300;
         } catch (UnknownHostException | MalformedURLException e) {
-            log.error("Invalid URL supplied at: " + CONSUMER_MAPPING_FILE_PATH_CFG + ": " + CONSUMER_MAPPING_FILE_PATH);
+            log.error("Invalid URL supplied at: " + CONSUMER_MAPPING_FILE_PATH_CFG + ": " + CONSUMER_MAPPING_FILE_PATH, e);
             return false;
         }
     }
@@ -780,9 +790,11 @@ public class ItemMapperServiceImpl implements ItemMapperService {
         return list != null && !list.isEmpty();
     }
 
-    private void commitAndLog(Context context) throws SQLException {
-        logCLI(INFO, "=Committing changes=");
-        context.commit();
+    private void commitAndLog(Context context, boolean dryRun) throws SQLException {
+        if (!dryRun) {
+            logCLI(INFO, "=Committing changes=");
+            context.commit();
+        }
     }
 }
 

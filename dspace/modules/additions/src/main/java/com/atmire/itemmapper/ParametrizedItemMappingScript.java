@@ -52,6 +52,7 @@ public class ParametrizedItemMappingScript extends ContextScript {
     StringOption pathToFile;
     BooleanOption dryRun;
     String currentOperation;
+    boolean sourcesSpecified;
 
     public static final String UNMAPPED = "unmapped";
     public static final String MAPPED = "mapped";
@@ -112,6 +113,7 @@ public class ParametrizedItemMappingScript extends ContextScript {
             List<Collection> validSources = itemMapperService.resolveCollections(context, sourceIdOption.getValues());
             List<Collection> validDestinations =
                 itemMapperService.resolveCollections(context, destinationIdOption.getValues());
+            sourcesSpecified = sourceIdOption.getValues() != null && !sourceIdOption.getValues().isEmpty();
             boolean paramsAreValid = itemMapperService.verifyParams(context, operationMode.getValue(),
                 validSources, validDestinations, linkToFile.getValue(), pathToFile.getValue(),
                 dryRun.isSelected());
@@ -125,7 +127,8 @@ public class ParametrizedItemMappingScript extends ContextScript {
 
             switch (currentOperation) {
                 case UNMAPPED:
-                    itemMapperService.mapFromParams(context, validDestinations, validSources, dryRun.isSelected());
+                    itemMapperService.mapFromParams(context, validDestinations, validSources, sourcesSpecified,
+                                                    dryRun.isSelected());
                     break;
                 case REVERSED:
                     itemMapperService.reverseMapFromParams(context, validDestinations, validSources, dryRun.isSelected());
@@ -147,8 +150,9 @@ public class ParametrizedItemMappingScript extends ContextScript {
             if (dryRun.isSelected()) {
                 itemMapperService.logCLI(INFO, "This was a dry run / test run of the script, no changes have been " +
                     "made to the database");
+            } else {
+                context.commit();
             }
-            context.commit();
         } catch (Exception e) {
             itemMapperService.logCLI(ERROR, String.format("An exception has occurred! => %s%n%s", e.getMessage(),
                 e.toString()));
