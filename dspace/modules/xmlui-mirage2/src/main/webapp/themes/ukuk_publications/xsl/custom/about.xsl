@@ -51,10 +51,11 @@
     <xsl:template name="about-toc-help">
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-6" id="about-toc">
+                <h2>Obsah</h2>
                 <nav>
-                    <ul class="nav nav-pills nav-stacked">
+                    <ul class="list-unstyled">
                         <li role="presentation">
-                            <a href="#heading-about-intro-text">Druhy výsledků přijímané do repozitáře</a>
+                            <a href="#heading-about-intro-text">Obecné informace</a>
                         </li>
                         <li role="presentation">
                             <a href="#heading-about-typology-availability">Druhy výsledků přijímané do repozitáře</a>
@@ -76,14 +77,14 @@
             </div>
             <div class="col-xs-12 col-sm-12 col-md-6" id="about-help">
                 <div class="media">
-                    <div class="media-left">
+                    <!-- <div class="media-left"> -->
                     <!-- <a href="#"> -->
-                        <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                        <!-- <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> -->
                         <!-- <img class="media-object" src="..." alt="..."> -->
                     <!-- </a> -->
-                    </div>
+                    <!-- </div> -->
                     <div class="media-body">
-                        <h3 class="media-heading">Potřebujete poradit?</h3>
+                        <h2 class="media-heading">Potřebujete poradit?</h2>
                         <p>
                             Pokud potřebujete poradit s jakýmkoliv z uvedených témat, neváhejte se obrátit na koordinátora 
                             open access na Vaší součásti. V právních otázkách se obracejte na právníka Centra pro podporu 
