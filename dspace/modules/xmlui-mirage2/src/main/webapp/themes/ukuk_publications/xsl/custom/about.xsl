@@ -51,29 +51,33 @@
     <xsl:template name="about-toc-help">
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-6" id="about-toc">
-                <h2>Obsah</h2>
-                <nav>
-                    <ul class="list-unstyled">
-                        <li role="presentation">
-                            <a href="#heading-about-intro-text">Obecné informace</a>
-                        </li>
-                        <li role="presentation">
-                            <a href="#heading-about-typology-availability">Druhy výsledků přijímané do repozitáře</a>
-                        </li>
-                        <li role="presentation">
-                            <a href="#heading-about-licensing">Licencování plných textů uložených a zpřístupněných v repozitáři</a>
-                        </li>
-                        <li role="presentation">
-                            <a href="#heading-about-metadata">Povinné, podmíněně povinné a volitelné popisné údaje výsledku</a>
-                        </li>
-                        <li role="presentation">
-                            <a href="#heading-about-confirmations">Potvrzení prohlášení nutných pro uložení a zpřístupnění plného textu výsledku v repozitáři</a>
-                        </li>
-                        <li role="presentation">
-                            <a href="#heading-about-workflow">Postup uložení a zpřístupnění výsledku v repozitáři</a>
-                        </li>
-                    </ul>
-                </nav>
+                <div class="media">
+                    <div class="media-body">
+                        <h2 class="media-heading">Obsah</h2>
+                        <nav>
+                            <ul class="list-unstyled">
+                                <li role="presentation">
+                                    <a href="#heading-about-intro-text">Obecné informace</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#heading-about-typology-availability">Druhy výsledků přijímané do repozitáře</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#heading-about-licensing">Licencování plných textů uložených a zpřístupněných v repozitáři</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#heading-about-metadata">Povinné, podmíněně povinné a volitelné popisné údaje výsledku</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#heading-about-confirmations">Potvrzení prohlášení nutných pro uložení a zpřístupnění plného textu výsledku v repozitáři</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#heading-about-workflow">Postup uložení a zpřístupnění výsledku v repozitáři</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-6" id="about-help">
                 <div class="media">
