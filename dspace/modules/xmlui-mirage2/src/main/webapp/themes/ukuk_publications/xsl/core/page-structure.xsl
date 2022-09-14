@@ -31,6 +31,7 @@
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
                 xmlns:confman="org.dspace.core.ConfigurationManager"
                 exclude-result-prefixes="i18n dri mets xlink xsl dim xhtml mods dc confman">
+                <xsl:import href="../custom/about.xsl" />
                 <xsl:import href="../custom/typology.xsl" />
                 <xsl:import href="../custom/faq.xsl" />
                 <xsl:import href="../custom/disclaimer.xsl" />
@@ -815,7 +816,8 @@
                 <xsl:when test="starts-with($request-uri, 'page/about')">
                     <div class="hero-unit">
                         <h1><i18n:text>xmlui.mirage2.page-structure.heroUnit.title</i18n:text></h1>
-                        <p><i18n:text>xmlui.mirage2.page-structure.heroUnit.content</i18n:text></p>
+                        <!--<p><i18n:text>xmlui.mirage2.page-structure.heroUnit.content</i18n:text></p>-->
+                        <xsl:call-template name="about-create"/>
                     </div>
                 </xsl:when>
                 <xsl:when test="starts-with($request-uri, 'page/faq')">
