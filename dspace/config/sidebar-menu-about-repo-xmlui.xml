@@ -7,9 +7,9 @@
 			<item>
 				<xref target="/page/about"><i18n:text>xmlui.mirage2.page-structure.aboutThisRepository</i18n:text></xref>
 			</item>
-			<item>
+			<!-- <item>
 				<xref target="/page/faq"><i18n:text>xmlui.mirage2.static-pages.title.faq</i18n:text></xref>
-			</item>
+			</item> -->
             <item>
 				<xref target="/page/typology"><i18n:text>xmlui.mirage2.static-pages.title.typology</i18n:text></xref>
 			</item>

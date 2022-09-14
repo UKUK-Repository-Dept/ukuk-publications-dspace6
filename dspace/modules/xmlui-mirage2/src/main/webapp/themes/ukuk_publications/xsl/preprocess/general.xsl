@@ -220,7 +220,7 @@
     </xsl:template>
     
     <!-- FAQ page -->
-    <xsl:template match="dri:pageMeta[dri:metadata[@element = 'request'][@qualifier = 'URI']/text() = 'page/faq']">
+    <!-- <xsl:template match="dri:pageMeta[dri:metadata[@element = 'request'][@qualifier = 'URI']/text() = 'page/faq']">
         <pageMeta>
             <xsl:call-template name="copy-attributes"/>
             <xsl:apply-templates select="*[not(self::dri:trail)]"/>
@@ -231,7 +231,7 @@
                 <i18n:text>xmlui.mirage2.static-pages.title.faq</i18n:text>
             </trail>
         </pageMeta>
-    </xsl:template>
+    </xsl:template> -->
 
     <!-- OBD research output forms accepted into repozitory -->
 
