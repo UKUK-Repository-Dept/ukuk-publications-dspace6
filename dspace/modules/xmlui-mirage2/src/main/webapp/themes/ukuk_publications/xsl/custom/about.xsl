@@ -49,48 +49,50 @@
 
     <!-- GENERATE TOC and HELP -->
     <xsl:template name="about-toc-help">
-        <div class="col-xs-12 col-sm-12 col-md-6" id="about-toc">
-            <nav>
-                <ul class="nav nav-pills nav-stacked">
-                    <li role="presentation">
-                        <a href="#heading-about-intro-text">Druhy výsledků přijímané do repozitáře</a>
-                    </li>
-                    <li role="presentation">
-                        <a href="#heading-about-typology-availability">Druhy výsledků přijímané do repozitáře</a>
-                    </li>
-                    <li role="presentation">
-                        <a href="#heading-about-licensing">Licencování plných textů uložených a zpřístupněných v repozitáři</a>
-                    </li>
-                    <li role="presentation">
-                        <a href="#heading-about-metadata">Povinné, podmíněně povinné a volitelné popisné údaje výsledku</a>
-                    </li>
-                    <li role="presentation">
-                        <a href="heading-about-confirmations">Potvrzení prohlášení nutných pro uložení a zpřístupnění plného textu výsledku v repozitáři</a>
-                    </li>
-                    <li role="presentation">
-                        <a href="heading-about-workflow">Postup uložení a zpřístupnění výsledku v repozitáři</a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-6" id="about-help">
-            <div class="media">
-                <div class="media-left">
-                  <!-- <a href="#"> -->
-                    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                    <!-- <img class="media-object" src="..." alt="..."> -->
-                  <!-- </a> -->
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6" id="about-toc">
+                <nav>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li role="presentation">
+                            <a href="#heading-about-intro-text">Druhy výsledků přijímané do repozitáře</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#heading-about-typology-availability">Druhy výsledků přijímané do repozitáře</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#heading-about-licensing">Licencování plných textů uložených a zpřístupněných v repozitáři</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#heading-about-metadata">Povinné, podmíněně povinné a volitelné popisné údaje výsledku</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#heading-about-confirmations">Potvrzení prohlášení nutných pro uložení a zpřístupnění plného textu výsledku v repozitáři</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#heading-about-workflow">Postup uložení a zpřístupnění výsledku v repozitáři</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6" id="about-help">
+                <div class="media">
+                    <div class="media-left">
+                    <!-- <a href="#"> -->
+                        <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                        <!-- <img class="media-object" src="..." alt="..."> -->
+                    <!-- </a> -->
+                    </div>
+                    <div class="media-body">
+                        <h3 class="media-heading">Potřebujete poradit?</h3>
+                        <p>
+                            Pokud potřebujete poradit s jakýmkoliv z uvedených témat, neváhejte se obrátit na koordinátora 
+                            open access na Vaší součásti. V právních otázkách se obracejte na právníka Centra pro podporu 
+                            open science. Všechny kontaktní informace naleznete na webu 
+                            <a href="https://openscience.cuni.cz/OSCI-45.html#1" target="_blank">Centra pro podporu open science</a>.
+                        </p>
+                    </div>
                 </div>
-                <div class="media-body">
-                    <h3 class="media-heading">Potřebujete poradit?</h3>
-                    <p>
-                        Pokud potřebujete poradit s jakýmkoliv z uvedených témat, neváhejte se obrátit na koordinátora 
-                        open access na Vaší součásti. V právních otázkách se obracejte na právníka Centra pro podporu 
-                        open science. Všechny kontaktní informace naleznete na webu 
-                        <a href="https://openscience.cuni.cz/OSCI-45.html#1" target="_blank">Centra pro podporu open science</a>.
-                    </p>
-                </div>
-              </div>
+            </div>
         </div>
     </xsl:template>
 
