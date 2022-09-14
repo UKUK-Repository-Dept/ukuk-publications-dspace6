@@ -32,6 +32,7 @@
 
     <!-- page/about constructor -->
     <xsl:template name="about-create">
+        <xsl:call-template name="about-toc-help" />
 
         <xsl:call-template name="about-intro-text"/>
 
@@ -46,25 +47,16 @@
         <xsl:call-template name="about-workflow" />
     </xsl:template>
 
-    <!-- generate INTRO text -->
-    <xsl:template name="about-intro-text">
-        <p>Repozitář publikační činnosti UK slouží jako místo uložení a zpřístupnění plných textů výsledků vědy a výzkumu 
-            autorů Univerzity Karlovy. Repozitář je provozován v systému DSpace.
-        </p>
-        <p>Do repozitáře mohou své výsledky ukládat zaměstnanci i studenti Univerzity Karlovy. Uložení a zpřístupnění výsledku 
-            (autoarchivace) v Repozitáři publikační činnosti UK je pro zaměstnance i studenty UK dobrovolná. 
-            Proces autoarchivace výsledku v repozitáři je zakotven v 
-            <a href="https://cuni.cz/UK-11410.html" target="_blank">opatření rektora č. 40/2021, Evidence tvůrčí činnosti, 
-                projektů a zaměstnaneckých mobilit na Univerzitě Karlově</a>.
-        </p>
-    </xsl:template>
-
-    <xsl:template name="toc-help">
+    <!-- GENERATE TOC and HELP -->
+    <xsl:template name="about-toc-help">
         <div class="col-xs-12 col-sm-12 col-md-6" id="about-toc">
             <nav>
                 <ul class="nav nav-pills nav-stacked">
                     <li role="presentation">
-                        <a href="#heading-typology-availability">Druhy výsledků přijímané do repozitáře</a>
+                        <a href="#heading-about-intro-text">Druhy výsledků přijímané do repozitáře</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#heading-about-typology-availability">Druhy výsledků přijímané do repozitáře</a>
                     </li>
                     <li role="presentation">
                         <a href="#heading-about-licensing">Licencování plných textů uložených a zpřístupněných v repozitáři</a>
@@ -102,8 +94,23 @@
         </div>
     </xsl:template>
 
+    <!-- generate INTRO text -->
+    <xsl:template name="about-intro-text">
+        <h2 id="heading-about-intro-text">Obecné informace</h2>
+        <p>Repozitář publikační činnosti UK slouží jako místo uložení a zpřístupnění plných textů výsledků vědy a výzkumu 
+            autorů Univerzity Karlovy. Repozitář je provozován v systému DSpace.
+        </p>
+        <p>Do repozitáře mohou své výsledky ukládat zaměstnanci i studenti Univerzity Karlovy. Uložení a zpřístupnění výsledku 
+            (autoarchivace) v Repozitáři publikační činnosti UK je pro zaměstnance i studenty UK dobrovolná. 
+            Proces autoarchivace výsledku v repozitáři je zakotven v 
+            <a href="https://cuni.cz/UK-11410.html" target="_blank">opatření rektora č. 40/2021, Evidence tvůrčí činnosti, 
+                projektů a zaměstnaneckých mobilit na Univerzitě Karlově</a>.
+        </p>
+    </xsl:template>
+
+    <!-- GENERATE INFO ON TYPOLOGY and fulltext AVAILABILITY -->
     <xsl:template name="about-typology-availability">
-        <h2 id="heading-typology-availability">Druhy výsledků přijímané do repozitáře a jejich dostupnost</h2>
+        <h2 id="heading-about-typology-availability">Druhy výsledků přijímané do repozitáře a jejich dostupnost</h2>
         <p>
             Do repozitáře je možné uložit plné texty vybraných druhů výsledků. 
             Seznam druhů výsledků přijímaných do repozitáře je k dispozici na webové stránce 
@@ -154,6 +161,7 @@
         </div>
     </xsl:template>
 
+    <!-- GENERATE INFO ABOUT LICENSING -->
     <xsl:template name="about-licensing">
         <h2 id="heading-about-licensing">Licencování plných textů uložených a zpřístupněných v repozitáři</h2>
         <p>Licence uvedená u uloženého plného textu výsledku rozhoduje o rozsahu, 
@@ -217,6 +225,7 @@
         </p>
     </xsl:template>
 
+    <!-- GENERATE INFO ABOUT MANDATORY MEDATADA -->
     <xsl:template name="about-metadata">
         <h2 id="heading-about-metadata">Povinné, podmíněně povinné a volitelné popisné údaje výsledku</h2>
         <p>
@@ -306,12 +315,19 @@
         </p>
     </xsl:template>
 
+    <!-- GENERATE INFO ABOUT WORKFLOW -->
     <xsl:template name="about-workflow">
         <h2>Postup uložení a zpřístupnění výsledku v repozitáři</h2>
         <p>Ve stručnosti lze kroky shrnout následovně:</p>
         <div class="table-responsive">
             <table id="about-table-workflow" class="table table-condensed">
                 <caption class="sr-only">Postup uložení a zpřístupnění výsledku v repozitáři</caption>
+                <thead>
+                    <tr>
+                        <th>pořadí</th>
+                        <th>popis kroku</th>
+                    </tr>
+                </thead>
                 <tbody>
                     <tr>
                         <td>
