@@ -37,7 +37,9 @@
         <xsl:call-template name="about-intro-text"/>
 
         <xsl:call-template name="about-typology-availability" />
-        
+
+        <xsl:call-template name="about-fulltext-versions" />
+
         <xsl:call-template name="about-licensing" />
         
         <xsl:call-template name="about-metadata" />
@@ -61,6 +63,9 @@
                                 </li>
                                 <li role="presentation">
                                     <a href="#heading-about-typology-availability">Druhy výsledků přijímané do repozitáře</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#heading-about-fulltext-versions">Verze plných textů přijímaných do repozitáře</a>
                                 </li>
                                 <li role="presentation">
                                     <a href="#heading-about-licensing">Licencování plných textů uložených a zpřístupněných v repozitáři</a>
@@ -166,6 +171,72 @@
                 </tbody>
             </table>
         </div>
+    </xsl:template>
+
+    <!-- GENERATE INFO ABOUT FULLTEXT VERSIONS ACCEPTED INTO THE REPOSITORY -->
+    <xsl:template name="about-fulltext-versions">
+        <h2 id="heading-about-fulltext-versions">Verze plných textů přijímaných do repozitáře</h2>
+        <p>
+            Do repozitáře jsou přijímany plné texty výsledků v některé z následujících verzí:
+            <b>rukopis (draft)</b>, <b>preprint (submitted version)</b>, <b>postprint (accepted version)</b>, 
+            <b>vydavatelská verze (published version)</b> a <b>aktualizovaná verze (updated version)</b>. 
+            Stručný popis jednotlivých verzí plného textu je uveden v tabulce níže.
+        </p>
+        <div class="table-responsive">
+            <table id="about-table-fulltext-versions" class="table-bordered table-condensed">
+                <caption class="sr-only">Tabulka - možnosti licencování plných textů výsledků v Repozitáři publikační činnosti</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">verze plného textu</th>
+                        <th scope="col">popis</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            Rukopis (draft)
+                        </td>
+                        <td>
+                            pracovní verze plného textu výsledku
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Preprint (submitted version)
+                        </td>
+                        <td>
+                            autorsky finalizovaná verze výsledku zaslaná k recenznímu řízení
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Postprint (accepted version)
+                        </td>
+                        <td>
+                            verze výsledku po recenzním řízení s autorem zapracovanými změnami, 
+                            která je připravená pro vydání, ale ještě nebyla formátovaná pro tisk/do vzhledu časopisu
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Vydavatelská verze (published version)
+                        </td>
+                        <td>
+                            verze výsledku vydaná vydavatelem s finálním formátováním a grafickými úpravami časopisu
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Aktualizovaná verze (updated version)
+                        </td>
+                        <td>
+                            verze výsledku aktualizovaná po jejím vydání
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
     </xsl:template>
 
     <!-- GENERATE INFO ABOUT LICENSING -->
