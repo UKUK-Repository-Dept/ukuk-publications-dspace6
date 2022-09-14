@@ -288,9 +288,9 @@
                     <xsl:when test="starts-with($request-uri, 'page/about')">
                         <i18n:text>xmlui.mirage2.page-structure.aboutThisRepository</i18n:text>
                     </xsl:when>
-                    <xsl:when test="starts-with($request-uri, 'page/faq')">
+                    <!-- <xsl:when test="starts-with($request-uri, 'page/faq')">
                         <i18n:text>xmlui.mirage2.static-pages.title.faq</i18n:text>
-                    </xsl:when>
+                    </xsl:when> -->
                     <xsl:when test="starts-with($request-uri, 'page/typology')">
                         <i18n:text>xmlui.mirage2.static-pages.title.typology</i18n:text>
                     </xsl:when>
@@ -820,13 +820,13 @@
                         <xsl:call-template name="about-create"/>
                     </div>
                 </xsl:when>
-                <xsl:when test="starts-with($request-uri, 'page/faq')">
-                    <div class="hero-unit">
-                        <h1><i18n:text>xmlui.mirage2.static-pages.heading.faq</i18n:text></h1>
+                <!--<xsl:when test="starts-with($request-uri, 'page/faq')">-->
+                    <!-- <div class="hero-unit">
+                        <h1><i18n:text>xmlui.mirage2.static-pages.heading.faq</i18n:text></h1> -->
                         <!--<p><i18n:text>xmlui.mirage2.page-structure.heroUnit.content</i18n:text></p>-->
-                        <xsl:call-template name="faq-create"/>
+                        <!-- <xsl:call-template name="faq-create"/>
                     </div>
-                </xsl:when>
+                </xsl:when> -->
                 <xsl:when test="starts-with($request-uri, 'page/metadata')">
                     <div class="hero-unit" id="metadata">
                         <h1><i18n:text>xmlui.mirage2.static-pages.heading.metadata</i18n:text></h1>
