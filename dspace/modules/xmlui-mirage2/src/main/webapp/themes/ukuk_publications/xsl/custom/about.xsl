@@ -51,7 +51,7 @@
         <p>Repozitář publikační činnosti UK slouží jako místo uložení a zpřístupnění plných textů výsledků vědy a výzkumu 
             autorů Univerzity Karlovy. Repozitář je provozován v systému DSpace.
         </p>
-        <p>Do repozitáře mohou své výsledky ukládat zaměstnanci I studenti Univerzity Karlovy. Uložení a zpřístupnění výsledku 
+        <p>Do repozitáře mohou své výsledky ukládat zaměstnanci i studenti Univerzity Karlovy. Uložení a zpřístupnění výsledku 
             (autoarchivace) v Repozitáři publikační činnosti UK je pro zaměstnance i studenty UK dobrovolná. 
             Proces autoarchivace výsledku v repozitáři je zakotven v 
             <a href="https://cuni.cz/UK-11410.html" target="_blank">opatření rektora č. 40/2021, Evidence tvůrčí činnosti, 
