@@ -398,7 +398,7 @@
         <h2>Postup uložení a zpřístupnění výsledku v repozitáři</h2>
         <p>Ve stručnosti lze kroky shrnout následovně:</p>
         <div class="table-responsive">
-            <table id="about-table-workflow" class="table table-condensed">
+            <table id="about-table-workflow" class="table-bordered table-condensed">
                 <caption class="sr-only">Postup uložení a zpřístupnění výsledku v repozitáři</caption>
                 <thead>
                     <tr>
