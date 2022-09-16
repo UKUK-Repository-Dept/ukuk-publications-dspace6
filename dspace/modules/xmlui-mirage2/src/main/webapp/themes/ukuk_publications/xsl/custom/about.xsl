@@ -191,34 +191,34 @@
                     </tr>
                     <tr>
                         <td>
-                            <i18n:text>obd.about-fulltext-versions.table-fulltext-versions.tr.2.td.1</o18n:text>
+                            <i18n:text>obd.about-fulltext-versions.table-fulltext-versions.tr.2.td.1</i18n:text>
                         </td>
                         <td>
-                            <i18n:text>obd.about-fulltext-versions.table-fulltext-versions.tr.2.td.2</o18n:text>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <i18n:text>obd.about-fulltext-versions.table-fulltext-versions.tr.3.td.1</o18n:text>
-                        </td>
-                        <td>
-                            <i18n:text>obd.about-fulltext-versions.table-fulltext-versions.tr.3.td.2</o18n:text>
+                            <i18n:text>obd.about-fulltext-versions.table-fulltext-versions.tr.2.td.2</i18n:text>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <i18n:text>obd.about-fulltext-versions.table-fulltext-versions.tr.4.td.1</o18n:text>
+                            <i18n:text>obd.about-fulltext-versions.table-fulltext-versions.tr.3.td.1</i18n:text>
                         </td>
                         <td>
-                            <i18n:text>obd.about-fulltext-versions.table-fulltext-versions.tr.4.td.2</o18n:text>
+                            <i18n:text>obd.about-fulltext-versions.table-fulltext-versions.tr.3.td.2</i18n:text>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <i18n:text>obd.about-fulltext-versions.table-fulltext-versions.tr.5.td.1</o18n:text>
+                            <i18n:text>obd.about-fulltext-versions.table-fulltext-versions.tr.4.td.1</i18n:text>
                         </td>
                         <td>
-                            <i18n:text>obd.about-fulltext-versions.table-fulltext-versions.tr.5.td.2</o18n:text>
+                            <i18n:text>obd.about-fulltext-versions.table-fulltext-versions.tr.4.td.2</i18n:text>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <i18n:text>obd.about-fulltext-versions.table-fulltext-versions.tr.5.td.1</i18n:text>
+                        </td>
+                        <td>
+                            <i18n:text>obd.about-fulltext-versions.table-fulltext-versions.tr.5.td.2</i18n:text>
                         </td>
                     </tr>
                 </tbody>
