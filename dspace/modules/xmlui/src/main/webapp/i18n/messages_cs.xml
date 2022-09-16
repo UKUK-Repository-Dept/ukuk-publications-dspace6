@@ -3269,7 +3269,7 @@
 
 	<!-- page/about -->
 
-	<message key="obd.about-toc.heading">Obsah</mesage>
+	<message key="obd.about-toc.heading">Obsah</message>
 	<message key="obd.about-toc.heading-about-intro-text">Obecné informace</message>
 	<message key="obd.about-toc.heading-about-typology-availability">Druhy výsledků přijímané do repozitáře a jejich dostupnost</message>
 	<message key="obd.about-toc.heading-about-fulltext-versions">Verze plných textů přijímaných do repozitáře</message>

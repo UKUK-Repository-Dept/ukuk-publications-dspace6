@@ -3161,7 +3161,7 @@
 
 	<!-- page/about -->
 
-	<message key="obd.about-toc.heading">Table of Contents</mesage>
+	<message key="obd.about-toc.heading">Table of Contents</message>
 	<message key="obd.about-toc.heading-about-intro-text">General Information</message>
 	<message key="obd.about-toc.heading-about-typology-availability">Result types accepted in the repository and their accessibility</message>
 	<message key="obd.about-toc.heading-about-fulltext-versions">Versions of full texts accepted in the repository</message>
