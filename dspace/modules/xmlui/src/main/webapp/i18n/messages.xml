@@ -3159,6 +3159,308 @@
 
 	<!-- END OF: page/faq-->
 
+	<!-- page/about -->
+
+	<message key="obd.about-toc.heading">Table of Contents</message>
+	<message key="obd.about-toc.heading-about-intro-text">General Information</message>
+	<message key="obd.about-toc.heading-about-typology-availability">Result types accepted in the repository and their accessibility</message>
+	<message key="obd.about-toc.heading-about-fulltext-versions">Versions of full texts accepted in the repository</message>
+	<message key="obd.about-toc.heading-about-licensing">Licensing of full texts stored and made available in the repository</message>
+	<message key="obd.about-toc.heading-about-metadata">Mandatory, conditionally mandatory, and optional descriptive data of the result</message>
+	<message key="obd.about-toc.heading-about-confirmations">Acknowledgment of declarations required to store and make available the full text in the repository</message>
+	<message key="obd.about-toc.heading-about-workflow">Procedures for storing and making the result available in the repository</message>
+
+	<message key="obd.about-help.heading">Do you need any advice?</message>
+
+	<message key="obd.about-help.text">
+		If you need advice on any of the above steps, do not hesitate to contact the open access coordinator at your unit. 
+		For legal questions, contact the lawyer of the Open Science Support Centre. All contact information can be found 
+		on the web pages of the 
+		<a href="https://openscience.cuni.cz/OSCIEN-14.html" target="_blank">Open Science Support Centre</a>.
+	</message>
+	
+	<message key="obd.about-intro-text.heading">General Information</message>
+	<message key="obd.about-intro-text.para.1">Charles University’s repository of publishing activities is 
+		a place to store and make available the full texts of the results of science and research of authors 
+		at Charles University. The repository is operated in the DSpace system.
+	</message>
+	<message key="obd.about-intro-text.para.2">Employees and students of Charles University can store their 
+		results in the repository. Storing and making the result available (auto-archiving) in the 
+		CU Repository of Publishing Activities is voluntary for CU employees and students. 
+		The process of auto-archiving results in the repository is established in 
+		<a href="https://cuni.cz/UKEN-714-version1-en_or_evidence_tvurci_cinnosti_40_2021_final.pdf" target="_blank">
+		Rector's Directive no. 40/2021, Records of creative activity, projects, and employee mobility at 
+		Charles University.</a>.
+	</message>
+	<message key="obd.about-intro-text.para.3">Auto-archiving of results in the repository takes place via the 
+		OBD IS Věda module. The results are then automatically transferred to this repository after being checked 
+		by the faculty open access coordinators.
+	</message>
+
+	<message key="obd.about-typology-availability.heading">Result types accepted in the repository and their accessibility</message>
+	<message key="obd.about-typology-availability.para.1">
+		Full texts of selected types of results may be stored in the repository. A list of result types accepted 
+		in the repository is provided on the web pages 
+		<a href="https://publications.cuni.cz/page/typology" target="_blank">Research outputs typology.</a>.
+	</message>
+	<message key="obd.about-typology-availability.para.2">
+		Full text results can be made available in the repository in any of the following accessibility modes:
+	</message>
+	<message key="obd.about-typology.table-availability.caption">
+		Table - accessiblity modes of results fulltexts in the Repository of publishing activities
+	</message>
+	<message key="obd.about-typology.table-availability.header.1">accessibility mode</message>
+	<message key="obd.about-typology.table-availability.header.2">description</message>
+	<message key="obd.about-typology.table-availability.tr.1.td.1">open access</message>
+	<message key="obd.about-typology.table-availability.tr.1.td.2">
+		The full text may be accessed online in the repository by all repository visitors under the selected licence.
+	</message>
+	<message key="obd.about-typology.table-availability.tr.2.td.1">open access with an embargo</message>
+	<message key="obd.about-typology.table-availability.tr.2.td.2">
+		The full text may be accessed online in the repository by all repository visitors under the 
+		selected licence, but only after a certain date (the date for ending the access embargo).
+	</message>
+	<message key="obd.about-typology.table-availability.tr.3.td.1">restricted access</message>
+	<message key="obd.about-typology.table-availability.tr.3.td.2">
+		The full text may be accessed in the repository by all users at Charles University who are logged in.
+	</message>
+
+	<message key="obd.about-fulltext-versions.heading">Versions of full texts accepted in the repository</message>
+	<message key="obd.about-fulltext-versions.para.1">
+		Full text results are accepted in the repository in any of the following versions: 
+		<b>draft</b>, <b>preprint (submitted version)</b>, <b>postprint (accepted version)</b>, 
+		<b>published version</b>, and <b>updated version</b>. A brief description of the full-text 
+		versions is provided in the table below.
+	</message>
+	<message key="obd.about-fulltext-versions.table-fulltext-versions.caption">
+		Table - fulltext versions accepted in the Repository of publishing activities
+	</message>
+	<message key="obd.about-fulltext-versions.table-fulltext-versions.header.1">version of fulltext</message>
+	<message key="obd.about-fulltext-versions.table-fulltext-versions.header.2">description</message>
+	<message key="obd.about-fulltext-versions.table-fulltext-versions.tr.1.td.1">Draft</message>
+	<message key="obd.about-fulltext-versions.table-fulltext-versions.tr.1.td.2">Working version of the result.</message>
+	<message key="obd.about-fulltext-versions.table-fulltext-versions.tr.2.td.1">Preprint (submitted version)</message>
+	<message key="obd.about-fulltext-versions.table-fulltext-versions.tr.2.td.2">
+		A version of the result finalized by the author and submitted for the review process.
+	</message>
+	<message key="obd.about-fulltext-versions.table-fulltext-versions.tr.3.td.1">Postprint (accepted version)</message>
+	<message key="obd.about-fulltext-versions.table-fulltext-versions.tr.3.td.2">
+		A version of the result after the review process with changes made by the author that is prepared 
+		for publication but that has not yet been formatted for print/for the journal layout.
+	</message>
+	<message key="obd.about-fulltext-versions.table-fulltext-versions.tr.4.td.1">Published version</message>
+	<message key="obd.about-fulltext-versions.table-fulltext-versions.tr.4.td.2">
+		A version of the result produced by the publisher with the final formatting and layout of the journal.
+	</message>
+	<message key="obd.about-fulltext-versions.table-fulltext-versions.tr.5.td.1">Updated version</message>
+	<message key="obd.about-fulltext-versions.table-fulltext-versions.tr.5.td.2">
+		A version of the result that was updated after being published.
+	</message>
+
+	<message key="obd.about-licensing.heading">Licensing of full texts stored and made available in the repository</message>
+	<message key="obd.about-licensing.para.1">
+		The licence specified for the stored full text of the result determines the extent to which visitors can 
+		use the repository. <b>If a licensing agreement was concluded with a publisher, the choice of licence primarily 
+		depends on the terms of the licensing agreement</b>.
+	</message>
+	<message key="obd.about-licensing.para.2">
+		One of the following licensing options can be used for full-text results intended to be stored 
+		and published in the repository:
+	</message>
+	<message key="obd.about-licensing.table-licensing.caption">
+		Table - Licensing of fulltexts stored and made available in Repository of publishing activities
+	</message>
+	<message key="obd.about-licensing.table-licensing.header.1">licensing option</message>
+	<message key="obd.about-licensing.table-licensing.header.2">description</message>
+	<message key="obd.about-licensing.table-licensing.tr.1.td.1">No licence</message>
+	<message key="obd.about-licensing.table-licensing.tr.1.td.2">
+		The full text is published in the repository as read-only, i.e. in free open access mode. 
+		Repository visitors are able to use (e.g. download) the text published without a licence 
+		only with the consent of the copyright administrator or on the basis of statutory exemptions 
+		(e.g. a citation licence).
+	</message>
+	<message key="obd.about-licensing.table-licensing.tr.2.td.1">Creative Commons licence</message>
+	<message key="obd.about-licensing.table-licensing.tr.2.td.2">
+		The full text will be openly accessible. The extent to which users will be able to use your text depends 
+		on the specific licence. Rights and obligations arising from Creative Commons licences are defined by four 
+		licensing elements (BY, SA, ND, NC). These elements and their combinations make up the six licensing types. 
+		After selecting a specific Creative Commons licence in the respective version from the drop-down menu, 
+		a URL linking to the full text of the selected licence located on the 
+		<a href="https://www.creativecommons.cz/" target="_blank">Czech Creative Commons website</a> is 
+		automatically generated.
+	</message>
+	<message key="obd.about-licensing.table-licensing.tr.3.td.1">Other licence</message>
+	<message key="obd.about-licensing.table-licensing.tr.3.td.2">
+		The terms of a licensing agreement concluded with a publisher impose the obligation 
+		to license the full text under a licence other than a Creative Commons licence. 
+		Select the other license option. You can choose this option even if no licensing agreement 
+		has been concluded, and you are entitled to make all decisions on the options for licensing the work.
+	</message>
+	<message key="obd.about-licensing.para.3">
+		You can find more detailed information on the types of Creative Commons licences 
+		on the web pages <a href="https://publications.cuni.cz/page/licenses" target="_blank">CC Licences</a>.
+	</message>
+	<message key="obd.about-metadata.heading">Mandatory, conditionally mandatory, and optional descriptive data of the result</message>
+	<message key="obd.about-metadata.para.1">
+		In order to store and make a text available in the CU repository of publishing activities, 
+		we require a set of mandatory and conditionally mandatory descriptive data. Both types of 
+		descriptive data are mandatory, but when filling in conditionally mandatory data 
+		(and subsequently checking them), you can take into account whether the data can be found 
+		or obtained for the specific form of the result or for the current stage of publication of the result.
+	</message>
+	<message key="obd.about-metadata.para.2">
+		In addition to mandatory and conditionally mandatory descriptive data, you may fill in other 
+		optional descriptive data in the OBD IS Věda module in relation to storage and access in the repository. 
+		Completing these optional data and the accuracy of these data are not checked before the result is 
+		accepted in the repository.
+	</message>
+	<message key="obd.about-metadata.para.3">
+		However, filling in optional data allows you to do the following:
+	</message>
+	<message key="obd.about-metadata.ul.1.li.1">
+		display additional information in the preview of the result record in the repository;
+	</message>
+	<message key="obd.about-metadata.ul.1.li.2">
+		increase the probability of finding the relevant result in the repository;
+	</message>
+	<message key="obd.about-metadata.ul.1.li.3">
+		generate bibliographic citations for the results stored in the repository;
+	</message>
+	<message key="obd.about-metadata.ul.1.li.4">
+		ensure the collection of additional statistical information on the result stored in the repository.
+	</message>
+	<message key="obd.about-metadata.para.4">
+		You can find more detailed information on mandatory and conditionally mandatory 
+		descriptive data on the web pages 
+		<a href="https://publications.cuni.cz/page/metadata" target="_blank">Required metadata</a>.
+	</message>
+
+	<message key="obd.about-confirmations.heading">
+		Acknowledgment of declarations required to store and make available the full text in the repository
+	</message>
+	<message key="obd.about-confirmations.para.1">
+		A necessary step for storing and making available the full text of the result is also confirmation 
+		that all co-authors agree to storing and making available the respective version of the full text 
+		in the repository and conformation that this does not infringe the rights of the publisher 
+		or any other third party. You can confirm these facts by checking the respective box 
+		in the record of the result in the OBD IS Věda module.
+	</message>
+	<message key="obd.about-confirmations.para.2">
+		Checking the declaration of consent of the co-authors to store and make available the full 
+		text in the repository is required even if the text has only one author 
+		(this is a necessary technical condition for uploading a text to the repository).
+	</message>
+	<message key="obd.about-confirmations.para.3">
+		The complete texts for both declarations are as follows:
+	</message>
+	<message key="obd.about-confirmations.table-confirmations.caption">Table - texts of the acknowledgment of required declaration</message>
+	<message key="obd.about-confirmations.table-confirmations.header.1">declaration</message>
+	<message key="obd.about-confirmations.table-confirmations.header.2">complete text</message>
+	<message key="obd.about-confirmations.table-confirmations.tr.1.td.1">
+		Confirmation of consent of co-authors
+	</message>
+	<message key="obd.about-confirmations.table-confirmations.tr.1.td.2">
+		I hereby declare that I have the consent of all co-authors to store and make available 
+		the attached full text of the work in the CU repository of publishing activities.
+	</message>
+	<message key="obd.about-confirmations.table-confirmations.tr.2.td.1">
+		Confirmation of non-infringement of the rights of the publisher or another third party
+	</message>
+	<message key="obd.about-confirmations.table-confirmations.tr.2.td.2">
+		I hereby declare that, by storing and making the file available in the CU repository of publishing activities, 
+		the rights of the publisher or other third parties are not infringed.
+	</message>
+	<message key="obd.about-confirmations.para.4">
+		If the declarations are not confirmed, the result will not be stored and made available in the repository 
+		and will remain stored only in the OBD IS Věda module. Detailed advice relating to the above confirmations 
+		are available on the web page <a href="https://topi.is.cuni.cz/page/disclaimer" target="_blank">Disclaimer</a>.
+	</message>
+	<message key="obd.about-workflow.heading">Procedures for storing and making the result available in the repository</message>
+	<message key="obd.about-workflow.para.1">
+		The steps can be summarized as follows:
+	</message>
+	<message key="obd.about-workflow.table-workflow.caption">
+		Table - Procedures for storing and making the result available in the repository
+	</message>
+	<message key="obd.about-workflow.table-workflow.header.1">step order</message>
+	<message key="obd.about-workflow.table-workflow.header.2">step description</message>
+	<message key="obd.about-workflow.table-workflow.tr.1.td.1">Step 1</message>
+	<message key="obd.about-workflow.table-workflow.tr.1.td.2">
+		Check to make sure the result type can be stored and made available in the repository. 
+		See the <a href="https://publications.cuni.cz/page/typology" target="_blank">list of result types accepted 
+		in the repository</a>.
+	</message>
+	<message key="obd.about-workflow.table-workflow.tr.2.td.1">Step 2</message>
+	<message key="obd.about-workflow.table-workflow.tr.2.td.2">
+		Check the licensing agreement with the publisher (provided the result is already published or 
+		its publication is planned in the future) and make sure that the result can be stored and made 
+		available in the repository and under what terms.
+	</message>
+	<message key="obd.about-workflow.table-workflow.tr.3.td.1">Step 3</message>
+	<message key="obd.about-workflow.table-workflow.tr.3.td.2">
+		If you are the author, arrange for the consent of any co-authors of the result 
+		to storing and making available the full text in the repository, 
+		or verify that the author has these consents. If needed, you can use 
+		<a href="https://bit.ly/3vWAi5b" target="_blank">sample form</a>, 
+		prepared for you by the CU Open Science Support Centre.
+	</message>
+	<message key="obd.about-workflow.table-workflow.tr.4.td.1">Step 4</message>
+	<message key="obd.about-workflow.table-workflow.tr.4.td.2">Log in to the OBD IS Věda module and create a new record or edit an existing record.</message>
+	<message key="obd.about-workflow.table-workflow.tr.5.td.1">Step 5</message>
+	<message key="obd.about-workflow.table-workflow.tr.5.td.2">
+		Fill in all <a href="https://publications.cuni.cz/page/metadata" target="_blank">mandatory and relevant conditionally 
+		mandatory metadata</a> of the result or, if they already exist, check that they are up-to-date and accurate.
+	</message>
+	<message key="obd.about-workflow.table-workflow.tr.6.td.1">Step 6</message>
+	<message key="obd.about-workflow.table-workflow.tr.6.td.2">
+		Enter the fulltext that you would like to store and make available in the repository in the 
+		respective part of the form for the result record in OBD.
+	</message>
+	<message key="obd.about-workflow.table-workflow.tr.7.td.1">Step 7</message>
+	<message key="obd.about-workflow.table-workflow.tr.7.td.2">
+		Select the <a href="#heading-about-fulltext-versions" target="_blank">version of the fulltext</a> file 
+		and select its <a href="#heading-about-typology-availability" target="_blank">availability mode</a> 
+		in the repository.
+	</message>
+	<message key="obd.about-workflow.table-workflow.tr.8.td.1">Step 8</message>
+	<message key="obd.about-workflow.table-workflow.tr.8.td.2">
+		(OPTIONAL) Enter any other files in the respective part of the form for the result record in OBD 
+		(e.g. the licensing agreement concluded with the publisher).
+	</message>
+	<message key="obd.about-workflow.table-workflow.tr.9.td.1">Step 9</message>
+	<message key="obd.about-workflow.table-workflow.tr.9.td.2">
+		Confirm by checking the relevant boxes in the result record in OBD next to the entered full text that:
+	</message>
+	<message key="obd.about-workflow.table-workflow.tr.9.td.2.ul.1.li.1">
+		by storing and making available the full text, you will not infringe the rights of the publisher 
+		or another third party;
+	</message>
+	<message key="obd.about-workflow.table-workflow.tr.9.td.2.ul.1.li.2">
+		you have the consent of all co-authors to store and make available the full text in the repository.
+	</message>
+	<message key="obd.about-workflow.table-workflow.tr.10.td.1">Step 10</message>
+	<message key="obd.about-workflow.table-workflow.tr.10.td.2">Save the result record.</message>
+	<message key="obd.about-workflow.para.2">
+		After completing the above steps, the result record, including the attached fulltext, 
+		is checked by the open access coordinator. After approval by the open access coordinator, 
+		the result, including the attached fulltext, is automatically transferred from the OBD IS Věda module 
+		to this repository.
+	</message>
+	<message key="obd.about-workflow.para.3">
+		The approved and successfully uploaded result will have a separate record created in the repository 
+		for each of the versions of the attached full text.
+	</message>
+	<message key="obd.about-workflow.para.4">
+		You can make reference to the result record in the repository using a permanent link specified in the field 
+		<i>Permanent link</i> of the result record in the repository. The repository system uses the service 
+		HANDLE Resolver to create and maintain permanent links, 
+		and each of the results is assigned a unique HANDLE identifier, which is part of the permanent link. 
+		This identifier is assigned to the result when it is first transferred to the repository and remains 
+		valid even when updating the record.
+	</message>
+
+	<!-- END OF: page/about -->	
+
 	<!-- Skip link -->
 	<message key="xmlui.tab.navigation.skip-to-main">Skip to main content</message>
 	
