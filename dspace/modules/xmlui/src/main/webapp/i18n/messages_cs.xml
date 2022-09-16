@@ -3503,13 +3503,13 @@
 		nebo je v budoucnu plánováno jeho vydání) a ujistěte se, že je možné výsledek uložit a zpřístupnit 
 		v repozitáři a za jakých podmínek.
 	</message>
-	<message key="obd.about-workflow.table-workflow.tr.3.td.1">Krok 3<message>
+	<message key="obd.about-workflow.table-workflow.tr.3.td.1">Krok 3</message>
 	<message key="obd.about-workflow.table-workflow.tr.3.td.2">
 		Jste-li autorem, zajistěte si souhlasy případných spoluautorů výsledku s uložením a zveřejněním 
 		plného textu výsledku v repozitáři, případně ověřte, že autor souhlasy disponuje.
 		V případě zájmu můžete pro získání souhlasu využít <a href="https://bit.ly/3vWAi5b" target="_blank">vzorový formulář</a>, 
 		který pro Vás připravilo Centrum pro podporu open science na UK.
-	<message>
+	</message>
 	<message key="obd.about-workflow.table-workflow.tr.4.td.1">Krok 4</message>
 	<message key="obd.about-workflow.table-workflow.tr.4.td.2">Přihlaste se do modulu OBD IS Věda a založte nový záznam nebo editujte záznam existující.</message>
 	<message key="obd.about-workflow.table-workflow.tr.5.td.1">Krok 5</message>
@@ -3565,8 +3565,6 @@
 		přidělen v okamžiku jeho prvního přenosu do repozitáře a zůstává v platnosti i v případě 
 		následných aktualizací záznamu.
 	</message>
-
-
 	<!-- END OF: page/about -->
 
 	<!-- Skip link -->

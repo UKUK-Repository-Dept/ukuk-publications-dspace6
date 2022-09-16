@@ -3396,14 +3396,14 @@
 		its publication is planned in the future) and make sure that the result can be stored and made 
 		available in the repository and under what terms.
 	</message>
-	<message key="obd.about-workflow.table-workflow.tr.3.td.1">Step 3<message>
+	<message key="obd.about-workflow.table-workflow.tr.3.td.1">Step 3</message>
 	<message key="obd.about-workflow.table-workflow.tr.3.td.2">
 		If you are the author, arrange for the consent of any co-authors of the result 
 		to storing and making available the full text in the repository, 
 		or verify that the author has these consents. If needed, you can use 
 		<a href="https://bit.ly/3vWAi5b" target="_blank">sample form</a>, 
 		prepared for you by the CU Open Science Support Centre.
-	<message>
+	</message>
 	<message key="obd.about-workflow.table-workflow.tr.4.td.1">Step 4</message>
 	<message key="obd.about-workflow.table-workflow.tr.4.td.2">Log in to the OBD IS Věda module and create a new record or edit an existing record.</message>
 	<message key="obd.about-workflow.table-workflow.tr.5.td.1">Step 5</message>
