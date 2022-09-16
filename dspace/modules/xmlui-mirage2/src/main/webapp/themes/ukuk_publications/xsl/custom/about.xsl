@@ -55,7 +55,7 @@
             <div class="col-xs-12 col-sm-12 col-md-6" id="about-toc">
                 <div class="media">
                     <div class="media-body">
-                        <h2 class="media-heading">Obsah</h2>
+                        <h2 class="media-heading"><i18n:text>obd.about-toc.heading</i18n:text></h2>
                         <nav>
                             <ul class="list-unstyled">
                                 <li role="presentation">
@@ -105,7 +105,7 @@
 
     <!-- generate INTRO text -->
     <xsl:template name="about-intro-text">
-        <h2 id="heading-about-intro-text">Obecné informace</h2>
+        <h2 id="heading-about-intro-text"><i18n:text>obd.about-intro-text.heading</i18n:text></h2>
         <p>
             <i18n:text>obd.about-intro-text.para.1</i18n:text>
         </p>
@@ -361,8 +361,8 @@
                 <caption class="sr-only"><i18n:text>obd.about-workflow.table-workflow.caption</i18n:text></caption>
                 <thead>
                     <tr>
-                        <th><i18n:text>obd.about-workflow.table-workflow.header.1</i18n:text>pořadí</th>
-                        <th><i18n:text>obd.about-workflow.table-workflow.header.2</i18n:text>popis kroku</th>
+                        <th><i18n:text>obd.about-workflow.table-workflow.header.1</i18n:text></th>
+                        <th><i18n:text>obd.about-workflow.table-workflow.header.2</i18n:text></th>
                     </tr>
                 </thead>
                 <tbody>
