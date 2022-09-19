@@ -291,7 +291,9 @@
     <xsl:template name="itemSummaryView-DIM-URI">
         <xsl:if test="dim:field[@element='identifier' and @qualifier='uri' and descendant::text()]">
             <div class="simple-item-view-uri item-page-field-wrapper table">
-                <h5><i18n:text>xmlui.dri2xhtml.METS-1.0.item-uri</i18n:text></h5>
+                <!-- <JR> 2022-09-19: Added a new translation key for permanent link to DSpace item record -->
+                <!--<h5><i18n:text>xmlui.dri2xhtml.METS-1.0.item-uri</i18n:text></h5>-->
+                <h5><i18n:text>item-view.cuni.permanent-link.heading</i18n:text></h5>
                 <span>
                     <xsl:for-each select="dim:field[@element='identifier' and @qualifier='uri']">
                         <a>
