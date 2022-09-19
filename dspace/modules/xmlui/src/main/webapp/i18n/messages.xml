@@ -2514,6 +2514,7 @@
 	<message key="xmlui.ArtifactBrowser.ConfigurableBrowse.title.metadata.facultydepartment">Workplaces</message>
 	<message key="xmlui.ArtifactBrowser.Navigation.browse_facultydepartment">Workplaces</message>
 	<message key="xmlui.ArtifactBrowser.ConfigurableBrowse.trail.metadata.facultydepartment">Workplaces</message>
+	<message key="xmlui.ArtifactBrowser.ConfigurableBrowse.facultydepartment.column_heading">Workplaces</message>
 
 	<!-- CUSTOM CUNI ITEM-VIEW -->
 	<!-- <JR> - 2022-09-19 -->
