@@ -228,9 +228,12 @@
     <xsl:template name="itemSummaryView-DIM-abstract">
         <xsl:if test="dim:field[@element='description' and @qualifier='abstract']">
             <div class="simple-item-view-description item-page-field-wrapper table">
-                <h5 class="visible-xs"><i18n:text>xmlui.dri2xhtml.METS-1.0.item-abstract</i18n:text></h5>
+                <!-- <JR> - Add heading for abstract visible all the time and specifying the abstract language -->
+                <!-- <h5 class="visible-xs"><i18n:text>xmlui.dri2xhtml.METS-1.0.item-abstract</i18n:text></h5>-->
                 <div>
                     <xsl:for-each select="dim:field[@element='description' and @qualifier='abstract']">
+                        <xsl:variable name="language" select="@language"/>
+                        <h5 class="item-view-metadata-heading"><i18n:text>xmlui.dri2xhtml.METS-1.0.item-abstract</i18n:text> (<xsl:text><xsl:value-of select="$language"/></xsl:text>)</h5>
                         <xsl:choose>
                             <xsl:when test="node()">
                                 <xsl:copy-of select="node()"/>
