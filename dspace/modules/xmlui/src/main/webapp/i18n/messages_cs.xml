@@ -2805,7 +2805,7 @@
 
 	<!-- <JR> - 20.1. 2022 - Custom static pages headings -->
 	<message key="xmlui.mirage2.static-pages.heading.faq">Často kladené otázky</message>
-	<message key="xmlui.mirage2.static-pages.heading.typology">Formy výsledků přebírané do repozitáře</message>
+	<message key="xmlui.mirage2.static-pages.heading.typology">Druhy výsledků přebírané do repozitáře</message>
 	<message key="xmlui.mirage2.static-pages.heading.metadata">Povinné popisné údaje</message>
 
 	<!-- OBD (CUNI CRIS SYSTEM) TYPOLOGY "ID -> NAME" DICTIONARY / MAPPING 
