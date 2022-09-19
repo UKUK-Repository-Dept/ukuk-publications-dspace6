@@ -2510,9 +2510,10 @@
 
 	<!-- CUSTOM CUNI BROWSE TYPES -->
 	<!-- <JR> - 2022-09-19 -->
-	<message key="browse.type.metadata.facultydepartment">Workplace</message>
-	<message key="xmlui.ArtifactBrowser.ConfigurableBrowse.title.metadata.facultydepartment">Workplace</message>
-	<message key="xmlui.ArtifactBrowser.Navigation.browse_facultydepartment">Workplace</message>
+	<message key="browse.type.metadata.facultydepartment">Workplaces</message>
+	<message key="xmlui.ArtifactBrowser.ConfigurableBrowse.title.metadata.facultydepartment">Workplaces</message>
+	<message key="xmlui.ArtifactBrowser.Navigation.browse_facultydepartment">Workplaces</message>
+	<message key="xmlui.ArtifactBrowser.ConfigurableBrowse.trail.metadata.facultydepartment">Workplaces</message>
 
 	<!-- CUSTOM CUNI ITEM-VIEW -->
 	<!-- <JR> - 2022-09-19 -->
