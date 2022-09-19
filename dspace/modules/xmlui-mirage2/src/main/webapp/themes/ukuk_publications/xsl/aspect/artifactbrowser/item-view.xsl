@@ -233,7 +233,7 @@
                 <div>
                     <xsl:for-each select="dim:field[@element='description' and @qualifier='abstract']">
                         <xsl:variable name="language" select="@language"/>
-                        <h5 class="item-view-metadata-heading"><i18n:text>xmlui.dri2xhtml.METS-1.0.item-abstract</i18n:text> (<xsl:text><xsl:value-of select="$language"/></xsl:text>)</h5>
+                        <h5 class="item-view-metadata-heading" if="item-view-metadata-abstract-{$language}"><i18n:text>xmlui.dri2xhtml.METS-1.0.item-abstract</i18n:text> (<xsl:value-of select="$language"/>)</h5>
                         <xsl:choose>
                             <xsl:when test="node()">
                                 <xsl:copy-of select="node()"/>
