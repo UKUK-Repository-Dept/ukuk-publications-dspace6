@@ -2782,6 +2782,10 @@
     <message key="xmlui.swordclient.SwordResponse.title">Odpověď SWORD</message>
     <message key="xmlui.swordclient.SwordResponse.trail">Odpověď SWORD</message>
 
+	<!-- CUSTOM CUNI BROWSE TYPES -->
+	<!-- <JR> - 2022-09-19 -->
+	<message key="browse.type.metadata.facultydepartment">Pracoviště</message>
+
 	<!-- CUSTOM CUNI ITEM-VIEW -->
 	<!-- <JR> - 2022-09-19 -->
 	<message key="item-view.cuni.permanent-link.heading">Trvalý odkaz</message>

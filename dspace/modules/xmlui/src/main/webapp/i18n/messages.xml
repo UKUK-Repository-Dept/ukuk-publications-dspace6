@@ -2508,6 +2508,10 @@
     <message key="xmlui.Submission.submit.StartSubmissionLookupStep.submit_publication_item">Imported publication Record</message>
     <message key="xmlui.Submission.submit.progressbar.lookup">Lookup</message>
 
+	<!-- CUSTOM CUNI BROWSE TYPES -->
+	<!-- <JR> - 2022-09-19 -->
+	<message key="browse.type.metadata.facultydepartment">Workplace</message>
+
 	<!-- CUSTOM CUNI ITEM-VIEW -->
 	<!-- <JR> - 2022-09-19 -->
 	<message key="item-view.cuni.permanent-link.heading">Permanent link</message>
