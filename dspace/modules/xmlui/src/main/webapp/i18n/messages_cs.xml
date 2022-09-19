@@ -2785,6 +2785,7 @@
 	<!-- CUSTOM CUNI BROWSE TYPES -->
 	<!-- <JR> - 2022-09-19 -->
 	<message key="browse.type.metadata.facultydepartment">Pracoviště</message>
+	<message key="xmlui.ArtifactBrowser.ConfigurableBrowse.title.metadata.facultydepartment">Pracoviště</message>
 
 	<!-- CUSTOM CUNI ITEM-VIEW -->
 	<!-- <JR> - 2022-09-19 -->

@@ -2511,6 +2511,7 @@
 	<!-- CUSTOM CUNI BROWSE TYPES -->
 	<!-- <JR> - 2022-09-19 -->
 	<message key="browse.type.metadata.facultydepartment">Workplace</message>
+	<message key="xmlui.ArtifactBrowser.ConfigurableBrowse.title.metadata.facultydepartment">Workplace</message>
 
 	<!-- CUSTOM CUNI ITEM-VIEW -->
 	<!-- <JR> - 2022-09-19 -->
