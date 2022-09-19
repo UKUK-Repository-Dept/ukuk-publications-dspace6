@@ -2786,6 +2786,7 @@
 	<!-- <JR> - 2022-09-19 -->
 	<message key="browse.type.metadata.facultydepartment">Pracoviště</message>
 	<message key="xmlui.ArtifactBrowser.ConfigurableBrowse.title.metadata.facultydepartment">Pracoviště</message>
+	<message key="xmlui.ArtifactBrowser.Navigation.browse_facultydepartment">Pracoviště</message>
 
 	<!-- CUSTOM CUNI ITEM-VIEW -->
 	<!-- <JR> - 2022-09-19 -->
@@ -2796,7 +2797,7 @@
 	<!-- STATIC PAGES -->
 	<!-- <JR> - 20.1. 2022 - Custom static pages titles -->
 	<message key="xmlui.mirage2.static-pages.title.faq">FAQ.</message>
-	<message key="xmlui.mirage2.static-pages.title.typology">Akceptované formy výsledků</message>
+	<message key="xmlui.mirage2.static-pages.title.typology">Akceptované druhy výsledků</message>
 	<message key="xmlui.mirage2.static-pages.title.metadata">Povinné popisné údaje</message>
 	<message key="xmlui.mirage2.static-pages.title.disclaimer">Poučení</message>
 
@@ -2810,7 +2811,7 @@
 		ID OF ALL ACCEPTED FORMS, SUBFORMS AND CHILD SUBFORMS ARE LISTED HERE
 	-->
 	<!-- TABLE headings -->
-	<message key="obd.typology.table.heading.form">OBD - forma výsledku</message>
+	<message key="obd.typology.table.heading.form">OBD - druh výsledku</message>
 	<message key="obd.typology.table.heading.subform">OBD - poddruh výsledku</message>
 	<message key="obd.typology.table.heading.subform.secondary">OBD - podřazený poddruh výsledku</message>
 	<!-- OBD forms -->
@@ -3097,7 +3098,7 @@
 
 	<message key="xmlui.mirage2.static-pages.metadata.section.intro.para.1">Pro účely uložení a zpřístupnění výsledku v repozitáři publikační činnosti UK vyžadujeme sadu 
 		<b>povinných</b> a tzv. <b>podmíněně povinných</b> popisných údajů. Oba dva typy těchto popisných údajů jsou povinné, ale v případě podmíněně povinných údajů lze při jejich
-		vyplňování (a následné kontrole) brát v potaz, zda daný údaj je možné zjistit či získat pro danou formu výsledku nebo pro aktuální stav publikace výsledku.</message>
+		vyplňování (a následné kontrole) brát v potaz, zda daný údaj je možné zjistit či získat pro daný druh výsledku nebo pro aktuální stav publikace výsledku.</message>
 	<message key="xmlui.mirage2.static-pages.metadata.section.intro.para.2">Ne všechny výsledky mohou mít například uvedený identifikátor DOI, 
 		pokud jim byl ale přidělen, je nutné jej vyplnit do příslušné pole formuláře výsledku v modulu OBD IS Věda.</message>
 	<message key="xmlui.mirage2.static-pages.metadata.section.intro.para.3">Rozdíly mezi těmito typy popisných údajů jsou uvedeny v tabulce níže:</message>
@@ -3109,21 +3110,21 @@
 	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.mandatory-if-applicable-metadata.title">podmíněně povinné údaje</message>
 	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.mandatory-if-applicable-metadata.description.1">povinné, pokud jsou k dispozici</message>
 	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.mandatory-if-applicable-metadata.description.2">mohou být specifické pouze pro 
-		určitou <a href="https://topi.is.cuni.cz/page/typology" target="_blank">formu výsledku přijímanou do repozitáře</a>, stav publikování / vydání výsledku, respektive verzi výsledku (preprint, postprint, atp.)</message>
+		určitý <a href="https://topi.is.cuni.cz/page/typology" target="_blank">druh výsledku přijímanou do repozitáře</a>, stav publikování / vydání výsledku, respektive verzi výsledku (preprint, postprint, atp.)</message>
 	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.mandatory-if-applicable-metadata.description.3">pokud je údaj k dispozici / je možné ho zjistit 
 		nebo získat, ale nebude uveden ve formuláři výsledku v modulu OBD IS Věda, <b>výsledek nebude schválen</b> k přenosu do repozitáře</message>
 	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.h2.1">Jaké povinné a podmíněně povinné údaje vyžadujeme?</message>
-	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.1">V seznamech níže jsou uvedeny všechny povinné a podmíněně povinné údaje pro všechny formy 
+	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.1">V seznamech níže jsou uvedeny všechny povinné a podmíněně povinné údaje pro všechny druhy 
 		výsledků přijímané do repozitáře. Pro zobrazení dané skupiny popisných údajů klikněte na příslušnou záložku.
 	</message>
-	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.h2.2">Umístění povinných údajů ve formuláři OBD pro jednotlivé formy výsledků</message>
+	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.h2.2">Umístění povinných údajů ve formuláři OBD pro jednotlivé druhy výsledků</message>
 	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.2">Pro snazší orientaci ve formuláři OBD, jak při jeho vyplňování, tak při následné kontrole, jsme 
-		připravili tabulku poskytující přehled o tom, kde ve formuláři výsledku v OBD se daný údaj pro danou formu vyskytuje. 
+		připravili tabulku poskytující přehled o tom, kde ve formuláři výsledku v OBD se daný údaj pro daný druh vyskytuje. 
 		
-		Pro zobrazení povinných údajů a jejich umístění ve formuláři výsledku v OBD pro danou formu výsledku postupujte následovně:
+		Pro zobrazení povinných údajů a jejich umístění ve formuláři výsledku v OBD pro daný druh výsledku postupujte následovně:
 	</message>
-	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.2.list.item.1">klikněte na záložku "povinné údaje podle formy",</message>
-	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.2.list.item.2">z rozbalovacího seznamu vyberte formu výsledku a kliněte na ni.</message>
+	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.2.list.item.1">klikněte na záložku "povinné údaje podle druhu",</message>
+	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.2.list.item.2">z rozbalovacího seznamu vyberte druh výsledku a klikněte na ni.</message>
 	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.3">Pod záložkou se následně zobrazí tabulka, ze které se dozvíte, v jaké sekci, 
 		v jakém poli a případně v jakém podpoli formuláře výsledku v OBD máte daný údaj hledat a vyplnit nebo zkontrolovat.</message>
 
@@ -3137,7 +3138,7 @@
 	<message key="xmlui.mirage2.static-pages.metadata.section.optional-metadata.list.item.3">generovat bibliografické citace k výsledkům uloženým v repozitáři</message>
 	<message key="xmlui.mirage2.static-pages.metadata.section.optional-metadata.list.item.4">zajišťovat shromažďování dodatečných statistických informací o výsledku uloženém v repozitáři</message>
 	
-	<message key="xmlui.mirage2.static-pages.metadata.dropdown.title.mandatory-metadata-by-form">povinné údaje podle formy</message>
+	<message key="xmlui.mirage2.static-pages.metadata.dropdown.title.mandatory-metadata-by-form">povinné údaje podle druhu</message>
 	<!-- END OF: <JR> - 22-06-16: page/metadata -->
 
 	<!-- <JR> - 22-02-01: page/disclaimer-->
