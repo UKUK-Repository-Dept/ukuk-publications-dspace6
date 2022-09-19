@@ -2782,6 +2782,9 @@
     <message key="xmlui.swordclient.SwordResponse.title">Odpověď SWORD</message>
     <message key="xmlui.swordclient.SwordResponse.trail">Odpověď SWORD</message>
 
+	<!-- CUSTOM CUNI ITEM-VIEW -->
+	<!-- <JR> - 2022-09-19 -->
+	<message key="item-view.cuni.permanent-link.heading">Trvalý odkaz</message>
 	<!-- EXTRA MENU FOR STATIC PAGES -->
 	<!-- <JR> - 2022-08-23 -->
 	<message key="sidebar.menu.about-repo.head">O repozitáři</message>
