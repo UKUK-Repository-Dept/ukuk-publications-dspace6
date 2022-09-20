@@ -180,6 +180,7 @@ public class SidebarFacetsTransformer extends AbstractDSpaceTransformer implemen
         Context.Mode originalMode = context.getCurrentMode();
         context.setMode(Context.Mode.READ_ONLY);
         String currentLocale = context.getCurrentLocale().toString();
+        log.info("IAAAAAA: Current locale is " + currentLocale);
 
         Request request = ObjectModelHelper.getRequest(objectModel);
 
@@ -204,17 +205,22 @@ public class SidebarFacetsTransformer extends AbstractDSpaceTransformer implemen
 
                 for (DiscoverySearchFilterFacet field : facets) {
                     log.info("IAAAAAA: Processing field " + field.getIndexFieldName());
-                    if (field.getIndexFieldName() == "OBDTypeHierarchyCs" & currentLocale == "en") {
-                        log.info("IAAAAAA: Found field " + field.getIndexFieldName() + "and I am on " + currentLocale + " locale");
-                        // don't add facet based on indexFieldName `OBDTypeHierarchyCs` 
-                        // when current language is 'en'
-                        continue;
-                    }
-                    if (field.getIndexFieldName() == "OBDTypeHierarchyEn" & currentLocale == "cs") {
-                        log.info("IAAAAAA: Found field " + field.getIndexFieldName() + "and I am on " + currentLocale + " locale");
-                        // don't add facet based on indexFieldName `OBDTypeHierarchyEn` 
-                        // when current language is 'cs'
-                        continue;
+                    if (field.getIndexFieldName() == "OBDTypeHierarchyCs") {
+                        if (currentLocale == "en") {
+                            // don't add facet based on indexFieldName `OBDTypeHierarchyCs` 
+                            // when current language is 'en'
+                            log.info("IAAAAAA: Found field " + field.getIndexFieldName() + "and I am on " + currentLocale + " locale");
+                            continue
+                        }
+                    } 
+                     
+                    if (field.getIndexFieldName() == "OBDTypeHierarchyEn") {
+                        if (currentLocale == "cs") {
+                            // don't add facet based on indexFieldName `OBDTypeHierarchyEn` 
+                            // when current language is 'cs'
+                            log.info("IAAAAAA: Found field " + field.getIndexFieldName() + "and I am on " + currentLocale + " locale");
+                            continue;
+                        }
                     }
                     
                     //Retrieve our values
