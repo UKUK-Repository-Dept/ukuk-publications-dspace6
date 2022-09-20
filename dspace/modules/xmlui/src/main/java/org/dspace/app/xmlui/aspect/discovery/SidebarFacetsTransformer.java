@@ -210,7 +210,7 @@ public class SidebarFacetsTransformer extends AbstractDSpaceTransformer implemen
                             // don't add facet based on indexFieldName `OBDTypeHierarchyCs` 
                             // when current language is 'en'
                             log.info("IAAAAAA: Found field " + field.getIndexFieldName() + "and I am on " + currentLocale + " locale");
-                            continue
+                            continue;
                         }
                     } 
                      
