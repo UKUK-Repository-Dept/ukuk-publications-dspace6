@@ -3475,5 +3475,7 @@
 
 	<!-- Skip link -->
 	<message key="xmlui.tab.navigation.skip-to-main">Skip to main content</message>
-	
+
+	<!-- <JR> 2022-09-20 : CUNI TRANSLATED COLLECTION NAMES -->
+	<message key="xmlui.administrative.collection.EditCollectionMetadataForm.label_translatedcollectiontitle">Czech Name</message>
 </catalogue>
