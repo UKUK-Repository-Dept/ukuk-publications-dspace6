@@ -28,6 +28,62 @@
 
     <xsl:output indent="yes"/>
 
+    <xsl:variable name="document" select="/dri:document"/>
+    <xsl:variable name="pagemeta" select="/dri:document/dri:meta/dri:pageMeta"/>
+    <xsl:variable name="context-path" select="$pagemeta/dri:metadata[@element='contextPath'][not(@qualifier)]"/>
+
+     <xsl:variable name="active-locale" select="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='page'][@qualifier='currentLocale']"/>
+
+    <xsl:variable name="theme-path" select="concat($context-path,'/themes/',$pagemeta/dri:metadata[@element='theme'][@qualifier='path'])"/>
+
+    <xsl:variable name="isModal" select="dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='framing'][@qualifier='modal']/text()='true'"/>
+
+    <!--the max thumbnail height & width from dspace.cfg, needed for item view and item list pages-->
+    <xsl:variable name="thumbnail.maxheight" select="confman:getIntProperty('thumbnail.maxheight', 80)"/>
+    <xsl:variable name="thumbnail.maxwidth" select="confman:getIntProperty('thumbnail.maxwidth', 80)"/>
+    <!-- item details url -->
+    <xsl:variable name="ds_item_view_toggle_url" select="//dri:p[contains(@rend , 'item-view-toggle') and
+        (preceding-sibling::dri:referenceSet[@type = 'summaryView'] or following-sibling::dri:referenceSet[@type = 'summaryView'])]/dri:xref/@target"/>
+
+    <!--
+        Full URI of the current page. Composed of scheme, server name and port and request URI.
+    -->
+    <xsl:variable name="current-uri">
+        <xsl:value-of select="$pagemeta/dri:metadata[@element='request'][@qualifier='scheme']"/>
+        <xsl:text>://</xsl:text>
+        <xsl:value-of select="$pagemeta/dri:metadata[@element='request'][@qualifier='serverName']"/>
+        <xsl:text>:</xsl:text>
+        <xsl:value-of select="$pagemeta/dri:metadata[@element='request'][@qualifier='serverPort']"/>
+        <xsl:value-of select="$pagemeta/dri:metadata[@element='contextPath']"/>
+        <xsl:text>/</xsl:text>
+        <xsl:value-of select="$pagemeta/dri:metadata[@element='request'][@qualifier='URI']"/>
+    </xsl:variable>
+
+    <xsl:variable name="SFXLink">
+        <xsl:if test="$pagemeta/dri:metadata[@element='sfx'][@qualifier='server']">
+            <a>
+                <xsl:attribute name="href">
+                    <xsl:value-of select="$pagemeta/dri:metadata[@element='sfx'][@qualifier='server']"/>
+                </xsl:attribute>
+                <xsl:choose>
+                    <xsl:when test="$pagemeta/dri:metadata[@element='sfx'][@qualifier='image_url']">
+                        <img>
+                            <xsl:attribute name="src">
+                                <xsl:value-of select="$pagemeta/dri:metadata[@element='sfx'][@qualifier='image_url']"/>
+                            </xsl:attribute>
+                            <xsl:attribute name="alt">
+                                <xsl:text>Find Full text</xsl:text>
+                            </xsl:attribute>
+                        </img>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>Find Full text</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </a>
+        </xsl:if>
+    </xsl:variable>
+
 	<xsl:variable name="currentLocale" select="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='page'][@qualifier='currentLocale']"/>
 
 
