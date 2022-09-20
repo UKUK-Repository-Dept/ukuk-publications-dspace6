@@ -203,13 +203,15 @@ public class SidebarFacetsTransformer extends AbstractDSpaceTransformer implemen
                 List browse = null;
 
                 for (DiscoverySearchFilterFacet field : facets) {
-
+                    log.info("IAAAAAA: Processing field " + field.getIndexFieldName());
                     if (field.getIndexFieldName() == "OBDTypeHierarchyCs" & currentLocale == "en") {
+                        log.info("IAAAAAA: Found field " + field.getIndexFieldName() + "and I am on " + currentLocale + " locale");
                         // don't add facet based on indexFieldName `OBDTypeHierarchyCs` 
                         // when current language is 'en'
                         continue;
                     }
                     if (field.getIndexFieldName() == "OBDTypeHierarchyEn" & currentLocale == "cs") {
+                        log.info("IAAAAAA: Found field " + field.getIndexFieldName() + "and I am on " + currentLocale + " locale");
                         // don't add facet based on indexFieldName `OBDTypeHierarchyEn` 
                         // when current language is 'cs'
                         continue;
