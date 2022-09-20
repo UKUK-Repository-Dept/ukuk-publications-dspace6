@@ -98,6 +98,7 @@
         <!--Which sidebar facets are to be displayed-->
         <property name="sidebarFacets">
             <list>
+                <ref bean="searchFilterWorkplacePrimary" />
                 <ref bean="searchFilterAuthor" />
                 <ref bean="searchFilterSubject" />
                 <ref bean="searchFilterIssued" />
@@ -110,6 +111,7 @@
         <property name="searchFilters">
             <list>
                 <ref bean="searchFilterTitle" />
+                <ref bean="searchFilterWorkplacePrimary" />
                 <ref bean="searchFilterAuthor" />
                 <ref bean="searchFilterSubject" />
                 <ref bean="searchFilterIssued" />
@@ -380,6 +382,19 @@
     </bean>
     
     <!--Search filter configuration beans-->
+    <bean id="searchFilterWorkplacePrimary" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
+        <property name="indexFieldName" value="workplacePrimary"/>
+        <property name="metadataFields">
+            <list>
+                <value>uk.faculty.primaryName</value>
+                <value>uk.department.primaryName</value>
+            </list>
+        </property>
+        <property name="facetLimit" value="10"/>
+        <property name="sortOrderSidebar" value="COUNT"/>
+        <property name="sortOrderFilterPage" value="COUNT"/>
+    </bean>
+
     <bean id="searchFilterTitle" class="org.dspace.discovery.configuration.DiscoverySearchFilter">
         <property name="indexFieldName" value="title"/>
         <property name="metadataFields">
