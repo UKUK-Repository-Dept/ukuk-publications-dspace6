@@ -100,7 +100,7 @@
             <list>
                 <ref bean="searchFilterFacetOBDTypeHierarchyCs" />
                 <ref bean="searchFilterFacetOBDTypeHierarchyEn" />
-                <ref bean="searchFilterWorkplacePrimary" />
+                <ref bean="searchFilterFacetWorkplacePrimary" />
                 <ref bean="searchFilterAuthor" />
                 <ref bean="searchFilterSubject" />
                 <ref bean="searchFilterIssued" />
@@ -115,7 +115,7 @@
                 <ref bean="searchFilterTitle" />
                 <ref bean="searchFilterFacetOBDTypeHierarchyCs" />
                 <ref bean="searchFilterFacetOBDTypeHierarchyEn" />
-                <ref bean="searchFilterWorkplacePrimary" />
+                <ref bean="searchFilterFacetWorkplacePrimary" />
                 <ref bean="searchFilterAuthor" />
                 <ref bean="searchFilterSubject" />
                 <ref bean="searchFilterIssued" />
