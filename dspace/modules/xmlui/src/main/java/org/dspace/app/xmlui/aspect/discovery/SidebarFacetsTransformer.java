@@ -204,9 +204,9 @@ public class SidebarFacetsTransformer extends AbstractDSpaceTransformer implemen
                 List browse = null;
 
                 for (DiscoverySearchFilterFacet field : facets) {
-                    if (field.getIndexFieldName() == "OBDTypeHierarchyCs") {
+                    if (field.getIndexFieldName().equals("OBDTypeHierarchyCs")) {
                         log.info("IAAAAAA: Processing field " + field.getIndexFieldName());
-                        if (currentLocale == "en") {
+                        if (currentLocale.equals("en")) {
                             // don't add facet based on indexFieldName `OBDTypeHierarchyCs` 
                             // when current language is 'en'
                             log.info("IAAAAAA: Found field " + field.getIndexFieldName() + "and I am on " + currentLocale + " locale");
@@ -214,9 +214,9 @@ public class SidebarFacetsTransformer extends AbstractDSpaceTransformer implemen
                         }
                     } 
                      
-                    if (field.getIndexFieldName() == "OBDTypeHierarchyEn") {
+                    if (field.getIndexFieldName().equals("OBDTypeHierarchyEn")) {
                         log.info("IAAAAAA: Processing field " + field.getIndexFieldName());
-                        if (currentLocale == "cs") {
+                        if (currentLocale.equals("cs")) {
                             // don't add facet based on indexFieldName `OBDTypeHierarchyEn` 
                             // when current language is 'cs'
                             log.info("IAAAAAA: Found field " + field.getIndexFieldName() + "and I am on " + currentLocale + " locale");
