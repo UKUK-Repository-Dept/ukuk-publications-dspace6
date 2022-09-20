@@ -206,12 +206,12 @@ public class SidebarFacetsTransformer extends AbstractDSpaceTransformer implemen
                     if ((field.getIndexFieldName == 'OBDTypeHierarchyCs') && (context.getLanguage() == 'en')) {
                         // don't add facet based on indexFieldName `OBDTypeHierarchyCs` 
                         // when current language is 'en'
-                        continue
+                        continue;
                     }
                     if ((field.getIndexFieldName == 'OBDTypeHierarchyEn') && (context.getLanguage() == 'cs')) {
                         // don't add facet based on indexFieldName `OBDTypeHierarchyEn` 
                         // when current language is 'cs'
-                        continue
+                        continue;
                     }
                     
                     //Retrieve our values
