@@ -419,7 +419,7 @@
     </bean>
 
     <bean id="searchFilterFacetOBDTypeHierarchyEn" class="org.dspace.discovery.configuration.HierarchicalSidebarFacetConfiguration">
-        <property name="indexFieldName" value="OBDTypeHierarchyCs"/>
+        <property name="indexFieldName" value="OBDTypeHierarchyEn"/>
         <property name="metadataFields">
             <list>
                 <value>dc.type.obdHierarchyEn</value>
