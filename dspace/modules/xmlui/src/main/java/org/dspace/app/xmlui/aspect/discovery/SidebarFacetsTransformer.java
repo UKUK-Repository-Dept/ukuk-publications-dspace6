@@ -203,12 +203,12 @@ public class SidebarFacetsTransformer extends AbstractDSpaceTransformer implemen
 
                 for (DiscoverySearchFilterFacet field : facets) {
 
-                    if (field.getIndexFieldName == 'OBDTypeHierarchyCs' && context.getLanguage() == 'en') {
+                    if (field.getIndexFieldName == "OBDTypeHierarchyCs" && context.getLanguage() == "en") {
                         // don't add facet based on indexFieldName `OBDTypeHierarchyCs` 
                         // when current language is 'en'
                         continue;
                     }
-                    if (field.getIndexFieldName == 'OBDTypeHierarchyEn' && context.getLanguage() == 'cs') {
+                    if (field.getIndexFieldName == "OBDTypeHierarchyEn" && context.getLanguage() == "cs") {
                         // don't add facet based on indexFieldName `OBDTypeHierarchyEn` 
                         // when current language is 'cs'
                         continue;
