@@ -179,7 +179,7 @@ public class SidebarFacetsTransformer extends AbstractDSpaceTransformer implemen
 
         Context.Mode originalMode = context.getCurrentMode();
         context.setMode(Context.Mode.READ_ONLY);
-        String currentLocale = context.getCurrentLocale();
+        String currentLocale = context.getCurrentLocale().toString();
 
         Request request = ObjectModelHelper.getRequest(objectModel);
 
