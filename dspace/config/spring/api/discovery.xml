@@ -218,6 +218,9 @@
         <!--Which sidebar facets are to be displayed (same as defaultConfiguration above)-->
         <property name="sidebarFacets">
             <list>
+                <ref bean="searchFilterFacetOBDTypeHierarchyCs" />
+                <ref bean="searchFilterFacetOBDTypeHierarchyEn" />
+                <ref bean="searchFilterFacetWorkplacePrimary" />
                 <ref bean="searchFilterAuthor" />
                 <ref bean="searchFilterSubject" />
                 <ref bean="searchFilterIssued" />
@@ -233,6 +236,9 @@
                 <ref bean="searchFilterAuthor" />
                 <ref bean="searchFilterSubject" />
                 <ref bean="searchFilterIssued" />
+                <ref bean="searchFilterFacetOBDTypeHierarchyCs" />
+                <ref bean="searchFilterFacetOBDTypeHierarchyEn" />
+                <ref bean="searchFilterFacetWorkplacePrimary" />
 		        <ref bean="searchFilterContentInOriginalBundle"/>
                 <ref bean="searchFilterFileNameInOriginalBundle" />
                 <ref bean="searchFilterFileDescriptionInOriginalBundle" />
