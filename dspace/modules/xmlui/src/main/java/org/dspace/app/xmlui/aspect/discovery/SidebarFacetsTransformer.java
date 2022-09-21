@@ -507,6 +507,8 @@ public class SidebarFacetsTransformer extends AbstractDSpaceTransformer implemen
                     queryArgs.addFacetField(new DiscoverFacetField(facet.getIndexFieldName(), facet.getType(), facetLimit, facet.getSortOrderSidebar()));
                 }
             }
+            // TRY TO ADD CUSTOM FACET FIELDS
+            queryArgs.addFacetField(new DiscoverFacetField("uk.faculty.primaryName.cs", "text", 11, "asc"))
         }
         return queryArgs;
     }
