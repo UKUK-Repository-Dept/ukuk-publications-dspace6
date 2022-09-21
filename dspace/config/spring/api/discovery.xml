@@ -393,12 +393,12 @@
     
     <!--Search filter configuration beans-->
     <bean id="searchFilterFacetWorkplacePrimaryCs" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
-        <property name="indexFieldName" value="uk.faculty.primaryName.cs"/>
-        <!-- <property name="metadataFields">
+        <property name="indexFieldName" value="facultyPrimaryNameCs"/>
+        <property name="metadataFields">
             <list>
-                <value></value>
+                <value>uk.faculty.primaryName.cs</value>
             </list>
-        </property> -->
+        </property>
         <property name="facetLimit" value="10"/>
         <property name="sortOrderSidebar" value="COUNT"/>
         <property name="sortOrderFilterPage" value="COUNT"/>
