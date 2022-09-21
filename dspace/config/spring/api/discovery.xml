@@ -100,7 +100,7 @@
             <list>
                 <ref bean="searchFilterFacetOBDTypeHierarchyCs" />
                 <ref bean="searchFilterFacetOBDTypeHierarchyEn" />
-                <ref bean="searchFilterFacetWorkplacePrimary" />
+                <ref bean="searchFilterFacetWorkplacePrimaryCs" />
                 <ref bean="searchFilterAuthor" />
                 <ref bean="searchFilterSubject" />
                 <ref bean="searchFilterIssued" />
@@ -115,7 +115,7 @@
                 <ref bean="searchFilterTitle" />
                 <ref bean="searchFilterFacetOBDTypeHierarchyCs" />
                 <ref bean="searchFilterFacetOBDTypeHierarchyEn" />
-                <ref bean="searchFilterFacetWorkplacePrimary" />
+                <ref bean="searchFilterFacetWorkplacePrimaryCs" />
                 <ref bean="searchFilterAuthor" />
                 <ref bean="searchFilterSubject" />
                 <ref bean="searchFilterIssued" />
@@ -220,7 +220,7 @@
             <list>
                 <ref bean="searchFilterFacetOBDTypeHierarchyCs" />
                 <ref bean="searchFilterFacetOBDTypeHierarchyEn" />
-                <ref bean="searchFilterFacetWorkplacePrimary" />
+                <ref bean="searchFilterFacetWorkplacePrimaryCs" />
                 <ref bean="searchFilterAuthor" />
                 <ref bean="searchFilterSubject" />
                 <ref bean="searchFilterIssued" />
@@ -238,7 +238,7 @@
                 <ref bean="searchFilterIssued" />
                 <ref bean="searchFilterFacetOBDTypeHierarchyCs" />
                 <ref bean="searchFilterFacetOBDTypeHierarchyEn" />
-                <ref bean="searchFilterFacetWorkplacePrimary" />
+                <ref bean="searchFilterFacetWorkplacePrimaryCs" />
 		        <ref bean="searchFilterContentInOriginalBundle"/>
                 <ref bean="searchFilterFileNameInOriginalBundle" />
                 <ref bean="searchFilterFileDescriptionInOriginalBundle" />
@@ -392,12 +392,11 @@
     </bean>
     
     <!--Search filter configuration beans-->
-    <bean id="searchFilterFacetWorkplacePrimary" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
-        <property name="indexFieldName" value="workplacePrimary"/>
+    <bean id="searchFilterFacetWorkplacePrimaryCs" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
+        <property name="indexFieldName" value="workplacePrimaryCs"/>
         <property name="metadataFields">
             <list>
-                <value>uk.faculty.primaryName</value>
-                <value>uk.department.primaryName</value>
+                <value>uk.faculty.primaryName.cs</value>
             </list>
         </property>
         <property name="facetLimit" value="10"/>
