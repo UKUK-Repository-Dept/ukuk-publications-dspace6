@@ -204,8 +204,9 @@ public class SidebarFacetsTransformer extends AbstractDSpaceTransformer implemen
                 List browse = null;
 
                 for (DiscoverySearchFilterFacet field : facets) {
+
+                    log.info("IAAAAAA: Processing field " + field.getIndexFieldName());
                     if (field.getIndexFieldName().equals("OBDTypeHierarchyCs")) {
-                        log.info("IAAAAAA: Processing field " + field.getIndexFieldName());
                         if (currentLocale.equals("en")) {
                             // don't add facet based on indexFieldName `OBDTypeHierarchyCs` 
                             // when current language is 'en'
@@ -215,7 +216,6 @@ public class SidebarFacetsTransformer extends AbstractDSpaceTransformer implemen
                     } 
                      
                     if (field.getIndexFieldName().equals("OBDTypeHierarchyEn")) {
-                        log.info("IAAAAAA: Processing field " + field.getIndexFieldName());
                         if (currentLocale.equals("cs")) {
                             // don't add facet based on indexFieldName `OBDTypeHierarchyEn` 
                             // when current language is 'cs'
