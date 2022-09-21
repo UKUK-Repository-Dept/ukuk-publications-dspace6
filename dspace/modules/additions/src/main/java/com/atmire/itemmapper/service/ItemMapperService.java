@@ -58,7 +58,8 @@ public interface ItemMapperService {
                        boolean sourcesSpecified, boolean dryRun)
         throws SQLException;
 
-    void reverseMapFromParams(Context context, List<Collection> destinations, List<Collection> sources, boolean dryRun)
+    void reverseMapFromParams(Context context, List<Collection> destinations, List<Collection> sources,
+                              boolean sourcesSpecified, boolean destinationsSpecified, boolean dryRun)
         throws SQLException;
 
     void mapFromMappingFile(Context context, List<Collection> sources, String link, String path, boolean dryRun)

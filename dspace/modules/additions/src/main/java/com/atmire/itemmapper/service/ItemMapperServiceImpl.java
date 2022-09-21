@@ -495,10 +495,11 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     }
 
     @Override
-    public void reverseMapFromParams(Context context, List<Collection> destinations, List<Collection> sources, boolean dryRun) throws SQLException {
+    public void reverseMapFromParams(Context context, List<Collection> destinations, List<Collection> sources,
+     boolean sourcesSpecified, boolean destinationsSpecified, boolean dryRun) throws SQLException {
 
         // If no destination and source collection is given we want to obtain all the items
-        if (isBlankList(destinations) && isBlankList(sources)) {
+        if (!destinationsSpecified && !sourcesSpecified) {
             logCLI(INFO, "No valid destinations, no valid sources, reversing all items");
             totalItems = itemService.countTotal(context);
 
@@ -513,7 +514,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
         }
 
         // If only destination collection(s) is given we want to remove all mappings from that collection(s).
-        if (isBlankList(sources) && isNotBlankList(destinations)) {
+        if (!sourcesSpecified && isNotBlankList(destinations)) {
             logCLI(INFO, "No valid sources, 1 or more valid destinations, reversing all items from destinations.");
             for (Collection destinationCollection: destinations) {
                 logCLI(INFO, PROCESSING_COLLECTION_CHAR + PROCESSING_COLLECTION_HEADER + destinationCollection.getName() + " " + destinationCollection.getHandle() + " | "

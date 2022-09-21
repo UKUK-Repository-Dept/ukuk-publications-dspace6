@@ -53,6 +53,7 @@ public class ParametrizedItemMappingScript extends ContextScript {
     BooleanOption dryRun;
     String currentOperation;
     boolean sourcesSpecified;
+    boolean destinationsSpecified;
 
     public static final String UNMAPPED = "unmapped";
     public static final String MAPPED = "mapped";
@@ -114,6 +115,7 @@ public class ParametrizedItemMappingScript extends ContextScript {
             List<Collection> validDestinations =
                 itemMapperService.resolveCollections(context, destinationIdOption.getValues());
             sourcesSpecified = sourceIdOption.getValues() != null && !sourceIdOption.getValues().isEmpty();
+            destinationsSpecified = destinationIdOption.getValues() != null && !destinationIdOption.getValues().isEmpty();
             boolean paramsAreValid = itemMapperService.verifyParams(context, operationMode.getValue(),
                 validSources, validDestinations, linkToFile.getValue(), pathToFile.getValue(),
                 dryRun.isSelected());
@@ -131,7 +133,8 @@ public class ParametrizedItemMappingScript extends ContextScript {
                                                     dryRun.isSelected());
                     break;
                 case REVERSED:
-                    itemMapperService.reverseMapFromParams(context, validDestinations, validSources, dryRun.isSelected());
+                    itemMapperService.reverseMapFromParams(context, validDestinations, validSources,
+                     sourcesSpecified, destinationsSpecified, dryRun.isSelected());
                     break;
                 case MAPPED:
                     itemMapperService.mapFromMappingFile(context, validSources, linkToFile.getValue(),
