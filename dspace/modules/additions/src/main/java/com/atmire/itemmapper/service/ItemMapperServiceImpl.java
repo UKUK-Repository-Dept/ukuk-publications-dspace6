@@ -517,6 +517,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
         if (!sourcesSpecified && isNotBlankList(destinations)) {
             logCLI(INFO, "No valid sources, 1 or more valid destinations, reversing all items from destinations.");
             for (Collection destinationCollection: destinations) {
+                destinationCollection = context.reloadEntity(destinationCollection);
                 logCLI(INFO, PROCESSING_COLLECTION_CHAR + PROCESSING_COLLECTION_HEADER + destinationCollection.getName() + " " + destinationCollection.getHandle() + " | "
                     + destinationCollection.getID() + PROCESSING_COLLECTION_CHAR, dryRun);
                 offset = 0;
