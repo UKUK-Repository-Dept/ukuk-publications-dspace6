@@ -231,10 +231,10 @@ public class SidebarFacetsTransformer extends AbstractDSpaceTransformer implemen
                         facetValues = queryResults.getFacetResult(field.getIndexFieldName() + ".year");
                     }
 
-                    if (field.getIndexFieldName().equals("workplacePrimary")) {
-                        log.info("IAAAAAA: Processing field " + field.getIndexFieldName());
-                        facetValues = queryResults.getFacetResult("uk.faculty.primaryName" + "." + currentLocale);
-                    }
+                    // if (field.getIndexFieldName().equals("workplacePrimary")) {
+                    //     log.info("IAAAAAA: Processing field " + field.getIndexFieldName());
+                    //     facetValues = queryResults.getFacetResult("uk.faculty.primaryName" + "." + currentLocale);
+                    // }
 
                     int shownFacets = field.getFacetLimit()+1;
 
