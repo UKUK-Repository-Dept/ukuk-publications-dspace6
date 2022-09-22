@@ -385,7 +385,7 @@
                         </button>
 
                         <a href="{$context-path}/" class="navbar-brand">
-                            <img src="{$theme-path}images/DSpace-logo-line.svg" />
+                            <img class="img-responsive" title="CU Research Publications Repository Logo" src="{$theme-path}images/logo_repo_final4.svg" />
                         </a>
 
 

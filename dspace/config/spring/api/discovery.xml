@@ -98,6 +98,8 @@
         <!--Which sidebar facets are to be displayed-->
         <property name="sidebarFacets">
             <list>
+                <ref bean="searchFilterFacetOBDTypeHierarchyCs" />
+                <ref bean="searchFilterFacetOBDTypeHierarchyEn" />
                 <ref bean="searchFilterAuthor" />
                 <ref bean="searchFilterSubject" />
                 <ref bean="searchFilterIssued" />
@@ -110,6 +112,8 @@
         <property name="searchFilters">
             <list>
                 <ref bean="searchFilterTitle" />
+                <ref bean="searchFilterFacetOBDTypeHierarchyCs" />
+                <ref bean="searchFilterFacetOBDTypeHierarchyEn" />
                 <ref bean="searchFilterAuthor" />
                 <ref bean="searchFilterSubject" />
                 <ref bean="searchFilterIssued" />
@@ -212,6 +216,8 @@
         <!--Which sidebar facets are to be displayed (same as defaultConfiguration above)-->
         <property name="sidebarFacets">
             <list>
+                <ref bean="searchFilterFacetOBDTypeHierarchyCs" />
+                <ref bean="searchFilterFacetOBDTypeHierarchyEn" />
                 <ref bean="searchFilterAuthor" />
                 <ref bean="searchFilterSubject" />
                 <ref bean="searchFilterIssued" />
@@ -227,6 +233,8 @@
                 <ref bean="searchFilterAuthor" />
                 <ref bean="searchFilterSubject" />
                 <ref bean="searchFilterIssued" />
+                <ref bean="searchFilterFacetOBDTypeHierarchyCs" />
+                <ref bean="searchFilterFacetOBDTypeHierarchyEn" />
 		        <ref bean="searchFilterContentInOriginalBundle"/>
                 <ref bean="searchFilterFileNameInOriginalBundle" />
                 <ref bean="searchFilterFileDescriptionInOriginalBundle" />
@@ -380,6 +388,33 @@
     </bean>
     
     <!--Search filter configuration beans-->
+
+    <bean id="searchFilterFacetOBDTypeHierarchyCs" class="org.dspace.discovery.configuration.HierarchicalSidebarFacetConfiguration">
+        <property name="indexFieldName" value="OBDTypeHierarchyCs"/>
+        <property name="metadataFields">
+            <list>
+                <value>dc.type.obdHierarchyCs</value>
+            </list>
+        </property>
+        <property name="facetLimit" value="20"/>
+        <property name="sortOrderSidebar" value="COUNT"/>
+        <property name="sortOrderFilterPage" value="COUNT"/>
+        <property name="splitter" value="::"/>
+    </bean>
+
+    <bean id="searchFilterFacetOBDTypeHierarchyEn" class="org.dspace.discovery.configuration.HierarchicalSidebarFacetConfiguration">
+        <property name="indexFieldName" value="OBDTypeHierarchyEn"/>
+        <property name="metadataFields">
+            <list>
+                <value>dc.type.obdHierarchyEn</value>
+            </list>
+        </property>
+        <property name="facetLimit" value="20"/>
+        <property name="sortOrderSidebar" value="COUNT"/>
+        <property name="sortOrderFilterPage" value="COUNT"/>
+        <property name="splitter" value="::"/>
+    </bean>
+
     <bean id="searchFilterTitle" class="org.dspace.discovery.configuration.DiscoverySearchFilter">
         <property name="indexFieldName" value="title"/>
         <property name="metadataFields">

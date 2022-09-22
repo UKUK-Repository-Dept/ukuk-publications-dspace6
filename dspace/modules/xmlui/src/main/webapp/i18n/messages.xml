@@ -3475,5 +3475,17 @@
 
 	<!-- Skip link -->
 	<message key="xmlui.tab.navigation.skip-to-main">Skip to main content</message>
+
+	<!-- <JR> 2022-09-20 : CUNI TRANSLATED COLLECTION NAMES -->
+	<message key="xmlui.administrative.collection.EditCollectionMetadataForm.label_translatedcollectiontitle">Czech Name</message>
+	<!-- END OF: CUNI TRANSLATED COLLECTION NAMES -->
+
+	<!-- <JR> 2022-09-22 : CUSTOM FACETS LABELS TRANSLATIONS -->
 	
+	<!-- RESEARCH OUTPUT TYPE FACET & FILTER-->
+	<message key="xmlui.ArtifactBrowser.AdvancedSearch.type_OBDTypeHierarchyEn">Research Output Type</message>
+	<message key="xmlui.ArtifactBrowser.AdvancedSearch.type_OBDTypeHierarchyCs">Research Output Type</message>
+	<message key="xmlui.ArtifactBrowser.SimpleSearch.filter.OBDTypeHierarchyEn">Research Output Type</message>
+	<message key="xmlui.ArtifactBrowser.SimpleSearch.filter.OBDTypeHierarchyCs">Research Output Type</message>
+	<!-- END OF: CUSTOM FACETS LABELS TRANSLATIONS -->
 </catalogue>
