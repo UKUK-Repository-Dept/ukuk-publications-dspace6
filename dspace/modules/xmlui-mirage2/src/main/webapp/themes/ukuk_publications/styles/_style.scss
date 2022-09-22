@@ -87,3 +87,67 @@
   display: inline;
 	color: #b72c32;
 }
+
+// Navigation
+
+header .navbar-default {
+  background-color: #fff;
+  border-bottom: 3px solid #c32c2e;
+}
+
+// Breadcrumbs
+
+.trail-wrapper {
+  background-color: #fff;
+  border-bottom: 3px solid #c32c2e;
+}
+
+.breadcrumb {
+  padding: 8px 0 8px 0px;
+}
+
+// Links
+
+a {
+  color: #c32c2e;
+}
+
+// Buttons
+
+.btn-primary {
+  color: #fff;
+  background-color: #c32c2e;
+  border-color: #c32c2e;
+}
+
+// Forms
+
+.form-control {
+  border: 1px solid #000;
+}
+
+// List groups
+
+.list-group-item {
+  border: 1px solid #000;
+}
+
+.list-group-item:first-child {
+  border-top-right-radius: 0px;
+  border-top-left-radius: 0px;
+}
+
+.list-group-item:last-child {
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+  background-color: #c32c2e;
+  border-color: #c32c2e;
+}
+
+a.list-group-item:hover, a.list-group-item:focus {
+  color: #fff;
+  background-color: rgba(195,44,46, 0.5);
+}
