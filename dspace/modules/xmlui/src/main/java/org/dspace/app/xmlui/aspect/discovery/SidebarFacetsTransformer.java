@@ -198,6 +198,8 @@ public class SidebarFacetsTransformer extends AbstractDSpaceTransformer implemen
 
             DiscoveryConfiguration discoveryConfiguration = SearchUtils.getDiscoveryConfiguration(dso);
             java.util.List<DiscoverySearchFilterFacet> facets = discoveryConfiguration.getSidebarFacets();
+            // TODO: Inject facet to list with some default configuration, add facet field to it in 
+            // for cycle somewhere on line 505 - 510
 
             if (facets != null && 0 < facets.size()) {
 
