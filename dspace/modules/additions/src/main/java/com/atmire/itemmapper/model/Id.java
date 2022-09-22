@@ -1,6 +1,8 @@
 
 package com.atmire.itemmapper.model;
 
+import static com.atmire.itemmapper.service.ItemMapperServiceImpl.WARN;
+
 import java.sql.SQLException;
 import java.util.UUID;
 import javax.annotation.Generated;
@@ -46,12 +48,12 @@ public class Id {
         if (value.contains("/")) {
             resolvedCollection = (Collection) handleService.resolveToObject(context, value);
             if (resolvedCollection == null) {
-                throw new IllegalArgumentException("Collection with handle " + value + " not found");
+                itemMapperService.logCLI(WARN, "Collection with handle " + value + " not found");
             }
         } else {
             resolvedCollection = collectionService.find(context, UUID.fromString(value));
             if (resolvedCollection == null) {
-                throw new IllegalArgumentException("Collection with uuid " + value + " not found");
+                itemMapperService.logCLI(WARN, "Collection with uuid " + value + " not found");
             }
         }
         mValue = value;

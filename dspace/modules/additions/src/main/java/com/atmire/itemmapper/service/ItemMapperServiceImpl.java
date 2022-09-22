@@ -272,6 +272,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
                     && item.getCollections().size() > 1) {
 
                     if (!dryRun) {
+                        destinationCollection = context.reloadEntity(destinationCollection);
                         collectionService.removeItem(context, destinationCollection, item);
                     }
 
@@ -377,7 +378,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
         if (col.getId().getType().equals("handle")) {
             resolvedCollection = (Collection) handleService.resolveToObject(context, col.getId().getValue());
             if (resolvedCollection == null) {
-                logCLI(ERROR, "Collection ( " + col.getName_en() + " | " + col.getName_cs()
+                logCLI(WARN, "Collection ( " + col.getName_en() + " | " + col.getName_cs()
                     + " ) could not be resolved with the " + "handle: " + col.getId().getValue());
             }
             return resolvedCollection;
@@ -385,13 +386,13 @@ public class ItemMapperServiceImpl implements ItemMapperService {
         else if (col.getId().getType().equals("uuid")) {
             resolvedCollection = collectionService.find(context, UUID.fromString(col.getId().getValue()));
             if (resolvedCollection == null) {
-                logCLI(ERROR, "No collection could be resolved with the UUID:" + col.getId().getValue());
+                logCLI(WARN, "No collection could be resolved with the UUID:" + col.getId().getValue());
                 return null;
             }
             return resolvedCollection;
         }
         else {
-            logCLI(ERROR, "Collection id type is not set correctly please use \"handle\" or \"uuid\"");
+            logCLI(WARN, "Collection id type is not set correctly please use \"handle\" or \"uuid\"");
         }
         return null;
     }
@@ -470,6 +471,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
                 offset = 0;
                 totalItems = itemService.countAllItems(context, sourceCollection);
                 for (int i = 1; i <= Math.ceil(totalItems / batchSize); i++) {
+                    sourceCollection = context.reloadEntity(sourceCollection);
                     itemsToMap = itemService.findAllByCollection(context, sourceCollection, batchSize, offset);
                     logCLI(INFO, "***** PROCESSING BATCH: " + i + " *****", dryRun);
 
@@ -513,9 +515,15 @@ public class ItemMapperServiceImpl implements ItemMapperService {
             }
         }
 
+        // If sources specified, but none were valid, do nothing
+        if (sourcesSpecified && isBlankList(sources)) {
+            logCLI(INFO, "None of the sources given were valid uuid/handles, not reversing any mapping.");
+            return;
+        }
+
         // If only destination collection(s) is given we want to remove all mappings from that collection(s).
         if (!sourcesSpecified && isNotBlankList(destinations)) {
-            logCLI(INFO, "No valid sources, 1 or more valid destinations, reversing all items from destinations.");
+            logCLI(INFO, "No sources given, 1 or more valid destinations, reversing all items from destinations.");
             for (Collection destinationCollection: destinations) {
                 destinationCollection = context.reloadEntity(destinationCollection);
                 logCLI(INFO, PROCESSING_COLLECTION_CHAR + PROCESSING_COLLECTION_HEADER + destinationCollection.getName() + " " + destinationCollection.getHandle() + " | "
@@ -530,6 +538,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
 
                     // Reverse map all items in the current batch
                     reverseMapItemsInBatch(context, itemsToMap, sources, destinations, dryRun);
+                    destinationCollection = context.reloadEntity(destinationCollection);
                 }
             }
         }
@@ -537,6 +546,8 @@ public class ItemMapperServiceImpl implements ItemMapperService {
         // If a destination and source collection is given we want to obtain only the items from the
         // destination collection as this is where we will be reverse mapping (removing) items from
         else if (isNotBlankList(destinations)) {
+            logCLI(INFO, "1 or more valid sources given, 1 or more valid destinations, reversing all items from " +
+                "destinations that were mapped from sources.");
             for (Collection sourceCollection: sources) {
                 logCLI(INFO,
                        PROCESSING_COLLECTION_CHAR + PROCESSING_COLLECTION_HEADER + sourceCollection.getName() + " " + sourceCollection.getHandle() + " | "
@@ -575,20 +586,9 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     @Override
     public void mapFromMappingFile(Context context, List<Collection> sources, String link, String path, boolean dryRun)
         throws IOException, SQLException, AuthorizeException {
-        CuniMapFile cuniMapFile;
-        if (isBlank(link) && isBlank(path) && FILE_LOCATION.equals(URL)) {
-            link = MAPPING_FILE_PATH;
-        }
-        if (isNotBlank(link)) {
-            cuniMapFile = getMapFileFromLink(link);
-            if (cuniMapFile == null) {
-                return;
-            }
-        }
-        else if (isNotBlank(path)) {
-            cuniMapFile = getMapFileFromPath(path);
-        } else {
-            cuniMapFile = getMapFileFromPath(MAPPING_FILE_PATH + File.separator + MAPPING_FILE_NAME);
+        CuniMapFile cuniMapFile = getCuniMapFileIfValid(context, link, path);
+        if (cuniMapFile == null) {
+            return;
         }
 
         if (isNotBlankList(sources)) {
@@ -606,10 +606,17 @@ public class ItemMapperServiceImpl implements ItemMapperService {
                 mapItemsFromJson(context, itemService.findAllByCollection(context, collection), cuniMapFile, dryRun, collection);
             }
         } else {
+            boolean atLeast1ValidSourceCollection = false;
             for (SourceCollection col : cuniMapFile.getMapfile().getSource_collections()) {
                 Collection collection = getCorrespondingCollection(context, col);
-                mapItemsFromJson(context, itemService.findAllByCollection(context,collection), cuniMapFile, dryRun,
-                                 collection);
+                if (collection != null) {
+                    atLeast1ValidSourceCollection = true;
+                    mapItemsFromJson(context, itemService.findAllByCollection(context,collection), cuniMapFile, dryRun,
+                        collection);
+                }
+            }
+            if (!atLeast1ValidSourceCollection) {
+                logCLI(ERROR, "Only invalid source collections found in mapping file, not mapping");
             }
         }
     }
@@ -627,23 +634,9 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     @Override
     public void reverseMapFromMappingFile(Context context, List<Collection> sources, String link, String path, boolean dryRun)
         throws SQLException, IOException, AuthorizeException {
-        CuniMapFile cuniMapFile;
-        if (isBlank(link) && isBlank(path) && FILE_LOCATION.equals(URL)) {
-            link = MAPPING_FILE_PATH;
-            if (!doesURLResolve(link)) {
-                return;
-            }
-        }
-        if (isNotBlank(link)) {
-            cuniMapFile = getMapFileFromLink(link);
-            if (cuniMapFile == null) {
-                return;
-            }
-        }
-        else if (isNotBlank(path)) {
-            cuniMapFile = getMapFileFromPath(path);
-        } else {
-            cuniMapFile = getMapFileFromPath(MAPPING_FILE_PATH +  File.separator + MAPPING_FILE_NAME);
+        CuniMapFile cuniMapFile = getCuniMapFileIfValid(context, link, path);
+        if (cuniMapFile == null) {
+            return;
         }
 
         if (isNotBlankList(sources)) {
@@ -666,10 +659,17 @@ public class ItemMapperServiceImpl implements ItemMapperService {
                                      dryRun, collection);
             }
         } else {
+            boolean atLeast1ValidSourceCollection = false;
             for (SourceCollection col : cuniMapFile.getMapfile().getSource_collections()) {
-                Collection collection =  getCorrespondingCollection(context, col);
-                reverseMapItemsFromJson(context, itemService.findAllByCollection(context,collection), cuniMapFile,
-                                        dryRun, collection);
+                Collection collection = getCorrespondingCollection(context, col);
+                if (collection != null) {
+                    atLeast1ValidSourceCollection = true;
+                    reverseMapItemsFromJson(context, itemService.findAllByCollection(context, collection), cuniMapFile,
+                        dryRun, collection);
+                }
+            }
+            if (!atLeast1ValidSourceCollection) {
+                logCLI(ERROR, "Only invalid source collections found in mapping file, not reverse mapping");
             }
         }
     }
@@ -688,11 +688,10 @@ public class ItemMapperServiceImpl implements ItemMapperService {
                 // Reload since attached metadata/bundles/etc hibernate error when from consumer
                 item = context.reloadEntity(item);
 
-                for (MetadataField mdField :mapFile.getMapfile().getMetadata_fields()) {
+                for (MetadataField mdField : mapFile.getMapfile().getMetadata_fields()) {
                     if (mdField.getField_type().equals("primary")) {
                         primaryMdFieldValues = splitMetadataField(item,mdField.getField_identifier());
                         primaryStringMdFieldValues = convertMetadataValuesToString(primaryMdFieldValues);
-
                     }
 
                     if (mdField.getField_type().equals("secondary")) {
@@ -733,13 +732,15 @@ public class ItemMapperServiceImpl implements ItemMapperService {
                     || secondaryStringMdFieldValues.contains(mappingRecord.getMetadata_value())) {
                         for (TargetCollection col : mappingRecord.getTarget_collections()) {
                             Collection correspondingCol = getCorrespondingCollection(context, col);
-                            List<String> handles = new ArrayList<>();
-                            handles.add(correspondingCol.getHandle());
-                            if (mapMode.equals(REVERSED_MAPPED)) {
-                                unmapItem(context, item, this.resolveCollections(context, handles), dryRun);
-                            }
-                            if (mapMode.equals(MAPPED)) {
-                                mapItem(context, item, correspondingCol, dryRun);
+                            if (correspondingCol != null) {
+                                List<String> handles = new ArrayList<>();
+                                handles.add(correspondingCol.getHandle());
+                                if (mapMode.equals(REVERSED_MAPPED)) {
+                                    unmapItem(context, item, this.resolveCollections(context, handles), dryRun);
+                                }
+                                if (mapMode.equals(MAPPED)) {
+                                    mapItem(context, item, correspondingCol, dryRun);
+                                }
                             }
                         }
                     }
@@ -756,9 +757,11 @@ public class ItemMapperServiceImpl implements ItemMapperService {
             itemList.add(item);
         } else {
             for (SourceCollection col : cuniMapFile.getMapfile().getSource_collections()) {
-                Collection collection =  getCorrespondingCollection(ctx, col);
-                if (collection.getID() == item.getOwningCollection().getID()) {
-                    itemList.add(item);
+                Collection collection = getCorrespondingCollection(ctx, col);
+                if (collection != null) {
+                    if (collection.getID() == item.getOwningCollection().getID()) {
+                        itemList.add(item);
+                    }
                 }
             }
         }
@@ -797,6 +800,47 @@ public class ItemMapperServiceImpl implements ItemMapperService {
             logCLI(INFO, "=Committing changes=");
             context.commit();
         }
+    }
+
+    private CuniMapFile getCuniMapFileIfValid(Context context, String link, String path)
+        throws IOException, SQLException {
+        CuniMapFile cuniMapFile;
+        if (isBlank(link) && isBlank(path) && FILE_LOCATION.equals(URL)) {
+            link = MAPPING_FILE_PATH;
+            if (!doesURLResolve(link)) {
+                return null;
+            }
+        }
+        if (isNotBlank(link)) {
+            cuniMapFile = getMapFileFromLink(link);
+            if (cuniMapFile == null) {
+                return null;
+            }
+        }
+        else if (isNotBlank(path)) {
+            cuniMapFile = getMapFileFromPath(path);
+        } else {
+            cuniMapFile = getMapFileFromPath(MAPPING_FILE_PATH +  File.separator + MAPPING_FILE_NAME);
+        }
+
+        if (!atLeast1ValidTargetCollection(context, cuniMapFile)) {
+            logCLI(ERROR, "All target collections in mapping file are invalid, no (reverse) mapping done");
+            return null;
+        }
+        return cuniMapFile;
+    }
+
+    private boolean atLeast1ValidTargetCollection(Context context, CuniMapFile cuniMapFile) throws SQLException {
+        boolean atLeast1ValidTargetCollection = false;
+        for (MappingRecord mappingRecord: cuniMapFile.getMapfile().getMapping_records()) {
+            for (TargetCollection targetCollection: mappingRecord.getTarget_collections()) {
+                Collection col = getCorrespondingCollection(context, targetCollection);
+                if (col != null) {
+                    atLeast1ValidTargetCollection = true;
+                }
+            }
+        }
+        return atLeast1ValidTargetCollection;
     }
 }
 
