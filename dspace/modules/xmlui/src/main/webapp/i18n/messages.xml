@@ -3485,7 +3485,7 @@
 	<!-- RESEARCH OUTPUT TYPE FACET & FILTER-->
 	<message key="xmlui.ArtifactBrowser.AdvancedSearch.type_OBDTypeHierarchyEn">Research Output Type</message>
 	<message key="xmlui.ArtifactBrowser.AdvancedSearch.type_OBDTypeHierarchyCs">Research Output Type</message>
-	<message key="xmlui.ArtifactBrowser.SimpleSearch.filter.OBDTypeHierarchyEn">Druh výsledku</message>
-	<message key="xmlui.ArtifactBrowser.SimpleSearch.filter.OBDTypeHierarchyCs">Druh výsledku</message>
+	<message key="xmlui.ArtifactBrowser.SimpleSearch.filter.OBDTypeHierarchyEn">Research Output Type</message>
+	<message key="xmlui.ArtifactBrowser.SimpleSearch.filter.OBDTypeHierarchyCs">Research Output Type</message>
 	<!-- END OF: CUSTOM FACETS LABELS TRANSLATIONS -->
 </catalogue>
