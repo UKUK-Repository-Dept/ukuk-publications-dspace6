@@ -11,6 +11,21 @@
  * It will be included in all color schemes
  */
 
+ @font-face {
+  font-family: palanquinlight; /* deklarace fontu */
+  src: url(../fonts/palanquin-light.ttf);
+}
+
+@font-face {
+  font-family: palanquinthin; /* deklarace fontu */
+  src: url(../fonts/palanquin-thin.ttf);
+}
+
+@font-face {
+  font-family: palanquinmedium;
+  src: url(../fonts/palanquin-medium.ttf);
+}
+
  // Issue with homepage display being stretched out
 
 .horizontal-slider {
@@ -36,6 +51,18 @@
     background: rgba(195,44,46, 0.5);
 }
 
+// Body
+
+body {
+  color: #000;
+}
+
+// Sidebar
+
+#main-container #sidebar {
+  background: url(../images/bgn.jpg) #f7f7f7;
+}
+
 // Headings
 
 h1, .h1 {
@@ -44,6 +71,18 @@ h1, .h1 {
 
 h2, .h2 {
   font-size: 21px;
+}
+
+h3, .h3 {
+  font-size: 19px;
+}
+
+h4, .h4 {
+  font-size: 17px;
+}
+
+h5, .h5 {
+  font-size: 15px;
 }
 
 .publication-records-modal, .publication-records-modal ul {
@@ -182,6 +221,15 @@ header .navbar-default .navbar-nav > li > a {
 header .navbar-default .navbar-toggle, 
 header .navbar-default .navbar-nav {
   color: #fff;
+  background-color: #c32c2e;
+}
+
+header .navbar-default .navbar-toggle > li > a:hover, 
+header .navbar-default .navbar-toggle > li > a:focus, 
+header .navbar-default .navbar-nav > li > a:hover, 
+header .navbar-default .navbar-nav > li > a:focus {
+  background-color:rgba(195,44,46, 0.5);
+  color: #fff;
 }
 
 // Menus + its items
@@ -196,6 +244,22 @@ header .navbar-default .navbar-nav {
 }
 
 // Pagination
+
+.pagination {
+  border-radius: 0px;
+}
+
+.pagination > li:first-child > a, 
+.pagination > li:first-child > span {
+  border-bottom-left-radius: 0px;
+  border-top-left-radius: 0px;
+}
+
+.pagination > li:last-child > a, 
+.pagination > li:last-child > span {
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
 
 .pagination > .active > a, 
 .pagination > .active > a:hover, 
@@ -221,6 +285,16 @@ header .navbar-default .navbar-nav {
   color: #fff;
   background-color: #c32c2e;
   border: 1px solid #000;
+}
+
+.pagination > .disabled > span, 
+.pagination > .disabled > span:hover, 
+.pagination > .disabled > span:focus, 
+.pagination > .disabled > a, 
+.pagination > .disabled > a:hover, 
+.pagination > .disabled > a:focus {
+  background-color: #fff;
+  border-color: #000;
 }
 
 // Forms
