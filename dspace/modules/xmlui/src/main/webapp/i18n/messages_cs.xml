@@ -3583,4 +3583,15 @@
 
 	<!-- <JR> 2022-09-20 : CUNI TRANSLATED COLLECTION NAMES -->
 	<message key="xmlui.administrative.collection.EditCollectionMetadataForm.label_translatedcollectiontitle">Název - česky</message>
+	<!-- END OF: CUNI TRANSLATED COLLECTION NAMES -->
+
+	<!-- <JR> 2022-09-22 : CUSTOM FACETS & FILTERS LABELS TRANSLATIONS -->
+	
+		<!-- RESEARCH OUTPUT TYPE FACET & FILTER-->
+	<message key="xmlui.ArtifactBrowser.AdvancedSearch.type_OBDTypeHierarchyEn">Druh výsledku</message>
+	<message key="xmlui.ArtifactBrowser.AdvancedSearch.type_OBDTypeHierarchyCs">Druh výsledku</message>
+	<message key="xmlui.ArtifactBrowser.SimpleSearch.filter.OBDTypeHierarchyEn">Druh výsledku</message>
+	<message key="xmlui.ArtifactBrowser.SimpleSearch.filter.OBDTypeHierarchyCs">Druh výsledku</message>
+	<!-- END OF: CUSTOM FACETS LABELS TRANSLATIONS -->
+
 </catalogue>
