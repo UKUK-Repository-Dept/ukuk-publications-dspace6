@@ -354,3 +354,16 @@ a.list-group-item:hover, a.list-group-item:focus {
   color: #fff;
   background-color: rgba(195,44,46, 0.5);
 }
+
+// Search filter labels
+
+.label-primary {
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #000;
+}
+
+.label-primary[href]:hover, .label-primary[href]:focus {
+  background-color: rgba(195,44,46, 0.5);
+  color: #fff;
+}
