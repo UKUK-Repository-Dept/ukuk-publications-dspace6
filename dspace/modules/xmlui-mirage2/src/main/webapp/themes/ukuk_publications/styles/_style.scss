@@ -161,6 +161,47 @@ header .navbar-default {
   border-bottom: 3px solid #c32c2e;
 }
 
+// Navigation - tabs
+
+
+.nav-tabs > li > a {
+  border-radius: 0px 0px 0px 0px;
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+  color: #fff;
+  background-color: #c32c2e;
+  border: 1px solid #c32c2e;
+  border-bottom-color: transparent;
+}
+
+.nav-tabs > li > a:hover {
+  border-color: rgba(195,44,46, 0.5) rgba(195,44,46, 0.5) #c32c2e;
+  color: #fff;
+}
+
+.nav > li > a:focus {
+  color: #fff;
+}
+
+.nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
+  background-color: #c32c2e;
+  color: #fff;
+  border-color: #c32c2e;
+}
+
+.dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus {
+  color: #fff;
+  background-color: #c32c2e;
+}
+
+.dropdown-menu {
+  border: 1px solid rgba(195, 44, 46, 0.15);
+  border-radius: 0px;
+  box-shadow: 0 6px 12px rgba(195, 44, 46, 0.18);
+  -webkit-box-shadow: 0 6px 12px rgba(195, 44, 46, 0.18);
+}
+
 // Breadcrumbs
 
 .trail-wrapper {
@@ -366,4 +407,16 @@ a.list-group-item:hover, a.list-group-item:focus {
 .label-primary[href]:hover, .label-primary[href]:focus {
   background-color: rgba(195,44,46, 0.5);
   color: #fff;
+}
+// Tables
+
+.table-hover > tbody > tr:hover {
+  background-color: rgba(195,44,46, 0.5);
+  color: #fff;
+}
+
+// Blockquote
+
+blockquote {
+  border-left: 5px solid rgba(195,44,46, 0.5);
 }
