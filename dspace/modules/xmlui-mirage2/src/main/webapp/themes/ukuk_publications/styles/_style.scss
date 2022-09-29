@@ -171,13 +171,14 @@ header .navbar-default {
   border-radius: 0px 0px 0px 0px;
   background-color: #c32c2e;
   color: #fff;
+  border-color: #c32c2e;
 }
 
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
-  color: #fff;
-  background-color: #c32c2e;
+  color: #000;
+  background-color: #fff;
   border: 1px solid #c32c2e;
-  border-bottom-color: transparent;
+  border-bottom-color: #c32c2e;
 }
 
 .nav-tabs > li > a:hover {
@@ -209,6 +210,22 @@ header .navbar-default {
 
 .nav > li > a:hover, .nav > li > a:focus {
   background-color: rgba(195, 44, 46, 0.5);
+}
+
+.nav-tabs > li.dropdown.active > a {
+  background-color: #c32c2e;
+  color: #fff;
+}
+
+.nav-tabs >li.dropdown.active > a:hover {
+  background-color: rgba(195,44,46,0.5);
+  border-color: rgba(195,44,46,0.5) rgba(195,44,46,0.5) #c32c2e;
+}
+
+.nav-tabs > li.dropdown.active > a:focus {
+  background-color: rgba(195,44,46,0.5);
+  border-color: rgba(195,44,46,0.5) rgba(195,44,46,0.5) #c32c2e;
+  color: #fff;
 }
 
 // Breadcrumbs
