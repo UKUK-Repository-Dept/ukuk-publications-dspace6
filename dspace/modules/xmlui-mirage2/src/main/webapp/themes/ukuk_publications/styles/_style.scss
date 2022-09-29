@@ -169,6 +169,8 @@ header .navbar-default {
 
 .nav-tabs > li > a {
   border-radius: 0px 0px 0px 0px;
+  background-color: #c32c2e;
+  color: #fff;
 }
 
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
@@ -188,9 +190,9 @@ header .navbar-default {
 }
 
 .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
-  background-color: #c32c2e;
+  background-color: rgba(195,44,46,0.5);
   color: #fff;
-  border-color: #c32c2e;
+  border-color: rgba(195,44,46,0.5) rgba(195,44,46,0.5) #c32c2e;
 }
 
 .dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus {
