@@ -220,6 +220,7 @@ header .navbar-default {
 .nav-tabs >li.dropdown.active > a:hover {
   background-color: rgba(195,44,46,0.5);
   border-color: rgba(195,44,46,0.5) rgba(195,44,46,0.5) #c32c2e;
+  cursor: pointer;
 }
 
 .nav-tabs > li.dropdown.active > a:focus {
