@@ -163,6 +163,9 @@ header .navbar-default {
 
 // Navigation - tabs
 
+.nav-tabs {
+  border-bottom: 1px solid #c32c2e;
+}
 
 .nav-tabs > li > a {
   border-radius: 0px 0px 0px 0px;
@@ -200,6 +203,10 @@ header .navbar-default {
   border-radius: 0px;
   box-shadow: 0 6px 12px rgba(195, 44, 46, 0.18);
   -webkit-box-shadow: 0 6px 12px rgba(195, 44, 46, 0.18);
+}
+
+.nav > li > a:hover, .nav > li > a:focus {
+  background-color: rgba(195, 44, 46, 0.5);
 }
 
 // Breadcrumbs
