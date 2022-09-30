@@ -55,8 +55,8 @@
                 <caption class="sr-only">Rozdíly mezi povinnými a podmíněně povinnými popisnými údaji</caption>
                 <thead>
                     <tr>
-                        <th scope="col">typ údaje</th>
-                        <th scope="col">popis</th>
+                        <th scope="col"><i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.header.1</i18n:text></th>
+                        <th scope="col"><i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.header.2</i18n:text></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -130,7 +130,7 @@
                 <!--<caption class="sr-only">Seznam povinných údajů</caption>-->
                 <thead>
                     <tr>
-                        <th scope="col">údaj</th>
+                        <th scope="col"><i18n:text>xmlui.mirage2.static-pages.metadata.dropdown.title.mandatory-metadata-by-form.header.1</i18n:text></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -230,58 +230,16 @@
                                 </li>
                             </xsl:otherwise>
                         </xsl:choose>
-                        <!-- <JR> - 2022-08-22 - předchozí funkční verze -->
-                        <!-- 
-                        <li role="presentation">
-                            <a href="#mandatory-metadata-contents-{$formValue}" aria-expanded="false" aria-controls="mandatory-metadata-contents-{$formValue}" data-toggle="tab">
-                                <i18n:text><xsl:value-of select="concat('obd.typology.form.id.',./@id)"/></i18n:text>
-                            </a>
-                        </li>
-                         -->
-                        <!-- END OF: <JR> - 2022-08-22 - předchozí funkční verze -->
                     </xsl:for-each>
                 </ul>
-            </li>
-            
-            <!-- <JR> - 2022-08-22 - předchozí funkční verze -->
-            <!-- List of forms in dropdown for "mandatory-if-applicable metadata by form" display -->
-            <!-- <li role="presentation" class="dropdown">
-                <a href="#" id="mandatory-if-applicable-metadata-dropdown" class="dropdown-toggle" data-toggle="dropdown" aria-controls="mandatory-if-applicable-metadata-dropdown-contents" aria-expanded="false">
-                    <i18n:text>xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.mandatory-if-aplicable-metadata.title</i18n:text> <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="mandatory-metadata-dropdown" id="mandatory-metadata-dropdown-contents" aria-expanded="false">
-                    <xsl:for-each select="$typologyFile//form">
-                        <xsl:variable name="formValue" select="./@id"/>
-                        <li role="presentation">
-                            <a href="#mandatory-if-applicable-metadata-contents-{$formValue}" aria-expanded="false" aria-controls="mandatory-if-applicable-metadata-contents-{$formValue}" data-toggle="tab">
-                                <i18n:text><xsl:value-of select="concat('obd.typology.form.id.',./@id)"/></i18n:text>
-                            </a>
-                        </li>
-                    </xsl:for-each>
-                </ul>
-            </li> -->
-            <!-- END OF: <JR> - 2022-08-22 - předchozí funkční verze -->
-            
+            </li>            
         </ul>
       
         <!-- Tab panes -->
         <div class="tab-content">
             <xsl:for-each select="$mandatoryMetadataFile//form">
                 <xsl:variable name="formValueID" select="./@id"/>
-                
-                <!-- <JR> - 2022-08-22 - předchozí funkční verze -->
-                <!-- <xsl:for-each select=".//metadata">
-                    <xsl:variable name="metadata-typeID" select="./@type"/>
-                    <div role="tabpanel" class="tab-pane fade" id="{$metadata-typeID}-metadata-contents-{$formValueID}">
-                        <xsl:call-template name="metadata-forms-generate-tables-for-tabpanel">
-                            <xsl:with-param name="publicationFormID" select="$formValueID"/>
-                            <xsl:with-param name="metadata-type" select="$metadata-typeID"/>
-                        </xsl:call-template>
-                    </div>
-                </xsl:for-each>
-                
-                <div role="tabpanel" class="tab-pane fade" id="metadata-contents-{$formValueID}"> -->
-                <!-- END OF: <JR> - 2022-08-22 - předchozí funkční verze -->
+
                 <xsl:choose>
                     <xsl:when test="position() = 1">
                         <div role="tabpanel" class="tab-pane fade active in" id="metadata-contents-{$formValueID}">
@@ -298,8 +256,6 @@
                         </div>
                     </xsl:otherwise>
                 </xsl:choose>
-                    
-                
             </xsl:for-each>
         </div>
     </xsl:template>
@@ -323,19 +279,19 @@
         <table class="table">
             <xsl:choose>
                 <xsl:when test="$metadata-type = 'mandatory'">
-                    <caption>Tabulka povinných údajů - <i18n:text><xsl:value-of select="concat('obd.typology.form.id.', $publicationFormID)"/></i18n:text></caption>
+                    <caption><i18n:text>xmlui.mirage2.static-pages.metadata.dropdown.title.mandatory-metadata-by-form.caption.mandatory</i18n:text> - <i18n:text><xsl:value-of select="concat('obd.typology.form.id.', $publicationFormID)"/></i18n:text></caption>
                 </xsl:when>
                 <xsl:when test="$metadata-type = 'mandatory-if-applicable'">
-                    <caption>Tabulka podmíněně povinných údajů - <i18n:text><xsl:value-of select="concat('obd.typology.form.id.', $publicationFormID)"/></i18n:text></caption>
+                    <caption><i18n:text>xmlui.mirage2.static-pages.metadata.dropdown.title.mandatory-metadata-by-form.caption.mandatory-if-applicable</i18n:text> - <i18n:text><xsl:value-of select="concat('obd.typology.form.id.', $publicationFormID)"/></i18n:text></caption>
                 </xsl:when>
                 <xsl:otherwise></xsl:otherwise>
             </xsl:choose>
 
             <thead>
                 <tr>
-                    <th scope="col">název údaje</th>
-                    <th scope="col">OBD: sekce formuláře</th>
-                    <th scope="col">OBD: pole formuláře</th>
+                    <th scope="col"><i18n:text>xmlui.mirage2.static-pages.metadata.dropdown.title.mandatory-metadata-by-form.heading.1</i18n:text></th>
+                    <th scope="col"><i18n:text>xmlui.mirage2.static-pages.metadata.dropdown.title.mandatory-metadata-by-form.heading.2</i18n:text></th>
+                    <th scope="col"><i18n:text>xmlui.mirage2.static-pages.metadata.dropdown.title.mandatory-metadata-by-form.heading.3</i18n:text></th>
                 </tr>
             </thead>
             <tbody>
