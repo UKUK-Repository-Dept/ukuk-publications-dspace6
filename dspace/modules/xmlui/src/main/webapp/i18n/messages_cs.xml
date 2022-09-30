@@ -3104,6 +3104,9 @@
 	<message key="xmlui.mirage2.static-pages.metadata.section.intro.para.2">Ne všechny výsledky mohou mít například uvedený identifikátor DOI, 
 		pokud jim byl ale přidělen, je nutné jej vyplnit do příslušné pole formuláře výsledku v modulu OBD IS Věda.</message>
 	<message key="xmlui.mirage2.static-pages.metadata.section.intro.para.3">Rozdíly mezi těmito typy popisných údajů jsou uvedeny v tabulce níže:</message>
+	<!-- page/metadata - table 1 -->
+	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.header.1">typ údaje</message>
+	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.header.2">popis</message>
 	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.mandatory-metadata.title">povinné údaje</message>
 	<!--<message key="xmlui.mirage2.static-pages.metadata.section.intro.para.2.mandatory-metadata.description.1">
 		pro všechny <a href="https://topi.is.cuni.cz/page/typology" target="_blank">formy výsledků přijímané do repozitáře</a> jsou shodné</message>-->
@@ -3115,6 +3118,7 @@
 		určitý <a href="https://topi.is.cuni.cz/page/typology" target="_blank">druh výsledku přijímanou do repozitáře</a>, stav publikování / vydání výsledku, respektive verzi výsledku (preprint, postprint, atp.)</message>
 	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.table.mandatory-if-applicable-metadata.description.3">pokud je údaj k dispozici / je možné ho zjistit 
 		nebo získat, ale nebude uveden ve formuláři výsledku v modulu OBD IS Věda, <b>výsledek nebude schválen</b> k přenosu do repozitáře</message>
+	<!-- END OF: page/metadata - table 1 -->
 	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.h2.1">Jaké povinné a podmíněně povinné údaje vyžadujeme?</message>
 	<message key="xmlui.mirage2.static-pages.metadata.section.mandatory-metadata.para.1">V seznamech níže jsou uvedeny všechny povinné a podmíněně povinné údaje pro všechny druhy 
 		výsledků přijímané do repozitáře. Pro zobrazení dané skupiny popisných údajů klikněte na příslušnou záložku.
@@ -3140,7 +3144,14 @@
 	<message key="xmlui.mirage2.static-pages.metadata.section.optional-metadata.list.item.3">generovat bibliografické citace k výsledkům uloženým v repozitáři</message>
 	<message key="xmlui.mirage2.static-pages.metadata.section.optional-metadata.list.item.4">zajišťovat shromažďování dodatečných statistických informací o výsledku uloženém v repozitáři</message>
 	
+	<!-- page/metadata - table 2 -->
+	<message key="xmlui.mirage2.static-pages.metadata.dropdown.title.mandatory-metadata-by-form.header.1">údaj</message>
+	<message key="xmlui.mirage2.static-pages.metadata.dropdown.title.mandatory-metadata-by-form.caption.mandatory">Tabulka povinných údajů</message>
+	<message key="xmlui.mirage2.static-pages.metadata.dropdown.title.mandatory-metadata-by-form.caption.mandatory-if-applicable">Tabulka podmíněně povinných údajů</message>
 	<message key="xmlui.mirage2.static-pages.metadata.dropdown.title.mandatory-metadata-by-form">povinné údaje podle druhu</message>
+	<message key="xmlui.mirage2.static-pages.metadata.dropdown.title.mandatory-metadata-by-form.heading.1">název údaje</message>
+	<message key="xmlui.mirage2.static-pages.metadata.dropdown.title.mandatory-metadata-by-form.heading.2">OBD: sekce formuláře</message>
+	<message key="xmlui.mirage2.static-pages.metadata.dropdown.title.mandatory-metadata-by-form.heading.3">OBD: pole formuláře</message>
 	<!-- END OF: <JR> - 22-06-16: page/metadata -->
 
 	<!-- <JR> - 22-02-01: page/disclaimer-->
