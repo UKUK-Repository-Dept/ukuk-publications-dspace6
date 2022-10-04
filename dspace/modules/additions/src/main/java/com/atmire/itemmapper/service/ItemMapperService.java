@@ -54,10 +54,12 @@ public interface ItemMapperService {
 
     CuniMapFile getMapFileFromPath(String path) throws IOException;
 
-    void mapFromParams(Context context, List<Collection> destinations, List<Collection> sources, boolean dryRun)
+    void mapFromParams(Context context, List<Collection> destinations, List<Collection> sources,
+                       boolean sourcesSpecified, boolean dryRun)
         throws SQLException;
 
-    void reverseMapFromParams(Context context, List<Collection> destinations, List<Collection> sources, boolean dryRun)
+    void reverseMapFromParams(Context context, List<Collection> destinations, List<Collection> sources,
+                              boolean sourcesSpecified, boolean destinationsSpecified, boolean dryRun)
         throws SQLException;
 
     void mapFromMappingFile(Context context, List<Collection> sources, String link, String path, boolean dryRun)
@@ -74,7 +76,7 @@ public interface ItemMapperService {
         String mapMode, boolean dryRun) throws SQLException, AuthorizeException, IOException;
 
     void addItemToListIfInSourceCollection(Context ctx, Item item, CuniMapFile cuniMapFile,
-        List<Item> itemList) throws SQLException;
+        java.util.Collection<Item> itemList) throws SQLException;
 
     boolean doesFileExist();
 

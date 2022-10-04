@@ -7,14 +7,21 @@
  */
 package org.dspace.content.dao.impl;
 
+import java.sql.SQLException;
+import java.util.Collections;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.UUID;
+
 import org.apache.log4j.Logger;
 import org.dspace.content.Collection;
 import org.dspace.content.Item;
 import org.dspace.content.MetadataField;
 import org.dspace.content.MetadataValue;
 import org.dspace.content.dao.ItemDAO;
-import org.dspace.core.Context;
 import org.dspace.core.AbstractHibernateDSODAO;
+import org.dspace.core.Context;
 import org.dspace.eperson.EPerson;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -25,13 +32,6 @@ import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.Subqueries;
 import org.hibernate.type.StandardBasicTypes;
-
-import java.sql.SQLException;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.UUID;
 
 /**
  * Hibernate implementation of the Database Access Object interface class for the Item object.
@@ -248,7 +248,8 @@ public class ItemDAOImpl extends AbstractHibernateDSODAO<Item> implements ItemDA
 
     @Override
     public Iterator<Item> findAllByCollection(Context context, Collection collection, Integer limit, Integer offset) throws SQLException {
-        Query query = createQuery(context, "select i from Item i join i.collections c WHERE :collection IN c order by i.id");
+        Query query = createQuery(context, "select i from Item i join i.collections c WHERE :collection IN c" +
+            " ORDER BY i.id ASC");
         query.setParameter("collection", collection);
 
         if(offset != null)
@@ -259,7 +260,6 @@ public class ItemDAOImpl extends AbstractHibernateDSODAO<Item> implements ItemDA
         {
             query.setMaxResults(limit);
         }
- 
         return iterate(query);
     }
 
