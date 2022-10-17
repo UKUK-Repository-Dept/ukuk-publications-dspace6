@@ -354,7 +354,7 @@
 
     <!-- GENERATE INFO ABOUT WORKFLOW -->
     <xsl:template name="about-workflow">
-        <h2><i18n:text>obd.about-workflow.heading</i18n:text></h2>
+        <h2 id="heading-about-workflow"><i18n:text>obd.about-workflow.heading</i18n:text></h2>
         <p><i18n:text>obd.about-workflow.para.1</i18n:text></p>
         <div class="table-responsive">
             <table id="about-table-workflow" class="table-bordered table-condensed">
