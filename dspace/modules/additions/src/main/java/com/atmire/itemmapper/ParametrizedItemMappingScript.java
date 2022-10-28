@@ -137,12 +137,13 @@ public class ParametrizedItemMappingScript extends ContextScript {
                      sourcesSpecified, destinationsSpecified, dryRun.isSelected());
                     break;
                 case MAPPED:
-                    itemMapperService.mapFromMappingFile(context, validSources, linkToFile.getValue(),
+                    itemMapperService.mapFromMappingFile(context, validSources, sourcesSpecified, linkToFile.getValue(),
                                                          pathToFile.getValue(), dryRun.isSelected());
                     break;
                 case REVERSED_MAPPED:
-                    itemMapperService.reverseMapFromMappingFile(context, validSources, linkToFile.getValue(),
-                                                                pathToFile.getValue(), dryRun.isSelected());
+                    itemMapperService.reverseMapFromMappingFile(context, validSources, sourcesSpecified,
+                                                                linkToFile.getValue(), pathToFile.getValue(),
+                                                                dryRun.isSelected());
                     break;
                 default:
                     itemMapperService.logCLI(ERROR, "The mapping operation resolved to: " + currentOperation + " this" +

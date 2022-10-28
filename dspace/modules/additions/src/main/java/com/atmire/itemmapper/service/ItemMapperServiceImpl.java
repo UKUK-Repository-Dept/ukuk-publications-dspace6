@@ -584,7 +584,9 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     }
 
     @Override
-    public void mapFromMappingFile(Context context, List<Collection> sources, String link, String path, boolean dryRun)
+    public void mapFromMappingFile(Context context, List<Collection> sources, boolean sourcesSpecified, String link,
+                                   String path,
+                                   boolean dryRun)
         throws IOException, SQLException, AuthorizeException {
         CuniMapFile cuniMapFile = getCuniMapFileIfValid(context, link, path);
         if (cuniMapFile == null) {
@@ -596,8 +598,9 @@ public class ItemMapperServiceImpl implements ItemMapperService {
                 mapItemsFromJson(context, itemService.findAllByCollection(context, sourceCollection), cuniMapFile,
                                  dryRun, sourceCollection);
             }
-        }
-        else if (cuniMapFile.getMapfile().getSource_collections() == null ||
+        } else if(sourcesSpecified && isBlankList(sources)) {
+            logCLI(ERROR, "No valid sources given, not mapping any items.");
+        } else if (cuniMapFile.getMapfile().getSource_collections() == null ||
                  cuniMapFile.getMapfile().getSource_collections().isEmpty()) {
             logCLI(WARN, "No source collections found in mapping file and no -s parameter was given." +
                           " Mapping will be performed on all items in the repository.", dryRun);
@@ -632,7 +635,8 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     }
 
     @Override
-    public void reverseMapFromMappingFile(Context context, List<Collection> sources, String link, String path, boolean dryRun)
+    public void reverseMapFromMappingFile(Context context, List<Collection> sources,
+                                          boolean sourcesSpecified, String link, String path, boolean dryRun)
         throws SQLException, IOException, AuthorizeException {
         CuniMapFile cuniMapFile = getCuniMapFileIfValid(context, link, path);
         if (cuniMapFile == null) {
@@ -647,9 +651,9 @@ public class ItemMapperServiceImpl implements ItemMapperService {
                 reverseMapItemsFromJson(context, itemService.findAllByCollection(context, sourceCollection),
                                         cuniMapFile, dryRun, sourceCollection);
             }
-        }
-
-       else if (cuniMapFile.getMapfile().getSource_collections() == null ||
+        } else if (sourcesSpecified && isBlankList(sources)) {
+            logCLI(ERROR, "No valid sources given, not mapping any items.");
+        } else if (cuniMapFile.getMapfile().getSource_collections() == null ||
                 cuniMapFile.getMapfile().getSource_collections().isEmpty()) {
             logCLI(WARN, "No source collections found in mapping file and no -s parameter was given." +
                 " Mapping will be performed on all items in the repository.", dryRun);
