@@ -67,23 +67,30 @@ public class ItemMapperConsumer implements Consumer {
     }
 
     private void handleConsume(Context ctx, Event event) throws SQLException, IOException {
-        if(validConsumerConfig) {
-            Item item = (Item) event.getSubject(ctx);
-            if (!item.isArchived()) {
-                return;
+        try {
+            if(validConsumerConfig) {
+                Item item = (Item) event.getSubject(ctx);
+                if (!item.isArchived()) {
+                    return;
+                }
+                if (CONSUMER_MAPPING_FILE_LOCATION.equals(URL)) {
+                    cuniMapFile = itemMapperService.getMapFileFromLink(CONSUMER_MAPPING_FILE_PATH);
+                    itemMapperService.addItemToListIfInSourceCollection(ctx, item, cuniMapFile, itemList);
+                } else if (CONSUMER_MAPPING_FILE_LOCATION.equals(LOCAL)) {
+                    cuniMapFile = itemMapperService.getMapFileFromPath(FULL_PATH_TO_FILE);
+                    itemMapperService.addItemToListIfInSourceCollection(ctx, item, cuniMapFile, itemList);
+                } else {
+                    logMessage(INFO, "Item install event was called but the path to the file is not " +
+                        "set correctly, please double check your consumer properties:" +
+                        CONSUMER_MAPPING_FILE_LOCATION_CFG + ", " + CONSUMER_MAPPING_FILE_NAME_CFG + " and" +
+                        CONSUMER_MAPPING_FILE_LOCATION_CFG, null);
+                }
             }
-            if (CONSUMER_MAPPING_FILE_LOCATION.equals(URL)) {
-                cuniMapFile = itemMapperService.getMapFileFromLink(CONSUMER_MAPPING_FILE_PATH);
-                itemMapperService.addItemToListIfInSourceCollection(ctx, item, cuniMapFile, itemList);
-            } else if (CONSUMER_MAPPING_FILE_LOCATION.equals(LOCAL)) {
-                cuniMapFile = itemMapperService.getMapFileFromPath(FULL_PATH_TO_FILE);
-                itemMapperService.addItemToListIfInSourceCollection(ctx, item, cuniMapFile, itemList);
-            } else {
-                logMessage(INFO, "Item install event was called but the path to the file is not " +
-                    "set correctly, please double check your consumer properties:" +
-                    CONSUMER_MAPPING_FILE_LOCATION_CFG + ", " + CONSUMER_MAPPING_FILE_NAME_CFG + " and" +
-                    CONSUMER_MAPPING_FILE_LOCATION_CFG, null);
-            }
+        } catch (Exception e) {
+            itemMapperService.logCLI(ERROR, String.format("An exception has occurred! => %s%n%s", e.getMessage(),
+                                                          e.toString()));
+            e.printStackTrace();
+            throw e;
         }
     }
 
