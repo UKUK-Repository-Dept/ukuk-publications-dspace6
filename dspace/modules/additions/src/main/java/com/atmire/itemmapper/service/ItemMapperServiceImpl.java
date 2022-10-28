@@ -549,6 +549,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
             logCLI(INFO, "1 or more valid sources given, 1 or more valid destinations, reversing all items from " +
                 "destinations that were mapped from sources.");
             for (Collection sourceCollection: sources) {
+                sourceCollection = context.reloadEntity(sourceCollection);
                 logCLI(INFO,
                        PROCESSING_COLLECTION_CHAR + PROCESSING_COLLECTION_HEADER + sourceCollection.getName() + " " + sourceCollection.getHandle() + " | "
                     + sourceCollection.getID() + PROCESSING_COLLECTION_CHAR, dryRun);
