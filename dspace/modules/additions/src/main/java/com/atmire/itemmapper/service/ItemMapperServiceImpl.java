@@ -77,6 +77,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     public static final String INFO = "info";
     public static final String ERROR = "error";
     public static final String WARN = "warn";
+    public static final String DEBUG = "debug";
     public static final String DRY_RUN_PREFIX = "( DRY RUN )";
     public static final String PROCESSING_COLLECTION_CHAR = " === ";
     public static final String PROCESSING_COLLECTION_HEADER = "PROCESSING COLLECTION: ";
@@ -103,6 +104,9 @@ public class ItemMapperServiceImpl implements ItemMapperService {
                 break;
             case WARN:
                 log.warn(message);
+                break;
+            case DEBUG:
+                log.debug(message);
                 break;
             default:
                 throw new IllegalArgumentException(level + "is not a valid log level");

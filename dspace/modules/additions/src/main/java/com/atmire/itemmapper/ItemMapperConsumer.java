@@ -4,6 +4,7 @@ import static com.atmire.itemmapper.ParametrizedItemMappingScript.LOCAL;
 import static com.atmire.itemmapper.ParametrizedItemMappingScript.MAPPED;
 import static com.atmire.itemmapper.ParametrizedItemMappingScript.URL;
 import static com.atmire.itemmapper.ParametrizedItemMappingScript.configurationService;
+import static com.atmire.itemmapper.service.ItemMapperServiceImpl.DEBUG;
 import static com.atmire.itemmapper.service.ItemMapperServiceImpl.ERROR;
 import static com.atmire.itemmapper.service.ItemMapperServiceImpl.INFO;
 import static com.atmire.itemmapper.service.ItemMapperServiceImpl.WARN;
@@ -58,6 +59,8 @@ public class ItemMapperConsumer implements Consumer {
             if (validConsumerConfig) {
                 checkConsumerConfig();
             } else {
+                itemMapperService.logCLI(DEBUG, String.format("Item (id:%s|handle:‰s) not mapped because of invalid " +
+                    "mapping json.", event.getSubject(ctx) != null ? event.getSubject(ctx).getID() : ""));
                 return;
             }
             if (CONSUMER_ITEM_MAPPER_ENABLED) {
@@ -73,11 +76,10 @@ public class ItemMapperConsumer implements Consumer {
                 if (!item.isArchived()) {
                     return;
                 }
-                if (CONSUMER_MAPPING_FILE_LOCATION.equals(URL)) {
-                    cuniMapFile = itemMapperService.getMapFileFromLink(CONSUMER_MAPPING_FILE_PATH);
-                    itemMapperService.addItemToListIfInSourceCollection(ctx, item, cuniMapFile, itemList);
-                } else if (CONSUMER_MAPPING_FILE_LOCATION.equals(LOCAL)) {
-                    cuniMapFile = itemMapperService.getMapFileFromPath(FULL_PATH_TO_FILE);
+                if (CONSUMER_MAPPING_FILE_LOCATION.equals(URL) || CONSUMER_MAPPING_FILE_LOCATION.equals(LOCAL)) {
+                    if (cuniMapFile == null) {
+                        setCuniMapFile();
+                    }
                     itemMapperService.addItemToListIfInSourceCollection(ctx, item, cuniMapFile, itemList);
                 } else {
                     logMessage(INFO, "Item install event was called but the path to the file is not " +
@@ -85,10 +87,14 @@ public class ItemMapperConsumer implements Consumer {
                         CONSUMER_MAPPING_FILE_LOCATION_CFG + ", " + CONSUMER_MAPPING_FILE_NAME_CFG + " and" +
                         CONSUMER_MAPPING_FILE_LOCATION_CFG, null);
                 }
+            } else {
+                itemMapperService.logCLI(DEBUG, String.format("Item (id:%s|handle:‰s) not mapped because of invalid " +
+                    "mapping json.", event.getSubject(ctx) != null ? event.getSubject(ctx).getID() : ""));
             }
         } catch (Exception e) {
-            itemMapperService.logCLI(ERROR, String.format("An exception has occurred! => %s%n%s", e.getMessage(),
-                                                          e.toString()));
+            itemMapperService.logCLI(ERROR, String.format("An exception has occurred trying to map item " +
+                    "(id:%s|handle:%s) => %s%n%s", event.getSubject(ctx) != null ? event.getSubject(ctx).getID() : "",
+                event.getSubject(ctx) != null ? event.getSubject(ctx).getID() : "", e.getMessage(), e.toString()));
             e.printStackTrace();
             throw e;
         }
@@ -136,6 +142,11 @@ public class ItemMapperConsumer implements Consumer {
         if (CONSUMER_MAPPING_FILE_LOCATION.equalsIgnoreCase(LOCAL) && !itemMapperService.doesFileExist()) {
             message = "The file you supplied is not a valid JSON file: " + FULL_PATH_TO_FILE;
         }
+        try {
+            setCuniMapFile();
+        } catch (Exception e) {
+            message = String.format("Issue with consumer mapping json: %s%n%s", e.getMessage(), e.toString());
+        }
         if (message != null) {
             validConsumerConfig = false;
             logMessage(ERROR, message, null);
@@ -145,6 +156,14 @@ public class ItemMapperConsumer implements Consumer {
         if (!CONSUMER_ITEM_MAPPER_ENABLED) {
             logMessage(INFO, String.format("Mapping consumer disabled with config '%s'.",
                 CONSUMER_ITEM_MAPPED_ENABLED_CONFIG), null);
+        }
+    }
+
+    private void setCuniMapFile() throws IOException {
+        if (CONSUMER_MAPPING_FILE_LOCATION.equals(URL)) {
+            cuniMapFile = itemMapperService.getMapFileFromLink(CONSUMER_MAPPING_FILE_PATH);
+        } else if (CONSUMER_MAPPING_FILE_LOCATION.equals(LOCAL)) {
+            cuniMapFile = itemMapperService.getMapFileFromPath(FULL_PATH_TO_FILE);
         }
     }
 
