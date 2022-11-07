@@ -3403,10 +3403,10 @@
 	<message key="obd.about-licensing.table-licensing.header.2">popis</message>
 	<message key="obd.about-licensing.table-licensing.tr.1.td.1">bez licence</message>
 	<message key="obd.about-licensing.table-licensing.tr.1.td.2">
-		Plný text výsledku bude zveřejněn v repozitáři pouze ke čtení, 
-		tedy v režimu gratis open access. Návštěvníci repozitáře text zveřejněný 
-		bez licence budou moci dále užívat (např. stahovat) pouze se souhlasem vykonavatele 
-		autorských majetkových práv nebo na základě výjimek stanovených zákonem (např. citační licence).
+		Pokud vydavadel/nakladatel umožňuje autoarchivaci v institucionálním repozitáři, 
+		a výsledek současně nepodléhá žádné licenci, zvolte možnost bez licence. Plný text výsledku pak bude zpřístupněn v repozitáři v režimu gratis open access, 
+		tj. pouze pro čtení. Dále lze plné texty v režimu gratis open access z repozitáře stahovat, případně tisknout, 
+		ale pouze pro osobní potřebu (viz § 30 zákona č. 121/2000 Sb., autorského zákona).
 	</message>
 	<message key="obd.about-licensing.table-licensing.tr.2.td.1">licence Creative Commons</message>
 	<message key="obd.about-licensing.table-licensing.tr.2.td.2">
