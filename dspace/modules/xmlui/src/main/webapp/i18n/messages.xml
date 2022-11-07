@@ -3297,9 +3297,9 @@
 	<message key="obd.about-licensing.table-licensing.tr.1.td.1">No licence</message>
 	<message key="obd.about-licensing.table-licensing.tr.1.td.2">
 		The full text is published in the repository as read-only, i.e. in free open access mode. 
-		Repository visitors are able to use (e.g. download) the text published without a licence 
-		only with the consent of the copyright administrator or on the basis of statutory exemptions 
-		(e.g. a citation licence).
+		Repository visitors are able to use (e.g. download or print) the text published without a licence 
+		for their own use only, according to § 30 of Act No. 121/2000 on Copyright and Rights Related to Copyright 
+		and on Amendment to Certain Acts (the Copyright Act).
 	</message>
 	<message key="obd.about-licensing.table-licensing.tr.2.td.1">Creative Commons licence</message>
 	<message key="obd.about-licensing.table-licensing.tr.2.td.2">
