@@ -3296,10 +3296,10 @@
 	<message key="obd.about-licensing.table-licensing.header.2">description</message>
 	<message key="obd.about-licensing.table-licensing.tr.1.td.1">No licence</message>
 	<message key="obd.about-licensing.table-licensing.tr.1.td.2">
-		The full text is published in the repository as read-only, i.e. in free open access mode. 
-		Repository visitors are able to use (e.g. download or print) the text published without a licence 
-		for their own use only, according to § 30 of Act No. 121/2000 on Copyright and Rights Related to Copyright 
-		and on Amendment to Certain Acts (the Copyright Act).
+		If the publisher allows autoarchiving in an institutional repository and the fulltext does not subject to any specific license, 
+		you can choose the "without license" licensing option. The fulltext is then published in the repository as read-only, i.e. in gratis open access mode.
+		Repository visitors are entitled to download and print the fulltext published without a licence for their personal use only 
+		(in accordance with § 30 of Act No. 121/2000 Coll., the Copyright Act).
 	</message>
 	<message key="obd.about-licensing.table-licensing.tr.2.td.1">Creative Commons licence</message>
 	<message key="obd.about-licensing.table-licensing.tr.2.td.2">
