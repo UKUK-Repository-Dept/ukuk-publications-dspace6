@@ -58,23 +58,29 @@
         </Context>
 
         <!--
-            OpenAIRE Guidelines 3.0:
+            OpenAIRE Guidelines 4.0:
 
-            - https://guidelines.openaire.eu/
-
+            - https://openaire-guidelines-for-literature-repository-managers.readthedocs.io/en/v4.0.0/
+            
             There is a limitation over the embargoedEndDate parameter:
 
             - Predefined DSpace fields don't allow to set this up with a default.
          -->
-        <Context baseurl="openaire" name="OpenAIRE Context">
+        <Context baseurl="openaire4" name="OpenAIRE Context">
             <!-- Date format, field prefixes, etc are ensured by the transformer -->
-            <Transformer ref="openaireTransformer"/>
+            <!-- <JR> - 2022-11-18: Added custom CUNIopenaireTranformer based on the default one -->
+            <!--<Transformer ref="openaireTransformer"/>-->
+            <Transformer ref="CUNIopenaireTransformer"/>
+
             <!-- OpenAIRE filter -->
-            <Filter ref="openAireFilter"/>
+            <!-- <JR> - 2022-11-18: Added custom CUNIOpenAireFilter based on the default one -->
+            <!--<Filter ref="openAireFilter"/>-->
+            <Filter ref="CUNIOpenAireFilter"/>
             <!-- Just an alias, in fact it returns all items within the driver context -->
-            <Set ref="openaireSet"/>
+            <!-- <Set ref="openaireSet"/>-->
             <!-- Metadata Formats -->
-            <Format ref="oaidc"/>
+            <!-- <JR> - 2022-11-18: Added custom openairedc format based on the default oaidc -->
+            <Format ref="oaiopenaire"/>
             <Format ref="mets"/>
             <Description>
                 This contexts complies with OpenAIRE Guidelines for Literature Repositories v3.0.
@@ -89,6 +95,12 @@
             <XSLT>metadataFormats/oai_dc.xsl</XSLT>
             <Namespace>http://www.openarchives.org/OAI/2.0/oai_dc/</Namespace>
             <SchemaLocation>http://www.openarchives.org/OAI/2.0/oai_dc.xsd</SchemaLocation>
+        </Format>
+        <Format id="oaiopenaire">
+            <Prefix>oai_openaire</Prefix>
+            <XSLT>metadataFormats/oai_openaire.xsl</XSLT>
+            <Namespace>http://namespace.openaire.eu/schema/oaire/</Namespace>
+            <SchemaLocation>https://www.openaire.eu/schema/repo-lit/4.0/openaire.xsd</SchemaLocation>
         </Format>
         <Format id="mets">
             <Prefix>mets</Prefix>
@@ -173,6 +185,9 @@
         </Transformer>
         <Transformer id="openaireTransformer">
             <XSLT>transformers/openaire.xsl</XSLT>
+        </Transformer>
+        <Transformer id="CUNIopenaireTransformer">
+            <XSLT>transformers/CUNIopenaire.xsl</XSLT>
         </Transformer>
     </Transformers>
 
@@ -276,6 +291,63 @@
                             </LeftCondition>
                             <RightCondition>
                                 <Custom ref="openaireRelationCondition"/>
+                            </RightCondition>
+                        </Or>
+                    </RightCondition>
+                </And>
+            </Definition>
+        </Filter>
+
+        <Filter id="CUNIOpenAireFilter">
+            <Definition>
+                <And>
+                    <LeftCondition>
+                        <!-- <JR> - 2022-11-18: All items in repository are to be harvested by openAIRE, so cuniInternalDocumentTypeCondition won't be used -->
+                        <!-- <And>
+                            <LeftCondition>
+                                <And>
+                                    <LeftCondition>
+                                        <Custom ref="titleExistsCondition"/>
+                                    </LeftCondition>
+                                    <RightCondition>
+                                        <Custom ref="authorExistsCondition"/>
+                                    </RightCondition>
+                                </And>
+                            </LeftCondition>
+                            <RightCondition>
+                                <Custom ref="cuniInternalDocumentTypeCondition"/>
+                            </RightCondition>
+                        </And> -->    
+                        <And>
+                            <LeftCondition>
+                                <Custom ref="titleExistsCondition"/>
+                            </LeftCondition>
+                            <RightCondition>
+                                <Custom ref="authorExistsCondition"/>
+                            </RightCondition>
+                        </And>
+                    </LeftCondition>
+                    <RightCondition>
+                        <Or>
+                            <LeftCondition>
+                                <And>
+                                    <LeftCondition>
+                                        <Or>
+                                            <LeftCondition>
+                                                <Custom ref="itemAccessCondition"/>
+                                            </LeftCondition>
+                                            <RightCondition>
+                                                <Custom ref="itemWithdrawnCondition"/>
+                                            </RightCondition>
+                                        </Or>
+                                    </LeftCondition>
+                                    <RightCondition>
+                                        <Custom ref="cuniDriverAccessCondition"/>
+                                    </RightCondition>
+                                </And>
+                            </LeftCondition>
+                            <RightCondition>
+                                <Custom ref="CUNIopenaireRelationCondition"/>
                             </RightCondition>
                         </Or>
                     </RightCondition>
@@ -408,6 +480,53 @@
                 <string name="value">info:eu-repo/grantAgreement/</string>
             </Configuration>
         </CustomCondition>
+
+        <!-- <JR> - 2022-11-18: Custom CUNI conditions -->
+
+        <!-- This condition determines if an Item has a "dcterms.accessRights" field
+             specifying "openAccess" or "restrictedAccess", as item record can be harvested to OpenAIRE regardless of the dcterms.accessRights. 
+
+             The field used for storing access rights is based on CUNI Publication Repository metadata schema.
+        -->
+        <CustomCondition id="cuniDriverAccessCondition">
+            <Class>org.dspace.xoai.filter.DSpaceAtLeastOneMetadataFilter</Class>
+            <Configuration>
+                <string name="field">dcterms.accessRights</string>
+                <string name="operator">contains</string>
+                <list name="values">
+                    <string>openAccess</string>
+                    <string>restrictedAccess</string>
+                </list>
+            </Configuration>
+        </CustomCondition>
+
+        <!-- This condition determines if an Item has a "dc.type" field
+             specifying one of the CUNI document types (customized, but analgo to a valid DRIVER document types) that we want to send to OpenAire. 
+            
+             <JR> - 2022-11-18: NOT USED IN publications.cuni.cz, we want to allow harvesting of all items' metadata
+            -->
+        <CustomCondition id="cuniInternalDocumentTypeCondition">
+            <Class>org.dspace.xoai.filter.DSpaceAtLeastOneMetadataFilter</Class>
+            <Configuration>
+                <string name="field">uk.internal-type</string>
+                <string name="operator">contains</string>
+                <list name="values">
+                    <string>uk_publication</string>
+                </list>
+            </Configuration>
+        </CustomCondition>
+
+        <!-- This condition determines if an Item has a "dc.relation.fundingReference" metadata field with value starting
+            with 'info:eu-repo/grantAgreement/' string -->
+        <CustomCondition id="CUNIopenaireRelationCondition">
+            <Class>org.dspace.xoai.filter.DSpaceAtLeastOneMetadataFilter</Class>
+            <Configuration>
+                <string name="field">dc.relation.fundingReference</string>
+                <string name="operator">starts_with</string>
+                <string name="value">info:eu-repo/grantAgreement/</string>
+            </Configuration>
+        </CustomCondition>
+        <!-- END OF: <JR> - 2022-11-18: Custom CUNI conditions -->
     </Filters>
 
     <Sets>
