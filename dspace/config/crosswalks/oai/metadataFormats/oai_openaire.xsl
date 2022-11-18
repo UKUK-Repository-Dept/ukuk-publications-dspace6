@@ -769,15 +769,15 @@
 
 	<!-- oaire:resourceType -->
 	<!-- https://openaire-guidelines-for-literature-repository-managers.readthedocs.io/en/v4.0.0/field_publicationtype.html -->
-	<xsl:template match="doc:element[@name='dc']/doc:element[@name='type']/doc:element" mode="oaire">
+	<xsl:template match="doc:element[@name='dc']/doc:element[@name='type']/doc:element[@name='obdHierarchyCode']/doc:element" mode="oaire">
 		<xsl:variable name="resourceTypeGeneral">
 			<xsl:call-template name="resolveResourceTypeGeneral">
-				<xsl:with-param name="field" select="./doc:field[@name='value']/text()"/>
+				<xsl:with-param name="field" select="substring-before(./doc:field[@name='value']/text(),'::')"/>
 			</xsl:call-template>
 		</xsl:variable>
 		<xsl:variable name="resourceTypeURI">
 			<xsl:call-template name="resolveResourceTypeURI">
-				<xsl:with-param name="field" select="./doc:field[@name='value']/text()"/>
+				<xsl:with-param name="field" select="substring-after(./doc:field[@name='value']/text(),'::')"/>
 			</xsl:call-template>
 		</xsl:variable>
 		<oaire:resourceType>
@@ -1391,19 +1391,46 @@
 			</xsl:call-template>
 		</xsl:variable>
 		<xsl:choose>
-			<xsl:when test="$lc_dc_type = 'article'">
+			<xsl:when test="$lc_dc_type = '73'">
 				<xsl:text>literature</xsl:text>
 			</xsl:when>
-			<xsl:when test="$lc_dc_type = 'journal article'">
+			<xsl:when test="$lc_dc_type = '67'">
 				<xsl:text>literature</xsl:text>
 			</xsl:when>
-			<xsl:when test="$lc_dc_type = 'book'">
+			<xsl:when test="$lc_dc_type = '63'">
 				<xsl:text>literature</xsl:text>
 			</xsl:when>
-			<xsl:when test="$lc_dc_type = 'book part'">
+			<xsl:when test="$lc_dc_type = '131'">
 				<xsl:text>literature</xsl:text>
 			</xsl:when>
-			<xsl:when test="$lc_dc_type = 'book review'">
+			<xsl:when test="$lc_dc_type = '129'">
+				<xsl:text>literature</xsl:text>
+			</xsl:when>
+			<xsl:when test="$lc_dc_type = '133'">
+				<xsl:text>literature</xsl:text>
+			</xsl:when>
+			<xsl:when test="$lc_dc_type = '106'">
+				<xsl:text>literature</xsl:text>
+			</xsl:when>
+			<xsl:when test="$lc_dc_type = '117'">
+				<xsl:text>literature</xsl:text>
+			</xsl:when>
+			<xsl:when test="$lc_dc_type = '122'">
+				<xsl:text>literature</xsl:text>
+			</xsl:when>
+			<xsl:when test="$lc_dc_type = '81'">
+				<xsl:text>literature</xsl:text>
+			</xsl:when>
+			<xsl:when test="$lc_dc_type = '57'">
+				<xsl:text>literature</xsl:text>
+			</xsl:when>
+			<xsl:when test="$lc_dc_type = '213'">
+				<xsl:text>literature</xsl:text>
+			</xsl:when>
+			<xsl:when test="$lc_dc_type = '121'">
+				<xsl:text>literature</xsl:text>
+			</xsl:when>
+			<xsl:when test="$lc_dc_type = '110'">
 				<xsl:text>literature</xsl:text>
 			</xsl:when>
 			<xsl:when test="$lc_dc_type = 'dataset'">
@@ -1444,7 +1471,9 @@
 			<xsl:when test="$lc_dc_type = 'journal article'">
 				<xsl:text>http://purl.org/coar/resource_type/c_6501</xsl:text>
 			</xsl:when>
-			<xsl:when test="$lc_dc_type = 'editorial'">
+			<!--<xsl:when test="$lc_dc_type = 'editorial'">-->
+			<!-- <JR> - 2022-11-18: OBD hierarchy subtype_code::subordinate_subtype_code for 'editorial' -->
+			<xsl:when test="$lc_dc_type = '152::325'">
 				<xsl:text>http://purl.org/coar/resource_type/c_b239</xsl:text>
 			</xsl:when>
 			<xsl:when test="$lc_dc_type = 'bachelor thesis'">
@@ -1453,7 +1482,10 @@
 			<xsl:when test="$lc_dc_type = 'bibliography'">
 				<xsl:text>http://purl.org/coar/resource_type/c_86bc</xsl:text>
 			</xsl:when>
-			<xsl:when test="$lc_dc_type = 'book'">
+			<!--<xsl:when test="$lc_dc_type = 'book'">-->
+			<!-- <JR> - 2022-11-18: OBD - book - identified by subtype_code only -->
+			<!-- <JR> - 2022-11-18: thus we need to get the subtype_code from subtype_code::subordinate_subtype_code hierarchy -->
+			<xsl:when test="substring-before($lc_dc_type,'::') = '144'">
 				<xsl:text>http://purl.org/coar/resource_type/c_2f33</xsl:text>
 			</xsl:when>
 			<xsl:when test="$lc_dc_type = 'book part'">
