@@ -119,7 +119,7 @@
         https://openaire-guidelines-for-literature-repository-managers.readthedocs.io/en/v4.0.0/field_publicationtype.html#attribute-uri-m
     -->
     <xsl:template
-        match="/doc:metadata/doc:element[@name='dc']/doc:element[@name='type']/doc:element/doc:field/text()">
+        match="/doc:metadata/doc:element[@name='dc']/doc:element[@name='type']/doc:element[@name='obd']/doc:element/doc:field/text()">
         <xsl:variable name="dc_type" select="."/>
         <xsl:variable name="lc_dc_type">
             <xsl:call-template name="lowercase">
