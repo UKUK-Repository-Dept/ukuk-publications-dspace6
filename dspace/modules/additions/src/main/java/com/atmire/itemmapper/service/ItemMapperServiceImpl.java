@@ -77,6 +77,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     public static final String INFO = "info";
     public static final String ERROR = "error";
     public static final String WARN = "warn";
+    public static final String DEBUG = "debug";
     public static final String DRY_RUN_PREFIX = "( DRY RUN )";
     public static final String PROCESSING_COLLECTION_CHAR = " === ";
     public static final String PROCESSING_COLLECTION_HEADER = "PROCESSING COLLECTION: ";
@@ -103,6 +104,9 @@ public class ItemMapperServiceImpl implements ItemMapperService {
                 break;
             case WARN:
                 log.warn(message);
+                break;
+            case DEBUG:
+                log.debug(message);
                 break;
             default:
                 throw new IllegalArgumentException(level + "is not a valid log level");
@@ -549,6 +553,7 @@ public class ItemMapperServiceImpl implements ItemMapperService {
             logCLI(INFO, "1 or more valid sources given, 1 or more valid destinations, reversing all items from " +
                 "destinations that were mapped from sources.");
             for (Collection sourceCollection: sources) {
+                sourceCollection = context.reloadEntity(sourceCollection);
                 logCLI(INFO,
                        PROCESSING_COLLECTION_CHAR + PROCESSING_COLLECTION_HEADER + sourceCollection.getName() + " " + sourceCollection.getHandle() + " | "
                     + sourceCollection.getID() + PROCESSING_COLLECTION_CHAR, dryRun);
@@ -584,7 +589,9 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     }
 
     @Override
-    public void mapFromMappingFile(Context context, List<Collection> sources, String link, String path, boolean dryRun)
+    public void mapFromMappingFile(Context context, List<Collection> sources, boolean sourcesSpecified, String link,
+                                   String path,
+                                   boolean dryRun)
         throws IOException, SQLException, AuthorizeException {
         CuniMapFile cuniMapFile = getCuniMapFileIfValid(context, link, path);
         if (cuniMapFile == null) {
@@ -596,8 +603,9 @@ public class ItemMapperServiceImpl implements ItemMapperService {
                 mapItemsFromJson(context, itemService.findAllByCollection(context, sourceCollection), cuniMapFile,
                                  dryRun, sourceCollection);
             }
-        }
-        else if (cuniMapFile.getMapfile().getSource_collections() == null ||
+        } else if(sourcesSpecified && isBlankList(sources)) {
+            logCLI(ERROR, "No valid sources given, not mapping any items.");
+        } else if (cuniMapFile.getMapfile().getSource_collections() == null ||
                  cuniMapFile.getMapfile().getSource_collections().isEmpty()) {
             logCLI(WARN, "No source collections found in mapping file and no -s parameter was given." +
                           " Mapping will be performed on all items in the repository.", dryRun);
@@ -632,7 +640,8 @@ public class ItemMapperServiceImpl implements ItemMapperService {
     }
 
     @Override
-    public void reverseMapFromMappingFile(Context context, List<Collection> sources, String link, String path, boolean dryRun)
+    public void reverseMapFromMappingFile(Context context, List<Collection> sources,
+                                          boolean sourcesSpecified, String link, String path, boolean dryRun)
         throws SQLException, IOException, AuthorizeException {
         CuniMapFile cuniMapFile = getCuniMapFileIfValid(context, link, path);
         if (cuniMapFile == null) {
@@ -647,9 +656,9 @@ public class ItemMapperServiceImpl implements ItemMapperService {
                 reverseMapItemsFromJson(context, itemService.findAllByCollection(context, sourceCollection),
                                         cuniMapFile, dryRun, sourceCollection);
             }
-        }
-
-       else if (cuniMapFile.getMapfile().getSource_collections() == null ||
+        } else if (sourcesSpecified && isBlankList(sources)) {
+            logCLI(ERROR, "No valid sources given, not mapping any items.");
+        } else if (cuniMapFile.getMapfile().getSource_collections() == null ||
                 cuniMapFile.getMapfile().getSource_collections().isEmpty()) {
             logCLI(WARN, "No source collections found in mapping file and no -s parameter was given." +
                 " Mapping will be performed on all items in the repository.", dryRun);

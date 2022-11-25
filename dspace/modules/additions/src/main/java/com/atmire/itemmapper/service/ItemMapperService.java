@@ -62,10 +62,12 @@ public interface ItemMapperService {
                               boolean sourcesSpecified, boolean destinationsSpecified, boolean dryRun)
         throws SQLException;
 
-    void mapFromMappingFile(Context context, List<Collection> sources, String link, String path, boolean dryRun)
+    void mapFromMappingFile(Context context, List<Collection> sources, boolean sourcesSpecified, String link,
+                            String path, boolean dryRun)
         throws IOException, SQLException, AuthorizeException;
 
-    void reverseMapFromMappingFile(Context context, List<Collection> sources, String link, String path, boolean dryRun)
+    void reverseMapFromMappingFile(Context context, List<Collection> sources, boolean sourcesSpecified, String link,
+                                   String path, boolean dryRun)
         throws SQLException, IOException, AuthorizeException;
 
     boolean doesURLResolve(String url) throws IOException;
