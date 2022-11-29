@@ -234,9 +234,12 @@
 				</xsl:when>
 				<!-- simple text metadata -->
 				<xsl:otherwise>
+					<xsl:variable name="entityType" select="."/>
 					<datacite:contributor>
 						<datacite:contributorName>
-							<xsl:value-of select="./text()"/>
+							<!-- <JR> - 2022-11-29 - use entity_contributor template for simple text metadata too -->
+							<!--<xsl:value-of select="./text()"/>-->
+							<xsl:apply-templates select="$entityType" mode="entity_contributor"/>
 						</datacite:contributorName>
 					</datacite:contributor>
 				</xsl:otherwise>
@@ -982,7 +985,9 @@
 			<xsl:when test="$lc_title_type = 'subtitle'">
 				<xsl:text>Subtitle</xsl:text>
 			</xsl:when>
-			<xsl:when test="$lc_title_type = 'translatedtitle'">
+			<!-- <JR> - 2022-11-29: translated title is stored in dc.title.translated field, template has to take this into account -->
+			<!--<xsl:when test="$lc_title_type = 'translatedtitle'">-->
+			<xsl:when test="$lc_title_type = 'translated'">
 				<xsl:text>TranslatedTitle</xsl:text>
 			</xsl:when>
 			<xsl:otherwise>
