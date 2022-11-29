@@ -234,17 +234,17 @@
 				</xsl:when>
 				<!-- simple text metadata -->
 				<xsl:otherwise>
-					<xsl:for-each select="./doc:element/doc:field[@name='value']">
-						<xsl:variable name="entityType" select="."/>
-					<!-- <JR> - 2022-11-29 - use entity_contributor template for simple text metadata too -->
-					<!--<datacite:contributor>-->
-						<!--<datacite:contributorName>-->
-							
-							<!--<xsl:value-of select="./text()"/>-->
-						<xsl:apply-templates select="$entityType" mode="entity_contributor"/>
-						<!--</datacite:contributorName>-->
-					<!--</datacite:contributor>-->
-					</xsl:for-each>
+					<datacite:contributor>
+						<xsl:attribute name="contributorType">
+							<xsl:call-template name="getContributorType">
+								<xsl:with-param name="elementName" select="./@name"/>
+							</xsl:call-template>
+						</xsl:attribute>
+						<datacite:contributorName>
+							<!-- <JR> - 2022-11-29 - use entity_contributor template for simple text metadata too -->
+							<xsl:value-of select="./text()"/>
+						</datacite:contributorName>
+					</datacite:contributor>
 				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:for-each>
