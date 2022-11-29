@@ -237,7 +237,7 @@
 					<datacite:contributor>
 						<xsl:attribute name="contributorType">
 							<xsl:call-template name="getContributorType">
-								<xsl:with-param name="elementName" select="./@name"/>
+								<xsl:with-param name="elementName" select="./doc:element/@name"/>
 							</xsl:call-template>
 						</xsl:attribute>
 						<datacite:contributorName>
