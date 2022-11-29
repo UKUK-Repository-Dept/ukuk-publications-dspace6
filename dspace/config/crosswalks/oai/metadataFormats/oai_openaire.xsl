@@ -237,7 +237,8 @@
 					<datacite:contributor>
 						<xsl:attribute name="contributorType">
 							<xsl:call-template name="getContributorType">
-								<xsl:with-param name="elementName" select="./doc:element/@name"/>
+								<!-- <JR> - 2022-11-29 - select doc:element[@name='dc']/doc:element[@name='contributor']/doc:element/@name ? -->
+								<xsl:with-param name="elementName" select="../@name"/>
 							</xsl:call-template>
 						</xsl:attribute>
 						<datacite:contributorName>
