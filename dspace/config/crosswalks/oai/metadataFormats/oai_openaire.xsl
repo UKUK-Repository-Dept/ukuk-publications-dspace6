@@ -982,7 +982,9 @@
 			<xsl:when test="$lc_title_type = 'subtitle'">
 				<xsl:text>Subtitle</xsl:text>
 			</xsl:when>
-			<xsl:when test="$lc_title_type = 'translatedtitle'">
+			<!-- <JR> - 2022-11-29: translated title is stored in dc.title.translated field, template has to take this into account -->
+			<!--<xsl:when test="$lc_title_type = 'translatedtitle'">-->
+			<xsl:when test="$lc_title_type = 'translated'">
 				<xsl:text>TranslatedTitle</xsl:text>
 			</xsl:when>
 			<xsl:otherwise>
