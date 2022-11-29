@@ -235,13 +235,14 @@
 				<!-- simple text metadata -->
 				<xsl:otherwise>
 					<xsl:variable name="entityType" select="."/>
-					<datacite:contributor>
-						<datacite:contributorName>
-							<!-- <JR> - 2022-11-29 - use entity_contributor template for simple text metadata too -->
+					<!-- <JR> - 2022-11-29 - use entity_contributor template for simple text metadata too -->
+					<!--<datacite:contributor>-->
+						<!--<datacite:contributorName>-->
+							
 							<!--<xsl:value-of select="./text()"/>-->
-							<xsl:apply-templates select="$entityType" mode="entity_contributor"/>
-						</datacite:contributorName>
-					</datacite:contributor>
+					<xsl:apply-templates select="$entityType" mode="entity_contributor"/>
+						<!--</datacite:contributorName>-->
+					<!--</datacite:contributor>-->
 				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:for-each>
