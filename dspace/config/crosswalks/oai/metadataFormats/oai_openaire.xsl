@@ -234,9 +234,12 @@
 				</xsl:when>
 				<!-- simple text metadata -->
 				<xsl:otherwise>
+					<xsl:variable name="entityType" select="."/>
 					<datacite:contributor>
 						<datacite:contributorName>
-							<xsl:value-of select="./text()"/>
+							<!-- <JR> - 2022-11-29 - use entity_contributor template for simple text metadata too -->
+							<!--<xsl:value-of select="./text()"/>-->
+							<xsl:apply-templates select="$entityType" mode="entity_contributor"/>
 						</datacite:contributorName>
 					</datacite:contributor>
 				</xsl:otherwise>
