@@ -94,11 +94,11 @@
             <Namespace>http://www.openarchives.org/OAI/2.0/oai_dc/</Namespace>
             <SchemaLocation>http://www.openarchives.org/OAI/2.0/oai_dc.xsd</SchemaLocation>
         </Format>
-        <Format id="oaiopenaire">
-            <Prefix>oai_openaire</Prefix>
-            <XSLT>metadataFormats/oai_openaire.xsl</XSLT>
-            <Namespace>http://namespace.openaire.eu/schema/oaire/</Namespace>
-            <SchemaLocation>https://www.openaire.eu/schema/repo-lit/4.0/openaire.xsd</SchemaLocation>
+        <Format id="openairedc">
+            <Prefix>oai_dc</Prefix>
+            <XSLT>metadataFormats/openaire_dc.xsl</XSLT>
+            <Namespace>http://www.openarchives.org/OAI/2.0/oai_dc/</Namespace>
+            <SchemaLocation>http://www.openarchives.org/OAI/2.0/oai_dc.xsd</SchemaLocation>
         </Format>
         <Format id="mets">
             <Prefix>mets</Prefix>
