@@ -41,10 +41,11 @@
 	</xsl:template>
 	
 	<!-- Prefixing and Modifying dc.rights -->
+	<!-- <JR> - 2022-11-30 : No prefixing needed in our case (?) -->
 	<!-- Removing unwanted -->
-	<xsl:template match="/doc:metadata/doc:element[@name='dcterms']/doc:element[@name='accessRights']/doc:element/doc:element" />
+	<!--<xsl:template match="/doc:metadata/doc:element[@name='dcterms']/doc:element[@name='accessRights']/doc:element/doc:element" />-->
 	<!-- Replacing -->
-	<xsl:template match="/doc:metadata/doc:element[@name='dc']/doc:element[@name='accessRights']/doc:element/doc:field/text()">
+	<!--<xsl:template match="/doc:metadata/doc:element[@name='dc']/doc:element[@name='accessRights']/doc:element/doc:field/text()">
 		<xsl:choose>
 			<xsl:when test="contains(., 'open access')">
 				<xsl:text>info:eu-repo/semantics/openAccess</xsl:text>
@@ -62,7 +63,7 @@
 				<xsl:text>info:eu-repo/semantics/restrictedAccess</xsl:text>
 			</xsl:otherwise>
 		</xsl:choose>
-	</xsl:template>
+	</xsl:template>-->
 
 	<!-- AUXILIARY TEMPLATES -->
 	
