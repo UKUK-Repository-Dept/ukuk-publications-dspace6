@@ -88,9 +88,9 @@
 	<!-- Substitute OBD Type -->
 	<xsl:template name="substituteOBDType">
 		<xsl:param name="obdTypeHierarchy"/>
-		<xsl:variable name="hierarchyPartOne" select="substring-before($obdTypeHierarchy,':')"/>
+		<xsl:variable name="hierarchyPartOne" select="substring-before($obdTypeHierarchy,'::')"/>
 		<xsl:variable name="hierarchyPartTwoThree" select="substring-after($obdTypeHierarchy,$hierarchyPartOne)"/>
-		<xsl:variable name="hierarchyPartThree" select="substring-after($hierarchyPartTwoThree,':')"/>
+		<xsl:variable name="hierarchyPartThree" select="substring-after($hierarchyPartTwoThree,'::')"/>
 		
 		<xsl:choose>
 			<xsl:when test="$hierarchyPartOne = '73'">
