@@ -58,15 +58,12 @@
         </Context>
 
         <!--
-            OpenAIRE Guidelines 4.0:
-
-            - https://openaire-guidelines-for-literature-repository-managers.readthedocs.io/en/v4.0.0/
-            
+            OpenAIRE Guidelines 3.0:
+            - https://guidelines.openaire.eu/
             There is a limitation over the embargoedEndDate parameter:
-
             - Predefined DSpace fields don't allow to set this up with a default.
          -->
-        <Context baseurl="openaire4" name="OpenAIRE Context">
+        <Context baseurl="openaire" name="OpenAIRE Context">
             <!-- Date format, field prefixes, etc are ensured by the transformer -->
             <!-- <JR> - 2022-11-18: Added custom CUNIopenaireTranformer based on the default one -->
             <!--<Transformer ref="openaireTransformer"/>-->
@@ -77,11 +74,12 @@
             <!--<Filter ref="openAireFilter"/>-->
             <Filter ref="CUNIOpenAireFilter"/>
             <!-- Just an alias, in fact it returns all items within the driver context -->
-            <!-- <Set ref="openaireSet"/>-->
+            <Set ref="openaireSet"/>
             <!-- Metadata Formats -->
             <!-- <JR> - 2022-11-18: Added custom openairedc format based on the default oaidc -->
-            <Format ref="oaiopenaire"/>
+            <Format ref="openairedc"/>
             <Format ref="mets"/>
+            <Format ref="xoai"/>
             <Description>
                 This contexts complies with OpenAIRE Guidelines for Literature Repositories v3.0.
             </Description>
