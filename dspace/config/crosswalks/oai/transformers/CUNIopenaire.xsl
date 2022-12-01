@@ -101,6 +101,17 @@
 		</xsl:choose>
 	</xsl:template>
 
+	<!-- Modifying dc.identifier.* -->
+	<xsl:template match="/doc:metadata/doc:element[@name='dc']/doc:element[@name='identifier']/doc:element/doc:element/doc:field/text()">
+		<xsl:call-template name="prefixAltIdentifiers">
+				<xsl:with-param name="identifier">
+						<xsl:value-of select="."/>
+				</xsl:with-param>
+				<xsl:with-param name="scheme">
+						<xsl:value-of select="../../../@name"/>
+				</xsl:with-param>
+		</xsl:call-template>
+	</xsl:template>
 	<!-- AUXILIARY TEMPLATES -->
 	
 	<!-- dc.type prefixing -->
@@ -242,4 +253,53 @@
 		</xsl:variable>
 		<xsl:value-of select="concat($prefix,$sub)" />
 	</xsl:template>
+
+	<!-- alternate identifiers prefixing -->
+	<xsl:template name="prefixAltIdentifiers">
+		<xsl:param name="identifier"/>
+		<xsl:param name="scheme"/>
+		<xsl:variable name="prefix">
+			<xsl:text>info:eu-repo/semantics/altIdentifier/</xsl:text>
+		</xsl:variable>
+		<xsl:choose>
+			<xsl:when test="$scheme = 'none'">
+				<xsl:value-of select="$identifier"/>
+			</xsl:when>
+			<xsl:when test="$scheme = 'uri'">
+				<xsl:value-of select="$identifier"/>
+			</xsl:when>
+			<xsl:otherwise>
+					<xsl:variable name="newSchemeName">
+						<xsl:choose>
+							<xsl:when test="$scheme = 'utWos'">
+									<xsl:text>wos</xsl:text>
+							</xsl:when>
+							<xsl:when test="$scheme = 'eidScopus'">
+									<xsl:text>purl</xsl:text>
+							</xsl:when>
+							<xsl:when test="$scheme = 'isbn'">
+									<xsl:text>isbn</xsl:text>
+							</xsl:when>
+							<xsl:when test="$scheme = 'issn'">
+									<xsl:text>issn</xsl:text>
+							</xsl:when>
+							<xsl:when test="$scheme = 'eissn'">
+									<xsl:text>eissn</xsl:text>
+							</xsl:when>
+							<xsl:when test="$scheme = 'doi'">
+									<xsl:text>doi</xsl:text>
+							</xsl:when>
+							<xsl:when test="$scheme = 'pubmed'">
+									<xsl:text>pubmed</xsl:text>
+							</xsl:when>
+							<xsl:otherwise>
+									<xsl:value-of select="$scheme"/>
+							</xsl:otherwise>
+						</xsl:choose>
+					</xsl:variable>
+					<xsl:value-of select="concat($prefix,$newSchemeName,'/',$identifier)"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+
 </xsl:stylesheet>

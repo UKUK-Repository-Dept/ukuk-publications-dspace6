@@ -88,6 +88,11 @@
 				<dc:relation><xsl:value-of select="." /></dc:relation>
 			</xsl:for-each>
 
+			<!-- dc.identifier.eissn -->
+			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='identifier']/doc:element[@name='eissn']/doc:element/doc:field[@name='value']">
+				<dc:relation><xsl:value-of select="." /></dc:relation>
+			</xsl:for-each>
+
 			<!-- dc.identifier.doi -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='identifier']/doc:element[@name='doi']/doc:element/doc:field[@name='value']">
 				<dc:relation><xsl:value-of select="." /></dc:relation>
@@ -123,8 +128,13 @@
 				<dc:relation><xsl:text>urn:</xsl:text><xsl:value-of select="." /></dc:relation>
 			</xsl:for-each>
 
-			<!-- dc.identifier.wos -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='identifier']/doc:element[@name='wos']/doc:element/doc:field[@name='value']">
+			<!-- dc.identifier.utWos -->
+			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='identifier']/doc:element[@name='utWos']/doc:element/doc:field[@name='value']">
+				<dc:relation><xsl:text>wos:</xsl:text><xsl:value-of select="." /></dc:relation>
+			</xsl:for-each>
+			
+			<!-- dc.identifier.eidScopus -->
+			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='identifier']/doc:element[@name='eidScopus']/doc:element/doc:field[@name='value']">
 				<dc:relation><xsl:text>wos:</xsl:text><xsl:value-of select="." /></dc:relation>
 			</xsl:for-each>
 
