@@ -73,14 +73,10 @@
 		<xsl:choose>
 			<xsl:when test="contains(.,'bez licence')">
 				<xsl:variable name="licenseConditionCs">
-					<xsl:text>
-						Plný text výsledku zpřístupněn v repozitáři v režimu gratis open access, tj. pouze pro čtení. Dále lze plné texty v režimu gratis open access z repozitáře stahovat, případně tisknout, ale pouze pro osobní potřebu (viz § 30 zákona č. 121/2000 Sb., autorského zákona).
-					</xsl:text>
+					<xsl:text>Plný text výsledku zpřístupněn v repozitáři v režimu gratis open access, tj. pouze pro čtení. Dále lze plné texty v režimu gratis open access z repozitáře stahovat, případně tisknout, ale pouze pro osobní potřebu (viz § 30 zákona č. 121/2000 Sb., autorského zákona).</xsl:text>
 				</xsl:variable>
 				<xsl:variable name="licenseConditionEn">
-					<xsl:text>
-						The fulltext is published in the repository as read-only, i.e. in gratis open access mode. Repository visitors are entitled to download and print the fulltext published without a licence for their personal use only (in accordance with § 30 of Act No. 121/2000 Coll., the Copyright Act).
-					</xsl:text>
+					<xsl:text>The fulltext is published in the repository as read-only, i.e. in gratis open access mode. Repository visitors are entitled to download and print the fulltext published without a licence for their personal use only (in accordance with § 30 of Act No. 121/2000 Coll., the Copyright Act).</xsl:text>
 				</xsl:variable>
 				<xsl:value-of select="concat($licenseConditionCs, ' / ', $licenseConditionEn)"/>
 			</xsl:when>
