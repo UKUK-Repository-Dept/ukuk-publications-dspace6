@@ -43,6 +43,9 @@
 	
 	<!-- Removing other dc.date.*, except for dc.date.embargoStartDate and dc.date.embargoEndDate -->
 	<!--<xsl:template match="/doc:metadata/doc:element[@name='dc']/doc:element[@name='date']/doc:element[@name!='issued' or 'embargoEndDate' or 'embargoStartDate']" />-->
+	<xsl:template match="/doc:metadata/doc:element[@name='dc']/doc:element[@name='date']/doc:element[@name='updated']" />
+	<xsl:template match="/doc:metadata/doc:element[@name='dc']/doc:element[@name='date']/doc:element[@name='available']" />
+	<xsl:template match="/doc:metadata/doc:element[@name='dc']/doc:element[@name='date']/doc:element[@name='accessioned']" />
 
 	<!-- Prefixing dc.type -->
 	<xsl:template match="/doc:metadata/doc:element[@name='dc']/doc:element[@name='type']/doc:element[@name='obdHierarchyCode']/doc:element/doc:field/text()">
