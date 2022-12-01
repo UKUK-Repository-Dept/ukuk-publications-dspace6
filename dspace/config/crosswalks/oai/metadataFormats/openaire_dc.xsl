@@ -55,6 +55,17 @@
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='rights']/doc:element/doc:element/doc:field[@name='value']">
 				<dc:rights><xsl:value-of select="." /></dc:rights>
 			</xsl:for-each>
+			<!-- LICENSE URL -->
+			<!-- dcterms.license -->
+			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='license']/doc:element/doc:field[@name='value']">
+				<dc:rights><xsl:value-of select="." /></dc:rights>
+			</xsl:for-each>
+
+			<!-- EMBARGO END DATE -->
+			<!-- dc.date.embargoEndDate -->
+			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='date']/doc:element[@name='embargoEndDate']/doc:element/doc:field[@name='value']">
+				<dc:date><xsl:value-of select="." /></dc:date>
+			</xsl:for-each>
 
 			<!-- RESOURCE IDENTIFIER - -->
 			<!-- dc.identifier.uri  - persistent identifier of an object in repository -->

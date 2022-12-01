@@ -28,9 +28,21 @@
 			<xsl:with-param name="datestr" select="." />
 		</xsl:call-template>
 	</xsl:template>
+
+	<!-- Formatting dc.date.embargoStartDate and dc.date.embargoEndDate -->
+	<xsl:template match="/doc:metadata/doc:element[@name='dc']/doc:element[@name='date']/doc:element[@name='embargoStartDate']/doc:element/doc:field/text()">
+		<xsl:call-template name="formatEmbargoDate">
+			<xsl:with-param name="datestr" select="." />
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template match="/doc:metadata/doc:element[@name='dc']/doc:element[@name='date']/doc:element[@name='embargoEndDate']/doc:element/doc:field/text()">
+		<xsl:call-template name="formatEmbargoDate">
+			<xsl:with-param name="datestr" select="." />
+		</xsl:call-template>
+	</xsl:template>
 	
-	<!-- Removing other dc.date.* -->
-	<xsl:template match="/doc:metadata/doc:element[@name='dc']/doc:element[@name='date']/doc:element[@name!='issued']" />
+	<!-- Removing other dc.date.*, except for dc.date.embargoStartDate and dc.date.embargoEndDate -->
+	<xsl:template match="/doc:metadata/doc:element[@name='dc']/doc:element[@name='date']/doc:element[@name!='issued' or @name!='embargoEndDate' or @name!='embargoStartDate']" />
 
 	<!-- Prefixing dc.type -->
 	<xsl:template match="/doc:metadata/doc:element[@name='dc']/doc:element[@name='type']/doc:element[@name='obdHierarchyCode']/doc:element/doc:field/text()">
@@ -214,5 +226,17 @@
 			<xsl:value-of select="substring($datestr,1,10)" />
 		</xsl:variable>
 		<xsl:value-of select="$sub" />
+	</xsl:template>
+
+	<!-- Embargo Date format -->
+	<xsl:template name="formatEmbargoDate">
+		<xsl:param name="datestr" />
+		<xsl:variable name="sub">
+			<xsl:value-of select="substring($datestr,1,10)" />
+		</xsl:variable>
+		<xsl:variable name="prefix">
+			<xsl:text>info:eu-repo/date/embargoEnd/</xsl:text>
+		</xsl:variable>
+		<xsl:value-of select="concat($prefix,$sub)" />
 	</xsl:template>
 </xsl:stylesheet>
