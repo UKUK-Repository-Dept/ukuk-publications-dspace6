@@ -177,6 +177,12 @@
 				<dc:contributor><xsl:value-of select="." /></dc:contributor>
 			</xsl:for-each>
 
+			<!-- PUBLICATION DATE -->
+			<!-- dc.date.issued -->
+			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='date']/doc:element[@name='issued']/doc:element/doc:field[@name='value']">
+				<dc:date><xsl:value-of select="." /></dc:date>
+			</xsl:for-each>
+
 			<!-- <JR> - 11. 6. 2021 - commented out dc.identifier, because metadata field dc.identifier should not be in the item's metadata just by itself,
 			it should be always qualifier, eg. dc.identifier.doi, dc.identifier.isbn, or in extreme cases dc.identifier.other -->
 			
@@ -258,17 +264,6 @@
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='relation']/doc:element/doc:element/doc:field[@name='value']">
 				<dc:relation><xsl:value-of select="." /></dc:relation>
 			</xsl:for-each>
-
-			<!-- PUBLICATION DATE -->
-			<!-- dc.date.issued -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='date']/doc:element[@name='issued']/doc:element/doc:field[@name='value']">
-				<dc:date><xsl:value-of select="." /></dc:date>
-			</xsl:for-each>
-			<!-- <JR> - 2022-12-01: removing unneccessary dc.date.* elements from oai_dc -->
-			<!-- dc.date.* -->
-			<!--<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='date']/doc:element/doc:element/doc:field[@name='value']">
-				<dc:date><xsl:value-of select="." /></dc:date>
-			</xsl:for-each>-->
 
 			<!-- LANGUAGE -->
 			<!-- <JR> - 11. 6. 2021 - TRY TO USE cuniopenaire transformer to convert language from cs or cs_CZ format to ISO690-3 format available at:
