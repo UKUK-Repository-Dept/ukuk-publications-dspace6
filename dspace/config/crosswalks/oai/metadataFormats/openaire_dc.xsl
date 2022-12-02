@@ -40,6 +40,12 @@
 				<dc:creator><xsl:value-of select="." /></dc:creator>
 			</xsl:for-each>
 
+			<!-- PROJECT IDENTIFIER -->
+			<!-- dc.relation.fundingReference-->
+			<xsl:for-each select="dc:metadata/doc:element[@name='dc']/doc:element[@name='relation']/doc:element[@name='fundingReference']/doc:element/doc:field[@name='value']">
+				<dc:relation><xsl:value-of select="."/></dc:relation>
+			</xsl:for-each>
+
 			<!-- ACCESS LEVEL -->
 			<!-- dcterms.accessRights -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='accessRights']/doc:element/doc:field[@name='value']">
@@ -225,23 +231,6 @@
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='language']/doc:element[@name='iso']/doc:element/doc:field[@name='value']">
 				<dc:language><xsl:value-of select="." /></dc:language>
 			</xsl:for-each>
-
-			<!-- dcterms.isPartOf.isbn -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='isPartOf']/doc:element[@name='isbn']/doc:element/doc:field[@name='value']">
-				<dc:relation><xsl:value-of select="." /></dc:relation>
-			</xsl:for-each>
-
-			<!-- dcterms.isPartOf.issn -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='isPartOf']/doc:element[@name='issn']/doc:element/doc:field[@name='value']">
-				<dc:relation><xsl:value-of select="." /></dc:relation>
-			</xsl:for-each>
-
-			<!-- dcterms.isPartOf.eissn -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='isPartOf']/doc:element[@name='eissn']/doc:element/doc:field[@name='value']">
-				<dc:relation><xsl:value-of select="." /></dc:relation>
-			</xsl:for-each>
-
-			
 			
 			<!-- dc.coverage -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='coverage']/doc:element/doc:field[@name='value']">
@@ -251,6 +240,28 @@
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='coverage']/doc:element/doc:element/doc:field[@name='value']">
 				<dc:coverage><xsl:value-of select="." /></dc:coverage>
 			</xsl:for-each>
+			
+			<!-- RELATION -->
+			<!-- dcterms.isPartOf.isbn -->
+			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='isPartOf']/doc:element[@name='isbn']/doc:element/doc:field[@name='value']">
+				<dc:relation><xsl:value-of select="concat('info:eu-repo/semantics/altIdentifier/isbn:', .)" /></dc:relation>
+			</xsl:for-each>
+
+			<!-- dcterms.isPartOf.issn -->
+			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='isPartOf']/doc:element[@name='issn']/doc:element/doc:field[@name='value']">
+				<dc:relation><xsl:value-of select="concat(info:eu-repo/semantics/altIdentifier/issn:', .)" /></dc:relation>
+			</xsl:for-each>
+
+			<!-- dcterms.isPartOf.eissn -->
+			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='isPartOf']/doc:element[@name='eissn']/doc:element/doc:field[@name='value']">
+				<dc:relation><xsl:value-of select="concat(info:eu-repo/semantics/altIdentifier/eissn:', .)" /></dc:relation>
+			</xsl:for-each>
+
+			<!-- dc.relation.* (not datasetUrl, not fundingReference) -->
+			<xsl:for-each select="dc:metadata/doc:element[@name='dc']/doc:element[@name='relation']/doc:element[@name!=('datasetUrl' or 'fundingReference')]/doc:element/doc:field[@name='value']">
+				<dc:relation><xsl:value-of select="."/></dc:relation>
+			</xsl:for-each>
+
 			
 			
 		</oai_dc:dc>
