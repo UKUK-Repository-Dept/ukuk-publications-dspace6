@@ -167,6 +167,16 @@
 				<dc:publisher><xsl:value-of select="." /></dc:publisher>
 			</xsl:for-each>
 			
+			<!-- CONTRIBUTOR -->
+			<!-- dc.contributor.* (not author) -->
+			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='contributor']/doc:element[@name!='author']/doc:element/doc:field[@name='value']">
+				<dc:contributor><xsl:value-of select="." /></dc:contributor>
+			</xsl:for-each>
+			<!-- dc.contributor -->
+			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='contributor']/doc:element/doc:field[@name='value']">
+				<dc:contributor><xsl:value-of select="." /></dc:contributor>
+			</xsl:for-each>
+
 			<!-- <JR> - 11. 6. 2021 - commented out dc.identifier, because metadata field dc.identifier should not be in the item's metadata just by itself,
 			it should be always qualifier, eg. dc.identifier.doi, dc.identifier.isbn, or in extreme cases dc.identifier.other -->
 			
@@ -247,16 +257,6 @@
 			<!-- dc.relation.* -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='relation']/doc:element/doc:element/doc:field[@name='value']">
 				<dc:relation><xsl:value-of select="." /></dc:relation>
-			</xsl:for-each>
-
-			<!-- CONTRIBUTORS -->
-			<!-- dc.contributor.* (!author) -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='contributor']/doc:element[@name!='author']/doc:element/doc:field[@name='value']">
-				<dc:contributor><xsl:value-of select="." /></dc:contributor>
-			</xsl:for-each>
-			<!-- dc.contributor -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='contributor']/doc:element/doc:field[@name='value']">
-				<dc:contributor><xsl:value-of select="." /></dc:contributor>
 			</xsl:for-each>
 
 			<!-- PUBLICATION DATE -->
