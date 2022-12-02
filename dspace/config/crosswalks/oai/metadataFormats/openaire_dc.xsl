@@ -190,6 +190,12 @@
 				<dc:type><xsl:value-of select="." /></dc:type>
 			</xsl:for-each>
 
+			<!-- PUBLICATION VERSION -->
+			<!-- dc.type.version-->
+			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='type']/doc:element[@name='version']/doc:element/doc:field[@name='value']">
+				<dc:type><xsl:value-of select="." /></dc:type>
+			</xsl:for-each>
+
 			<!-- <JR> - 11. 6. 2021 - commented out dc.identifier, because metadata field dc.identifier should not be in the item's metadata just by itself,
 			it should be always qualifier, eg. dc.identifier.doi, dc.identifier.isbn, or in extreme cases dc.identifier.other -->
 			
