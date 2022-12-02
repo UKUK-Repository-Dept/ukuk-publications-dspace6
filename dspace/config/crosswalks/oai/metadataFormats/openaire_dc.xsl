@@ -145,6 +145,13 @@
 				<dc:relation><xsl:value-of select="concat('info:eu-repo/semantics/dataset/url/',.)"/></dc:relation>
 			</xsl:for-each>
 
+			<!-- SUBJECT -->
+			<!-- dc.subject.keyword -->
+			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='subject']/doc:element[@name='keyword']/doc:element/doc:field[@name='value']">
+				<dc:subject><xsl:value-of select="." /></dc:subject>
+			</xsl:for-each>
+
+
 			<!-- <JR> - 11. 6. 2021 - commented out dc.identifier, because metadata field dc.identifier should not be in the item's metadata just by itself,
 			it should be always qualifier, eg. dc.identifier.doi, dc.identifier.isbn, or in extreme cases dc.identifier.other -->
 			
@@ -227,15 +234,6 @@
 				<dc:relation><xsl:value-of select="." /></dc:relation>
 			</xsl:for-each>
 
-			<!-- SUBJECT TERMS / KEYWORDS -->
-			<!-- dc.subject -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='subject']/doc:element/doc:field[@name='value']">
-				<dc:subject><xsl:value-of select="." /></dc:subject>
-			</xsl:for-each>
-			<!-- dc.subject.* -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='subject']/doc:element/doc:element/doc:field[@name='value']">
-				<dc:subject><xsl:value-of select="." /></dc:subject>
-			</xsl:for-each>
 
 			<!-- DESCRIPTION + ABSTRACTS -->
 			<!-- dc.description -->
