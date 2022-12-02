@@ -183,6 +183,13 @@
 				<dc:date><xsl:value-of select="." /></dc:date>
 			</xsl:for-each>
 
+			<!-- PUBLICATION TYPE -->
+			<!-- dc.type.obdHierarchyCode -->
+			<!-- This field contains a hierarchy of OBD types/subtypes, that are transformed in CUNIopenaire.xsl transformer stylesheet to openAIRE standards -->
+			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='type']/doc:element[@name='obdHierarchyCode']/doc:element/doc:field[@name='value']">
+				<dc:type><xsl:value-of select="." /></dc:type>
+			</xsl:for-each>
+
 			<!-- <JR> - 11. 6. 2021 - commented out dc.identifier, because metadata field dc.identifier should not be in the item's metadata just by itself,
 			it should be always qualifier, eg. dc.identifier.doi, dc.identifier.isbn, or in extreme cases dc.identifier.other -->
 			
@@ -282,17 +289,6 @@
 			<!-- dc.language -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='language']/doc:element/doc:field[@name='value']">
 				<dc:language><xsl:value-of select="." /></dc:language>
-			</xsl:for-each>
-
-			<!-- RESOURCE TYPE -->
-
-			<!-- dc.type -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='type']/doc:element/doc:field[@name='value']">
-				<dc:type><xsl:value-of select="." /></dc:type>
-			</xsl:for-each>
-			<!-- dc.type.* -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='type']/doc:element/doc:element/doc:field[@name='value']">
-				<dc:type><xsl:value-of select="." /></dc:type>
 			</xsl:for-each>
 			
 			<!-- dc.format -->
