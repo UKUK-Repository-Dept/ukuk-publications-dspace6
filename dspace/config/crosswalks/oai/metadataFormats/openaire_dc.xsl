@@ -40,6 +40,12 @@
 				<dc:creator><xsl:value-of select="." /></dc:creator>
 			</xsl:for-each>
 
+			<!-- PROJECT IDENTIFIER -->
+			<!-- dc.relation.fundingReference-->
+			<xsl:for-each select="dc:metadata/doc:element[@name='dc']/doc:element[@name='relation']/doc:element[@name='fundingReference']/doc:element/doc:field[@name='value']">
+				<dc:relation><xsl:value-of select="."/></dc:relation>
+			</xsl:for-each>
+
 			<!-- ACCESS LEVEL -->
 			<!-- dcterms.accessRights -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='accessRights']/doc:element/doc:field[@name='value']">
@@ -65,12 +71,6 @@
 			<!-- dc.date.embargoEndDate -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='date']/doc:element[@name='embargoEndDate']/doc:element/doc:field[@name='value']">
 				<dc:date><xsl:value-of select="." /></dc:date>
-			</xsl:for-each>
-
-			<!-- RESOURCE IDENTIFIER - -->
-			<!-- dc.identifier.uri  - persistent identifier of an object in repository -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='identifier']/doc:element[@name='uri']/doc:element/doc:field[@name='value']">
-				<dc:identifier><xsl:value-of select="." /></dc:identifier>
 			</xsl:for-each>
 
 			<!-- ALTERNATIVE IDENFIERS -->
@@ -138,109 +138,26 @@
 				<dc:relation><xsl:text>wos:</xsl:text><xsl:value-of select="." /></dc:relation>
 			</xsl:for-each>
 
-			<!-- <JR> - 11. 6. 2021 - commented out dc.identifier, because metadata field dc.identifier should not be in the item's metadata just by itself,
-			it should be always qualifier, eg. dc.identifier.doi, dc.identifier.isbn, or in extreme cases dc.identifier.other -->
-			
-			<!-- dc.identifier -->
-			<!-- <xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='identifier']/doc:element/doc:field[@name='value']">
-				<dc:identifier><xsl:value-of select="." /></dc:identifier>
-			</xsl:for-each> -->
-			
-			<!-- <JR> - 11. 6. 2021 - commented out dc.identifier.*, because
-			Repository manager should always know what identifiers can be added to the item from the repository or which identifiers are given to the item from
-			external system, thus being able to list those identifiers in this XSLT stylesheet -->
-			<!-- dc.identifier.* -->
-			<!-- <xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='identifier']/doc:element/doc:element/doc:field[@name='value']">
-				<dc:identifier><xsl:value-of select="." /></dc:identifier>
-			</xsl:for-each> -->
-
-			<!-- SOURCE -->
-			<!-- The present resource may be derived from the Source resource in whole or in part. Recommended best practice is to reference the resource by means of a string or number conforming to a formal identification system.
-			Best practice: Use only when the described resource is the result of digitization of non-digital originals. Otherwise, use Relation. Optionally metadata about the current location and call number of the digitized publication can be added. -->
-			<!-- HOWEVER: we have a born-digital documents that are part of a broader BORN-DIGITAL resouce:
-				 in this case we probably should:
-				 1. include a ISBN, ISSN, eISSN or any other supported identifier of a related resource to dc:relation element (as suggested above, or so I think)
-				 2. add dc:source element, in which the bibliographic catation of the source document / resource will be placed
-				 In theory, there shouldn't be a case, when (for example) a resource in DSpace repository has by itself a ISBN identifier in dc.identifier.isbn element and is also a part of a resource identified by ISBN stored
-				 in dcterms.isPartOf.isbn element. So no duplicate dc.relation values should be provided in OAI-PMH record...
-			-->
-
-			<!-- dcterms.isPartOf.isbn -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='isPartOf']/doc:element[@name='isbn']/doc:element/doc:field[@name='value']">
-				<dc:relation><xsl:value-of select="." /></dc:relation>
+			<!-- DATASET REFERENCE -->
+			<!-- dc.relation.datasetUrl -->
+			<!-- TODO: Check if this is already implemented in CUNI CRIS system -->
+			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='relation']/doc:element[@name='datasetUrl']/doc:element/doc:field[@name='value']">
+				<dc:relation><xsl:value-of select="concat('info:eu-repo/semantics/dataset/url/',.)"/></dc:relation>
 			</xsl:for-each>
 
-			<!-- dcterms.isPartOf.issn -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='isPartOf']/doc:element[@name='issn']/doc:element/doc:field[@name='value']">
-				<dc:relation><xsl:value-of select="." /></dc:relation>
-			</xsl:for-each>
-
-			<!-- dcterms.isPartOf.eissn -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='isPartOf']/doc:element[@name='eissn']/doc:element/doc:field[@name='value']">
-				<dc:relation><xsl:value-of select="." /></dc:relation>
-			</xsl:for-each>
-
-			<!-- Get URL of source journal webpage and store it in dc:relation as well -->
-			
-			<!-- dc.source.uri -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='source']/doc:element[@name='uri']/doc:element/doc:field[@name='value']">
-				<dc:relation><xsl:value-of select="." /></dc:relation>
-			</xsl:for-each>
-
-			<!-- dc.source -->
-			<!-- information for dc.source will be gathered only for documents that are not of type uk.internal-type == 'uk_publication' -->
-			<!-- values for dc.source in cases when uk.internal-type == 'uk_publication' will be handled by cuniopenaire.xsl transformer -->
-			<xsl:choose>
-				<xsl:when test="doc:metadata/doc:element[@name='uk']/doc:element[@name='internal-type']/doc:element/doc:field[@name='value']/text() != 'uk_publication'">
-					
-					<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='source']/doc:element/doc:field[@name='value']">
-						<dc:source><xsl:value-of select="." /></dc:source>
-					</xsl:for-each>
-					
-					<!-- dc.source.* (NOT dc.source.uri)-->
-					<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='source']/doc:element[@name!='uri']/doc:element/doc:field[@name='value']">
-						<dc:source><xsl:value-of select="." /></dc:source>
-					</xsl:for-each>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:variable name="sourceInfo">
-						<xsl:call-template name="createSourceCitation"/>
-					</xsl:variable>
-					<dc:source><xsl:value-of select="$sourceInfo"/></dc:source>
-				</xsl:otherwise>
-			</xsl:choose>
-
-			<!-- dc.relation -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='relation']/doc:element/doc:field[@name='value']">
-				<dc:relation><xsl:value-of select="." /></dc:relation>
-			</xsl:for-each>
-			
-			<!-- dc.relation.* -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='relation']/doc:element/doc:element/doc:field[@name='value']">
-				<dc:relation><xsl:value-of select="." /></dc:relation>
-			</xsl:for-each>
-
-			<!-- SUBJECT TERMS / KEYWORDS -->
-			<!-- dc.subject -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='subject']/doc:element/doc:field[@name='value']">
-				<dc:subject><xsl:value-of select="." /></dc:subject>
-			</xsl:for-each>
-			<!-- dc.subject.* -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='subject']/doc:element/doc:element/doc:field[@name='value']">
+			<!-- SUBJECT -->
+			<!-- dc.subject.keyword -->
+			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='subject']/doc:element[@name='keyword']/doc:element/doc:field[@name='value']">
 				<dc:subject><xsl:value-of select="." /></dc:subject>
 			</xsl:for-each>
 
-			<!-- DESCRIPTION + ABSTRACTS -->
+			<!-- DESCRIPTION -->
 			<!-- dc.description -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='description']/doc:element/doc:field[@name='value']">
 				<dc:description><xsl:value-of select="." /></dc:description>
 			</xsl:for-each>
-			<!-- dc.description.* (not provenance)-->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='description']/doc:element[@name!=('provenance' or 'startPage' or 'endPage')]/doc:element/doc:field[@name='value']">
-				<dc:description><xsl:value-of select="." /></dc:description>
-			</xsl:for-each>
-			<!-- uk.abstract.* -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='uk']/doc:element[@name='abstract']/doc:element/doc:element/doc:field[@name='value']">
+			<!-- dc.description.* (not provenance, not startPage, not endPage, not pagination, not pageRange, not edition)-->
+			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='description']/doc:element[@name!=('provenance' or 'startPage' or 'endPage' or 'pagination' or 'pageRange' or 'edition')]/doc:element/doc:field[@name='value']">
 				<dc:description><xsl:value-of select="." /></dc:description>
 			</xsl:for-each>
 
@@ -249,14 +166,9 @@
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='publisher']/doc:element/doc:field[@name='value']">
 				<dc:publisher><xsl:value-of select="." /></dc:publisher>
 			</xsl:for-each>
-			<!-- <JR> - 11. 6. 2021 - Commenting out the dc.publisher.*, we don't want to have anything other stored in dc:publisher then the name of the publisher itself -->
-			<!-- dc.publisher.* -->
-			<!-- <xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='publisher']/doc:element/doc:element/doc:field[@name='value']">
-				<dc:publisher><xsl:value-of select="." /></dc:publisher>
-			</xsl:for-each> -->
-
-			<!-- CONTRIBUTORS -->
-			<!-- dc.contributor.* (!author) -->
+			
+			<!-- CONTRIBUTOR -->
+			<!-- dc.contributor.* (not author) -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='contributor']/doc:element[@name!='author']/doc:element/doc:field[@name='value']">
 				<dc:contributor><xsl:value-of select="." /></dc:contributor>
 			</xsl:for-each>
@@ -270,54 +182,56 @@
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='date']/doc:element[@name='issued']/doc:element/doc:field[@name='value']">
 				<dc:date><xsl:value-of select="." /></dc:date>
 			</xsl:for-each>
-			<!-- <JR> - 2022-12-01: removing unneccessary dc.date.* elements from oai_dc -->
-			<!-- dc.date.* -->
-			<!--<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='date']/doc:element/doc:element/doc:field[@name='value']">
-				<dc:date><xsl:value-of select="." /></dc:date>
-			</xsl:for-each>-->
 
-			<!-- LANGUAGE -->
-			<!-- <JR> - 11. 6. 2021 - TRY TO USE cuniopenaire transformer to convert language from cs or cs_CZ format to ISO690-3 format available at:
-				https://iso639-3.sil.org/code_tables/639/data
+			<!-- PUBLICATION TYPE -->
+			<!-- dc.type.obdHierarchyCode -->
+			<!-- This field contains a hierarchy of OBD types/subtypes, that are transformed in CUNIopenaire.xsl transformer stylesheet to openAIRE standards -->
+			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='type']/doc:element[@name='obdHierarchyCode']/doc:element/doc:field[@name='value']">
+				<dc:type><xsl:value-of select="." /></dc:type>
+			</xsl:for-each>
+
+			<!-- PUBLICATION VERSION -->
+			<!-- dc.type.version-->
+			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='type']/doc:element[@name='version']/doc:element/doc:field[@name='value']">
+				<dc:type><xsl:value-of select="." /></dc:type>
+			</xsl:for-each>
+
+			<!-- FORMAT -->
+			<!-- Gathered from ORIGINAL bundle information -->
+			<!-- doc:metadata/doc:element[@name='bundles'/doc:element[@name='bundle']/doc:field[@name='name'][text()='ORIGINAL']/../doc:element[@name='bitstreams']/doc:element[@name='bitstream']/doc:field[@name='format'] -->
+			<xsl:for-each select="doc:metadata/doc:element[@name='bundles']/doc:element[@name='bundle']/doc:field[@name='name'][text()='ORIGINAL']/../doc:element[@name='bitstreams']/doc:element[@name='bitstream']/doc:field[@name='format']">
+				<dc:format><xsl:value-of select="." /></dc:format>
+			</xsl:for-each>
+
+			<!-- RESOURCE IDENTIFIER -->
+			<!-- dc.identifier.uri  - persistent identifier of an object in repository -->
+			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='identifier']/doc:element[@name='uri']/doc:element/doc:field[@name='value']">
+				<dc:identifier><xsl:value-of select="." /></dc:identifier>
+			</xsl:for-each>
+
+			<!-- SOURCE -->
+			<!-- The present resource may be derived from the Source resource in whole or in part. Recommended best practice is to reference the resource by means of a string or number conforming to a formal identification system.
+			Best practice: Use only when the described resource is the result of digitization of non-digital originals. 
+			Otherwise, use Relation. Optionally metadata about the current location and call number of the digitized publication can be added. -->
+			<!-- HOWEVER: we have a born-digital documents that are part of a broader BORN-DIGITAL resouce:
+				 in this case we probably should:
+				 1. include a ISBN, ISSN, eISSN or any other supported identifier of a related resource to dc:relation element (as suggested above, or so I think)
+				 2. add dc:source element, in which the bibliographic catation of the source document / resource will be placed
+				 In theory, there shouldn't be a case, when (for example) a resource in DSpace repository has by itself a ISBN identifier in dc.identifier.isbn element and is also a part of a resource identified by ISBN stored
+				 in dcterms.isPartOf.isbn element. So no duplicate dc.relation values should be provided in OAI-PMH record...
 			-->
+			<xsl:variable name="sourceInfo">
+				<xsl:call-template name="createSourceCitation"/>
+			</xsl:variable>
+			<dc:source><xsl:value-of select="$sourceInfo"/></dc:source>
+
+			<!-- LANGUAGE (ISO) -->
+			
 			<!-- dc.language.iso -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='language']/doc:element[@name='iso']/doc:element/doc:field[@name='value']">
 				<dc:language><xsl:value-of select="." /></dc:language>
 			</xsl:for-each>
-
-			<!-- dc.language.* != iso -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='language']/doc:element[@name!='iso']/doc:element/doc:field[@name='value']">
-				<dc:language><xsl:value-of select="." /></dc:language>
-			</xsl:for-each>
-
-			<!-- dc.language -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='language']/doc:element/doc:field[@name='value']">
-				<dc:language><xsl:value-of select="." /></dc:language>
-			</xsl:for-each>
-
-			<!-- RESOURCE TYPE -->
-
-			<!-- dc.type -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='type']/doc:element/doc:field[@name='value']">
-				<dc:type><xsl:value-of select="." /></dc:type>
-			</xsl:for-each>
-			<!-- dc.type.* -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='type']/doc:element/doc:element/doc:field[@name='value']">
-				<dc:type><xsl:value-of select="." /></dc:type>
-			</xsl:for-each>
 			
-			<!-- dc.format -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='format']/doc:element/doc:field[@name='value']">
-				<dc:format><xsl:value-of select="." /></dc:format>
-			</xsl:for-each>
-			<!-- dc.format.* -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='format']/doc:element/doc:element/doc:field[@name='value']">
-				<dc:format><xsl:value-of select="." /></dc:format>
-			</xsl:for-each>
-			<!-- ? -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='bundles']/doc:element[@name='bundle']/doc:field[@name='name'][text()='ORIGINAL']/../doc:element[@name='bitstreams']/doc:element[@name='bitstream']/doc:field[@name='format']">
-				<dc:format><xsl:value-of select="." /></dc:format>
-			</xsl:for-each>
 			<!-- dc.coverage -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='coverage']/doc:element/doc:field[@name='value']">
 				<dc:coverage><xsl:value-of select="." /></dc:coverage>
@@ -327,6 +241,26 @@
 				<dc:coverage><xsl:value-of select="." /></dc:coverage>
 			</xsl:for-each>
 			
+			<!-- RELATION -->
+			<!-- dcterms.isPartOf.isbn -->
+			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='isPartOf']/doc:element[@name='isbn']/doc:element/doc:field[@name='value']">
+				<dc:relation><xsl:value-of select="concat('info:eu-repo/semantics/altIdentifier/isbn:', .)" /></dc:relation>
+			</xsl:for-each>
+
+			<!-- dcterms.isPartOf.issn -->
+			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='isPartOf']/doc:element[@name='issn']/doc:element/doc:field[@name='value']">
+				<dc:relation><xsl:value-of select="concat(info:eu-repo/semantics/altIdentifier/issn:', .)" /></dc:relation>
+			</xsl:for-each>
+
+			<!-- dcterms.isPartOf.eissn -->
+			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='isPartOf']/doc:element[@name='eissn']/doc:element/doc:field[@name='value']">
+				<dc:relation><xsl:value-of select="concat(info:eu-repo/semantics/altIdentifier/eissn:', .)" /></dc:relation>
+			</xsl:for-each>
+
+			<!-- dc.relation.* (not datasetUrl, not fundingReference) -->
+			<xsl:for-each select="dc:metadata/doc:element[@name='dc']/doc:element[@name='relation']/doc:element[@name!=('datasetUrl' or 'fundingReference')]/doc:element/doc:field[@name='value']">
+				<dc:relation><xsl:value-of select="."/></dc:relation>
+			</xsl:for-each>
 			
 		</oai_dc:dc>
 	</xsl:template>
@@ -337,6 +271,12 @@
 		
 			<xsl:variable name="sourceName">
 				<xsl:if test="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='isPartOf']/doc:element[@name='name']/doc:element/doc:field[@name='value']">
+					<xsl:value-of select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='isPartOf']/doc:element[@name='name']/doc:element/doc:field[@name='value']"/>
+				</xsl:if>
+			</xsl:variable>
+
+			<xsl:variable name="eventName">
+				<xsl:if test="doc:metadata/doc:element[@name='uk']/doc:element[@name='event']/doc:element[@name='name']/doc:element/doc:field[@name='value']">
 					<xsl:value-of select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='isPartOf']/doc:element[@name='name']/doc:element/doc:field[@name='value']"/>
 				</xsl:if>
 			</xsl:variable>
@@ -351,7 +291,7 @@
 			
 			<xsl:variable name="sourceJournalYear">	
 				<xsl:if test="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='isPartOf']/doc:element[@name='journalYear']/doc:element/doc:field[@name='value']">
-					<xsl:value-of select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='isPartOf']/doc:element[@name='journalYear']/doc:element/doc:field[@name='value']"/>
+					<xsl:value-of select="concat('(', doc:metadata/doc:element[@name='dcterms']/doc:element[@name='isPartOf']/doc:element[@name='journalYear']/doc:element/doc:field[@name='value'], ')')"/>
 				</xsl:if>
 			</xsl:variable>
 
@@ -363,7 +303,7 @@
 
 			<xsl:variable name="sourceJournalIssue">		
 				<xsl:if test="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='isPartOf']/doc:element[@name='journalIssue']/doc:element/doc:field[@name='value']">
-						<xsl:value-of select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='isPartOf']/doc:element[@name='journalIssue']/doc:element/doc:field[@name='value']"/>
+						<xsl:value-of select="concat('(', doc:metadata/doc:element[@name='dcterms']/doc:element[@name='isPartOf']/doc:element[@name='journalIssue']/doc:element/doc:field[@name='value'], ')')"/>
 				</xsl:if>
 			</xsl:variable>
 				
@@ -392,17 +332,11 @@
 			</xsl:variable>
 			
 			<xsl:variable name="sourceInfo">
-				
-						<xsl:value-of select="concat($sourceName, ' ', $sourceJournalVolume,'(',$sourceJournalIssue,'),', $sourceStartPage, '-', $sourceEndPage, ' ', '(', $sourceJournalYear,')')"/>
-					
-						<!-- TODO: Different source information for different dc.type values - e.g. book part should have a different source citation, than a contribution to journal or conference object -->
+				<!-- TODO: Different source information for different dc.type values - e.g. book part should have a different source citation, than a contribution to journal or conference object -->
+				<xsl:value-of select="concat($sourceName, ' ', $sourceJournalVolume, $sourceJournalIssue, ',', $sourcePageRange,'. ', $sourceJournalYear)"/>	
 			</xsl:variable>
 
 			<xsl:value-of select="$sourceInfo"/>
-		<!-- BOOK PART -->
-		<!-- <xsl:if select="doc:metadata/doc:element[@name='dc']/doc:element[@name='type']/doc:element[@name='cs']/doc:field[@name='value']/text() = 'Část knihy'"> -->
-
-		<!-- CONTRIBUTION TO JOURNAL, CONFERENCE OBJECT -->
 
 		</xsl:if>
 		
