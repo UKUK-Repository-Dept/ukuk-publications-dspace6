@@ -261,8 +261,6 @@
 			<xsl:for-each select="dc:metadata/doc:element[@name='dc']/doc:element[@name='relation']/doc:element[@name!=('datasetUrl' or 'fundingReference')]/doc:element/doc:field[@name='value']">
 				<dc:relation><xsl:value-of select="."/></dc:relation>
 			</xsl:for-each>
-
-			
 			
 		</oai_dc:dc>
 	</xsl:template>
@@ -334,8 +332,8 @@
 			</xsl:variable>
 			
 			<xsl:variable name="sourceInfo">
-				<xsl:value-of select="concat($sourceName, ' ', $sourceJournalVolume, $sourceJournalIssue, ',', $sourcePageRange,'. ', $sourceJournalYear)"/>
 				<!-- TODO: Different source information for different dc.type values - e.g. book part should have a different source citation, than a contribution to journal or conference object -->
+				<xsl:value-of select="concat($sourceName, ' ', $sourceJournalVolume, $sourceJournalIssue, ',', $sourcePageRange,'. ', $sourceJournalYear)"/>	
 			</xsl:variable>
 
 			<xsl:value-of select="$sourceInfo"/>
