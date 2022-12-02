@@ -161,6 +161,12 @@
 				<dc:description><xsl:value-of select="." /></dc:description>
 			</xsl:for-each>
 
+			<!-- PUBLISHER -->
+			<!-- dc.publisher -->
+			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='publisher']/doc:element/doc:field[@name='value']">
+				<dc:publisher><xsl:value-of select="." /></dc:publisher>
+			</xsl:for-each>
+			
 			<!-- <JR> - 11. 6. 2021 - commented out dc.identifier, because metadata field dc.identifier should not be in the item's metadata just by itself,
 			it should be always qualifier, eg. dc.identifier.doi, dc.identifier.isbn, or in extreme cases dc.identifier.other -->
 			
@@ -242,17 +248,6 @@
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='relation']/doc:element/doc:element/doc:field[@name='value']">
 				<dc:relation><xsl:value-of select="." /></dc:relation>
 			</xsl:for-each>
-
-			<!-- PUBLISHER -->
-			<!-- dc.publisher -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='publisher']/doc:element/doc:field[@name='value']">
-				<dc:publisher><xsl:value-of select="." /></dc:publisher>
-			</xsl:for-each>
-			<!-- <JR> - 11. 6. 2021 - Commenting out the dc.publisher.*, we don't want to have anything other stored in dc:publisher then the name of the publisher itself -->
-			<!-- dc.publisher.* -->
-			<!-- <xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='publisher']/doc:element/doc:element/doc:field[@name='value']">
-				<dc:publisher><xsl:value-of select="." /></dc:publisher>
-			</xsl:for-each> -->
 
 			<!-- CONTRIBUTORS -->
 			<!-- dc.contributor.* (!author) -->
