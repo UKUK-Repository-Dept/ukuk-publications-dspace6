@@ -219,6 +219,13 @@
 			</xsl:variable>
 			<dc:source><xsl:value-of select="$sourceInfo"/></dc:source>
 
+			<!-- LANGUAGE (ISO) -->
+			
+			<!-- dc.language.iso -->
+			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='language']/doc:element[@name='iso']/doc:element/doc:field[@name='value']">
+				<dc:language><xsl:value-of select="." /></dc:language>
+			</xsl:for-each>
+
 			<!-- dcterms.isPartOf.isbn -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='isPartOf']/doc:element[@name='isbn']/doc:element/doc:field[@name='value']">
 				<dc:relation><xsl:value-of select="." /></dc:relation>
@@ -234,24 +241,7 @@
 				<dc:relation><xsl:value-of select="." /></dc:relation>
 			</xsl:for-each>
 
-			<!-- LANGUAGE -->
-			<!-- <JR> - 11. 6. 2021 - TRY TO USE cuniopenaire transformer to convert language from cs or cs_CZ format to ISO690-3 format available at:
-				https://iso639-3.sil.org/code_tables/639/data
-			-->
-			<!-- dc.language.iso -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='language']/doc:element[@name='iso']/doc:element/doc:field[@name='value']">
-				<dc:language><xsl:value-of select="." /></dc:language>
-			</xsl:for-each>
-
-			<!-- dc.language.* != iso -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='language']/doc:element[@name!='iso']/doc:element/doc:field[@name='value']">
-				<dc:language><xsl:value-of select="." /></dc:language>
-			</xsl:for-each>
-
-			<!-- dc.language -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='language']/doc:element/doc:field[@name='value']">
-				<dc:language><xsl:value-of select="." /></dc:language>
-			</xsl:for-each>
+			
 			
 			<!-- dc.coverage -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='coverage']/doc:element/doc:field[@name='value']">
