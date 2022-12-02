@@ -293,7 +293,7 @@
 
 		<xsl:variable name="sourceJournalVolume">	
 			<xsl:if test="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='isPartOf']/doc:element[@name='journalVolume']/doc:element/doc:field[@name='value']">
-				<xsl:value-of select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='isPartOf']/doc:element[@name='journalVolume']/doc:element/doc:field[@name='value']"/>
+				<xsl:value-of select="concat(' ', doc:metadata/doc:element[@name='dcterms']/doc:element[@name='isPartOf']/doc:element[@name='journalVolume']/doc:element/doc:field[@name='value'])"/>
 			</xsl:if>
 		</xsl:variable>
 
@@ -329,7 +329,7 @@
 		
 		<xsl:variable name="sourceInformation">
 			<!-- TODO: Different source information for different dc.type values - e.g. book part should have a different source citation, than a contribution to journal or conference object -->
-			<xsl:value-of select="concat($sourceName, ' ', $sourceJournalVolume, $sourceJournalIssue, ',', $sourcePageRange,'. ', $sourceJournalYear)"/>	
+			<xsl:value-of select="concat($sourceName, $sourceJournalVolume, $sourceJournalIssue, ',', $sourcePageRange,'. ', $sourceJournalYear)"/>	
 		</xsl:variable>
 
 		<xsl:value-of select="$sourceInformation"/>
