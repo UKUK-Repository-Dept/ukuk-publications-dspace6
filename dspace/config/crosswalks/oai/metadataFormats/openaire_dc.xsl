@@ -317,7 +317,7 @@
 
 		<xsl:variable name="sourcePageRange">
 			<xsl:if test="doc:metadata/doc:element[@name='dc']/doc:element[@name='description']/doc:element[@name='pageRange']/doc:element/doc:field[@name='value']">	
-				<xsl:value-of select="doc:metadata/doc:element[@name='dc']/doc:element[@name='description']/doc:element[@name='pageRange']/doc:element/doc:field[@name='value']"/>
+				<xsl:value-of select="concat(' ', doc:metadata/doc:element[@name='dc']/doc:element[@name='description']/doc:element[@name='pageRange']/doc:element/doc:field[@name='value'])"/>
 			</xsl:if>
 		</xsl:variable>
 
