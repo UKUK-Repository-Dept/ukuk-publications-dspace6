@@ -196,6 +196,13 @@
 				<dc:type><xsl:value-of select="." /></dc:type>
 			</xsl:for-each>
 
+			<!-- FORMAT -->
+			<!-- Gathered from ORIGINAL bundle information -->
+			<!-- doc:metadata/doc:element[@name='bundles'/doc:element[@name='bundle']/doc:field[@name='name'][text()='ORIGINAL']/../doc:element[@name='bitstreams']/doc:element[@name='bitstream']/doc:field[@name='format'] -->
+			<xsl:for-each select="doc:metadata/doc:element[@name='bundles']/doc:element[@name='bundle']/doc:field[@name='name'][text()='ORIGINAL']/../doc:element[@name='bitstreams']/doc:element[@name='bitstream']/doc:field[@name='format']">
+				<dc:format><xsl:value-of select="." /></dc:format>
+			</xsl:for-each>
+
 			<!-- <JR> - 11. 6. 2021 - commented out dc.identifier, because metadata field dc.identifier should not be in the item's metadata just by itself,
 			it should be always qualifier, eg. dc.identifier.doi, dc.identifier.isbn, or in extreme cases dc.identifier.other -->
 			
@@ -297,18 +304,6 @@
 				<dc:language><xsl:value-of select="." /></dc:language>
 			</xsl:for-each>
 			
-			<!-- dc.format -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='format']/doc:element/doc:field[@name='value']">
-				<dc:format><xsl:value-of select="." /></dc:format>
-			</xsl:for-each>
-			<!-- dc.format.* -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='format']/doc:element/doc:element/doc:field[@name='value']">
-				<dc:format><xsl:value-of select="." /></dc:format>
-			</xsl:for-each>
-			<!-- ? -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='bundles']/doc:element[@name='bundle']/doc:field[@name='name'][text()='ORIGINAL']/../doc:element[@name='bitstreams']/doc:element[@name='bitstream']/doc:field[@name='format']">
-				<dc:format><xsl:value-of select="." /></dc:format>
-			</xsl:for-each>
 			<!-- dc.coverage -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='coverage']/doc:element/doc:field[@name='value']">
 				<dc:coverage><xsl:value-of select="." /></dc:coverage>
