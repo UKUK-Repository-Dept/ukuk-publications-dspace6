@@ -138,6 +138,13 @@
 				<dc:relation><xsl:text>wos:</xsl:text><xsl:value-of select="." /></dc:relation>
 			</xsl:for-each>
 
+			<!-- DATASET REFERENCE -->
+			<!-- dc.relation.datasetUrl -->
+			<!-- TODO: Check if this is already implemented in CUNI CRIS system -->
+			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='relation']/doc:element[@name='datasetUrl']/doc:element/doc:field[@name='value']">
+				<dc:relation><xsl:value-of select="concat('info:eu-repo/semantics/dataset/url/',.)"/></dc:relation>
+			</xsl:for-each>
+
 			<!-- <JR> - 11. 6. 2021 - commented out dc.identifier, because metadata field dc.identifier should not be in the item's metadata just by itself,
 			it should be always qualifier, eg. dc.identifier.doi, dc.identifier.isbn, or in extreme cases dc.identifier.other -->
 			
