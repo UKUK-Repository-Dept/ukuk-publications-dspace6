@@ -151,6 +151,15 @@
 				<dc:subject><xsl:value-of select="." /></dc:subject>
 			</xsl:for-each>
 
+			<!-- DESCRIPTION -->
+			<!-- dc.description -->
+			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='description']/doc:element/doc:field[@name='value']">
+				<dc:description><xsl:value-of select="." /></dc:description>
+			</xsl:for-each>
+			<!-- dc.description.* (not provenance, not startPage, not endPage, not pagination, not pageRange, not edition)-->
+			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='description']/doc:element[@name!=('provenance' or 'startPage' or 'endPage' or 'pagination' or 'pageRange' or 'edition')]/doc:element/doc:field[@name='value']">
+				<dc:description><xsl:value-of select="." /></dc:description>
+			</xsl:for-each>
 
 			<!-- <JR> - 11. 6. 2021 - commented out dc.identifier, because metadata field dc.identifier should not be in the item's metadata just by itself,
 			it should be always qualifier, eg. dc.identifier.doi, dc.identifier.isbn, or in extreme cases dc.identifier.other -->
@@ -232,21 +241,6 @@
 			<!-- dc.relation.* -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='relation']/doc:element/doc:element/doc:field[@name='value']">
 				<dc:relation><xsl:value-of select="." /></dc:relation>
-			</xsl:for-each>
-
-
-			<!-- DESCRIPTION + ABSTRACTS -->
-			<!-- dc.description -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='description']/doc:element/doc:field[@name='value']">
-				<dc:description><xsl:value-of select="." /></dc:description>
-			</xsl:for-each>
-			<!-- dc.description.* (not provenance)-->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='description']/doc:element[@name!=('provenance' or 'startPage' or 'endPage')]/doc:element/doc:field[@name='value']">
-				<dc:description><xsl:value-of select="." /></dc:description>
-			</xsl:for-each>
-			<!-- uk.abstract.* -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='uk']/doc:element[@name='abstract']/doc:element/doc:element/doc:field[@name='value']">
-				<dc:description><xsl:value-of select="." /></dc:description>
 			</xsl:for-each>
 
 			<!-- PUBLISHER -->
