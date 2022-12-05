@@ -188,12 +188,12 @@
 						<xsl:text>lecture</xsl:text>
 					</xsl:when>
 					<xsl:otherwise>
-						<xsl:text>conferencePoster</xsl:text>
+						<xsl:text>conferenceObject</xsl:text>
 					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:when>
 			<xsl:when test="$hierarchyPartOne = '57'">
-				<xsl:text>conferencePaper</xsl:text>
+				<xsl:text>conferenceObject</xsl:text>
 			</xsl:when>
 			<xsl:when test="$hierarchyPartOne = '213'">
 				<xsl:text>report</xsl:text>
@@ -217,7 +217,7 @@
 			<xsl:when test="$hierarchyPartOne = '110'">
 				<xsl:choose>
 					<xsl:when test="$hierarchyPartThree = '462'">
-						<xsl:text>conferencePaper</xsl:text>
+						<xsl:text>conferenceObject</xsl:text>
 					</xsl:when>
 					<xsl:when test="$hierarchyPartThree = '135'">
 						<xsl:text>article</xsl:text>
