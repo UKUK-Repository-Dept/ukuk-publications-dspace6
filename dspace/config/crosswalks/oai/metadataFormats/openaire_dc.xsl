@@ -42,7 +42,7 @@
 
 			<!-- PROJECT IDENTIFIER -->
 			<!-- dc.relation.fundingReference-->
-			<xsl:for-each select="dc:metadata/doc:element[@name='dc']/doc:element[@name='relation']/doc:element[@name='fundingReference']/doc:element/doc:field[@name='value']">
+			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='relation']/doc:element[@name='fundingReference']/doc:element/doc:field[@name='value']">
 				<dc:relation><xsl:value-of select="."/></dc:relation>
 			</xsl:for-each>
 
