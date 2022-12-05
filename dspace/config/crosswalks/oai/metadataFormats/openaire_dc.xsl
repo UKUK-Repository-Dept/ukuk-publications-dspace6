@@ -100,42 +100,42 @@
 
 			<!-- dc.identifier.handle -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='identifier']/doc:element[@name='handle']/doc:element/doc:field[@name='value']">
-				<dc:relation><xsl:text>handle:</xsl:text><xsl:value-of select="." /></dc:relation>
+				<dc:relation><xsl:value-of select="." /></dc:relation>
 			</xsl:for-each>
 
 			<!-- dc.identifier.ark -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='identifier']/doc:element[@name='ark']/doc:element/doc:field[@name='value']">
-				<dc:relation><xsl:text>ark:</xsl:text><xsl:value-of select="." /></dc:relation>
+				<dc:relation><xsl:value-of select="." /></dc:relation>
 			</xsl:for-each>
 
 			<!-- dc.identifier.arxiv -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='identifier']/doc:element[@name='arxiv']/doc:element/doc:field[@name='value']">
-				<dc:relation><xsl:text>arxiv:</xsl:text><xsl:value-of select="." /></dc:relation>
+				<dc:relation><xsl:value-of select="." /></dc:relation>
 			</xsl:for-each>
 
 			<!-- dc.identifier.pubmed -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='identifier']/doc:element[@name='pubmed']/doc:element/doc:field[@name='value']">
-				<dc:relation><xsl:text>pubmed:</xsl:text><xsl:value-of select="." /></dc:relation>
+				<dc:relation><xsl:value-of select="." /></dc:relation>
 			</xsl:for-each>
 
 			<!-- dc.identifier.purl -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='identifier']/doc:element[@name='purl']/doc:element/doc:field[@name='value']">
-				<dc:relation><xsl:text>purl:</xsl:text><xsl:value-of select="." /></dc:relation>
+				<dc:relation><xsl:value-of select="." /></dc:relation>
 			</xsl:for-each>
 
 			<!-- dc.identifier.urn -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='identifier']/doc:element[@name='urn']/doc:element/doc:field[@name='value']">
-				<dc:relation><xsl:text>urn:</xsl:text><xsl:value-of select="." /></dc:relation>
+				<dc:relation><xsl:value-of select="." /></dc:relation>
 			</xsl:for-each>
 
 			<!-- dc.identifier.utWos -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='identifier']/doc:element[@name='utWos']/doc:element/doc:field[@name='value']">
-				<dc:relation><xsl:text>wos:</xsl:text><xsl:value-of select="." /></dc:relation>
+				<dc:relation><xsl:value-of select="." /></dc:relation>
 			</xsl:for-each>
 			
 			<!-- dc.identifier.eidScopus -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='identifier']/doc:element[@name='eidScopus']/doc:element/doc:field[@name='value']">
-				<dc:relation><xsl:text>wos:</xsl:text><xsl:value-of select="." /></dc:relation>
+				<dc:relation><xsl:value-of select="." /></dc:relation>
 			</xsl:for-each>
 
 			<!-- DATASET REFERENCE -->
