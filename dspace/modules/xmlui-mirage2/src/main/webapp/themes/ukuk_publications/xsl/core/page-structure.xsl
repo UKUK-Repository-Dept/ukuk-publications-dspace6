@@ -156,6 +156,9 @@
             <!-- Use the .htaccess and remove these lines to avoid edge case issues.
              More info: h5bp.com/i/378 -->
             <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+            
+            <!-- Google - Site verification -->
+            <meta content="-LKOqK9xaVe3960gJTPwa6TKn-IYxbaZvorINGvnPag" name="google-site-verification"/>
 
             <!-- Mobile viewport optimized: h5bp.com/viewport -->
             <meta name="viewport" content="width=device-width,initial-scale=1"/>
