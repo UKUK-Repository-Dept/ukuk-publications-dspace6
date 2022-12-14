@@ -151,6 +151,7 @@
     references to stylesheets pulled directly from the pageMeta element. -->
     <xsl:template name="buildHead">
         <head>
+            <xsl:call-template name="addJavascript-google-analytics"/>
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
             <!-- Use the .htaccess and remove these lines to avoid edge case issues.
@@ -950,13 +951,24 @@
             <xsl:call-template name="choiceLookupPopUpSetup"/>
         </xsl:if>
 
-        <xsl:call-template name="addJavascript-google-analytics" />
+        <!-- <JR> - 2022-12-14: We won't be using old google analytics -->
+        <!--<xsl:call-template name="addJavascript-google-analytics" />-->
     </xsl:template>
 
     <xsl:template name="addJavascript-google-analytics">
         <!-- Add a google analytics script if the key is present -->
         <xsl:if test="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='google'][@qualifier='analytics']">
-            <script><xsl:text>
+            <xsl:variable name="ga-property" select="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='google'][@qualifier='analytics']"/>
+            <script async src="https://www.googletagmanager.com/gtag/js?id={$ga-property}"></script>
+            <script>
+                <xsl:text>
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+                    gtag('js', new Date());
+
+                    gtag('config', '</xsl:text><xsl:value-of select="$ga-property"/><xsl:text>');</xsl:text>
+            </script>
+            <!--<script><xsl:text>
                 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
                 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
                 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -964,7 +976,7 @@
 
                 ga('create', '</xsl:text><xsl:value-of select="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='google'][@qualifier='analytics']"/><xsl:text>', '</xsl:text><xsl:value-of select="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='request'][@qualifier='serverName']"/><xsl:text>');
                 ga('send', 'pageview');
-            </xsl:text></script>
+            </xsl:text></script>-->
         </xsl:if>
     </xsl:template>
 
