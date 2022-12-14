@@ -159,8 +159,10 @@
             <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
             
             <!-- Google - Site verification -->
-            <meta content="-LKOqK9xaVe3960gJTPwa6TKn-IYxbaZvorINGvnPag" name="google-site-verification"/>
-
+            <xsl:if test="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='google'][@qualifier='analyticsAuthKey']">
+                <xsl:variable name="ga-authkey" select="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='google'][@qualifier='analyticsAuthKey']"/>
+                <meta content="{$ga-authkey}" name="google-site-verification"/>
+            </xsl:if>
             <!-- Mobile viewport optimized: h5bp.com/viewport -->
             <meta name="viewport" content="width=device-width,initial-scale=1"/>
 
