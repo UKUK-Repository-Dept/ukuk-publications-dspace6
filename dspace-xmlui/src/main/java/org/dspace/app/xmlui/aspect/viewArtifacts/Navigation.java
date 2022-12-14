@@ -124,6 +124,14 @@ public class Navigation extends AbstractDSpaceTransformer implements CacheablePr
                 pageMeta.addMetadata("google","analytics").addContent(analyticsKey);
         }
 
+        // <JR> - 2022-12-14 - test adding support for GA authentication key
+        String analyticsAuthKey = DSpaceServicesFactory.getInstance().getConfigurationService().getProperty("xmlui.google.analytics.authkey");
+        if (analyticsAuthKey != null && analyticsAuthKey.length() > 0)
+        {
+                analyticsAuthKey = analyticsAuthKey.trim();
+                pageMeta.addMetadata("google","analyticsAuthKey").addContent(analyticsAuthKey);
+        }
+
         // add metadata for OpenSearch auto-discovery links if enabled
         if (DSpaceServicesFactory.getInstance().getConfigurationService().getBooleanProperty("websvc.opensearch.autolink"))
         {
