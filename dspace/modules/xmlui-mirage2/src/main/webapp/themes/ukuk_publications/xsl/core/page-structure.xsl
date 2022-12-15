@@ -152,7 +152,8 @@
     <xsl:template name="buildHead">
         <head>
             <xsl:call-template name="addJavascript-google-analytics"/>
-            <!--<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>-->
+            
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
             <!-- Use the .htaccess and remove these lines to avoid edge case issues.
              More info: h5bp.com/i/378 -->
@@ -980,8 +981,6 @@
                 ga('send', 'pageview');
             </xsl:text></script>-->
         </xsl:if>
-
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     </xsl:template>
 
     <!--The Language Selection
