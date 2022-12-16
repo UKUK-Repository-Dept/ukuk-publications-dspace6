@@ -968,7 +968,8 @@
                     window.dataLayer = window.dataLayer || [];
                     function gtag(){dataLayer.push(arguments);}
                     gtag('js', new Date());
-
+                    <!-- <JR> - 2022-12-16 - Added google tag IP anonymization -->
+                    gtag('config', '</xsl:text><xsl:value-of select="$ga-property"/><xsl:text>', { 'anonymize_ip': true });
                     gtag('config', '</xsl:text><xsl:value-of select="$ga-property"/><xsl:text>');</xsl:text>
             </script>
             <!--<script><xsl:text>
