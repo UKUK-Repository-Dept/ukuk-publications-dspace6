@@ -77,3 +77,6 @@ dspace-services/
 
 ## Custom folders
 custom-config/
+
+## Parametrized-mapping mapfile
+*_mapfile.prod.json
