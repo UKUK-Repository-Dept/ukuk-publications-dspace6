@@ -126,7 +126,9 @@
                 <div class="col-sm-8">
                     <xsl:call-template name="itemSummaryView-DIM-abstract"/>
                     <xsl:call-template name="itemSummaryView-DIM-URI"/>
-                    <xsl:call-template name="license"/>
+                    <xsl:call-template name="license">
+                        <xsl:with-param name="metadataURL" select="./dri:referenceSet/dri:reference/@url"/>
+                    </xsl:call-template>
                     <!-- <xsl:call-template name="itemSummaryView-DIM-SOLR-test"/> -->
                     <xsl:call-template name="itemSummaryView-collections"/>
                 </div>
