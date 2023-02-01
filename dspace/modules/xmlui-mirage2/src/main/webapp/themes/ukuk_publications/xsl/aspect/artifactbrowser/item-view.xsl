@@ -36,6 +36,7 @@
     xmlns:rights="http://cosimo.stanford.edu/sdr/metsrights/"
     xmlns:confman="org.dspace.core.ConfigurationManager"
     exclude-result-prefixes="xalan encoder i18n dri mets dim xlink xsl util jstring rights confman">
+    <xsl:import href="item-view-license.xsl" />
 
     <xsl:output indent="yes"/>
 
@@ -125,6 +126,7 @@
                 <div class="col-sm-8">
                     <xsl:call-template name="itemSummaryView-DIM-abstract"/>
                     <xsl:call-template name="itemSummaryView-DIM-URI"/>
+                    <xsl:call-template name="license"/>
                     <!-- <xsl:call-template name="itemSummaryView-DIM-SOLR-test"/> -->
                     <xsl:call-template name="itemSummaryView-collections"/>
                 </div>

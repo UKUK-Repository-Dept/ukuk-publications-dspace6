@@ -641,21 +641,24 @@
     </xsl:template>
 
     <!--The License-->
-    <xsl:template name="cc-license">
+    <!--<xsl:template name="cc-license">-->
+        <!--
         <xsl:param name="metadataURL"/>
         <xsl:variable name="externalMetadataURL">
             <xsl:text>cocoon:/</xsl:text>
             <xsl:value-of select="$metadataURL"/>
             <xsl:text>?sections=dmdSec,fileSec&amp;fileGrpTypes=THUMBNAIL</xsl:text>
         </xsl:variable>
+        -->
 
-        <xsl:variable name="ccLicenseName"
+        <!--<xsl:variable name="ccLicenseName"
                       select="document($externalMetadataURL)//dim:field[@element='rights']"
-                />
+                />-->
         <!-- <JR> 2023-02-01 - by default, in our installation of DSpace for publications.cuni.cz, CC license URI is stored in dcterms.license -->
-        <xsl:variable name="ccLicenseUri"
+        <!--<xsl:variable name="ccLicenseUri"
                       select="document($externalMetadataURL)//dim:field[@element='license']"
-                />
+                />-->
+        <!--
         <xsl:variable name="handleUri">
             <xsl:for-each select="document($externalMetadataURL)//dim:field[@element='identifier' and @qualifier='uri']">
                 <a>
@@ -669,7 +672,9 @@
                 </xsl:if>
             </xsl:for-each>
         </xsl:variable>
-
+        -->
+        
+        <!--
         <xsl:if test="$ccLicenseName and $ccLicenseUri and contains($ccLicenseUri, 'creativecommons')">
             <div about="{$handleUri}" class="row">
             <div class="col-sm-3 col-xs-12">
@@ -691,8 +696,9 @@
             </div>
             </div>
         </xsl:if>
-    </xsl:template>
-
+        -->
+    <!--</xsl:template>-->
+    <!--
     <xsl:template name="cc-logo">
         <xsl:param name="ccLicenseName"/>
         <xsl:param name="ccLicenseUri"/>
@@ -744,7 +750,7 @@
              </xsl:attribute>
         </img>
     </xsl:template>
-
+    -->
     <!-- Like the header, the footer contains various miscellaneous text, links, and image placeholders -->
     <xsl:template name="buildFooter">
         <footer>
