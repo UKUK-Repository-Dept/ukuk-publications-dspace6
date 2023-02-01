@@ -652,8 +652,9 @@
         <xsl:variable name="ccLicenseName"
                       select="document($externalMetadataURL)//dim:field[@element='rights']"
                 />
+        <!-- <JR> 2023-02-01 - by default, in our installation of DSpace for publications.cuni.cz, CC license URI is stored in dcterms.license -->
         <xsl:variable name="ccLicenseUri"
-                      select="document($externalMetadataURL)//dim:field[@element='rights'][@qualifier='uri']"
+                      select="document($externalMetadataURL)//dim:field[@element='license']"
                 />
         <xsl:variable name="handleUri">
             <xsl:for-each select="document($externalMetadataURL)//dim:field[@element='identifier' and @qualifier='uri']">
