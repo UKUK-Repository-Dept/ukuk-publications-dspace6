@@ -2248,6 +2248,14 @@
 	
 	<message key="xmlui.dri2xhtml.METS-1.0.license-text">K tomuto záznamu jsou přiřazeny následující licenční soubory:</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.cc-license-text">Kromě případů, kde je uvedeno jinak, licence tohoto záznamu je </message>
+	<message key="xmlui.dri2xhtml.METS-1.0.cc-license-text-custom">Licence pro užití plného textu výsledku: </message>
+	<message key="xmlui.dri2xhtml.METS-1.0.no-license-text">
+		Plný text výsledku je zpřístupněn v repozitáři v režimu gratis open access, tj. pouze pro čtení. 
+		Plný text v režimu gratis open access je možné z repozitáře stahovat, případně tisknout, ale pouze pro osobní potřebu 
+		(viz § 30 zákona č. 121/2000 Sb., autorského zákona).
+	</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.no-cc-license-url">celé znění licence</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.embargo-text">dostupný od: </message>
 		
 	<message key="xmlui.dri2xhtml.METS-1.0.collection-not-implemented">
 		Sumární zobrazení (summaryView) kolekce není momentálně použité nebo implementované.
