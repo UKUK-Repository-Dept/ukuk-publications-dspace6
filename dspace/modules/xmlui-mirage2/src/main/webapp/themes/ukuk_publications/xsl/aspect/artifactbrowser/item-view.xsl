@@ -516,7 +516,9 @@
                 <xsl:text>)</xsl:text>
             </a>
             <xsl:if test="$embargo">
-                <span id="embargo-{$href}"><xsl:text>(</xsl:text><i18n:text>xmlui.dri2xhtml.METS-1.0.embargo-text</i18n:text><xsl:value-of select="$embargo" /><xsl:text>)</xsl:text></span>
+                <span id="embargo-{$href}">
+                    <xsl:text>(</xsl:text><i18n:text>xmlui.dri2xhtml.METS-1.0.embargo-text</i18n:text><xsl:value-of select="$embargo" /><xsl:text>)</xsl:text>
+                </span>
             </xsl:if>
         </div>
     </xsl:template>
