@@ -484,11 +484,7 @@
                 <xsl:text>)</xsl:text>
             </a>
             <xsl:if test="$embargo">
-                <xsl:variable name="embargo-text"><i18n:text>xmlui.dri2xhtml.METS-1.0.embargo-text</i18n:text></xsl:variable>
-                <xsl:variable name="embargo-text-date">
-                    <xsl:value-of select="concat('(',$embargo-text,$embargo,')')"/>
-                </xsl:variable>
-                <span id="embargo-{$href}"><xsl:value-of select="$embargo-text-date" /></span>
+                <span id="embargo-{$href}"><xsl:text>(</xsl:text><i18n:text>xmlui.dri2xhtml.METS-1.0.embargo-text</i18n:text><xsl:value-of select="$embargo" /><xsl:text>)</xsl:text></span>
             </xsl:if>
         </div>
     </xsl:template>
