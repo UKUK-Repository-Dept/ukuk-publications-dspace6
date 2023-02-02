@@ -19,47 +19,29 @@
 
     <!--The License-->
     <xsl:template name="license">
-        <xsl:param name="metadataURL"/>
+        <!-- <xsl:param name="metadataURL"/>
         <xsl:variable name="externalMetadataURL">
             <xsl:text>cocoon:/</xsl:text>
             <xsl:value-of select="$metadataURL"/>
             <xsl:text>?sections=dmdSec,fileSec&amp;fileGrpTypes=THUMBNAIL</xsl:text>
-        </xsl:variable>
-
-        <xsl:variable name="licenseText"
-                    select="document($externalMetadataURL)//dim:field[@element='rights']"
-                />
-        <!-- <JR> 2023-02-01 - by default, in our installation of DSpace for publications.cuni.cz, CC license URI is stored in dcterms.license -->
-        <xsl:variable name="licenseUri"
-                    select="document($externalMetadataURL)//dim:field[@element='license']"
-                />
-        <xsl:variable name="handleUri">
-            <xsl:for-each select="document($externalMetadataURL)//dim:field[@element='identifier' and @qualifier='uri']">
-                <a>
-                    <xsl:attribute name="href">
-                        <xsl:copy-of select="./node()"/>
-                    </xsl:attribute>
-                    <xsl:copy-of select="./node()"/>
-                </a>
-                <xsl:if test="count(following-sibling::dim:field[@element='identifier' and @qualifier='uri']) != 0">
-                    <xsl:text>, </xsl:text>
-                </xsl:if>
-            </xsl:for-each>
-        </xsl:variable>
-        <!-- <xsl:variable name="handleUri">
-            <xsl:for-each select="document($externalMetadataURL)//dim:field[@element='identifier' and @qualifier='uri']">
-                <a>
-                    <xsl:attribute name="href">
-                        <xsl:copy-of select="./node()"/>
-                    </xsl:attribute>
-                    <xsl:copy-of select="./node()"/>
-                </a>
-                <xsl:if test="count(following-sibling::dim:field[@element='identifier' and @qualifier='uri']) != 0">
-                    <xsl:text>, </xsl:text>
-                </xsl:if>
-            </xsl:for-each>
         </xsl:variable> -->
 
+        <xsl:variable name="licenseText" select="dim:field[@element='rights']" />
+        <!-- <JR> 2023-02-01 - by default, in our installation of DSpace for publications.cuni.cz, CC license URI is stored in dcterms.license -->
+        <xsl:variable name="licenseUri" select="dim:field[@element='license']" />
+        <xsl:variable name="handleUri">
+            <xsl:for-each select="dim:field[@element='identifier' and @qualifier='uri']">
+                <a>
+                    <xsl:attribute name="href">
+                        <xsl:copy-of select="./node()"/>
+                    </xsl:attribute>
+                    <xsl:copy-of select="./node()"/>
+                </a>
+                <xsl:if test="count(following-sibling::dim:field[@element='identifier' and @qualifier='uri']) != 0">
+                    <xsl:text>, </xsl:text>
+                </xsl:if>
+            </xsl:for-each>
+        </xsl:variable>
         
         <!--<div about="{$handleUri}" class="row">-->
         <div class="simple-item-view-description item-page-field-wrapper table">
