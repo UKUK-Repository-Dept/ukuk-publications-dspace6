@@ -52,7 +52,7 @@
                     </a>
         
                     <span>
-                        <i18n:text>xmlui.dri2xhtml.METS-1.0.cc-license-text</i18n:text>
+                        <i18n:text>xmlui.dri2xhtml.METS-1.0.cc-license-text-custom</i18n:text>
                         <xsl:value-of select="$licenseText"/>
                     </span>
                 </xsl:when>
