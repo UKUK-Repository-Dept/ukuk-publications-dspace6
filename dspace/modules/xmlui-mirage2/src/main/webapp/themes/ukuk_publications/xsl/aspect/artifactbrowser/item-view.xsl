@@ -396,7 +396,7 @@
                             <xsl:with-param name="title" select="mets:FLocat[@LOCTYPE='URL']/@xlink:title" />
                             <xsl:with-param name="label" select="mets:FLocat[@LOCTYPE='URL']/@xlink:label" />
                             <xsl:with-param name="size" select="@SIZE" />
-                            <xsl:with-param name="emgargo" select="dim:field[@element='date' and @qualifier='embargoEndDate']" />
+                            <xsl:with-param name="embargo" select="dim:field[@element='date' and @qualifier='embargoEndDate']" />
                         </xsl:call-template>
                     </xsl:for-each>
                 </div>
