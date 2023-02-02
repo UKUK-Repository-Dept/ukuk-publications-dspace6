@@ -93,7 +93,7 @@
             </xsl:when>
             <xsl:when test="$licenseText">
                 <xsl:choose>
-                    <xsl:when test="contains($licenseText, 'bez licence'">
+                    <xsl:when test="contains($licenseText, 'bez licence')">
                         <p>
                             <i18n:text>xmlui.dri2xhtml.METS-1.0.no-license-text</i18n:text>
                         </p>    
