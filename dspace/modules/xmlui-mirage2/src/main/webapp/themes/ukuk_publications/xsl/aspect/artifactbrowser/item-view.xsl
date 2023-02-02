@@ -396,6 +396,7 @@
                             <xsl:with-param name="title" select="mets:FLocat[@LOCTYPE='URL']/@xlink:title" />
                             <xsl:with-param name="label" select="mets:FLocat[@LOCTYPE='URL']/@xlink:label" />
                             <xsl:with-param name="size" select="@SIZE" />
+                            <xsl:with-param name="emgargo" select="dim:field[@element='date' and @qualifier='embargoEndDate']" />
                         </xsl:call-template>
                     </xsl:for-each>
                 </div>
@@ -415,6 +416,7 @@
         <xsl:param name="title" />
         <xsl:param name="label" />
         <xsl:param name="size" />
+        <xsl:param name="embargo" />
         <div>
             <a>
                 <xsl:attribute name="href">
@@ -481,6 +483,13 @@
                 </xsl:choose>
                 <xsl:text>)</xsl:text>
             </a>
+            <xsl:if test="$embargo">
+                <xsl:variable name="embargo-text"><i18n:text>xmlui.dri2xhtml.METS-1.0.embargo-text</i18n:text></xsl:variable>
+                <xsl:variable name="embargo-text-date">
+                    <xsl:value-of select="concat('(',$embargo-text,$embargo,')')"/>
+                </xsl:variable>
+                <span id="emgargo-{$href}"><xsl:value-of select="$emgargo-text-date" /></span>
+            </xsl:if>
         </div>
     </xsl:template>
 

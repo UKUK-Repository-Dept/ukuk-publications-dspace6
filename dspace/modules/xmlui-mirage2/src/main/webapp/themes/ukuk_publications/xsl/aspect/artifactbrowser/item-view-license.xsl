@@ -52,7 +52,7 @@
                     </a>
         
                     <span>
-                        <i18n:text>xmlui.dri2xhtml.METS-1.0.cc-license-text</i18n:text>
+                        <i18n:text>xmlui.dri2xhtml.METS-1.0.cc-license-text-custom</i18n:text>
                         <xsl:value-of select="$licenseText"/>
                     </span>
                 </xsl:when>
@@ -86,9 +86,11 @@
                 </p>
                 
                 <p>
+                    <xsl:text>(</xsl:text>
                     <a rel="license" href="{$licenseUri}" alt="{$licenseText}" title="{$licenseText}">
                         <i18n:text>xmlui.dri2xhtml.METS-1.0.no-cc-license-url</i18n:text>
                     </a>
+                    <xsl:text>)</xsl:text>
                 </p>
             </xsl:when>
             <xsl:when test="$licenseText">
