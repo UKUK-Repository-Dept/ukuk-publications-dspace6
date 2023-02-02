@@ -488,7 +488,7 @@
                 <xsl:variable name="embargo-text-date">
                     <xsl:value-of select="concat('(',$embargo-text,$embargo,')')"/>
                 </xsl:variable>
-                <span id="emgargo-{$href}"><xsl:value-of select="$emgargo-text-date" /></span>
+                <span id="emgargo-{$href}"><xsl:value-of select="$embargo-text-date" /></span>
             </xsl:if>
         </div>
     </xsl:template>
