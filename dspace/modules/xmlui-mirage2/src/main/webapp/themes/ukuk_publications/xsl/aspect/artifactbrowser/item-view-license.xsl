@@ -19,12 +19,6 @@
 
     <!--The License-->
     <xsl:template name="license">
-        <!-- <xsl:param name="metadataURL"/>
-        <xsl:variable name="externalMetadataURL">
-            <xsl:text>cocoon:/</xsl:text>
-            <xsl:value-of select="$metadataURL"/>
-            <xsl:text>?sections=dmdSec,fileSec&amp;fileGrpTypes=THUMBNAIL</xsl:text>
-        </xsl:variable> -->
 
         <xsl:variable name="licenseText" select="dim:field[@element='rights']" />
         <!-- <JR> 2023-02-01 - by default, in our installation of DSpace for publications.cuni.cz, CC license URI is stored in dcterms.license -->
@@ -43,36 +37,33 @@
             </xsl:for-each>
         </xsl:variable>
         
-        <!--<div about="{$handleUri}" class="row">-->
-        <div class="simple-item-view-description item-page-field-wrapper table">
-            <!-- <JR> - Add heading for abstract visible all the time and specifying the abstract language -->
-            <!-- <h5 class="visible-xs"><i18n:text>xmlui.dri2xhtml.METS-1.0.item-abstract</i18n:text></h5>-->
-            <div about="{$handleUri}" class="row">
-                <h5 class="item-view-metadata-heading" if="item-view-metadata-license"><i18n:text>xmlui.dri2xhtml.METS-1.0.item-license</i18n:text></h5>
+        
+        <div class="simple-item-view-description item-page-field-wrapper table" about="{$handleUri}">
+        
+            <h5 class="item-view-metadata-heading" if="item-view-metadata-license"><i18n:text>xmlui.dri2xhtml.METS-1.0.item-license</i18n:text></h5>
                 
-                <xsl:choose>
-                    <xsl:when test="$licenseText and $licenseUri and contains($licenseUri, 'creativecommons')">
-                        <a rel="license" href="{$licenseUri}" alt="{$licenseText}" title="{$licenseText}">
-                            <xsl:call-template name="cc-logo">
-                                <xsl:with-param name="licenseText" select="$licenseText"/>
-                                <xsl:with-param name="licenseUri" select="$licenseUri"/>
-                            </xsl:call-template>
-                        </a>
-            
-                        <span>
-                            <i18n:text>xmlui.dri2xhtml.METS-1.0.cc-license-text</i18n:text>
-                            <xsl:value-of select="$licenseText"/>
-                        </span>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:call-template name="no-cc-license">
+            <xsl:choose>
+                <xsl:when test="$licenseText and $licenseUri and contains($licenseUri, 'creativecommons')">
+                    <a rel="license" href="{$licenseUri}" alt="{$licenseText}" title="{$licenseText}">
+                        <xsl:call-template name="cc-logo">
                             <xsl:with-param name="licenseText" select="$licenseText"/>
                             <xsl:with-param name="licenseUri" select="$licenseUri"/>
                         </xsl:call-template>
-                    </xsl:otherwise>
-                </xsl:choose>
+                    </a>
+        
+                    <span>
+                        <i18n:text>xmlui.dri2xhtml.METS-1.0.cc-license-text</i18n:text>
+                        <xsl:value-of select="$licenseText"/>
+                    </span>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="no-cc-license">
+                        <xsl:with-param name="licenseText" select="$licenseText"/>
+                        <xsl:with-param name="licenseUri" select="$licenseUri"/>
+                    </xsl:call-template>
+                </xsl:otherwise>
+            </xsl:choose>
                 
-            </div>
         </div>
         
     </xsl:template>
@@ -101,9 +92,18 @@
                 </p>
             </xsl:when>
             <xsl:when test="$licenseText">
-                <p>
-                    <xsl:value-of select="$licenseText"/>
-                </p>
+                <xsl:choose>
+                    <xsl:when test="contains($licenseText, 'bez licence'">
+                        <p>
+                            <i18n:text>xmlui.dri2xhtml.METS-1.0.no-license-text</i18n:text>
+                        </p>    
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <p>
+                            <xsl:value-of select="$licenseText"/>
+                        </p>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:when>
             <xsl:otherwise></xsl:otherwise>
         </xsl:choose>
