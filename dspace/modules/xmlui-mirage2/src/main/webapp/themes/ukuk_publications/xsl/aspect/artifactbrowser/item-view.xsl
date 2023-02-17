@@ -167,7 +167,7 @@
                             2) return just the last string after last separator
                             3) store value in this variable
                     -->
-                    <xsl:variable name="otherOutputVersionType" select="./arr[@name='dc.type.version']/str/text()">
+                    <xsl:variable name="otherOutputVersionType">
                         <xsl:call-template name="GetLastSegment">
                             <xsl:with-param name="value" select="./arr[@name='dc.type.version']/str/text()" />
                             <xsl:with-param name="separator" select="'/'" />
