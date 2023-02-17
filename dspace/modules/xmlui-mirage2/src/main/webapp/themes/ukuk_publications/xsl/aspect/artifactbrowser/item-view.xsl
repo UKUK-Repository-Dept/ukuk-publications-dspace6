@@ -156,16 +156,16 @@
 
 
     <xsl:template match="*" mode="solrOtherOutputVersions">
-	<xsl:if test="/response/result/@numFound != '0'">
-        	<div class="simple-item-view-otherOutputVersions item-page-field-wrapper table">
-			<h5><i18n:text>xmlui.dri2xhtml.METS-1.0.item-otherOutputVersions</i18n:text></h5>
-            		<xsl:for-each select="/response/result/doc">
-            			<xsl:variable name="otherOutputVersionURL" select="./arr[@name='dc.identifier.uri']/str/text()"/>
-				<xsl:variable name="otherOutputVersionType" select="./arr[@name='dc.type.version']/str/text()"/>
-                		<a href="{$otherOutputVersionURL}"><xsl:copy-of select="./arr[@name='dc.identifier.uri']/str"/><xsl:text> (</xsl:text><xsl:value-of select="$otherOutputVersionType"/><xsl:text>)</xsl:text></a>
-            		</xsl:for-each>
-        	</div>
-	</xsl:if>
+        <xsl:if test="/response/result/@numFound != '0'">
+            <div class="simple-item-view-otherOutputVersions item-page-field-wrapper table">
+                <h5><i18n:text>xmlui.dri2xhtml.METS-1.0.item-otherOutputVersions</i18n:text></h5>
+                <xsl:for-each select="/response/result/doc">
+                    <xsl:variable name="otherOutputVersionURL" select="./arr[@name='dc.identifier.uri']/str/text()"/>
+                    <xsl:variable name="otherOutputVersionType" select="./arr[@name='dc.type.version']/str/text()"/>
+                    <a href="{$otherOutputVersionURL}"><xsl:copy-of select="./arr[@name='dc.identifier.uri']/str"/><xsl:text> (</xsl:text><xsl:value-of select="$otherOutputVersionType"/><xsl:text>)</xsl:text></a>
+                </xsl:for-each>
+            </div>
+        </xsl:if>
     </xsl:template>
 
     <xsl:template name="itemSummaryView-DIM-title">
