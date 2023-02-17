@@ -814,7 +814,13 @@
         <i18n:text i18n:key="{$mimetype-key}"><xsl:value-of select="$mimetype"/></i18n:text>
     </xsl:template>
 
-    <!-- Get last segment of a string, following after last occurence of a given separator -->
+    <!-- 
+        Get last segment of a string, following after last occurence of a given separator 
+
+        @author: JLRishe@stackoverflow: https://stackoverflow.com/users/1945651/jlrishe
+        
+        For details see accepted answer at: https://stackoverflow.com/questions/17468891/substring-after-last-character-in-xslt
+    -->
     <xsl:template name="GetLastSegment">
         <xsl:param name="value" />
         <xsl:param name="separator" /><!-- select="'.'" />-->
