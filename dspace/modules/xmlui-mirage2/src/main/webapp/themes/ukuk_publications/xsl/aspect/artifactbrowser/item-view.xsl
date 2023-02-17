@@ -179,7 +179,7 @@
                             - link text: i18n string created by a prefix (hardcoded) and processed other output's version name, connected by '.'
                     -->
                     <a href="{$otherOutputVersionURL}" target="_blank">
-                        <i18n:text><xsl:value-of select="concat('mlui.publication.version.','.',$otherOutputVersionType"/></i18n:text>
+                        <i18n:text><xsl:value-of select="concat('xmlui.publication.version.','.',$otherOutputVersionType)"/></i18n:text>
                     </a>
                 </xsl:for-each>
             </div>
