@@ -3614,4 +3614,16 @@
 	<message key="xmlui.ArtifactBrowser.SimpleSearch.filter.OBDTypeHierarchyCs">Druh výsledku</message>
 	<!-- END OF: CUSTOM FACETS LABELS TRANSLATIONS -->
 
+	<!--OUTPUT PUBLICATION VERSIONS TRANSLATIONS-->
+	
+	<!-- other output versions item-view heading translation -->
+	<message key="xmlui.dri2xhtml.METS-1.0.item-otherOutputVersions">Další verze výsledku</message>
+	
+	<!-- other output versions values translations -->
+	<message key="xmlui.publication.version.draft">Koncept - pracovní verze</message>
+	<message key="xmlui.publication.version.submittedVersion">Preprint - verze před recenzí</message>
+	<message key="xmlui.publication.version.acceptedVersion">Postprint - verze po recenzi</message>
+	<message key="xmlui.publication.version.publishedVersion">Vydavatelská publikovaná verze</message>
+	<message key="xmlui.publication.version.updatedVersion">Aktualizovaná publikovaná verze</message>
+
 </catalogue>
