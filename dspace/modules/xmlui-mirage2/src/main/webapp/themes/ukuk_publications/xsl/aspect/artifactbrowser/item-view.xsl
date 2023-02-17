@@ -161,8 +161,26 @@
                 <h5><i18n:text>xmlui.dri2xhtml.METS-1.0.item-otherOutputVersions</i18n:text></h5>
                 <xsl:for-each select="/response/result/doc">
                     <xsl:variable name="otherOutputVersionURL" select="./arr[@name='dc.identifier.uri']/str/text()"/>
-                    <xsl:variable name="otherOutputVersionType" select="./arr[@name='dc.type.version']/str/text()"/>
-                    <a href="{$otherOutputVersionURL}" target="_blank"><xsl:copy-of select="./arr[@name='dc.identifier.uri']/str"/><xsl:text> (</xsl:text><xsl:value-of select="$otherOutputVersionType"/><xsl:text>)</xsl:text></a>
+                    <!-- 
+                        Get other output's version and process the value:
+                            1) search for the string after last separator ('/')
+                            2) return just the last string after last separator
+                            3) store value in this variable
+                    -->
+                    <xsl:variable name="otherOutputVersionType" select="./arr[@name='dc.type.version']/str/text()">
+                        <xsl:call-template name="GetLastSegment">
+                            <xsl:with-param name="value" select="./arr[@name='dc.type.version']/str/text()" />
+                            <xsl:with-param name="separator" select="'/'" />
+                        </xsl:call-template>
+                    </xsl:variable>
+                    <!-- 
+                        Create link to other output version:
+                            - href: value of otherOutputVersionURL variable - value is parsed directly from SOLR response
+                            - link text: i18n string created by a prefix (hardcoded) and processed other output's version name, connected by '.'
+                    -->
+                    <a href="{$otherOutputVersionURL}" target="_blank">
+                        <i18n:text><xsl:value-of select="concat('mlui.publication.version.','.',$otherOutputVersionType"/></i18n:text>
+                    </a>
                 </xsl:for-each>
             </div>
         </xsl:if>
@@ -795,6 +813,24 @@
         <!--Lookup the MIME Type's key in messages.xml language file.  If not found, just display MIME Type-->
         <i18n:text i18n:key="{$mimetype-key}"><xsl:value-of select="$mimetype"/></i18n:text>
     </xsl:template>
+
+    <!-- Get last segment of a string, following after last occurence of a given separator -->
+    <xsl:template name="GetLastSegment">
+        <xsl:param name="value" />
+        <xsl:param name="separator" /><!-- select="'.'" />-->
+
+        <xsl:choose>
+            <xsl:when test="contains($value, $separator)">
+                <xsl:call-template name="GetLastSegment">
+                    <xsl:with-param name="value" select="substring-after($value, $separator)" />
+                    <xsl:with-param name="separator" select="$separator" />
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$value" />
+            </xsl:otherwise>
+        </xsl:choose>
+  </xsl:template>
 
 
 </xsl:stylesheet>
