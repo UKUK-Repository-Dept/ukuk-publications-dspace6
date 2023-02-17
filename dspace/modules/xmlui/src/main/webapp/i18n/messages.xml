@@ -3507,4 +3507,16 @@
 	<message key="xmlui.ArtifactBrowser.SimpleSearch.filter.OBDTypeHierarchyEn">Research Output Type</message>
 	<message key="xmlui.ArtifactBrowser.SimpleSearch.filter.OBDTypeHierarchyCs">Research Output Type</message>
 	<!-- END OF: CUSTOM FACETS LABELS TRANSLATIONS -->
+	<!--OUTPUT PUBLICATION VERSIONS TRANSLATIONS-->
+	
+	<!-- other output versions item-view heading translation -->
+	<message key="xmlui.dri2xhtml.METS-1.0.item-otherOutputVersions">Other output versions</message>
+	
+	<!-- other output versions values translations -->
+	<message key="xmlui.publication.version.draft">Draft</message>
+	<message key="xmlui.publication.version.submittedVersion">Submitted version</message>
+	<message key="xmlui.publication.version.acceptedVersion">Accepted version</message>
+	<message key="xmlui.publication.version.publishedVersion">Published version</message>
+	<message key="xmlui.publication.version.updatedVersion">Updated published version</message>
+
 </catalogue>
