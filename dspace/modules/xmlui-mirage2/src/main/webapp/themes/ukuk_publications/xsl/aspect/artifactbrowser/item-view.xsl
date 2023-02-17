@@ -162,7 +162,7 @@
                 <xsl:for-each select="/response/result/doc">
                     <xsl:variable name="otherOutputVersionURL" select="./arr[@name='dc.identifier.uri']/str/text()"/>
                     <xsl:variable name="otherOutputVersionType" select="./arr[@name='dc.type.version']/str/text()"/>
-                    <a href="{$otherOutputVersionURL}"><xsl:copy-of select="./arr[@name='dc.identifier.uri']/str"/><xsl:text> (</xsl:text><xsl:value-of select="$otherOutputVersionType"/><xsl:text>)</xsl:text></a>
+                    <a href="{$otherOutputVersionURL}" target="_blank"><xsl:copy-of select="./arr[@name='dc.identifier.uri']/str"/><xsl:text> (</xsl:text><xsl:value-of select="$otherOutputVersionType"/><xsl:text>)</xsl:text></a>
                 </xsl:for-each>
             </div>
         </xsl:if>
