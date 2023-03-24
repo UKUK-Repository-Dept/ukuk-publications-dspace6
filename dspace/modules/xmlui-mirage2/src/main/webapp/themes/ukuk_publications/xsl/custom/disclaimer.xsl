@@ -48,9 +48,6 @@
         <p>
             <i18n:text>xmlui.mirage2.static-pages.disclaimer.section.cooauthors.para.2</i18n:text>
         </p>
-        <p>
-            <i18n:text>xmlui.mirage2.static-pages.disclaimer.section.cooauthors.para.3</i18n:text>
-        </p>
         <br/>
         <h2><i18n:text>xmlui.mirage2.static-pages.disclaimer.section.publisher-third-parties</i18n:text></h2>
         <br/>
