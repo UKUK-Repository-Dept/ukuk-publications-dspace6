@@ -2899,24 +2899,51 @@
 	<!-- <JR> - 22-02-01: page/disclaimer-->
 	<message key="xmlui.mirage2.static-pages.title.disclaimer">Disclaimer</message>
 	<!-- page/disclaimer - section headings -->
-	<message key="xmlui.mirage2.static-pages.disclaimer.section.cooauthors">Confirmation of obtaining the consent of the co-authors to storage and disclosure of the results in the repository</message>
-	<message key="xmlui.mirage2.static-pages.disclaimer.section.publisher-third-parties">Confirmation of non-infringement of the rights of the publisher or a third party</message>
+	<message key="xmlui.mirage2.static-pages.disclaimer.section.cooauthors">Confirmation of declaration 
+	of non-infringement of the potential co-authors’ rights by storing and making the output accessible 
+	in the repository</message>
+	<message key="xmlui.mirage2.static-pages.disclaimer.section.publisher-third-parties">Confirmation 
+	of non-infringement of the rights of the publisher or a third party</message>
 	<!-- page/disclaimer - cooauthors paragraphs -->
 	<message key="xmlui.mirage2.static-pages.disclaimer.section.cooauthors.para.1">
-		By confirming that all co-authors agree to the storage and disclosure of the full text of the work, you meet the condition of unanimity, which for the treatment of co-authored works, is established in Article 8(4) of Act no. 121/2000 Sb., on copyrights, on rights related to copyrights, and on amendments to certain acts, as amended (the “Copyright Act”). This means that when handling or using the work in any manner, all co-authors must provide their consent (in other words, the majority principle, i.e. where an absolute majority of co-authors would decide on the handling or usage of the work, does not apply here).
+		According to Act No. 121/2000 Coll., on copyright, on rights related to copyright, 
+		and on amendments to certain acts, as amended (the "Copyright Act"), in the case of co-authorship, 
+		each of the co-authors has equal rights to the co-authored work. Therefore, all co-authors 
+		must give their consent to any disposal (including the storage and access to the work in a repository) 
+		of the co-authored work. However, this does not apply if the work has already been published 
+		in open access mode (such work can be shared without restriction under the terms of the relevant 
+		public licence) or if the economic rights to the work are exercised by a person other 
+		than the authors (typically an employer or publisher).
 	</message>
 	<message key="xmlui.mirage2.static-pages.disclaimer.section.cooauthors.para.2">
-		If one of the co-authors prevents the handling or usage of the work without a serious reason, you may seek replacement of the missing expression of their will by a court of law.
-	</message>
-	<message key="xmlui.mirage2.static-pages.disclaimer.section.cooauthors.para.3">
-		If you store and disclose the full text in the repository and one of the co-authors has not provided their consent, you infringe upon this co-author’s copyright. They may subsequently, by way of a private court action, seek the protection of their rights in accordance with Section 40 et seq. of the Copyright Act. Specifically, the co-author may seek a ban on unauthorized disclosure of the work to the public or entitlement to reasonable satisfaction. Administrative liability for a misdemeanour, pursuant to Section 105a of the Copyright Act, is also possible, and in extreme cases, also criminal liability, pursuant to Section 270 of Act no. 40/2009 Sb., the Criminal Code, as amended.
+		By storing and making the full text of the output (co-authored work) accessible 
+		in the repository without the consent of one of the co-authors in the case where 
+		this consent is necessary to obtain, the copyright of this co-author is thus infringed. 
+		The co-author may subsequently seek protection of their rights by means of a private action 
+		in accordance with Sec. 40 et seq. of the Copyright Act. Specifically, the co-author may seek, 
+		for example, prohibition of the unauthorised communication of the work to the public 
+		or the provision of adequate compensation. Administrative liability for misdemeanour 
+		under Sec. 105a of the Copyright Act, or in the extreme case, criminal liability 
+		under Sec. 270 of Act No. 40/2009 Coll., the Criminal Code, as amended, may also be considered.
 	</message>
 	<!-- page/disclaimer - publisher/third parties paragraph-->
 	<message key="xmlui.mirage2.static-pages.disclaimer.section.publisher-third-parties.para.1">
-		Upon confirmation that by storing and disclosing the full text of the work in the repository you do not infringe upon the rights of the publisher or another third party, you confirm that this action does not violate the terms and conditions of the licensing agreement or another contract. Thus, in the event that a licensing agreement has been concluded with the publisher or another contract concerning the handling or use of the work, it is very important to ensure that storing and disclosing the work in the repository does not violate the terms and conditions (see Step 2 for more information: Checking the licensing agreement with the publisher).
+		Upon confirmation that by storing and making the full text of the work accessible 
+		in the repository you do not infringe the rights of the publisher or any other third party, 
+		you confirm that this action does not violate the terms of the licensing or other agreement. 
+		Thus, in the event that a licensing agreement with the publisher or another agreement concerning 
+		the use of the work has been concluded, it is crucial to make sure that storing and making 
+		the work accessible in the repository does not violate the terms and conditions of this agreement.
 	</message>
 	<message key="xmlui.mirage2.static-pages.disclaimer.section.publisher-third-parties.para.2">
-		In the event that you store and disclose the full text in the repository in violation of a previously concluded licensing agreement or other contract, you infringe upon the rights of the other party. They may subsequently seek compensation for damage caused by a breach of contractual obligation in a private court action, in accordance with Section 2913 of Act no. 89/2012 Sb., the Civil Code. 
+		Storing and making the full text of the output accessible in the repository in violation 
+		of the terms of the contract would constitute infringement of the rights of the other party 
+		to the agreement. If the other party was to suffer damage as a result of this action, 
+		they could subsequently seek compensation for damages caused by the breach of contractual 
+		obligation by way of a private action in accordance with Sec. 2913 of Act No. 89/2012 Coll., Civil Code, 
+		as amended. Administrative liability for misdemeanour under Section 105a of the Copyright Act, 
+		or in the extreme case, criminal liability under Sec. 270 of Act No. 40/2009 Coll., the Criminal Code, 
+		as amended, may also be considered.
 	</message>
 	<!-- END OF: page/disclaimer-->
 
