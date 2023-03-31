@@ -85,7 +85,7 @@
             </Description>
         </Context>
 
-        <Context baseurl="nusl" name="NUŠL Context">
+        <Context baseurl="nusl" name="NUSL Context">
             <!-- Date format, field prefixes, etc are ensured by the transformer -->
             <!-- <JR> - 2022-11-18: Added custom CUNIopenaireTranformer based on the default one -->
             <!--<Transformer ref="openaireTransformer"/>-->
@@ -97,7 +97,7 @@
             <Filter ref="CUNInuslFilter"/>
             <Set ref="nuslMethodologySet"/>
             <!-- Metadata Formats -->
-            <!-- <JR> - 2022-11-18: Added custom openairedc format based on the default oaidc -->
+            <Format ref="oaidc"/>
             <Format ref="mets"/>
             <Format ref="xoai"/>
             <Description>
