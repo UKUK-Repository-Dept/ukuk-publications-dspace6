@@ -84,6 +84,26 @@
                 This contexts complies with OpenAIRE Guidelines for Literature Repositories v3.0.
             </Description>
         </Context>
+
+        <Context baseurl="nusl" name="NUŠL Context">
+            <!-- Date format, field prefixes, etc are ensured by the transformer -->
+            <!-- <JR> - 2022-11-18: Added custom CUNIopenaireTranformer based on the default one -->
+            <!--<Transformer ref="openaireTransformer"/>-->
+            <Transformer ref="CUNInuslTransformer"/>
+
+            <!-- OpenAIRE filter -->
+            <!-- <JR> - 2022-11-18: Added custom CUNIOpenAireFilter based on the default one -->
+            <!--<Filter ref="openAireFilter"/>-->
+            <Filter ref="CUNInuslFilter"/>
+            <Set ref="nuslMethodologySet"/>
+            <!-- Metadata Formats -->
+            <!-- <JR> - 2022-11-18: Added custom openairedc format based on the default oaidc -->
+            <Format ref="mets"/>
+            <Format ref="xoai"/>
+            <Description>
+                This context complies with NUŠL standards for metadata.
+            </Description>
+        </Context>
     </Contexts>
 
 
@@ -164,7 +184,7 @@
         </Format>
         <Format id="uketd_dc">
             <Prefix>uketd_dc</Prefix>
-            <XSLT>metadataFormats/uketd_dc.xsl</XSLT>
+            <XSLT>metadataFormats/uketd_dc.xslCUNIopenaireTransformer</XSLT>
             <Namespace>http://naca.central.cranfield.ac.uk/ethos-oai/2.0/</Namespace>
             <SchemaLocation>http://naca.central.cranfield.ac.uk/ethos-oai/2.0/uketd_dc.xsd</SchemaLocation>
             <Filter ref="uketdDcFilter"/>
@@ -186,6 +206,9 @@
         </Transformer>
         <Transformer id="CUNIopenaireTransformer">
             <XSLT>transformers/CUNIopenaire.xsl</XSLT>
+        </Transformer>
+        <Transformer id="CUNInuslTransformer">
+            <XSLT>transformers/CUNInuslmethodologies.xsl</XSLT>
         </Transformer>
     </Transformers>
 
@@ -353,6 +376,54 @@
             </Definition>
         </Filter>
 
+        <Filter id="CUNInuslFilter">
+            <Definition>
+                <And>
+                    <LeftCondition>
+                        <And>
+                            <LeftCondition>
+                                <And>
+                                    <LeftCondition>
+                                        <Custom ref="titleExistsCondition"/>
+                                    </LeftCondition>
+                                    <RightCondition>
+                                        <Custom ref="authorExistsCondition"/>
+                                    </RightCondition>
+                                </And>
+                            </LeftCondition>
+                            <RightCondition>
+                                <Custom ref="cuniMethodologyTypeCondition"/>
+                            </RightCondition>
+                        </And>    
+                    </LeftCondition>
+                    <RightCondition>
+                        <!--<Or>
+                            <LeftCondition>-->
+                                <And>
+                                    <LeftCondition>
+                                        <Or>
+                                            <LeftCondition>
+                                                <Custom ref="itemAccessCondition"/>
+                                            </LeftCondition>
+                                            <RightCondition>
+                                                <Custom ref="itemWithdrawnCondition"/>
+                                            </RightCondition>
+                                        </Or>
+                                    </LeftCondition>
+                                    <RightCondition>
+                                        <Custom ref="cuniDriverAccessCondition"/>
+                                    </RightCondition>
+                                </And>
+                            <!--</LeftCondition>
+                            <RightCondition>
+                                <Custom ref="CUNIopenaireRelationCondition"/> <JR> 2023-03-31 - No funding reference needed for NUŠL?
+                            </RightCondition>
+                        </Or>-->
+                    </RightCondition>
+                </And>
+            </Definition>
+        </Filter>
+
         <!-- UKETD Filter for records returned by OAI-PMH.
              By default, return an Item record:
                 * If it is a "thesis"
@@ -514,6 +585,25 @@
             </Configuration>
         </CustomCondition>
 
+        <!-- 
+             <JR> 2023-03-31:
+             This condition determines if an Item has a "dc.type.obdHierarchyCode" field with value 129::151::146,
+             representing a 'certified methodology' output type, which metadata should be harvested by NUŠL repository.
+            
+             In case we need to let NUŠL havest all methodologies / procedures (more general output type), we can check for
+             129::151 or just 129 value
+            -->
+        <CustomCondition id="cuniMethodologyTypeCondition">
+            <Class>org.dspace.xoai.filter.DSpaceAtLeastOneMetadataFilter</Class>
+            <Configuration>
+                <string name="field">dc.type.obdHierarchyCode</string>
+                <string name="operator">contains</string>
+                <list name="values">
+                    <string>129::151::146</string>
+                </list>
+            </Configuration>
+        </CustomCondition>
+
         <!-- This condition determines if an Item has a "dc.relation.fundingReference" metadata field with value starting
             with 'info:eu-repo/grantAgreement/' string -->
         <CustomCondition id="CUNIopenaireRelationCondition">
@@ -537,6 +627,10 @@
             <Spec>openaire</Spec>
             <Name>OpenAIRE</Name>
             <!-- Just an alias -->
+        </Set>
+        <Set id="nuslMethodologySet">
+            <Spec>nuslmethodologies</Spec>
+            <Name>CUNI Methodologies for NUŠL</Name>
         </Set>
     </Sets>
 </Configuration>
