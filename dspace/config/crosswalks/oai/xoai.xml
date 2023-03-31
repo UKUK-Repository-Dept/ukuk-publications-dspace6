@@ -184,7 +184,7 @@
         </Format>
         <Format id="uketd_dc">
             <Prefix>uketd_dc</Prefix>
-            <XSLT>metadataFormats/uketd_dc.xslCUNIopenaireTransformer</XSLT>
+            <XSLT>metadataFormats/uketd_dc.xsl</XSLT>
             <Namespace>http://naca.central.cranfield.ac.uk/ethos-oai/2.0/</Namespace>
             <SchemaLocation>http://naca.central.cranfield.ac.uk/ethos-oai/2.0/uketd_dc.xsd</SchemaLocation>
             <Filter ref="uketdDcFilter"/>
