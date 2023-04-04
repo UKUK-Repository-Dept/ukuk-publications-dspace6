@@ -35,16 +35,16 @@
 
 			<!-- AUTHORS -->
 			<!-- dc.creator -->
-			<!-- <xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='creator']/doc:element/doc:field[@name='value']">
+			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='creator']/doc:element/doc:field[@name='value']">
 				<dc:creator><xsl:value-of select="." /></dc:creator>
-			</xsl:for-each> -->
+			</xsl:for-each>
 			<!-- dc.contributor.author -->
-			<!-- <xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='contributor']/doc:element[@name='author']/doc:element/doc:field[@name='value']">
+			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='contributor']/doc:element[@name='author']/doc:element/doc:field[@name='value']">
 				<dc:creator><xsl:value-of select="." /></dc:creator>
-			</xsl:for-each> -->
+			</xsl:for-each>
 
 			<!-- uk.author.identifier -> dc.creator WITH ORCID, RESEARCHERID and SCOPUS ID -->
-			<!-- <xsl:for-each select="document(concat('http://localhost:8080/solr/search/select?q=handle:',$handle,'&amp;rows=1&amp;fl=uk.author.identifier&amp;omitHeader=true'),.)//str">
+			<xsl:for-each select="document(concat('http://localhost:8080/solr/search/select?q=handle:',$handle,'&amp;rows=1&amp;fl=uk.author.identifier&amp;omitHeader=true'))//str">
 				<dc:creator>
 					<xsl:call-template name="process-author-with-identifiers">
 						<xsl:with-param name="uk-author-identifier-value">
@@ -52,7 +52,8 @@
 						</xsl:with-param>
 					</xsl:call-template>
 				</dc:creator>
-			</xsl:for-each>https://aurochs.is.cuni.cz/oai/nusl?verb=ListRecords&metadataPrefix=oai_dc -->
+			</xsl:for-each>
+			
 			<xsl:apply-templates select="document(concat('http://localhost:8080/solr/search/select?q=handle:',$handle,'&amp;rows=1&amp;fl=uk.author.identifier&amp;omitHeader=true'))"
 mode="solr-response"/>
 
@@ -287,6 +288,11 @@ mode="solr-response"/>
 				<xsl:value-of select="concat(substring-before(text(),'|'),'|','orcid:',substring-before(substring-after(text(),'orcid_'),'|'),'|','researcherid:',substring-before(substring-after(text(),'researcherid_'),'|'),'|','scopus:',substring-after(text(),'scopus_'))"/>
 			</dc:creator>
 		</xsl:for-each>
+	</xsl:template>
+
+	<xsl:template name="process-author-with-identifiers">
+		<xsl:param name="uk-author-identifier-value"/>
+		<xsl:value-of select="concat(substring-before($uk-author-identifier-value,'|'),'|','orcid:',substring-before(substring-after($uk-author-identifier-value,'orcid_'),'|'),'|','researcherid:',substring-before(substring-after($uk-author-identifier-value,'researcherid_'),'|'),'|','scopus:',substring-after($uk-author-identifier-value,'scopus_'))"/>
 	</xsl:template>
 
 	<xsl:template name="createSourceCitation">
