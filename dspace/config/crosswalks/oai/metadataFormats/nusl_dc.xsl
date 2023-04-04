@@ -285,7 +285,7 @@ mode="solr-response"/>
 		<xsl:for-each select="str">
 			<dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">
 				<xsl:value-of select="concat(substring-before(text(),'|'),'|','orcid:',substring-before(substring-after(text(),'orcid_'),'|'),'|','researcherid:',substring-before(substring-after(text(),'researcherid_'),'|'),'|','scopus:',substring-after(text(),'scopus_'))"/>
-			<dc:creator>
+			</dc:creator>
 		</xsl:for-each>
 	</xsl:template>
 
