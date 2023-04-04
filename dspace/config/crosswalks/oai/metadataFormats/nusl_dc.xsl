@@ -75,6 +75,10 @@ mode="solr-response"/>
 				<xsl:value-of select="document(concat('http://localhost:8080/solr/search/select?q=handle:',$handle,'&amp;rows=1&amp;fl=uk.author.identifier&amp;omitHeader=true'))"/>
 			</dc:description>
 
+			<dc:description>
+				<xsl:value-of select="concat('http://localhost:8080/solr/search/select?q=handle:',$handle,'&amp;rows=1&amp;fl=uk.author.identifier&amp;omitHeader=true')"/>
+			</dc:description>
+
 			<!-- PROJECT IDENTIFIER -->
 			<!-- dc.relation.fundingReference-->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='relation']/doc:element[@name='fundingReference']/doc:element/doc:field[@name='value']">
