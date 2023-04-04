@@ -44,7 +44,7 @@
 			</xsl:for-each> -->
 
 			<!-- uk.author.identifier -> dc.creator WITH ORCID, RESEARCHERID and SCOPUS ID -->
-			<xsl:for-each select="document($uk-authors,'.')/response/result/doc/arr/str">
+			<xsl:for-each select="document($uk-authors,.)/response/result/doc/arr/str">
 				<dc:creator>
 					<xsl:call-template name="process-author-with-identifiers">
 						<xsl:with-param name="uk-author-identifier-value">
