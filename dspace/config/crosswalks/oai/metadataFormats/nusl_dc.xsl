@@ -44,8 +44,17 @@
 			</xsl:for-each> -->
 
 			<!-- uk.author.identifier -> dc.creator WITH ORCID, RESEARCHERID and SCOPUS ID -->
-			<xsl:apply-templates select="document(concat('http://localhost:8080/solr/search/select?q=handle:',$handle,'&amp;rows=1&amp;fl=uk.author.identifier&amp;omitHeader=true'))"
-mode="solr-response"/>
+			<xsl:for-each select="document(concat('http://localhost:8080/solr/search/select?q=handle:',$handle,'&amp;rows=1&amp;fl=uk.author.identifier&amp;omitHeader=true'))/response/result/doc/arr/str">
+				<dc:creator>
+					<xsl:call-template name="process-author-with-identifiers">
+						<xsl:with-param name="uk-author-identifier-value">
+							<xsl:value-of select="text()"/>
+						</xsl:with-param>
+					</xsl:call-template>
+				</dc:creator>
+			</xsl:for-each>
+			<!-- <xsl:apply-templates select="document(concat('http://localhost:8080/solr/search/select?q=handle:',$handle,'&amp;rows=1&amp;fl=uk.author.identifier&amp;omitHeader=true'))"
+mode="solr-response"/> -->
 
 			<!-- PROJECT IDENTIFIER -->
 			<!-- dc.relation.fundingReference-->
@@ -115,7 +124,6 @@ mode="solr-response"/>
 				<dc:relation><xsl:value-of select="." /></dc:relation>
 			</xsl:for-each>
 
-			<!-- dc.identifier.arxiv -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='identifier']/doc:element[@name='arxiv']/doc:element/doc:field[@name='value']">
 				<dc:relation><xsl:value-of select="." /></dc:relation>
 			</xsl:for-each>
@@ -272,12 +280,9 @@ mode="solr-response"/>
 		</oai_dc:dc>
 	</xsl:template>
 
-	<xsl:template match="/response/result/doc/arr" mode="solr-response">
-		<xsl:for-each select="str">
-			<dc:creator>
-				<xsl:value-of select="concat(substring-before(text(),'|'),'|','orcid:',substring-before(substring-after(text(),'orcid_'),'|'),'|','researcherid:',substring-before(substring-after(text(),'researcherid_'),'|'),'|','scopus:',substring-after(text(),'scopus_'))"/>
-			</dc:creator>
-		</xsl:for-each>
+	<xsl:template name="process-author-with-identifiers" mode="solr-response">
+		<xsl:param name="uk-author-identifier-value"/>
+		<xsl:value-of select="concat(substring-before($uk-author-identifier-value,'|'),'|','orcid:',substring-before(substring-after($uk-author-identifier-value,'orcid_'),'|'),'|','researcherid:',substring-before(substring-after($uk-author-identifier-value,'researcherid_'),'|'),'|','scopus:',substring-after($uk-author-identifier-value,'scopus_'))"/>
 	</xsl:template>
 
 	<xsl:template name="createSourceCitation">
