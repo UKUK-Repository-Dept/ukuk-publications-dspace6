@@ -53,6 +53,16 @@
 					</xsl:call-template>
 				</dc:creator>
 			</xsl:for-each>
+
+			<xsl:for-each select="$uk-authors//str">
+				<dc:creator>
+					<xsl:call-template name="process-author-with-identifiers">
+						<xsl:with-param name="uk-author-identifier-value">
+							<xsl:value-of select="."/>
+						</xsl:with-param>
+					</xsl:call-template>
+				</dc:creator>
+			</xsl:for-each>
 			
 			<xsl:apply-templates select="document(concat('http://localhost:8080/solr/search/select?q=handle:',$handle,'&amp;rows=1&amp;fl=uk.author.identifier&amp;omitHeader=true'))"
 mode="solr-response"/>
