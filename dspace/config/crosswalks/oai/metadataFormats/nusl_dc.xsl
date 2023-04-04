@@ -271,7 +271,7 @@ mode="solr-response"/></dc:creatorIndetified>
 		</oai_dc:dc>
 	</xsl:template>
 
-	<xsl:template match="/response/result/doc/date" mode="solr-response">
+	<xsl:template match="/response/result/doc/arr/str" mode="solr-response">
     	<xsl:value-of select="text()"/>
 	</xsl:template>
 
