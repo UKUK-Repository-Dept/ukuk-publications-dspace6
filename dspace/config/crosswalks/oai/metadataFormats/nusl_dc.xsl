@@ -280,7 +280,7 @@ mode="solr-response"/> -->
 		</oai_dc:dc>
 	</xsl:template>
 
-	<xsl:template name="process-author-with-identifiers" mode="solr-response">
+	<xsl:template name="process-author-with-identifiers">
 		<xsl:param name="uk-author-identifier-value"/>
 		<xsl:value-of select="concat(substring-before($uk-author-identifier-value,'|'),'|','orcid:',substring-before(substring-after($uk-author-identifier-value,'orcid_'),'|'),'|','researcherid:',substring-before(substring-after($uk-author-identifier-value,'researcherid_'),'|'),'|','scopus:',substring-after($uk-author-identifier-value,'scopus_'))"/>
 	</xsl:template>
