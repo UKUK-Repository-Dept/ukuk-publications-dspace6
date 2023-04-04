@@ -16,7 +16,7 @@
 	
 	<xsl:template match="/">
 		<xsl:variable name="handle" select="doc:metadata/doc:element[@name='dc']/doc:element[@name='identifier']/doc:element[@name='uri']/doc:element/doc:field[@name='value']"/>
-		<xsl:variable name="uk-authors" select="document(concat('http://localhost:8080/solr/search/select?q=handle:',$handle,'&amp;rows=1&amp;fl=uk.author.identifier&amp;omitHeader=true'))"/>
+		<xsl:variable name="uk-authors" select="document(concat('http://localhost:8080/solr/search/select?q=dc.identifier.uri:',$handle,'&amp;rows=1&amp;fl=uk.author.identifier&amp;omitHeader=true'))"/>
 
 		<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" 
 			xmlns:dc="http://purl.org/dc/elements/1.1/" 
@@ -64,7 +64,7 @@
 				</dc:creator>
 			</xsl:for-each>
 			
-			<xsl:apply-templates select="document(concat('http://localhost:8080/solr/search/select?q=handle:',$handle,'&amp;rows=1&amp;fl=uk.author.identifier&amp;omitHeader=true'))"
+			<xsl:apply-templates select="document(concat('http://localhost:8080/solr/search/select?q=dc.identifier.uri:',$handle,'&amp;rows=1&amp;fl=uk.author.identifier&amp;omitHeader=true'))"
 mode="solr-response"/>
 
 			<dc:description>
@@ -72,11 +72,11 @@ mode="solr-response"/>
 			</dc:description>
 
 			<dc:description>
-				<xsl:value-of select="document(concat('http://localhost:8080/solr/search/select?q=handle:',$handle,'&amp;rows=1&amp;fl=uk.author.identifier&amp;omitHeader=true'))"/>
+				<xsl:value-of select="document(concat('http://localhost:8080/solr/search/select?q=dc.identifier.uri:',$handle,'&amp;rows=1&amp;fl=uk.author.identifier&amp;omitHeader=true'))"/>
 			</dc:description>
 
 			<dc:description>
-				<xsl:value-of select="concat('http://localhost:8080/solr/search/select?q=handle:',$handle,'&amp;rows=1&amp;fl=uk.author.identifier&amp;omitHeader=true')"/>
+				<xsl:value-of select="concat('http://localhost:8080/solr/search/select?q=dc.identifier.uri:',$handle,'&amp;rows=1&amp;fl=uk.author.identifier&amp;omitHeader=true')"/>
 			</dc:description>
 
 			<!-- PROJECT IDENTIFIER -->
