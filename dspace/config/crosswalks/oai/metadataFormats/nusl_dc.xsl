@@ -35,16 +35,17 @@
 
 			<!-- AUTHORS -->
 			<!-- dc.creator -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='creator']/doc:element/doc:field[@name='value']">
+			<!-- <xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='creator']/doc:element/doc:field[@name='value']">
 				<dc:creator><xsl:value-of select="." /></dc:creator>
-			</xsl:for-each>
+			</xsl:for-each> -->
 			<!-- dc.contributor.author -->
-			
-			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='contributor']/doc:element[@name='author']/doc:element/doc:field[@name='value']">
+			<!-- <xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='contributor']/doc:element[@name='author']/doc:element/doc:field[@name='value']">
 				<dc:creator><xsl:value-of select="." /></dc:creator>
-				<dc:creatorIndetified><xsl:apply-templates select="document(concat('http://localhost:8080/solr/search/select?q=handle:',$handle,'&amp;rows=1&amp;fl=uk.author.identifier&amp;omitHeader=true'))"
-mode="solr-response"/></dc:creatorIndetified>
-			</xsl:for-each>
+			</xsl:for-each> -->
+
+			<!-- uk.author.identifier -> dc.creator WITH ORCID, RESEARCHERID and SCOPUS ID -->
+			<xsl:apply-templates select="document(concat('http://localhost:8080/solr/search/select?q=handle:',$handle,'&amp;rows=1&amp;fl=uk.author.identifier&amp;omitHeader=true'))"
+mode="solr-response"/>
 
 			<!-- PROJECT IDENTIFIER -->
 			<!-- dc.relation.fundingReference-->
@@ -271,8 +272,12 @@ mode="solr-response"/></dc:creatorIndetified>
 		</oai_dc:dc>
 	</xsl:template>
 
-	<xsl:template match="/response/result/doc/arr/str" mode="solr-response">
-    	<xsl:value-of select="text()"/>
+	<xsl:template match="/response/result/doc/arr" mode="solr-response">
+		<xsl:for-each select="str">
+			<dc:creator>
+				<xsl:value-of select="concat(substring-before(text(),'|'),'|','orcid:',substring-before(substring-after(text(),'orcid_'),'|'),'|','researcherid:',substring-before(substring-after(text(),'researcherid_'),'|'),'|','scopus:',substring-after(text(),'scopus_'))"/>
+			</dc:creator>
+		</xsl:for-each>
 	</xsl:template>
 
 	<xsl:template name="createSourceCitation">
