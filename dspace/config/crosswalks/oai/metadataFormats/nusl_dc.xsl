@@ -15,6 +15,7 @@
 	<xsl:output omit-xml-declaration="yes" method="xml" indent="yes" />
 	
 	<xsl:template match="/">
+		<xsl:variable name="uk-authors" select="document(concat('http://localhost:8080/solr/search/select?q=handle:',$handle,'&amp;rows=1&amp;fl=uk.author.identifier&amp;omitHeader=true'))"/>
 
 		<xsl:variable name="handle" select="doc:metadata/doc:element[@name='dc']/doc:element[@name='identifier']/doc:element[@name='handle']/doc:element/doc:field[@name='value']"/>
 
@@ -44,7 +45,7 @@
 			</xsl:for-each> -->
 
 			<!-- uk.author.identifier -> dc.creator WITH ORCID, RESEARCHERID and SCOPUS ID -->
-			<xsl:for-each select="document(concat('http://localhost:8080/solr/search/select?q=handle:',$handle,'&amp;rows=1&amp;fl=uk.author.identifier&amp;omitHeader=true'))/response/result/doc/arr/str">
+			<xsl:for-each select="$uk-authors/response/result/doc/arr/str">
 				<dc:creator>
 					<xsl:call-template name="process-author-with-identifiers">
 						<xsl:with-param name="uk-author-identifier-value">
