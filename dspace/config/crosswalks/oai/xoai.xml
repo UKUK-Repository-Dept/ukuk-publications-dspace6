@@ -87,12 +87,12 @@
 
         <Context baseurl="nusl" name="NUSL Context">
             <!-- Date format, field prefixes, etc are ensured by the transformer -->
-            <!-- <JR> - 2022-11-18: Added custom CUNIopenaireTranformer based on the default one -->
+            <!-- <JR> - 2022-11-18: Added custom CUNInuslTransformer based on the default one -->
             <!--<Transformer ref="openaireTransformer"/>-->
             <Transformer ref="CUNInuslTransformer"/>
 
             <!-- OpenAIRE filter -->
-            <!-- <JR> - 2022-11-18: Added custom CUNIOpenAireFilter based on the default one -->
+            <!-- <JR> - 2022-11-18: Added custom CUNInuslFilter based on the default one -->
             <!--<Filter ref="openAireFilter"/>-->
             <Filter ref="CUNInuslFilter"/>
             <Set ref="nuslMethodologySet"/>
@@ -100,6 +100,7 @@
             <Format ref="oaidc"/>
             <Format ref="mets"/>
             <Format ref="xoai"/>
+            <Format ref="nusldc"/>
             <Description>
                 This context complies with NUŠL standards for metadata.
             </Description>
@@ -117,6 +118,12 @@
         <Format id="openairedc">
             <Prefix>oai_dc</Prefix>
             <XSLT>metadataFormats/openaire_dc.xsl</XSLT>
+            <Namespace>http://www.openarchives.org/OAI/2.0/oai_dc/</Namespace>
+            <SchemaLocation>http://www.openarchives.org/OAI/2.0/oai_dc.xsd</SchemaLocation>
+        </Format>
+        <Format id="nusldc">
+            <Prefix>oai_dc</Prefix>
+            <XSLT>metadataFormats/nusl_dc.xsl</XSLT>
             <Namespace>http://www.openarchives.org/OAI/2.0/oai_dc/</Namespace>
             <SchemaLocation>http://www.openarchives.org/OAI/2.0/oai_dc.xsd</SchemaLocation>
         </Format>
