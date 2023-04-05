@@ -34,26 +34,7 @@
 			</xsl:for-each>
 
 			<!-- AUTHORS -->
-			<!-- dc.creator -->
-			<!-- <xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='creator']/doc:element/doc:field[@name='value']">
-				<dc:creator><xsl:value-of select="." /></dc:creator>
-			</xsl:for-each> -->
-			<!-- dc.contributor.author -->
-			<!-- <xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='contributor']/doc:element[@name='author']/doc:element/doc:field[@name='value']">
-				<dc:creator><xsl:value-of select="." /></dc:creator>
-			</xsl:for-each> -->
-
 			<!-- uk.author.identifier -> dc.creator WITH ORCID, RESEARCHERID and SCOPUS ID -->
-			<!-- <xsl:for-each select="document(concat('http://localhost:8080/solr/search/select?q=dc.identifier.uri%3A%22',$handle,'%22&amp;rows=1&amp;fl=uk.author.identifier&amp;omitHeader=true'))//str">
-				<dc:creator>
-					<xsl:call-template name="process-author-with-identifiers">
-						<xsl:with-param name="uk-author-identifier-value">
-							<xsl:value-of select="text()"/>
-						</xsl:with-param>
-					</xsl:call-template>
-				</dc:creator>
-			</xsl:for-each> -->
-
 			<xsl:for-each select="$uk-authors//str">
 				<dc:creator>
 					<xsl:call-template name="process-author-with-identifiers">
@@ -63,21 +44,16 @@
 					</xsl:call-template>
 				</dc:creator>
 			</xsl:for-each>
-			
-			<!-- <xsl:apply-templates select="document(concat('http://localhost:8080/solr/search/select?q=dc.identifier.uri%3A%22',$handle,'%22&amp;rows=1&amp;fl=uk.author.identifier&amp;omitHeader=true'))"
-mode="solr-response"/> -->
 
-			<!-- <dc:description>
-				<xsl:value-of select="$uk-authors"/>
-			</dc:description>
-
-			<dc:description>
-				<xsl:value-of select="document(concat('http://localhost:8080/solr/search/select?q=dc.identifier.uri%3A%22',$handle,'%22&amp;rows=1&amp;fl=uk.author.identifier&amp;omitHeader=true'))"/>
-			</dc:description>
-
-			<dc:description>
-				<xsl:value-of select="concat('http://localhost:8080/solr/search/select?q=dc.identifier.uri%3A%22',$handle,'%22&amp;rows=1&amp;fl=uk.author.identifier&amp;omitHeader=true')"/>
-			</dc:description> -->
+			<!-- CONTRIBUTORS -->
+			<!-- dc.contributor.* (not author) -->
+			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='contributor']/doc:element[@name!='author']/doc:element/doc:field[@name='value']">
+				<dc:contributor><xsl:value-of select="." /></dc:contributor>
+			</xsl:for-each>
+			<!-- dc.contributor -->
+			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='contributor']/doc:element/doc:field[@name='value']">
+				<dc:contributor><xsl:value-of select="." /></dc:contributor>
+			</xsl:for-each>
 
 			<!-- PROJECT IDENTIFIER -->
 			<!-- dc.relation.fundingReference-->
@@ -205,15 +181,7 @@ mode="solr-response"/> -->
 				<dc:publisher><xsl:value-of select="." /></dc:publisher>
 			</xsl:for-each>
 			
-			<!-- CONTRIBUTOR -->
-			<!-- dc.contributor.* (not author) -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='contributor']/doc:element[@name!='author']/doc:element/doc:field[@name='value']">
-				<dc:contributor><xsl:value-of select="." /></dc:contributor>
-			</xsl:for-each>
-			<!-- dc.contributor -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='contributor']/doc:element/doc:field[@name='value']">
-				<dc:contributor><xsl:value-of select="." /></dc:contributor>
-			</xsl:for-each>
+			
 
 			<!-- PUBLICATION DATE -->
 			<!-- dc.date.issued -->
