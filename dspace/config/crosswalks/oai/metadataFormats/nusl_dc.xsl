@@ -123,10 +123,20 @@
 				<dc:identifier><xsl:value-of select="." /></dc:identifier>
 			</xsl:for-each>
 
-			<!-- PROJECT IDENTIFIER -->
+			<!-- FUNDING REFERENCE -->
 			<!-- dc.relation.fundingReference-->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='relation']/doc:element[@name='fundingReference']/doc:element/doc:field[@name='value']">
 				<dc:fundingReference><xsl:value-of select="."/></dc:fundingReference>
+			</xsl:for-each>
+
+			<!-- DOCUMENT TYPE -->
+			<!-- dc.type.obdHierarchyCs -> dc.resourceType -->
+			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='type']/doc:element[@name='obdHierarchyCs']/doc:element/doc:field[@name='value']">
+				<dc:resourceType><xsl:value-of select="."/></dc:resourceType>
+			</xsl:for-each>
+			<!-- dc.type.obdHierarchyEn -> dc.resourceType -->
+			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='type']/doc:element[@name='obdHierarchyEn']/doc:element/doc:field[@name='value']">
+				<dc:resourceType><xsl:value-of select="."/></dc:resourceType>
 			</xsl:for-each>
 
 			<!-- ACCESS LEVEL -->
