@@ -50,14 +50,18 @@
 	<!-- Replacing dc.type.obdHierarchyCs -->
 	<xsl:template match="/doc:metadata/doc:element[@name='dc']/doc:element[@name='type']/doc:element[@name='obdHierarchyCs']/doc:element/doc:field/text()">
 		<xsl:call-template name="substituteOBDType">
-			<xsl:with-param name="language" select="cs" />
+			<xsl:with-param name="language">
+				<xsl:text>cs</xsl:text>
+			</xsl:with-param>
 		</xsl:call-template>
 	</xsl:template>
 
 	<!-- Replacing dc.type.obdHierarchyEn -->
 	<xsl:template match="/doc:metadata/doc:element[@name='dc']/doc:element[@name='type']/doc:element[@name='obdHierarchyEn']/doc:element/doc:field/text()">
 		<xsl:call-template name="substituteOBDType">
-			<xsl:with-param name="language" select="en" />
+			<xsl:with-param name="language">
+				<xsl:text>en</xsl:text>
+			</xsl:with-param>
 		</xsl:call-template>
 	</xsl:template>
 	
