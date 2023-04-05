@@ -35,16 +35,16 @@
 
 			<!-- AUTHORS -->
 			<!-- dc.creator -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='creator']/doc:element/doc:field[@name='value']">
+			<!-- <xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='creator']/doc:element/doc:field[@name='value']">
 				<dc:creator><xsl:value-of select="." /></dc:creator>
-			</xsl:for-each>
+			</xsl:for-each> -->
 			<!-- dc.contributor.author -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='contributor']/doc:element[@name='author']/doc:element/doc:field[@name='value']">
+			<!-- <xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='contributor']/doc:element[@name='author']/doc:element/doc:field[@name='value']">
 				<dc:creator><xsl:value-of select="." /></dc:creator>
-			</xsl:for-each>
+			</xsl:for-each> -->
 
 			<!-- uk.author.identifier -> dc.creator WITH ORCID, RESEARCHERID and SCOPUS ID -->
-			<xsl:for-each select="document(concat('http://localhost:8080/solr/search/select?q=dc.identifier.uri%3A%22',$handle,'%22&amp;rows=1&amp;fl=uk.author.identifier&amp;omitHeader=true'))//str">
+			<!-- <xsl:for-each select="document(concat('http://localhost:8080/solr/search/select?q=dc.identifier.uri%3A%22',$handle,'%22&amp;rows=1&amp;fl=uk.author.identifier&amp;omitHeader=true'))//str">
 				<dc:creator>
 					<xsl:call-template name="process-author-with-identifiers">
 						<xsl:with-param name="uk-author-identifier-value">
@@ -52,7 +52,7 @@
 						</xsl:with-param>
 					</xsl:call-template>
 				</dc:creator>
-			</xsl:for-each>
+			</xsl:for-each> -->
 
 			<xsl:for-each select="$uk-authors//str">
 				<dc:creator>
@@ -64,10 +64,10 @@
 				</dc:creator>
 			</xsl:for-each>
 			
-			<xsl:apply-templates select="document(concat('http://localhost:8080/solr/search/select?q=dc.identifier.uri%3A%22',$handle,'%22&amp;rows=1&amp;fl=uk.author.identifier&amp;omitHeader=true'))"
-mode="solr-response"/>
+			<!-- <xsl:apply-templates select="document(concat('http://localhost:8080/solr/search/select?q=dc.identifier.uri%3A%22',$handle,'%22&amp;rows=1&amp;fl=uk.author.identifier&amp;omitHeader=true'))"
+mode="solr-response"/> -->
 
-			<dc:description>
+			<!-- <dc:description>
 				<xsl:value-of select="$uk-authors"/>
 			</dc:description>
 
@@ -77,7 +77,7 @@ mode="solr-response"/>
 
 			<dc:description>
 				<xsl:value-of select="concat('http://localhost:8080/solr/search/select?q=dc.identifier.uri%3A%22',$handle,'%22&amp;rows=1&amp;fl=uk.author.identifier&amp;omitHeader=true')"/>
-			</dc:description>
+			</dc:description> -->
 
 			<!-- PROJECT IDENTIFIER -->
 			<!-- dc.relation.fundingReference-->
