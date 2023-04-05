@@ -171,19 +171,7 @@
 
 			<!-- SUBJECT -->
 			<!-- dc.subject.keyword, dc.subject.rivPrimary & dc.subject.rivSecondary -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='subject']/doc:element">
-				<xsl:if test="@name='keyword' and not('rivPrimary' or 'rivSecondary')">
-					<xsl:for-each select="./doc:element/doc:field[@name='value']">
-						<dc:subject><xsl:value-of select="./doc:element/doc:field[@name='value']" /></dc:subject>
-					</xsl:for-each>
-				</xsl:if>
-
-				<xsl:if test="@name=('rivPrimary' or 'rivSecondary') and not('keyword')">
-					<xsl:for-each select="./doc:element/doc:field[@name='value']">
-						<dc:subjectCategories><xsl:value-of select="./doc:element/doc:field[@name='value']" /></dc:subjectCategories>
-					</xsl:for-each>
-				</xsl:if>
-			</xsl:for-each>
+			<!-- TODO !-->
 
 			<!-- SOURCE -->
 			<!-- dcterms.isPartOf.name -> dc.relatedItem -->
@@ -196,10 +184,14 @@
 			<!-- FILES -->
 			<!-- bundles/bundle/[@name='ORIGINAL']/bitstreams/bitstream/field[@name='url']-->
 			<xsl:for-each select="doc:metadata/doc:element[@name='bundles']/doc:element[@name='bundle']/doc:element[@name='bitstreams']/doc:element[@name='bitstream']/doc:field[@name='url']">
-				<xsl:if test="../../../../doc:element[@name='bundle']/doc:field[@name='ORIGINAL']">
-					<dc:fileUrl><xsl:value-of select="." /></dc:fileUrl>
-				</xsl:if>
+				<xsl:choose>
+        			<xsl:when test="../../../doc:field[@name='name']/text()='ORIGINAL'">
+          				<dc:fileLocation><xsl:value-of select="."/></dc:fileLocation>
+        			</xsl:when>
+        			<xsl:otherwise></xsl:otherwise>
+      			</xsl:choose>
 			</xsl:for-each>
+			
 		</oai_dc:dc>
 	</xsl:template>
 
