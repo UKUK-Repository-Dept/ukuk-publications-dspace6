@@ -171,13 +171,13 @@
 
 			<!-- SUBJECT -->
 			<!-- dc.subject.keyword -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='subject']/doc:element[@name='keyword']/doc:element/doc:field[@name='value']">
+			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='subject']/doc:element[@name='keyword' and @name!=('rivPrimary or 'rivSecondary')]/doc:element/doc:field[@name='value']">
 				<dc:subject><xsl:value-of select="." /></dc:subject>
 			</xsl:for-each>
 
 			<!-- SUBJECT CATEGORIES -->
 			<!-- dc.subject.rivPrimary & dc.subject.rivSecondary -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='subject']/doc:element[@name='rivPrimary' or 'rivSecondary']/doc:element/doc:field[@name='value']">
+			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='subject']/doc:element[@name=('rivPrimary' or 'rivSecondary') and @name!='keyword']/doc:element/doc:field[@name='value']">
 				<dc:subjectCategories><xsl:value-of select="." /></dc:subjectCategories>
 			</xsl:for-each>
 
@@ -191,8 +191,8 @@
 			
 			<!-- FILES -->
 			<!-- bundles/bundle/[@name='ORIGINAL']/bitstreams/bitstream/field[@name='url']-->
-			<xsl:for-each select="doc:metadata/doc:element[@name='bundles']/doc:element[@name='bundle']/doc:element[@name='bitstreams']/doc:element[@name='bitstream']/doc:field[@name='url']">
-				<xsl:if test="../../doc:element[@name='bundle']/doc:field[@name='ORIGINAL']">
+			<xsl:for-each select="doc:metadata/doc:element[@name='bundles']/doc:element[@name='bundle' and @]/doc:element[@name='bitstreams']/doc:element[@name='bitstream']/doc:field[@name='url']">
+				<xsl:if test="../../../../doc:element[@name='bundle']/doc:field[@name='ORIGINAL']">
 					<dc:fileUrl><xsl:value-of select="." /></dc:fileUrl>
 				</xsl:if>
 			</xsl:for-each>
