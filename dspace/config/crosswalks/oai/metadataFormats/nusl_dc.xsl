@@ -58,7 +58,7 @@
 			<!-- RESOURCE IDENTIFIER -->
 			<!-- dc.identifier.uri  - persistent identifier of an object in repository -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='identifier']/doc:element[@name='uri']/doc:element/doc:field[@name='value']">
-				<dc:systemIdentifier><xsl:value-of select="." /></dc:identifier>
+				<dc:systemIdentifier><xsl:value-of select="." /></dc:systemIdentifier>
 			</xsl:for-each>
 
 			<!-- ALTERNATIVE IDENFIERS -->
