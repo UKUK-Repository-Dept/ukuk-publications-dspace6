@@ -134,8 +134,8 @@
 		<xsl:if test="$language = 'cs'">
 			<xsl:text>certifikovaná metodika</xsl:text>
 		</xsl:if>
-		
-		<xsl:if test="$language" = 'en'>
+
+		<xsl:if test="$language = 'en'">
 			<xsl:text>certified methodology</xsl:text>
 		</xsl:if>
 	</xsl:template>
