@@ -258,9 +258,6 @@
 	<xsl:template name="prefixAltIdentifiers">
 		<xsl:param name="identifier"/>
 		<xsl:param name="scheme"/>
-		<xsl:variable name="prefix">
-			<xsl:text>info:eu-repo/semantics/altIdentifier/</xsl:text>
-		</xsl:variable>
 		<xsl:choose>
 			<xsl:when test="$scheme = 'none'">
 				<xsl:value-of select="$identifier"/>
@@ -292,12 +289,19 @@
 							<xsl:when test="$scheme = 'pubmed'">
 									<xsl:text>pubmed</xsl:text>
 							</xsl:when>
+							<xsl:when test="$scheme = 'handle'">
+									<xsl:text>hdl</xsl:text>
+							</xsl:when>
+							<!-- <JR> - 2023-04-05: we know, that in dc.identifier.uri is always a Handle identifier, so we can prefix it safely with 'hdl:' -->
+							<xsl:when test="$scheme = 'uri'">
+									<xsl:text>hdl</xsl:text>
+							</xsl:when>
 							<xsl:otherwise>
 									<xsl:value-of select="$scheme"/>
 							</xsl:otherwise>
 						</xsl:choose>
 					</xsl:variable>
-					<xsl:value-of select="concat($prefix,$newSchemeName,'/',$identifier)"/>
+					<xsl:value-of select="concat($newSchemeName,':',$identifier)"/>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
