@@ -112,6 +112,12 @@
 				</xsl:with-param>
 		</xsl:call-template>
 	</xsl:template>
+	
+	<!-- Modifying fundingReference - removing OpenAIRE prefix -->
+	<xsl:template match="/doc:metadata/doc:element[@name='dc']/doc:element[@name='raltion']/doc:element[@name='fundingReference']/doc:element/doc:field/text()">
+		<xsl:value-of select="substring-after(.,'info:eu-repo/grantAgreement/')"/>
+	</xsl:template>
+
 	<!-- AUXILIARY TEMPLATES -->
 	
 	<!-- dc.type prefixing -->
