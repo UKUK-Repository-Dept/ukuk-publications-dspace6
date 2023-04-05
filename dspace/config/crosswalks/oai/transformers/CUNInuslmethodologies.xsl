@@ -258,12 +258,21 @@
 	<xsl:template name="prefixAltIdentifiers">
 		<xsl:param name="identifier"/>
 		<xsl:param name="scheme"/>
+		<xsl:variable name="identifier-value" select="$identifier"/>
 		<xsl:choose>
 			<xsl:when test="$scheme = 'none'">
 				<xsl:value-of select="$identifier"/>
 			</xsl:when>
+			<!-- <JR> - 2023-04-05: we know, that in dc.identifier.uri is always a Handle identifier, so we can prefix it safely with 'hdl:' -->
 			<xsl:when test="$scheme = 'uri'">
-				<xsl:value-of select="$identifier"/>
+				<xsl:variable name="newSchemeName">
+					<xsl:text>hdl</xsl:text>
+				</xsl:variable>
+				<xsl:if test="contains($identifier,'/handle/')"> <!-- <JR> - 2023-04-05: This accounts for URIs in format of https://something.something/handle/ as seen on test server-->
+					<xsl:value-of select="concat($newSchemeName,':',substring-after($identifier,'/handle/'))"/>
+
+				<xsl:if test="contains($identifier,'https://hdl.handle.net/')"> <!-- <JR> - 2023-04-05: This accounts for real handle URIs-->
+					<xsl:value-of select="concat($newSchemeName,':',substring-after($identifier,'https://hdl.handle.net/'))"/>
 			</xsl:when>
 			<xsl:otherwise>
 					<xsl:variable name="newSchemeName">
@@ -290,10 +299,6 @@
 									<xsl:text>pubmed</xsl:text>
 							</xsl:when>
 							<xsl:when test="$scheme = 'handle'">
-									<xsl:text>hdl</xsl:text>
-							</xsl:when>
-							<!-- <JR> - 2023-04-05: we know, that in dc.identifier.uri is always a Handle identifier, so we can prefix it safely with 'hdl:' -->
-							<xsl:when test="$scheme = 'uri'">
 									<xsl:text>hdl</xsl:text>
 							</xsl:when>
 							<xsl:otherwise>
