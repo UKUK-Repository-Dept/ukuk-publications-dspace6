@@ -268,11 +268,14 @@
 				<xsl:variable name="newSchemeName">
 					<xsl:text>hdl</xsl:text>
 				</xsl:variable>
-				<xsl:if test="contains($identifier,'/handle/')"> <!-- <JR> - 2023-04-05: This accounts for URIs in format of https://something.something/handle/ as seen on test server-->
+				<!-- <JR> - 2023-04-05: This accounts for URIs in format of https://something.something/handle/ as seen on test server-->
+				<xsl:if test="contains($identifier,'/handle/')">
 					<xsl:value-of select="concat($newSchemeName,':',substring-after($identifier,'/handle/'))"/>
-
-				<xsl:if test="contains($identifier,'https://hdl.handle.net/')"> <!-- <JR> - 2023-04-05: This accounts for real handle URIs-->
+				</xsl:if>
+				<!-- <JR> - 2023-04-05: This accounts for real handle URIs-->
+				<xsl:if test="contains($identifier,'https://hdl.handle.net/')">
 					<xsl:value-of select="concat($newSchemeName,':',substring-after($identifier,'https://hdl.handle.net/'))"/>
+				</xsl:if>
 			</xsl:when>
 			<xsl:otherwise>
 					<xsl:variable name="newSchemeName">
