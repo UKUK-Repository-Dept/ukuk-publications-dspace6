@@ -154,8 +154,8 @@
 
 			<!-- ACCESSION DATE -->
 			<!-- dc.date.accessioned -->
-			<xsl:for-each select="">
-				<dc:dateCrated></dc:dateCrated>
+			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='date']/doc:element[@name='accessioned']/doc:element/doc:field[@name='value']">
+				<dc:dateCrated><xsl:value-of select="." /></dc:dateCrated>
 			</xsl:for-each>
 
 			<!-- ACCESS LEVEL -->
