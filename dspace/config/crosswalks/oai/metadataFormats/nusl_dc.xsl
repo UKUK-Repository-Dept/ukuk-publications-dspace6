@@ -139,6 +139,25 @@
 				<dc:resourceType><xsl:value-of select="."/></dc:resourceType>
 			</xsl:for-each>
 
+			<!-- LANGUAGE (ISO) -->
+			
+			<!-- dc.language.iso -->
+			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='language']/doc:element[@name='iso']/doc:element/doc:field[@name='value']">
+				<dc:language><xsl:value-of select="." /></dc:language>
+			</xsl:for-each>
+
+			<!-- PUBLICATION DATE -->
+			<!-- dc.date.issued -->
+			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='date']/doc:element[@name='issued']/doc:element/doc:field[@name='value']">
+				<dc:dateIssued><xsl:value-of select="." /></dc:dateIssued>
+			</xsl:for-each>
+
+			<!-- ACCESSION DATE -->
+			<!-- dc.date.accessioned -->
+			<xsl:for-each select="">
+				<dc:dateCrated></dc:dateCrated>
+			</xsl:for-each>
+
 			<!-- ACCESS LEVEL -->
 			<!-- dcterms.accessRights -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='accessRights']/doc:element/doc:field[@name='value']">
@@ -154,6 +173,7 @@
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='rights']/doc:element/doc:element/doc:field[@name='value']">
 				<dc:rights><xsl:value-of select="." /></dc:rights>
 			</xsl:for-each>
+
 			<!-- LICENSE URL -->
 			<!-- dcterms.license -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='license']/doc:element/doc:field[@name='value']">
@@ -165,8 +185,6 @@
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='date']/doc:element[@name='embargoEndDate']/doc:element/doc:field[@name='value']">
 				<dc:date><xsl:value-of select="." /></dc:date>
 			</xsl:for-each>
-
-			
 
 			<!-- DATASET REFERENCE -->
 			<!-- dc.relation.datasetUrl -->
@@ -195,21 +213,6 @@
 			<!-- dc.publisher -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='publisher']/doc:element/doc:field[@name='value']">
 				<dc:publisher><xsl:value-of select="." /></dc:publisher>
-			</xsl:for-each>
-			
-			
-
-			<!-- PUBLICATION DATE -->
-			<!-- dc.date.issued -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='date']/doc:element[@name='issued']/doc:element/doc:field[@name='value']">
-				<dc:date><xsl:value-of select="." /></dc:date>
-			</xsl:for-each>
-
-			<!-- PUBLICATION TYPE -->
-			<!-- dc.type.obdHierarchyCode -->
-			<!-- This field contains a hierarchy of OBD types/subtypes, that are transformed in CUNIopenaire.xsl transformer stylesheet to openAIRE standards -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='type']/doc:element[@name='obdHierarchyCode']/doc:element/doc:field[@name='value']">
-				<dc:type><xsl:value-of select="." /></dc:type>
 			</xsl:for-each>
 
 			<!-- PUBLICATION VERSION -->
@@ -241,12 +244,7 @@
 			</xsl:variable>
 			<dc:source><xsl:value-of select="$sourceInfo"/></dc:source>
 
-			<!-- LANGUAGE (ISO) -->
 			
-			<!-- dc.language.iso -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='language']/doc:element[@name='iso']/doc:element/doc:field[@name='value']">
-				<dc:language><xsl:value-of select="." /></dc:language>
-			</xsl:for-each>
 			
 			<!-- dc.coverage -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='coverage']/doc:element/doc:field[@name='value']">
