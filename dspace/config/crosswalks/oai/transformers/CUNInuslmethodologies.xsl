@@ -47,11 +47,17 @@
 	<xsl:template match="/doc:metadata/doc:element[@name='dc']/doc:element[@name='date']/doc:element[@name='available']" />
 	<xsl:template match="/doc:metadata/doc:element[@name='dc']/doc:element[@name='date']/doc:element[@name='accessioned']" />
 
-	<!-- Prefixing dc.type -->
-	<xsl:template match="/doc:metadata/doc:element[@name='dc']/doc:element[@name='type']/doc:element[@name='obdHierarchyCode']/doc:element/doc:field/text()">
-		<xsl:call-template name="addPrefix">
-			<xsl:with-param name="typeValue" select="." />
-			<xsl:with-param name="prefix" select="'info:eu-repo/semantics/'"></xsl:with-param>
+	<!-- Replacing dc.type.obdHierarchyCs -->
+	<xsl:template match="/doc:metadata/doc:element[@name='dc']/doc:element[@name='type']/doc:element[@name='obdHierarchyCs']/doc:element/doc:field/text()">
+		<xsl:call-template name="substituteOBDType">
+			<xsl:with-param name="language" select="cs" />
+		</xsl:call-template>
+	</xsl:template>
+
+	<!-- Replacing dc.type.obdHierarchyEn -->
+	<xsl:template match="/doc:metadata/doc:element[@name='dc']/doc:element[@name='type']/doc:element[@name='obdHierarchyEn']/doc:element/doc:field/text()">
+		<xsl:call-template name="substituteOBDType">
+			<xsl:with-param name="language" select="en" />
 		</xsl:call-template>
 	</xsl:template>
 	
@@ -120,123 +126,18 @@
 
 	<!-- AUXILIARY TEMPLATES -->
 	
-	<!-- dc.type prefixing -->
-	<xsl:template name="addPrefix">
-		<xsl:param name="typeValue" />
-		<xsl:param name="prefix" />
-		<xsl:choose>
-			<xsl:when test="starts-with($typeValue, $prefix)">
-				<xsl:value-of select="$typeValue" />
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:variable name="openaireTypeValue">
-					<xsl:call-template name="substituteOBDType">
-						<xsl:with-param name="obdTypeHierarchy" select="$typeValue" />
-					</xsl:call-template>
-				</xsl:variable>
-				<xsl:value-of select="concat($prefix, $openaireTypeValue)" />
-			</xsl:otherwise>
-		</xsl:choose>
-	</xsl:template>
 	
 	<!-- Substitute OBD Type -->
 	<xsl:template name="substituteOBDType">
-		<xsl:param name="obdTypeHierarchy"/>
-		<xsl:variable name="hierarchyPartOne" select="substring-before($obdTypeHierarchy,'::')"/>
-		<xsl:variable name="hierarchyPartTwoThree" select="substring-after($obdTypeHierarchy,'::')"/>
-		<xsl:variable name="hierarchyPartThree" select="substring-after($hierarchyPartTwoThree,'::')"/>
+		<xsl:param name="language"/>
 		
-		<xsl:choose>
-			<xsl:when test="$hierarchyPartOne = '73'">
-				<xsl:choose>
-					<xsl:when test="$hierarchyPartThree = '203'">
-						<xsl:text>review</xsl:text>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:text>article</xsl:text>		
-					</xsl:otherwise>
-				</xsl:choose>
-			</xsl:when>
-			<xsl:when test="$hierarchyPartOne = '67'">
-				<xsl:text>bookPart</xsl:text>
-			</xsl:when>
-			<xsl:when test="$hierarchyPartOne = '63'">
-				<xsl:choose>
-					<xsl:when test="$hierarchyPartThree = '248'">
-						<xsl:text>report</xsl:text>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:text>book</xsl:text>
-					</xsl:otherwise>
-				</xsl:choose>
-			</xsl:when>
-			<xsl:when test="$hierarchyPartOne = '131'">
-				<xsl:text>book</xsl:text>
-			</xsl:when>
-			<xsl:when test="$hierarchyPartOne = '129'">
-				<xsl:text>workflow</xsl:text>
-			</xsl:when>
-			<xsl:when test="$hierarchyPartOne = '133'">
-				<xsl:text>article</xsl:text>
-			</xsl:when>
-			<xsl:when test="$hierarchyPartOne = '106'">
-				<xsl:text>bookPart</xsl:text>
-			</xsl:when>
-			<xsl:when test="$hierarchyPartOne = '117'">
-				<xsl:text>workingPaper</xsl:text>
-			</xsl:when>
-			<xsl:when test="$hierarchyPartOne = '122'">
-				<xsl:text>other</xsl:text>
-			</xsl:when>
-			<xsl:when test="$hierarchyPartOne = '81'">
-				<xsl:choose>
-					<xsl:when test="$hierarchyPartThree = '338'">
-						<xsl:text>lecture</xsl:text>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:text>conferenceObject</xsl:text>
-					</xsl:otherwise>
-				</xsl:choose>
-			</xsl:when>
-			<xsl:when test="$hierarchyPartOne = '57'">
-				<xsl:text>conferenceObject</xsl:text>
-			</xsl:when>
-			<xsl:when test="$hierarchyPartOne = '213'">
-				<xsl:text>report</xsl:text>
-			</xsl:when>
-			<xsl:when test="$hierarchyPartOne = '121'">
-				<xsl:choose>
-					<xsl:when test="$hierarchyPartThree = '153'">
-						<xsl:text>report</xsl:text>
-					</xsl:when>
-					<xsl:when test="$hierarchyPartThree = '154'">
-						<xsl:text>bookPart</xsl:text>
-					</xsl:when>
-					<xsl:when test="$hierarchyPartThree = '500'">
-						<xsl:text>workflow</xsl:text>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:text>other</xsl:text>
-					</xsl:otherwise>
-				</xsl:choose>
-			</xsl:when>
-			<xsl:when test="$hierarchyPartOne = '110'">
-				<xsl:choose>
-					<xsl:when test="$hierarchyPartThree = '462'">
-						<xsl:text>conferenceObject</xsl:text>
-					</xsl:when>
-					<xsl:when test="$hierarchyPartThree = '135'">
-						<xsl:text>article</xsl:text>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:text>other</xsl:text>
-					</xsl:otherwise>
-				</xsl:choose>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:text>other</xsl:text>
-			</xsl:otherwise>
-		</xsl:choose>
+		<xsl:if test="$language = 'cs'">
+			<xsl:text>certifikovaná metodika</xsl:text>
+		</xsl:if>
+		
+		<xsl:if test="$language" = 'en'>
+			<xsl:text>certified methodology</xsl:text>
+		</xsl:if>
 	</xsl:template>
 
 	<!-- Date format -->
