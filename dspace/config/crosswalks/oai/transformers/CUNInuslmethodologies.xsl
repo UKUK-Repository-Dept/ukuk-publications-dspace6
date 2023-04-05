@@ -40,12 +40,18 @@
 			<xsl:with-param name="datestr" select="." />
 		</xsl:call-template>
 	</xsl:template>
+	<!-- Formatting dc.date.accessioned -->
+	<xsl:template match="/doc:metadata/doc:element[@name='dc']/doc:element[@name='date']/doc:element[@name='accessioned']/doc:element/doc:field/text()">
+		<xsl:call-template name="formatdate">
+			<xsl:with-param name="datestr" select="." />
+		</xsl:call-template>
+	</xsl:template>
 	
-	<!-- Removing other dc.date.*, except for dc.date.embargoStartDate and dc.date.embargoEndDate -->
+	<!-- Removing other dc.date.*, except for dc.date.embargoStartDate, dc.date.embargoEndDate and dc.date.accessioned -->
 	<!--<xsl:template match="/doc:metadata/doc:element[@name='dc']/doc:element[@name='date']/doc:element[@name!='issued' or 'embargoEndDate' or 'embargoStartDate']" />-->
 	<xsl:template match="/doc:metadata/doc:element[@name='dc']/doc:element[@name='date']/doc:element[@name='updated']" />
 	<xsl:template match="/doc:metadata/doc:element[@name='dc']/doc:element[@name='date']/doc:element[@name='available']" />
-	<xsl:template match="/doc:metadata/doc:element[@name='dc']/doc:element[@name='date']/doc:element[@name='accessioned']" />
+	<!-- <xsl:template match="/doc:metadata/doc:element[@name='dc']/doc:element[@name='date']/doc:element[@name='accessioned']" /> -->
 
 	<!-- Replacing dc.type.obdHierarchyCs -->
 	<xsl:template match="/doc:metadata/doc:element[@name='dc']/doc:element[@name='type']/doc:element[@name='obdHierarchyCs']/doc:element/doc:field/text()">
