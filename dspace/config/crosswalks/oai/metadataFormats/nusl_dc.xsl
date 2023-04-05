@@ -58,70 +58,69 @@
 			<!-- RESOURCE IDENTIFIER -->
 			<!-- dc.identifier.uri  - persistent identifier of an object in repository -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='identifier']/doc:element[@name='uri']/doc:element/doc:field[@name='value']">
-				<dc:identifier><xsl:value-of select="." /></dc:identifier>
+				<dc:systemIdentifier><xsl:value-of select="." /></dc:identifier>
 			</xsl:for-each>
 
 			<!-- ALTERNATIVE IDENFIERS -->
 			<!-- List alternative identifiers for this publication that are not the primary identifier (repository splash page), e.g., the DOI of publisher’s version, the PubMed/arXiv ID. -->
 			<!-- dc.identifier.doi -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='identifier']/doc:element[@name='doi']/doc:element/doc:field[@name='value']">
-				<dc:relation><xsl:value-of select="." /></dc:relation>
+				<dc:identifier><xsl:value-of select="." /></dc:identifier>
 			</xsl:for-each>
 	
 			<!-- dc.identifier.isbn - ISBN identifier of a resource -->
-			<!-- Whole BOOKS -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='identifier']/doc:element[@name='isbn']/doc:element/doc:field[@name='value']">
-				<dc:relation><xsl:value-of select="." /></dc:relation>
+				<dc:identifier><xsl:value-of select="." /></dc:identifier>
 			</xsl:for-each>
 
 			<!-- dc.identifier.issn - issn identifier of a resource -->
-			<!-- WHOLE KONFERENCE PROCEEDINGS -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='identifier']/doc:element[@name='issn']/doc:element/doc:field[@name='value']">
-				<dc:relation><xsl:value-of select="." /></dc:relation>
+				<dc:identifier><xsl:value-of select="." /></dc:identifier>
 			</xsl:for-each>
 
 			<!-- dc.identifier.eissn -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='identifier']/doc:element[@name='eissn']/doc:element/doc:field[@name='value']">
-				<dc:relation><xsl:value-of select="." /></dc:relation>
+				<dc:identifier><xsl:value-of select="." /></dc:identifier>
 			</xsl:for-each>
 
 			<!-- dc.identifier.handle -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='identifier']/doc:element[@name='handle']/doc:element/doc:field[@name='value']">
-				<dc:relation><xsl:value-of select="." /></dc:relation>
+				<dc:identifier><xsl:value-of select="." /></dc:identifier>
 			</xsl:for-each>
 
 			<!-- dc.identifier.ark -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='identifier']/doc:element[@name='ark']/doc:element/doc:field[@name='value']">
-				<dc:relation><xsl:value-of select="." /></dc:relation>
+				<dc:identifier><xsl:value-of select="." /></dc:identifier>
 			</xsl:for-each>
 
+			<!-- dc.identifier.arxiv -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='identifier']/doc:element[@name='arxiv']/doc:element/doc:field[@name='value']">
-				<dc:relation><xsl:value-of select="." /></dc:relation>
+				<dc:identifier><xsl:value-of select="." /></dc:identifier>
 			</xsl:for-each>
 
 			<!-- dc.identifier.pubmed -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='identifier']/doc:element[@name='pubmed']/doc:element/doc:field[@name='value']">
-				<dc:relation><xsl:value-of select="." /></dc:relation>
+				<dc:identifier><xsl:value-of select="." /></dc:identifier>
 			</xsl:for-each>
 
 			<!-- dc.identifier.purl -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='identifier']/doc:element[@name='purl']/doc:element/doc:field[@name='value']">
-				<dc:relation><xsl:value-of select="." /></dc:relation>
+				<dc:identifier><xsl:value-of select="." /></dc:identifier>
 			</xsl:for-each>
 
 			<!-- dc.identifier.urn -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='identifier']/doc:element[@name='urn']/doc:element/doc:field[@name='value']">
-				<dc:relation><xsl:value-of select="." /></dc:relation>
+				<dc:identifier><xsl:value-of select="." /></dc:identifier>
 			</xsl:for-each>
 
 			<!-- dc.identifier.utWos -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='identifier']/doc:element[@name='utWos']/doc:element/doc:field[@name='value']">
-				<dc:relation><xsl:value-of select="." /></dc:relation>
+				<dc:identifier><xsl:value-of select="." /></dc:identifier>
 			</xsl:for-each>
 			
 			<!-- dc.identifier.eidScopus -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='identifier']/doc:element[@name='eidScopus']/doc:element/doc:field[@name='value']">
-				<dc:relation><xsl:value-of select="." /></dc:relation>
+				<dc:identifier><xsl:value-of select="." /></dc:identifier>
 			</xsl:for-each>
 
 			<!-- PROJECT IDENTIFIER -->
