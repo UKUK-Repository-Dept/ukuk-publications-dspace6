@@ -71,26 +71,26 @@
 		</xsl:call-template>
 	</xsl:template>
 	
-	<!-- Prefixing and Modifying dcterms.accessRights -->
+	<!-- Formatting dcterms.accessRights -->
 	<!-- Removing unwanted -->
 	<xsl:template match="/doc:metadata/doc:element[@name='dcterms']/doc:element[@name='accessRights']/doc:element/doc:element" />
 	<!-- Replacing -->
 	<xsl:template match="/doc:metadata/doc:element[@name='dcterms']/doc:element[@name='accessRights']/doc:element/doc:field/text()">
 		<xsl:choose>
 			<xsl:when test="contains(., 'open access')">
-				<xsl:text>info:eu-repo/semantics/openAccess</xsl:text>
+				<xsl:text>open access</xsl:text>
 			</xsl:when>
 			<xsl:when test="contains(., 'openAccess')">
-				<xsl:text>info:eu-repo/semantics/openAccess</xsl:text>
+				<xsl:text>open access</xsl:text>
 			</xsl:when>
 			<xsl:when test="contains(., 'restrictedAccess')">
-				<xsl:text>info:eu-repo/semantics/restrictedAccess</xsl:text>
+				<xsl:text>restricted access</xsl:text>
 			</xsl:when>
 			<xsl:when test="contains(., 'embargoedAccess')">
-				<xsl:text>info:eu-repo/semantics/embargoedAccess</xsl:text>
+				<xsl:text>embargoed access</xsl:text>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:text>info:eu-repo/semantics/restrictedAccess</xsl:text>
+				<xsl:text>restricted access</xsl:text>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
