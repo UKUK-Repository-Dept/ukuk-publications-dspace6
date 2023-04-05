@@ -15,8 +15,8 @@
 	<xsl:output omit-xml-declaration="yes" method="xml" indent="yes" />
 	
 	<xsl:template match="/">
-		<xsl:variable name="handle" select="doc:metadata/doc:element[@name='dc']/doc:element[@name='identifier']/doc:element[@name='uri']/doc:element/doc:field[@name='value']"/>
-		<xsl:variable name="uk-authors" select="document(concat('http://localhost:8080/solr/search/select?q=dc.identifier.uri%3A%22',$handle,'%22&amp;rows=1&amp;fl=uk.author.identifier&amp;omitHeader=true'))"/>
+		<xsl:variable name="handle" select="substring-after(doc:metadata/doc:element[@name='dc']/doc:element[@name='identifier']/doc:element[@name='uri']/doc:element/doc:field[@name='value'],':')"/>
+		<xsl:variable name="uk-authors" select="document(concat('http://localhost:8080/solr/search/select?q=handle%3A%22',$handle,'%22&amp;rows=1&amp;fl=uk.author.identifier&amp;omitHeader=true'))"/>
 
 		<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" 
 			xmlns:dc="http://purl.org/dc/elements/1.1/" 
@@ -34,26 +34,7 @@
 			</xsl:for-each>
 
 			<!-- AUTHORS -->
-			<!-- dc.creator -->
-			<!-- <xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='creator']/doc:element/doc:field[@name='value']">
-				<dc:creator><xsl:value-of select="." /></dc:creator>
-			</xsl:for-each> -->
-			<!-- dc.contributor.author -->
-			<!-- <xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='contributor']/doc:element[@name='author']/doc:element/doc:field[@name='value']">
-				<dc:creator><xsl:value-of select="." /></dc:creator>
-			</xsl:for-each> -->
-
 			<!-- uk.author.identifier -> dc.creator WITH ORCID, RESEARCHERID and SCOPUS ID -->
-			<!-- <xsl:for-each select="document(concat('http://localhost:8080/solr/search/select?q=dc.identifier.uri%3A%22',$handle,'%22&amp;rows=1&amp;fl=uk.author.identifier&amp;omitHeader=true'))//str">
-				<dc:creator>
-					<xsl:call-template name="process-author-with-identifiers">
-						<xsl:with-param name="uk-author-identifier-value">
-							<xsl:value-of select="text()"/>
-						</xsl:with-param>
-					</xsl:call-template>
-				</dc:creator>
-			</xsl:for-each> -->
-
 			<xsl:for-each select="$uk-authors//str">
 				<dc:creator>
 					<xsl:call-template name="process-author-with-identifiers">
@@ -63,57 +44,29 @@
 					</xsl:call-template>
 				</dc:creator>
 			</xsl:for-each>
-			
-			<!-- <xsl:apply-templates select="document(concat('http://localhost:8080/solr/search/select?q=dc.identifier.uri%3A%22',$handle,'%22&amp;rows=1&amp;fl=uk.author.identifier&amp;omitHeader=true'))"
-mode="solr-response"/> -->
 
-			<!-- <dc:description>
-				<xsl:value-of select="$uk-authors"/>
-			</dc:description>
-
-			<dc:description>
-				<xsl:value-of select="document(concat('http://localhost:8080/solr/search/select?q=dc.identifier.uri%3A%22',$handle,'%22&amp;rows=1&amp;fl=uk.author.identifier&amp;omitHeader=true'))"/>
-			</dc:description>
-
-			<dc:description>
-				<xsl:value-of select="concat('http://localhost:8080/solr/search/select?q=dc.identifier.uri%3A%22',$handle,'%22&amp;rows=1&amp;fl=uk.author.identifier&amp;omitHeader=true')"/>
-			</dc:description> -->
-
-			<!-- PROJECT IDENTIFIER -->
-			<!-- dc.relation.fundingReference-->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='relation']/doc:element[@name='fundingReference']/doc:element/doc:field[@name='value']">
-				<dc:relation><xsl:value-of select="."/></dc:relation>
+			<!-- CONTRIBUTORS -->
+			<!-- dc.contributor.* (not author) -->
+			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='contributor']/doc:element[@name!='author']/doc:element/doc:field[@name='value']">
+				<dc:contributor><xsl:value-of select="." /></dc:contributor>
+			</xsl:for-each>
+			<!-- dc.contributor -->
+			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='contributor']/doc:element/doc:field[@name='value']">
+				<dc:contributor><xsl:value-of select="." /></dc:contributor>
 			</xsl:for-each>
 
-			<!-- ACCESS LEVEL -->
-			<!-- dcterms.accessRights -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='accessRights']/doc:element/doc:field[@name='value']">
-				<dc:rights><xsl:value-of select="." /></dc:rights>
-			</xsl:for-each>
-
-			<!-- LICENSE CONDITION -->
-			<!-- dc.rights -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='rights']/doc:element/doc:field[@name='value']">
-				<dc:rights><xsl:value-of select="." /></dc:rights>
-			</xsl:for-each>
-			<!-- dc.rights.* -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='rights']/doc:element/doc:element/doc:field[@name='value']">
-				<dc:rights><xsl:value-of select="." /></dc:rights>
-			</xsl:for-each>
-			<!-- LICENSE URL -->
-			<!-- dcterms.license -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='license']/doc:element/doc:field[@name='value']">
-				<dc:rights><xsl:value-of select="." /></dc:rights>
-			</xsl:for-each>
-
-			<!-- EMBARGO END DATE -->
-			<!-- dc.date.embargoEndDate -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='date']/doc:element[@name='embargoEndDate']/doc:element/doc:field[@name='value']">
-				<dc:date><xsl:value-of select="." /></dc:date>
+			<!-- RESOURCE IDENTIFIER -->
+			<!-- dc.identifier.uri  - persistent identifier of an object in repository -->
+			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='identifier']/doc:element[@name='uri']/doc:element/doc:field[@name='value']">
+				<dc:identifier><xsl:value-of select="." /></dc:identifier>
 			</xsl:for-each>
 
 			<!-- ALTERNATIVE IDENFIERS -->
 			<!-- List alternative identifiers for this publication that are not the primary identifier (repository splash page), e.g., the DOI of publisher’s version, the PubMed/arXiv ID. -->
+			<!-- dc.identifier.doi -->
+			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='identifier']/doc:element[@name='doi']/doc:element/doc:field[@name='value']">
+				<dc:relation><xsl:value-of select="." /></dc:relation>
+			</xsl:for-each>
 	
 			<!-- dc.identifier.isbn - ISBN identifier of a resource -->
 			<!-- Whole BOOKS -->
@@ -129,11 +82,6 @@ mode="solr-response"/> -->
 
 			<!-- dc.identifier.eissn -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='identifier']/doc:element[@name='eissn']/doc:element/doc:field[@name='value']">
-				<dc:relation><xsl:value-of select="." /></dc:relation>
-			</xsl:for-each>
-
-			<!-- dc.identifier.doi -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='identifier']/doc:element[@name='doi']/doc:element/doc:field[@name='value']">
 				<dc:relation><xsl:value-of select="." /></dc:relation>
 			</xsl:for-each>
 
@@ -176,6 +124,41 @@ mode="solr-response"/> -->
 				<dc:relation><xsl:value-of select="." /></dc:relation>
 			</xsl:for-each>
 
+			<!-- PROJECT IDENTIFIER -->
+			<!-- dc.relation.fundingReference-->
+			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='relation']/doc:element[@name='fundingReference']/doc:element/doc:field[@name='value']">
+				<dc:relation><xsl:value-of select="."/></dc:relation>
+			</xsl:for-each>
+
+			<!-- ACCESS LEVEL -->
+			<!-- dcterms.accessRights -->
+			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='accessRights']/doc:element/doc:field[@name='value']">
+				<dc:rights><xsl:value-of select="." /></dc:rights>
+			</xsl:for-each>
+
+			<!-- LICENSE CONDITION -->
+			<!-- dc.rights -->
+			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='rights']/doc:element/doc:field[@name='value']">
+				<dc:rights><xsl:value-of select="." /></dc:rights>
+			</xsl:for-each>
+			<!-- dc.rights.* -->
+			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='rights']/doc:element/doc:element/doc:field[@name='value']">
+				<dc:rights><xsl:value-of select="." /></dc:rights>
+			</xsl:for-each>
+			<!-- LICENSE URL -->
+			<!-- dcterms.license -->
+			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='license']/doc:element/doc:field[@name='value']">
+				<dc:rights><xsl:value-of select="." /></dc:rights>
+			</xsl:for-each>
+
+			<!-- EMBARGO END DATE -->
+			<!-- dc.date.embargoEndDate -->
+			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='date']/doc:element[@name='embargoEndDate']/doc:element/doc:field[@name='value']">
+				<dc:date><xsl:value-of select="." /></dc:date>
+			</xsl:for-each>
+
+			
+
 			<!-- DATASET REFERENCE -->
 			<!-- dc.relation.datasetUrl -->
 			<!-- TODO: Check if this is already implemented in CUNI CRIS system -->
@@ -205,15 +188,7 @@ mode="solr-response"/> -->
 				<dc:publisher><xsl:value-of select="." /></dc:publisher>
 			</xsl:for-each>
 			
-			<!-- CONTRIBUTOR -->
-			<!-- dc.contributor.* (not author) -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='contributor']/doc:element[@name!='author']/doc:element/doc:field[@name='value']">
-				<dc:contributor><xsl:value-of select="." /></dc:contributor>
-			</xsl:for-each>
-			<!-- dc.contributor -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='contributor']/doc:element/doc:field[@name='value']">
-				<dc:contributor><xsl:value-of select="." /></dc:contributor>
-			</xsl:for-each>
+			
 
 			<!-- PUBLICATION DATE -->
 			<!-- dc.date.issued -->
@@ -239,12 +214,6 @@ mode="solr-response"/> -->
 			<!-- doc:metadata/doc:element[@name='bundles'/doc:element[@name='bundle']/doc:field[@name='name'][text()='ORIGINAL']/../doc:element[@name='bitstreams']/doc:element[@name='bitstream']/doc:field[@name='format'] -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='bundles']/doc:element[@name='bundle']/doc:field[@name='name'][text()='ORIGINAL']/../doc:element[@name='bitstreams']/doc:element[@name='bitstream']/doc:field[@name='format']">
 				<dc:format><xsl:value-of select="." /></dc:format>
-			</xsl:for-each>
-
-			<!-- RESOURCE IDENTIFIER -->
-			<!-- dc.identifier.uri  - persistent identifier of an object in repository -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='identifier']/doc:element[@name='uri']/doc:element/doc:field[@name='value']">
-				<dc:identifier><xsl:value-of select="." /></dc:identifier>
 			</xsl:for-each>
 
 			<!-- SOURCE -->
