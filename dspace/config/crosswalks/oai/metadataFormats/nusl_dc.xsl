@@ -172,11 +172,11 @@
 			<!-- SUBJECT -->
 			<!-- dc.subject.keyword, dc.subject.rivPrimary & dc.subject.rivSecondary -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='subject']/doc:element">
-				<xsl:if test="./[@name='keyword']">
+				<xsl:if test="@name='keyword'">
 					<dc:subject><xsl:value-of select="./doc:element/doc:field[@name='value']" /></dc:subject>
 				</xsl:if>
 
-				<xsl:if test="./[@name='rivPrimary' or 'rivSecondary']">
+				<xsl:if test="@name='rivPrimary' or 'rivSecondary'">
 					<dc:subjectCategories><xsl:value-of select="./doc:element//doc:field[@name='value']" /></dc:subjectCategories>
 				</xsl:if>
 			</xsl:for-each>
