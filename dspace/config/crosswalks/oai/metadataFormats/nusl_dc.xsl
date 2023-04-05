@@ -192,7 +192,7 @@
 			<!-- FILES -->
 			<!-- bundles/bundle/[@name='ORIGINAL']/bitstreams/bitstream/field[@name='url']-->
 			<xsl:for-each select="doc:metadata/doc:element[@name='bundles']/doc:element[@name='bundle']/doc:element[@name='bitstreams']/doc:element[@name='bitstream']/doc:field[@name='url']">
-				<xsl:if test="../../../doc:field[@name='ORIGINAL']">
+				<xsl:if test="../../doc:element[@name='bundle']/doc:field[@name='ORIGINAL']">
 					<dc:fileUrl><xsl:value-of select="." /></dc:fileUrl>
 				</xsl:if>
 			</xsl:for-each>
