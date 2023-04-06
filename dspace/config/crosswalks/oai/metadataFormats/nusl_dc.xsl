@@ -170,8 +170,18 @@
 			</xsl:for-each>
 
 			<!-- SUBJECT -->
-			<!-- dc.subject.keyword, dc.subject.rivPrimary & dc.subject.rivSecondary -->
-			<!-- TODO !-->
+			<!-- dc.subject.keyword -> dc:subject -->
+			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='subject']/doc:element[@name='keyword']/doc:element/doc:field[@name='value']">
+    			<dc:subject><xsl:value-of select="." /></dc:subject>
+  			</xsl:for-each>
+			<!-- dc.subject.rivPrimary & dc.subject.rivSecondary -> dc:subjectCategories -->
+  			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='subject']/doc:element[@name='rivPrimary']/doc:element/doc:field[@name='value']">
+    			<dc:subjectCategories><xsl:value-of select="." /></dc:subjectCategories>
+  			</xsl:for-each>
+
+    		<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='subject']/doc:element[@name='rivSecondary']/doc:element/doc:field[@name='value']">
+    			<dc:subjectCategories><xsl:value-of select="." /></dc:subjectCategories>
+  			</xsl:for-each>
 
 			<!-- SOURCE -->
 			<!-- dcterms.isPartOf.name -> dc.relatedItem -->
@@ -191,7 +201,7 @@
         			<xsl:otherwise></xsl:otherwise>
       			</xsl:choose>
 			</xsl:for-each>
-			
+
 		</oai_dc:dc>
 	</xsl:template>
 
