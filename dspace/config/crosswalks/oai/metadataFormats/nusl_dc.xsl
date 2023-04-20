@@ -143,11 +143,21 @@
 			<!-- DOCUMENT TYPE -->
 			<!-- dc.type.obdHierarchyCs -> dc.resourceType -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='type']/doc:element[@name='obdHierarchyCs']/doc:element/doc:field[@name='value']">
-				<dc:resourceType><xsl:value-of select="."/></dc:resourceType>
+				<dc:resourceType>
+					<xsl:attribute name="lang">
+						<xsl:text>cs</xsl:text>
+					</xsl:attribute>
+					<xsl:value-of select="."/>
+				</dc:resourceType>
 			</xsl:for-each>
 			<!-- dc.type.obdHierarchyEn -> dc.resourceType -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='type']/doc:element[@name='obdHierarchyEn']/doc:element/doc:field[@name='value']">
-				<dc:resourceType><xsl:value-of select="."/></dc:resourceType>
+				<dc:resourceType>
+					<xsl:attribute name="lang">
+						<xsl:text>en</xsl:text>
+					</xsl:attribute>
+					<xsl:value-of select="."/>
+				</dc:resourceType>
 			</xsl:for-each>
 
 			<!-- LANGUAGE (ISO) -->
@@ -177,13 +187,23 @@
 			<!-- ABSTRACT -->
 			<!-- dc.description.abstract-->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='description']/doc:element[@name='abstract']/doc:element/doc:field[@name='value']">
-				<dc:abstract><xsl:value-of select="." /></dc:abstract>
+				<dc:abstract>
+					<xsl:attribute name="lang">
+						<xsl:value-of select="../@name" />
+					</xsl:attribute>
+					<xsl:value-of select="." />
+				</dc:abstract>
 			</xsl:for-each>
 
 			<!-- SUBJECT -->
 			<!-- dc.subject.keyword -> dc:subject -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='subject']/doc:element[@name='keyword']/doc:element/doc:field[@name='value']">
-    			<dc:subject><xsl:value-of select="." /></dc:subject>
+    			<dc:subject>
+					<xsl:attribute name="lang">
+						<xsl:value-of select="../@name" />
+					</xsl:attribute>
+					<xsl:value-of select="." />
+				</dc:subject>
   			</xsl:for-each>
 			<!-- dc.subject.rivPrimary & dc.subject.rivSecondary -> dc:subjectCategories -->
   			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='subject']/doc:element[@name='rivPrimary']/doc:element/doc:field[@name='value']">
