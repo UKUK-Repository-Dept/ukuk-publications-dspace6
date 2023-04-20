@@ -26,7 +26,12 @@
 			<!-- TITLE INFORMATION -->
 			<!-- dc.title -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='title']/doc:element/doc:field[@name='value']">
-				<dc:title><xsl:value-of select="." /></dc:title>
+				<dc:title>
+					<xsl:attribute name="lang">
+ 						<xsl:value-of select="doc:metadata/doc:element[@name='dc']/doc:element[@name='title']/doc:element/@name" />
+					</xsl:attribute>
+					<xsl:value-of select="." />
+				</dc:title>
 			</xsl:for-each>
 			<!-- dc.title.* -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='title']/doc:element/doc:element/doc:field[@name='value']">
