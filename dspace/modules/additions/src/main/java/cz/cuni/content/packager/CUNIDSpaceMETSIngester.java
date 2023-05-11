@@ -428,7 +428,7 @@ public class CUNIDSpaceMETSIngester
 
         // initialize callback object which will retrieve external inputstreams
         // for any <mdRef>s found in METS
-        MdrefManager callback = new MdrefManager(pkgFile, params);
+        AbstractMETSIngester.MdrefManager callback = new MdrefManager(pkgFile, params);
 
         // Crosswalk the sourceMD first, so that we make sure to fill in
         // submitter info (and any other initial applicable info)
