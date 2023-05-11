@@ -428,7 +428,10 @@ public class CUNIDSpaceMETSIngester
 
         // initialize callback object which will retrieve external inputstreams
         // for any <mdRef>s found in METS
-        AbstractMETSIngester.MdrefManager callback = new MdrefManager(pkgFile, params);
+
+        // <JR> - 2023-05-11: FIX: /opt/dspace.build/dspace/modules/additions/src/main/java/cz/cuni/content/packager/CUNIDSpaceMETSIngester.java:[431,54] 
+        // MdrefManager(java.io.File,org.dspace.content.packager.PackageParameters) has private access in org.dspace.content.packager.AbstractMETSIngester.MdrefManager
+        MdrefManager callback = new MdrefManager(pkgFile, params);
 
         // Crosswalk the sourceMD first, so that we make sure to fill in
         // submitter info (and any other initial applicable info)
