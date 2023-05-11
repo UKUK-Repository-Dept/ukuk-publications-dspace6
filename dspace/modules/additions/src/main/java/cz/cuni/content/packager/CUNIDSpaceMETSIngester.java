@@ -45,7 +45,7 @@ import org.jdom.Element;
  * @see AbstractPackageIngester
  * @see PackageIngester
  */
-public class DSpaceMETSIngester
+public class CUNIDSpaceMETSIngester
        extends AbstractMETSIngester
 {
     // first part of required mets@PROFILE value
