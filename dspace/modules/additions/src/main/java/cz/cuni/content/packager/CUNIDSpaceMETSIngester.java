@@ -56,6 +56,10 @@ import org.jdom.Element;
 public class CUNIDSpaceMETSIngester
        extends AbstractMETSIngester
 {
+
+    /** log4j category */
+    private static Logger log = Logger.getLogger(CUNIDSpaceMETSIngester.class);
+
     // first part of required mets@PROFILE value
     protected static final String PROFILE_START = "DSpace METS SIP Profile";
 
