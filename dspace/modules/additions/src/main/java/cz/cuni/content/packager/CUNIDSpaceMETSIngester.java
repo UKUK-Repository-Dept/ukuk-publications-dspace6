@@ -7,6 +7,14 @@
  */
 package org.dspace.content.packager;
 
+// <JR> 2023-05-11 - Fix imports since we are overriding methods that use them, in contrast to a regular DSpaceMETSIngester
+import java.io.File;
+import org.dspace.workflow.WorkflowException;
+import org.dspace.core.LogManager;
+import org.dspace.content.factory.ContentServiceFactory;
+import org.dspace.content.InProgressSubmission;
+import org.dspace.workflow.factory.WorkflowServiceFactory;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
