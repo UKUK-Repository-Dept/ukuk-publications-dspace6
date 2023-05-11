@@ -116,6 +116,105 @@ public class CUNIDSpaceMETSIngester
         }
     }// end MdrefManager class
 
+    /**
+     * Choose DMD section(s) to crosswalk.
+     * <p>
+     * The algorithm is:<br>
+     * 1. Use whatever the <code>dmd</code> parameter specifies as the primary DMD.<br>
+     * 2. If (1) is unspecified, find MODS (preferably) or DC as primary DMD.<br>
+     * 3. If (1) or (2) succeeds, crosswalk it and ignore all other DMDs with
+     *    same GROUPID<br>
+     * 4. Crosswalk remaining DMDs not eliminated already.
+     * @throws CrosswalkException if crosswalk error
+     * @throws PackageValidationException if validation error
+     * @throws IOException if IO error
+     * @throws SQLException if database error
+     * @throws AuthorizeException if authorization error
+     */
+    @Override
+    public void crosswalkObjectDmd(Context context, DSpaceObject dso,
+                              METSManifest manifest,
+                              MdrefManager callback,
+                              Element dmds[], PackageParameters params)
+        throws CrosswalkException, PackageValidationException,
+               AuthorizeException, SQLException, IOException
+    {
+        int found = -1;
+
+        // Check to see what dmdSec the user specified in the 'dmd' parameter
+        String userDmd = null;
+        if (params != null)
+        {
+            userDmd = params.getProperty("dmd");
+        }
+        if (userDmd != null && userDmd.length() > 0)
+        {
+            for (int i = 0; i < dmds.length; ++i)
+            {
+                if (userDmd.equalsIgnoreCase(manifest.getMdType(dmds[i])))
+                {
+                    found = i;
+                }
+            }
+        }
+
+        // MODS is preferred, if nothing specified by user
+        if (found == -1)
+        {
+            for (int i = 0; i < dmds.length; ++i)
+            {
+                //NOTE: METS standard actually says this should be MODS (all uppercase). But,
+                // just in case, we're going to be a bit more forgiving.
+                if ("MODS".equalsIgnoreCase(manifest.getMdType(dmds[i])))
+                {
+                    found = i;
+                }
+            }
+        }
+
+        // DC acceptable if no MODS
+        if (found == -1)
+        {
+            for (int i = 0; i < dmds.length; ++i)
+            {
+                //NOTE: METS standard actually says this should be DC (all uppercase). But,
+                // just in case, we're going to be a bit more forgiving.
+                if ("DC".equalsIgnoreCase(manifest.getMdType(dmds[i])))
+                {
+                    found = i;
+                }
+            }
+        }
+
+        String groupID = null;
+        if (found >= 0)
+        {
+            manifest.crosswalkItemDmd(context, params, dso, dmds[found], callback);
+            groupID = dmds[found].getAttributeValue("GROUPID");
+
+            if (groupID != null)
+            {
+                for (int i = 0; i < dmds.length; ++i)
+                {
+                    String g = dmds[i].getAttributeValue("GROUPID");
+                    if (g != null && !g.equals(groupID))
+                    {
+                        manifest.crosswalkItemDmd(context, params, dso, dmds[i], callback);
+                    }
+                }
+            }
+        }
+        else
+        {
+            // otherwise take the first.  Don't xwalk more than one because
+            // each xwalk _adds_ metadata, and could add duplicate fields.
+            if (dmds.length > 0)
+            {
+                manifest.crosswalkItemDmd(context, params, dso, dmds[0], callback);
+            }
+        }
+    }
+
 
     // first part of required mets@PROFILE value
     protected static final String PROFILE_START = "DSpace METS SIP Profile";
@@ -464,104 +563,7 @@ public class CUNIDSpaceMETSIngester
     }
 
 
-    /**
-     * Choose DMD section(s) to crosswalk.
-     * <p>
-     * The algorithm is:<br>
-     * 1. Use whatever the <code>dmd</code> parameter specifies as the primary DMD.<br>
-     * 2. If (1) is unspecified, find MODS (preferably) or DC as primary DMD.<br>
-     * 3. If (1) or (2) succeeds, crosswalk it and ignore all other DMDs with
-     *    same GROUPID<br>
-     * 4. Crosswalk remaining DMDs not eliminated already.
-     * @throws CrosswalkException if crosswalk error
-     * @throws PackageValidationException if validation error
-     * @throws IOException if IO error
-     * @throws SQLException if database error
-     * @throws AuthorizeException if authorization error
-     */
-    @Override
-    public void crosswalkObjectDmd(Context context, DSpaceObject dso,
-                              METSManifest manifest,
-                              MdrefManager callback,
-                              Element dmds[], PackageParameters params)
-        throws CrosswalkException, PackageValidationException,
-               AuthorizeException, SQLException, IOException
-    {
-        int found = -1;
-
-        // Check to see what dmdSec the user specified in the 'dmd' parameter
-        String userDmd = null;
-        if (params != null)
-        {
-            userDmd = params.getProperty("dmd");
-        }
-        if (userDmd != null && userDmd.length() > 0)
-        {
-            for (int i = 0; i < dmds.length; ++i)
-            {
-                if (userDmd.equalsIgnoreCase(manifest.getMdType(dmds[i])))
-                {
-                    found = i;
-                }
-            }
-        }
-
-        // MODS is preferred, if nothing specified by user
-        if (found == -1)
-        {
-            for (int i = 0; i < dmds.length; ++i)
-            {
-                //NOTE: METS standard actually says this should be MODS (all uppercase). But,
-                // just in case, we're going to be a bit more forgiving.
-                if ("MODS".equalsIgnoreCase(manifest.getMdType(dmds[i])))
-                {
-                    found = i;
-                }
-            }
-        }
-
-        // DC acceptable if no MODS
-        if (found == -1)
-        {
-            for (int i = 0; i < dmds.length; ++i)
-            {
-                //NOTE: METS standard actually says this should be DC (all uppercase). But,
-                // just in case, we're going to be a bit more forgiving.
-                if ("DC".equalsIgnoreCase(manifest.getMdType(dmds[i])))
-                {
-                    found = i;
-                }
-            }
-        }
-
-        String groupID = null;
-        if (found >= 0)
-        {
-            manifest.crosswalkItemDmd(context, params, dso, dmds[found], callback);
-            groupID = dmds[found].getAttributeValue("GROUPID");
-
-            if (groupID != null)
-            {
-                for (int i = 0; i < dmds.length; ++i)
-                {
-                    String g = dmds[i].getAttributeValue("GROUPID");
-                    if (g != null && !g.equals(groupID))
-                    {
-                        manifest.crosswalkItemDmd(context, params, dso, dmds[i], callback);
-                    }
-                }
-            }
-        }
-        else
-        {
-            // otherwise take the first.  Don't xwalk more than one because
-            // each xwalk _adds_ metadata, and could add duplicate fields.
-            if (dmds.length > 0)
-            {
-                manifest.crosswalkItemDmd(context, params, dso, dmds[0], callback);
-            }
-        }
-    }
+    
 
 
     /**
