@@ -151,7 +151,7 @@ public class CUNIDSpaceMETSIngester
      * @throws AuthorizeException if authorization error
      */
     @Override
-    public abstract void crosswalkObjectDmd(Context context, DSpaceObject dso,
+    public void crosswalkObjectDmd(Context context, DSpaceObject dso,
             METSManifest manifest, MdrefManager callback, Element dmds[],
             PackageParameters params) throws CrosswalkException,
             PackageValidationException, AuthorizeException, SQLException,
