@@ -431,6 +431,7 @@ public class CUNIDSpaceMETSIngester
 
         // <JR> - 2023-05-11: FIX: /opt/dspace.build/dspace/modules/additions/src/main/java/cz/cuni/content/packager/CUNIDSpaceMETSIngester.java:[431,54] 
         // MdrefManager(java.io.File,org.dspace.content.packager.PackageParameters) has private access in org.dspace.content.packager.AbstractMETSIngester.MdrefManager
+        // Possible solution: https://stackoverflow.com/questions/7588091/how-to-override-extend-an-inner-class-from-a-subclass
         MdrefManager callback = new MdrefManager(pkgFile, params);
 
         // Crosswalk the sourceMD first, so that we make sure to fill in
