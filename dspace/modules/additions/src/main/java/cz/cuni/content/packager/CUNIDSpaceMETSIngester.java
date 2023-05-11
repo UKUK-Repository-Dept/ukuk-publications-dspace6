@@ -120,43 +120,6 @@ public class CUNIDSpaceMETSIngester
     // first part of required mets@PROFILE value
     protected static final String PROFILE_START = "DSpace METS SIP Profile";
 
-    /**
-     * Select the <code>dmdSec</code> element(s) to apply to the Item. The
-     * implementation is responsible for choosing which (if any) of the metadata
-     * sections to crosswalk to get the descriptive metadata for the item being
-     * ingested. It is responsible for calling the crosswalk, using the
-     * manifest's helper i.e.
-     * <code>manifest.crosswalkItemDmd(context,item,dmdElement,callback);</code>
-     * (The <code>callback</code> argument is a reference to itself since the
-     * class also implements the <code>METSManifest.MdRef</code> interface to
-     * fetch package files referenced by mdRef elements.)
-     * <p>
-     * Note that <code>item</code> and <code>manifest</code> are available as
-     * protected fields from the superclass.
-     * 
-     * @param context the DSpace context
-     * @param dso DSpace Object
-     * @param manifest the METSManifest
-     * @param callback
-*            the MdrefManager (manages all external metadata files
-*            referenced by METS <code>mdref</code> elements)
-     * @param dmds
-*            array of Elements, each a METS <code>dmdSec</code> that
-*            applies to the Item as a whole.
-     * @param params
-     * @throws CrosswalkException if crosswalk error
-     * @throws PackageValidationException if package validation error
-     * @throws IOException if IO error
-     * @throws SQLException if database error
-     * @throws AuthorizeException if authorization error
-     */
-    @Override
-    public void crosswalkObjectDmd(Context context, DSpaceObject dso,
-            METSManifest manifest, MdrefManager callback, Element dmds[],
-            PackageParameters params) throws CrosswalkException,
-            PackageValidationException, AuthorizeException, SQLException,
-            IOException;
-
     // just check the profile name.
     @Override
     void checkManifest(METSManifest manifest)
