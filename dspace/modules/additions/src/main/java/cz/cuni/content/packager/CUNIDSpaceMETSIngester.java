@@ -70,6 +70,7 @@ public class CUNIDSpaceMETSIngester
      * metadata bitstreams. Match an mdRef by finding the bitstream with the
      * same name.
      */
+    @Override
     protected static final class MdrefManager implements METSManifest.Mdref
     {
         private File packageFile = null;
