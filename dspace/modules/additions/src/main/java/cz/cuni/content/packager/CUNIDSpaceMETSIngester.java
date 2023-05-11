@@ -61,6 +61,61 @@ public class CUNIDSpaceMETSIngester
     /** log4j category */
     private static Logger log = Logger.getLogger(CUNIDSpaceMETSIngester.class);
 
+    /**
+     * An instance of ZipMdrefManager holds the state needed to retrieve the
+     * contents of an external metadata stream referenced by an
+     * <code>mdRef</code> element in a Zipped up METS manifest.
+     * <p>
+     * Initialize it with the Content (ORIGINAL) Bundle containing all of the
+     * metadata bitstreams. Match an mdRef by finding the bitstream with the
+     * same name.
+     */
+    protected static final class MdrefManager implements METSManifest.Mdref
+    {
+        private File packageFile = null;
+
+        private PackageParameters params;
+
+        // constructor initializes from package file
+        private MdrefManager(File packageFile, PackageParameters params)
+        {
+            super();
+            this.packageFile = packageFile;
+            this.params = params;
+        }
+
+        /**
+         * Make the contents of an external resource mentioned in an
+         * <code>mdRef</code> element available as an <code>InputStream</code>.
+         * See the <code>METSManifest.MdRef</code> interface for details.
+         * 
+         * @param mdref
+         *            the METS mdRef element to locate the input for.
+         * @return the input stream of its content.
+         * @throws MetadataValidationException if validation error
+         * @throws IOException if IO error
+         * @see METSManifest
+         */
+        @Override
+        public InputStream getInputStream(Element mdref)
+                throws MetadataValidationException, IOException
+        {
+            String path = METSManifest.getFileName(mdref);
+            if (packageFile == null)
+            {
+                throw new MetadataValidationException(
+                        "Failed referencing mdRef element, because there is no package specified.");
+            }
+
+            // Use the 'getFileInputStream()' method from the
+            // AbstractMETSIngester to retrieve the inputstream for the
+            // referenced external metadata file.
+            return AbstractMETSIngester.getFileInputStream(packageFile, params,
+                    path);
+        }
+    }// end MdrefManager class
+
+
     // first part of required mets@PROFILE value
     protected static final String PROFILE_START = "DSpace METS SIP Profile";
 
