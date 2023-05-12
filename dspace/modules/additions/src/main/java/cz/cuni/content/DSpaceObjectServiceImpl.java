@@ -355,12 +355,11 @@ public abstract class DSpaceObjectServiceImpl<T extends DSpaceObject> implements
         while (metadata.hasNext())
         {
             MetadataValue metadataValue = metadata.next();
-            
-            log.debug("CUNIIIIIIII Processing metadata: schema:" + schema + " element:" + element + " qualifier:" + qualifier + " lang:" + lang + ")");
+            log.debug("CUNIIIIIIII Processing metadata field " + metadataValue.getMetadataField().toString(".") + " with value: " + metadataValue.getValue());
             // <JR> - 2023-05-11: If this value matches, delete it, except for given (for now hardcoded) values of schema.element.qualifier.lang
             if (match(schema, element, qualifier, lang, metadataValue))
             {
-                log.debug("CUNIIIIIIII Deleting METADADATA from metadataValue: " + metadataValue + " (schema:" + schema + " element:" + element + " qualifier:" + qualifier + " lang:" + lang + ")");
+                log.debug("CUNIIIIIIII Deleting METADADATA field " + metadataValue.getMetadataField().toString(".") + " with value: " + metadataValue.getValue());
                 metadata.remove();
                 metadataValueService.delete(context, metadataValue);
             }
