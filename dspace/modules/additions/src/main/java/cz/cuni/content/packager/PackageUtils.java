@@ -769,7 +769,7 @@ public class PackageUtils
         }
     }
 
-    public static void clearAllMetadataExceptOriginalDates(Context context, DSpaceObject dso)
+    public static void clearAllMetadataExceptOriginalDatesAndProvenance(Context context, DSpaceObject dso)
             throws SQLException, IOException, AuthorizeException
     {
         //If we are dealing with an Item
@@ -779,7 +779,7 @@ public class PackageUtils
             //clear all metadata entries
             // <JR> - 2023-05-11
             //itemService.clearMetadata(context, item, Item.ANY, Item.ANY, Item.ANY, Item.ANY);
-            itemService.clearMetadataExceptOriginalDates(context, item, Item.ANY, Item.ANY, Item.ANY, Item.ANY);
+            itemService.clearMetadataExceptOriginalDatesAndProvenance(context, item, Item.ANY, Item.ANY, Item.ANY, Item.ANY);
         }
         //Else if collection, clear its database table values
         else if (dso.getType()==Constants.COLLECTION)
