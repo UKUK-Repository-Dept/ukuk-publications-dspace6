@@ -348,7 +348,7 @@ public abstract class DSpaceObjectServiceImpl<T extends DSpaceObject> implements
 
     // <JR> - 2023-05-11
     @Override
-    public void clearMetadataExceptOriginalDates(Context context, T dso, String schema, String element, String qualifier, String lang) throws SQLException {
+    public void clearMetadataExceptOriginalDatesAndProvenance(Context context, T dso, String schema, String element, String qualifier, String lang) throws SQLException {
         log.debug("CUNIIIIIIII Deleting METADADATA FROM OBJECT of TYPE " + Constants.typeText[dso.getType()] + " (handle=" + dso.getHandle()
                     + "id=" + dso.getID() + ")");
         Iterator<MetadataValue> metadata = dso.getMetadata().iterator();
@@ -364,6 +364,12 @@ public abstract class DSpaceObjectServiceImpl<T extends DSpaceObject> implements
                 continue;
             }
             else if (match("dc", "date", "accessioned", lang, metadataValue))
+            {
+                log.debug("CUNIIIIIIII FOUND METADATA FIELD " + metadataValue.getMetadataField().toString('.') + " with value: " + metadataValue.getValue());
+                log.debug("CUNIIIIIIII NOT DELETING METADADATA field " + metadataValue.getMetadataField().toString('.') + " with value: " + metadataValue.getValue());
+                continue;
+            }
+            else if (match("dc", "description", "provenance", lang, metadataValue))
             {
                 log.debug("CUNIIIIIIII FOUND METADATA FIELD " + metadataValue.getMetadataField().toString('.') + " with value: " + metadataValue.getValue());
                 log.debug("CUNIIIIIIII NOT DELETING METADADATA field " + metadataValue.getMetadataField().toString('.') + " with value: " + metadataValue.getValue());
