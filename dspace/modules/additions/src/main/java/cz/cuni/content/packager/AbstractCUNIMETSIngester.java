@@ -631,7 +631,7 @@ public abstract class AbstractCUNIMETSIngester extends AbstractPackageIngester
         // clear out all metadata values associated with this object
         // <JR> 2023-05-11
         //PackageUtils.clearAllMetadata(context, dso);
-        PackageUtils.clearAllMetadataExceptOriginalDates(context, dso);
+        PackageUtils.clearAllMetadataExceptOriginalDatesAndProvenance(context, dso);
 
         // TODO -- We are currently NOT clearing out the following during a
         // replace.  So, even after a replace, the following information may be
