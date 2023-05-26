@@ -357,7 +357,19 @@ public abstract class DSpaceObjectServiceImpl<T extends DSpaceObject> implements
             MetadataValue metadataValue = metadata.next();
             log.debug("CUNIIIIIIII Processing metadata field " + metadataValue.getMetadataField().toString('.') + " with value: " + metadataValue.getValue());
             // <JR> - 2023-05-11: If this value matches, delete it, except for given (for now hardcoded) values of schema.element.qualifier.lang
-            if (match(schema, element, qualifier, lang, metadataValue))
+            if (match("dc", "date", "available", lang, metadataValue))
+            {
+                log.debug("CUNIIIIIIII FOUND METADATA FIELD " + metadataValue.getMetadataField().toString('.') + " with value: " + metadataValue.getValue());
+                log.debug("CUNIIIIIIII NOT DELETING METADADATA field " + metadataValue.getMetadataField().toString('.') + " with value: " + metadataValue.getValue());
+                continue;
+            }
+            else if (match("dc", "date", "accessioned", lang, metadataValue))
+            {
+                log.debug("CUNIIIIIIII FOUND METADATA FIELD " + metadataValue.getMetadataField().toString('.') + " with value: " + metadataValue.getValue());
+                log.debug("CUNIIIIIIII NOT DELETING METADADATA field " + metadataValue.getMetadataField().toString('.') + " with value: " + metadataValue.getValue());
+                continue;
+            }
+            else if (match(schema, element, qualifier, lang, metadataValue))
             {
                 log.debug("CUNIIIIIIII Deleting METADADATA field " + metadataValue.getMetadataField().toString('.') + " with value: " + metadataValue.getValue());
                 metadata.remove();
