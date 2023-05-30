@@ -5,7 +5,8 @@
  *
  * http://www.dspace.org/license/
  */
-package org.dspace.content;
+//package org.dspace.content;
+package cz.cuni.customcunimetsingester;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.ArrayUtils;
