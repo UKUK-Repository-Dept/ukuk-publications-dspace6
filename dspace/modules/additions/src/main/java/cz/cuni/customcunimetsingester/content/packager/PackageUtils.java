@@ -37,6 +37,7 @@ import org.dspace.workflow.WorkflowService;
 import org.dspace.workflow.factory.WorkflowServiceFactory;
 // <JR> - 2023-05-31: Trying to fix imports
 import cz.cuni.customcunimetsingester.*;
+import cz.cuni.customcunimetsingester.service.*;
 import org.dspace.content.packager.PackageParameters;
 import org.dspace.content.packager.PackageValidationException;
 import org.dspace.content.packager.PackageException;
