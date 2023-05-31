@@ -24,6 +24,8 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.log4j.Logger;
 import org.dspace.authorize.AuthorizeException;
 import org.dspace.content.*;
+// <JR> 2023-05-31
+import org.dspace.content.packager.AbstractPackageIngester;
 import org.dspace.content.crosswalk.CrosswalkException;
 import org.dspace.content.crosswalk.MetadataValidationException;
 import org.dspace.content.factory.ContentServiceFactory;
