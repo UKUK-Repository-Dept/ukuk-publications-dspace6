@@ -26,6 +26,8 @@ import org.dspace.authorize.AuthorizeException;
 import org.dspace.content.*;
 // <JR> 2023-05-31
 import org.dspace.content.packager.AbstractPackageIngester;
+import org.dspace.content.packager.AbstractMETSIngester;
+import org.dspace.content.packager.AbstractMETSDisseminator;
 import org.dspace.content.packager.METSManifest;
 import org.dspace.content.packager.PackageParameters;
 import org.dspace.content.packager.PackageValidationException;
