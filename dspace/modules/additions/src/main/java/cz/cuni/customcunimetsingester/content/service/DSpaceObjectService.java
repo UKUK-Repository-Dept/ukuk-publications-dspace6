@@ -6,7 +6,7 @@
  * http://www.dspace.org/license/
  */
 //package org.dspace.content.service;
-package cz.cuni.customcunimetsingester;
+package cz.cuni.customcunimetsingester.service;
 
 import org.dspace.authorize.AuthorizeException;
 import org.dspace.content.DSpaceObject;
