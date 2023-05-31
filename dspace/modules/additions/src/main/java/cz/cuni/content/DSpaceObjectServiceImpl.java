@@ -5,8 +5,7 @@
  *
  * http://www.dspace.org/license/
  */
-//package org.dspace.content;
-package cz.cuni.customcunimetsingester;
+package org.dspace.content;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.ArrayUtils;
@@ -25,13 +24,6 @@ import org.dspace.handle.service.HandleService;
 import org.dspace.identifier.service.IdentifierService;
 import org.dspace.utils.DSpace;
 import org.springframework.beans.factory.annotation.Autowired;
-// <JR> 2023-05-31 - Trying to fix imports
-import org.dspace.content.DSpaceObject;
-import org.dspace.content.MetadataSchema;
-import org.dspace.content.MetadataField;
-import org.dspace.content.MetadataValue;
-import org.dspace.content.Item;
-// END OF: <JR> 2023-05-31 - Trying to fix imports
 
 import java.sql.SQLException;
 import java.util.*;
