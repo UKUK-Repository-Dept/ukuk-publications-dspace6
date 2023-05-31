@@ -6,7 +6,7 @@
  * http://www.dspace.org/license/
  */
 //package org.dspace.content.packager;
-package cz.cuni.customcunimetsingester;
+package cz.cuni.customcunimetsingester.packager;
 
 // <JR> 2023-05-11 - Fix imports since we are overriding methods that use them, in contrast to a regular DSpaceMETSIngester
 
