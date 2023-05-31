@@ -5,8 +5,7 @@
  *
  * http://www.dspace.org/license/
  */
-//package org.dspace.content.packager;
-package cz.cuni.customcunimetsingester.packager;
+package org.dspace.content.packager;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -24,14 +23,6 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.log4j.Logger;
 import org.dspace.authorize.AuthorizeException;
 import org.dspace.content.*;
-// <JR> 2023-05-31
-import org.dspace.content.packager.AbstractPackageIngester;
-import org.dspace.content.packager.AbstractMETSIngester;
-import org.dspace.content.packager.AbstractMETSDisseminator;
-import org.dspace.content.packager.METSManifest;
-import org.dspace.content.packager.PackageParameters;
-import org.dspace.content.packager.PackageValidationException;
-// END OF: <JR> 2023-05-31
 import org.dspace.content.crosswalk.CrosswalkException;
 import org.dspace.content.crosswalk.MetadataValidationException;
 import org.dspace.content.factory.ContentServiceFactory;
@@ -163,7 +154,7 @@ public abstract class AbstractCUNIMETSIngester extends AbstractPackageIngester
             // Use the 'getFileInputStream()' method from the
             // AbstractMETSIngester to retrieve the inputstream for the
             // referenced external metadata file.
-            return AbstractCUNIMETSIngester.getFileInputStream(packageFile, params,
+            return AbstractMETSIngester.getFileInputStream(packageFile, params,
                     path);
         }
     }// end MdrefManager class

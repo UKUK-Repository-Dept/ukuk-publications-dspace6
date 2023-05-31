@@ -5,8 +5,7 @@
  *
  * http://www.dspace.org/license/
  */
-//package org.dspace.content.packager;
-package cz.cuni.customcunimetsingester.packager;
+package org.dspace.content.packager;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -35,13 +34,6 @@ import org.dspace.license.service.CreativeCommonsService;
 import org.dspace.workflow.WorkflowException;
 import org.dspace.workflow.WorkflowService;
 import org.dspace.workflow.factory.WorkflowServiceFactory;
-// <JR> - 2023-05-31: Trying to fix imports
-import cz.cuni.customcunimetsingester.*;
-import cz.cuni.customcunimetsingester.service.*;
-import org.dspace.content.packager.PackageParameters;
-import org.dspace.content.packager.PackageValidationException;
-import org.dspace.content.packager.PackageException;
-// END OF: <JR> - 2023-05-31: Trying to fix imports
 
 /**
  * Container class for code that is useful to many packagers.

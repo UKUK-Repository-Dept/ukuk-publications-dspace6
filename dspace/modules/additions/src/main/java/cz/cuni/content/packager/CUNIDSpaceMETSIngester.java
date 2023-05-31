@@ -5,16 +5,9 @@
  *
  * http://www.dspace.org/license/
  */
-//package org.dspace.content.packager;
-package cz.cuni.customcunimetsingester.packager;
+package org.dspace.content.packager;
 
 // <JR> 2023-05-11 - Fix imports since we are overriding methods that use them, in contrast to a regular DSpaceMETSIngester
-
-// <JR> 2023-05-31 - Trying to fix imports
-import org.dspace.content.packager.METSManifest;
-import org.dspace.content.packager.PackageParameters;
-import org.dspace.content.packager.PackageValidationException;
-// END OF: <JR> 2023-05-31 - Trying to fix imports
 import java.io.File;
 import org.dspace.workflow.WorkflowException;
 //import org.apache.log4j.Logger;
