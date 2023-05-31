@@ -5,7 +5,8 @@
  *
  * http://www.dspace.org/license/
  */
-package org.dspace.content.packager;
+//package org.dspace.content.packager;
+package cz.cuni.customcunimetsingester;
 
 import java.io.File;
 import java.io.FileInputStream;
