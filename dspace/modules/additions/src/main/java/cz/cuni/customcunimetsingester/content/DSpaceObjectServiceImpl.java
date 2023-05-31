@@ -27,8 +27,10 @@ import org.dspace.utils.DSpace;
 import org.springframework.beans.factory.annotation.Autowired;
 // <JR> 2023-05-31 - Trying to fix imports
 import org.dspace.content.DSpaceObject;
+import org.dspace.content.MetadataSchema;
 import org.dspace.content.MetadataField;
 import org.dspace.content.MetadataValue;
+import org.dspace.content.Item;
 // END OF: <JR> 2023-05-31 - Trying to fix imports
 
 import java.sql.SQLException;

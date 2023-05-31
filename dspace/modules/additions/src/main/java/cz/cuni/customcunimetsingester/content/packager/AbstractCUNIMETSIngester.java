@@ -163,7 +163,7 @@ public abstract class AbstractCUNIMETSIngester extends AbstractPackageIngester
             // Use the 'getFileInputStream()' method from the
             // AbstractMETSIngester to retrieve the inputstream for the
             // referenced external metadata file.
-            return AbstractMETSIngester.getFileInputStream(packageFile, params,
+            return AbstractCUNIMETSIngester.getFileInputStream(packageFile, params,
                     path);
         }
     }// end MdrefManager class
