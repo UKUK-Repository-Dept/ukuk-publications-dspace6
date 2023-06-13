@@ -165,6 +165,8 @@
 
 
             <div class="col-sm-9 artifact-description">
+                <!-- <JR> - 2023-06-13: TODO: Try rendering uk.displayTitle when present, instead of dc.title in artifact description -->
+                <!-- <JR> - 2023-06-13: TODO: Add template for rendering translated title and try rendering uk.displayTitle.translated when present, instead of dc.title.translated -->
                 <xsl:element name="a">
                     <xsl:attribute name="href">
                         <xsl:choose>
