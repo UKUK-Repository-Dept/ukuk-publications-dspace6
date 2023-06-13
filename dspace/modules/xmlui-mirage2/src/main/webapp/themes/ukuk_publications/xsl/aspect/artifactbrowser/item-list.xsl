@@ -85,6 +85,7 @@
 
     <!--handles the rendering of a single item in a list in file mode-->
     <!--handles the rendering of a single item in a list in metadata mode-->
+    <!-- <JR> - 2023-06-13: TODO: try handling uk.displayTitle and uk.displayTitle.translated when present -->
     <xsl:template match="dim:dim" mode="itemSummaryList-DIM-metadata">
         <xsl:param name="href"/>
         <div class="artifact-description">

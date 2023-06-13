@@ -107,6 +107,7 @@
     <xsl:template match="dim:dim" mode="itemSummaryView-DIM">
         <div class="item-summary-view-metadata">
             <xsl:call-template name="itemSummaryView-DIM-title"/>
+            <!-- <JR> - 2023-06-13: TODO: Add template for rendering translated title and try rendering uk.displayTitle.translated when present, instead of dc.title.translated -->
             <div class="row">
                 <div class="col-sm-4">
                     <div class="row">
@@ -187,6 +188,7 @@
     </xsl:template>
 
     <xsl:template name="itemSummaryView-DIM-title">
+        <!-- <JR> - 2023-06-13: TODO: try handling uk.displayTitle when present -->
         <xsl:choose>
             <xsl:when test="count(dim:field[@element='title'][not(@qualifier)]) &gt; 1">
                 <h2 class="page-header first-page-header">
