@@ -192,7 +192,7 @@
         <!-- <JR> - 2023-06-13: TODO: try handling uk.displayTitle when present -->
         <xsl:choose>
             <xsl:when test="count(dim:field[@element='displayTitle][not(@qualifier)]) &gt; 1">
-                <xsl:call-template name='itemSummaryView-DIM-displayTitle'/>
+                <xsl:call-template name="itemSummaryView-DIM-displayTitle"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:choose>
@@ -253,7 +253,7 @@
     <xsl:template name="itemSummaryView-DIM-title-translated">
         <xsl:choose>
             <xsl:when test="count(dim:field[@element='displayTitle][@qualifier='translated']) &gt; 1">
-                <xsl:call-template name='itemSummaryView-DIM-displayTitle-translated'/>
+                <xsl:call-template name="itemSummaryView-DIM-displayTitle-translated"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:choose>
