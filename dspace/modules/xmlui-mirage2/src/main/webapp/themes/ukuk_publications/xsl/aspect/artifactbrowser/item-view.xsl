@@ -108,6 +108,7 @@
         <div class="item-summary-view-metadata">
             <xsl:call-template name="itemSummaryView-DIM-title"/>
             <!-- <JR> - 2023-06-13: TODO: Add template for rendering translated title and try rendering uk.displayTitle.translated when present, instead of dc.title.translated -->
+            <xsl:call-template name="itemSummaryView-DIM-title-translated"/>
             <div class="row">
                 <div class="col-sm-4">
                     <div class="row">
@@ -221,6 +222,40 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+    
+    <!-- <JR> - 2023-06-14: Render translated title -->
+    <xsl:template name="itemSummaryView-DIM-title-translated">
+        <xsl:choose>
+            <xsl:when test="count(dim:field[@element='title'][@qualifier='translated']) &gt; 1">
+                <h2 class="page-header first-page-header">
+                    <xsl:value-of select="dim:field[@element='title'][@qualifier='translated'][1]/node()"/>
+                </h2>
+                <div class="simple-item-view-other">
+                    <p class="lead">
+                        <xsl:for-each select="dim:field[@element='title'][@qualifier='translated']">
+                            <xsl:if test="not(position() = 1)">
+                                <xsl:value-of select="./node()"/>
+                                <xsl:if test="count(following-sibling::dim:field[@element='title'][@qualifier='translated']) != 0">
+                                    <xsl:text>; </xsl:text>
+                                    <br/>
+                                </xsl:if>
+                            </xsl:if>
+                        </xsl:for-each>
+                    </p>
+                </div>
+            </xsl:when>
+            <xsl:when test="count(dim:field[@element='title'][@qualifier='translated']) = 1">
+                <h2 class="page-header first-page-header">
+                    <xsl:value-of select="dim:field[@element='title'][@qualifier='translated'][1]/node()"/>
+                </h2>
+            </xsl:when>
+            <xsl:otherwise>
+                <!-- <h2 class="page-header first-page-header">
+                    <i18n:text>xmlui.dri2xhtml.METS-1.0.no-title</i18n:text>
+                </h2> -->
+            </xsl:otherwise>
+        </xsl:choose>
+    </template>
 
     <xsl:template name="itemSummaryView-DIM-thumbnail">
         <div class="thumbnail">
