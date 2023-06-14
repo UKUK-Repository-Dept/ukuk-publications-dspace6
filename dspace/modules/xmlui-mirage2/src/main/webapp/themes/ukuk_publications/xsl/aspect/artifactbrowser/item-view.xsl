@@ -252,7 +252,7 @@
     <!-- <JR> - 2023-06-14: Render translated title -->
     <xsl:template name="itemSummaryView-DIM-title-translated">
         <xsl:choose>
-            <xsl:when test="count(dim:field[@element='displayTitle][@qualifier='translated']) &gt; 1">
+            <xsl:when test="count(dim:field[@element='displayTitle'][@qualifier='translated']) &gt; 1">
                 <xsl:call-template name="itemSummaryView-DIM-displayTitle-translated"/>
             </xsl:when>
             <xsl:otherwise>
