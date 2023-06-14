@@ -238,7 +238,7 @@
             <p class="lead">
                 <xsl:for-each select="dim:field[@element='displayTitle'][not(@qualifier)]">
                     <xsl:if test="not(position() = 1)">
-                        <xsl:value-of select="./node()"/>
+                        <xsl:copy-of select="./node()"/>
                         <xsl:if test="count(following-sibling::dim:field[@element='displayTitle'][not(@qualifier)]) != 0">
                             <xsl:text>; </xsl:text>
                             <br/>
@@ -298,7 +298,7 @@
             <p class="lead">
                 <xsl:for-each select="dim:field[@element='displayTitle'][@qualifier='translated']">
                     <xsl:if test="not(position() = 1)">
-                        <xsl:value-of select="./node()"/>
+                        <xsl:copy-of select="./node()"/>
                         <xsl:if test="count(following-sibling::dim:field[@element='displayTitle'][@qualifier='translated']) != 0">
                             <xsl:text>; </xsl:text>
                             <br/>
