@@ -232,7 +232,7 @@
 
     <xsl:template name="itemSummaryView-DIM-displayTitle">
         <h2 class="page-header first-page-header">
-            <xsl:value-of select="dim:field[@element='displayTitle'][not(@qualifier)][1]/node()"/>
+            <xsl:copy-of select="dim:field[@element='displayTitle'][not(@qualifier)][1]/node()"/>
         </h2>
         <div class="simple-item-view-other">
             <p class="lead">
@@ -292,7 +292,7 @@
 
     <xsl:template name="itemSummaryView-DIM-displayTitle-translated">
         <h2 class="page-header first-page-header">
-            <xsl:value-of select="dim:field[@element='displayTitle'][@qualifier='translated'][1]/node()"/>
+            <xsl:copy-of select="dim:field[@element='displayTitle'][@qualifier='translated'][1]/node()"/>
         </h2>
         <div class="simple-item-view-other">
             <p class="lead">
