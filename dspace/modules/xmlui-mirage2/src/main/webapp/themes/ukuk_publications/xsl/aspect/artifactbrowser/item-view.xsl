@@ -255,7 +255,7 @@
                 </h2> -->
             </xsl:otherwise>
         </xsl:choose>
-    </template>
+    </xsl:template>
 
     <xsl:template name="itemSummaryView-DIM-thumbnail">
         <div class="thumbnail">
