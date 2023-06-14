@@ -191,70 +191,122 @@
     <xsl:template name="itemSummaryView-DIM-title">
         <!-- <JR> - 2023-06-13: TODO: try handling uk.displayTitle when present -->
         <xsl:choose>
-            <xsl:when test="count(dim:field[@element='title'][not(@qualifier)]) &gt; 1">
-                <h2 class="page-header first-page-header">
-                    <xsl:value-of select="dim:field[@element='title'][not(@qualifier)][1]/node()"/>
-                </h2>
-                <div class="simple-item-view-other">
-                    <p class="lead">
-                        <xsl:for-each select="dim:field[@element='title'][not(@qualifier)]">
-                            <xsl:if test="not(position() = 1)">
-                                <xsl:value-of select="./node()"/>
-                                <xsl:if test="count(following-sibling::dim:field[@element='title'][not(@qualifier)]) != 0">
-                                    <xsl:text>; </xsl:text>
-                                    <br/>
-                                </xsl:if>
-                            </xsl:if>
-
-                        </xsl:for-each>
-                    </p>
-                </div>
-            </xsl:when>
-            <xsl:when test="count(dim:field[@element='title'][not(@qualifier)]) = 1">
-                <h2 class="page-header first-page-header">
-                    <xsl:value-of select="dim:field[@element='title'][not(@qualifier)][1]/node()"/>
-                </h2>
+            <xsl:when test="count(dim:field[@element='displayTitle][not(@qualifier)]) &gt; 1">
+                <xsl:call-template name='itemSummaryView-DIM-displayTitle'/>
             </xsl:when>
             <xsl:otherwise>
-                <h2 class="page-header first-page-header">
-                    <i18n:text>xmlui.dri2xhtml.METS-1.0.no-title</i18n:text>
-                </h2>
+                <xsl:choose>
+                    <xsl:when test="count(dim:field[@element='title'][not(@qualifier)]) &gt; 1">
+                        <h2 class="page-header first-page-header">
+                            <xsl:value-of select="dim:field[@element='title'][not(@qualifier)][1]/node()"/>
+                        </h2>
+                        <div class="simple-item-view-other">
+                            <p class="lead">
+                                <xsl:for-each select="dim:field[@element='title'][not(@qualifier)]">
+                                    <xsl:if test="not(position() = 1)">
+                                        <xsl:value-of select="./node()"/>
+                                        <xsl:if test="count(following-sibling::dim:field[@element='title'][not(@qualifier)]) != 0">
+                                            <xsl:text>; </xsl:text>
+                                            <br/>
+                                        </xsl:if>
+                                    </xsl:if>
+
+                                </xsl:for-each>
+                            </p>
+                        </div>
+                    </xsl:when>
+                    <xsl:when test="count(dim:field[@element='title'][not(@qualifier)]) = 1">
+                        <h2 class="page-header first-page-header">
+                            <xsl:value-of select="dim:field[@element='title'][not(@qualifier)][1]/node()"/>
+                        </h2>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <h2 class="page-header first-page-header">
+                            <i18n:text>xmlui.dri2xhtml.METS-1.0.no-title</i18n:text>
+                        </h2>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+
+    <xsl:template name="itemSummaryView-DIM-displayTitle">
+        <h2 class="page-header first-page-header">
+            <xsl:value-of select="dim:field[@element='displayTitle'][not(@qualifier)][1]/node()"/>
+        </h2>
+        <div class="simple-item-view-other">
+            <p class="lead">
+                <xsl:for-each select="dim:field[@element='displayTitle'][not(@qualifier)]">
+                    <xsl:if test="not(position() = 1)">
+                        <xsl:value-of select="./node()"/>
+                        <xsl:if test="count(following-sibling::dim:field[@element='displayTitle'][not(@qualifier)]) != 0">
+                            <xsl:text>; </xsl:text>
+                            <br/>
+                        </xsl:if>
+                    </xsl:if>
+                </xsl:for-each>
+            </p>
+        </div>
     </xsl:template>
     
     <!-- <JR> - 2023-06-14: Render translated title -->
     <xsl:template name="itemSummaryView-DIM-title-translated">
         <xsl:choose>
-            <xsl:when test="count(dim:field[@element='title'][@qualifier='translated']) &gt; 1">
-                <h2 class="page-header first-page-header">
-                    <xsl:value-of select="dim:field[@element='title'][@qualifier='translated'][1]/node()"/>
-                </h2>
-                <div class="simple-item-view-other">
-                    <p class="lead">
-                        <xsl:for-each select="dim:field[@element='title'][@qualifier='translated']">
-                            <xsl:if test="not(position() = 1)">
-                                <xsl:value-of select="./node()"/>
-                                <xsl:if test="count(following-sibling::dim:field[@element='title'][@qualifier='translated']) != 0">
-                                    <xsl:text>; </xsl:text>
-                                    <br/>
-                                </xsl:if>
-                            </xsl:if>
-                        </xsl:for-each>
-                    </p>
-                </div>
-            </xsl:when>
-            <xsl:when test="count(dim:field[@element='title'][@qualifier='translated']) = 1">
-                <h2 class="page-header first-page-header">
-                    <xsl:value-of select="dim:field[@element='title'][@qualifier='translated'][1]/node()"/>
-                </h2>
+            <xsl:when test="count(dim:field[@element='displayTitle][@qualifier='translated']) &gt; 1">
+                <xsl:call-template name='itemSummaryView-DIM-displayTitle-translated'/>
             </xsl:when>
             <xsl:otherwise>
-                <!-- <h2 class="page-header first-page-header">
-                    <i18n:text>xmlui.dri2xhtml.METS-1.0.no-title</i18n:text>
-                </h2> -->
+                <xsl:choose>
+                    <xsl:when test="count(dim:field[@element='title'][@qualifier='translated']) &gt; 1">
+                        <h2 class="page-header first-page-header">
+                            <xsl:value-of select="dim:field[@element='title'][@qualifier='translated'][1]/node()"/>
+                        </h2>
+                        <div class="simple-item-view-other">
+                            <p class="lead">
+                                <xsl:for-each select="dim:field[@element='title'][@qualifier='translated']">
+                                    <xsl:if test="not(position() = 1)">
+                                        <xsl:value-of select="./node()"/>
+                                        <xsl:if test="count(following-sibling::dim:field[@element='title'][@qualifier='translated']) != 0">
+                                            <xsl:text>; </xsl:text>
+                                            <br/>
+                                        </xsl:if>
+                                    </xsl:if>
+                                </xsl:for-each>
+                            </p>
+                        </div>
+                    </xsl:when>
+                    <xsl:when test="count(dim:field[@element='title'][@qualifier='translated']) = 1">
+                        <h2 class="page-header first-page-header">
+                            <xsl:value-of select="dim:field[@element='title'][@qualifier='translated'][1]/node()"/>
+                        </h2>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <!-- <h2 class="page-header first-page-header">
+                            <i18n:text>xmlui.dri2xhtml.METS-1.0.no-title</i18n:text>
+                        </h2> -->
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+
+    <xsl:template name="itemSummaryView-DIM-displayTitle-translated">
+        <h2 class="page-header first-page-header">
+            <xsl:value-of select="dim:field[@element='displayTitle'][@qualifier='translated'][1]/node()"/>
+        </h2>
+        <div class="simple-item-view-other">
+            <p class="lead">
+                <xsl:for-each select="dim:field[@element='displayTitle'][@qualifier='translated']">
+                    <xsl:if test="not(position() = 1)">
+                        <xsl:value-of select="./node()"/>
+                        <xsl:if test="count(following-sibling::dim:field[@element='displayTitle'][@qualifier='translated']) != 0">
+                            <xsl:text>; </xsl:text>
+                            <br/>
+                        </xsl:if>
+                    </xsl:if>
+                </xsl:for-each>
+            </p>
+        </div>
     </xsl:template>
 
     <xsl:template name="itemSummaryView-DIM-thumbnail">
