@@ -235,6 +235,8 @@
 
     <xsl:template name="itemSummaryView-DIM-displayTitle">
         <h2 class="page-header first-page-header">
+            <!-- <JR> - 2023-06-15: FIX: This is not working, html tags are within parentheses 
+            and not interpreted in browser -->
             <xsl:value-of select="dim:field[@element='displayTitle'][not(@qualifier)][1]/node()"/>
         </h2>
         <div class="simple-item-view-other">
@@ -299,6 +301,7 @@
     <xsl:template name="itemSummaryView-DIM-displayTitle-translated">
         <xsl:variable name="substring">"</xsl:variable>
         <h2 class="page-header first-page-header">
+            <!-- <JR> - 2023-06-15: FIX: This is not working at all (subtring not detected?)-->
             <xsl:value-of select="substring-after(dim:field[@element='displayTitle'][@qualifier='translated'][1]/node(),$substring)"/>
         </h2>
         <div class="simple-item-view-other">
