@@ -299,7 +299,7 @@
     <xsl:template name="itemSummaryView-DIM-displayTitle-translated">
         <xsl:variable name="substring">"</xsl:variable>
         <h2 class="page-header first-page-header">
-            <xsl:value-of select="substring-after(dim:field[@element='displayTitle'][@qualifier='translated'][1]/node(),'$substring')"/>
+            <xsl:value-of select="substring-after(dim:field[@element='displayTitle'][@qualifier='translated'][1]/node(),$substring)"/>
         </h2>
         <div class="simple-item-view-other">
             <p class="lead">
