@@ -235,13 +235,13 @@
 
     <xsl:template name="itemSummaryView-DIM-displayTitle">
         <h2 class="page-header first-page-header">
-            <xsl:copy-of select="dim:field[@element='displayTitle'][not(@qualifier)][1]/node()"/>
+            <xsl:value-of select="dim:field[@element='displayTitle'][not(@qualifier)][1]/node()"/>
         </h2>
         <div class="simple-item-view-other">
             <p class="lead">
                 <xsl:for-each select="dim:field[@element='displayTitle'][not(@qualifier)]">
                     <xsl:if test="not(position() = 1)">
-                        <xsl:copy-of select="./node()"/>
+                        <xsl:value-of select="./node()"/>
                         <xsl:if test="count(following-sibling::dim:field[@element='displayTitle'][not(@qualifier)]) != 0">
                             <xsl:text>; </xsl:text>
                             <br/>
@@ -298,13 +298,13 @@
 
     <xsl:template name="itemSummaryView-DIM-displayTitle-translated">
         <h2 class="page-header first-page-header">
-            <xsl:copy-of select="dim:field[@element='displayTitle'][@qualifier='translated'][1]/node()"/>
+            <xsl:value-of select="dim:field[@element='displayTitle'][@qualifier='translated'][1]/node()"/>
         </h2>
         <div class="simple-item-view-other">
             <p class="lead">
                 <xsl:for-each select="dim:field[@element='displayTitle'][@qualifier='translated']">
                     <xsl:if test="not(position() = 1)">
-                        <xsl:copy-of select="./node()"/>
+                        <xsl:value-of select="./node()"/>
                         <xsl:if test="count(following-sibling::dim:field[@element='displayTitle'][@qualifier='translated']) != 0">
                             <xsl:text>; </xsl:text>
                             <br/>
