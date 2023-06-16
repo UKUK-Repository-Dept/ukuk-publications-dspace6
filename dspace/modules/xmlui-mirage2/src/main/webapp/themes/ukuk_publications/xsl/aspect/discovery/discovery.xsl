@@ -21,6 +21,7 @@
     xmlns:stringescapeutils="org.apache.commons.lang3.StringEscapeUtils"
     xmlns:util="org.dspace.app.xmlui.utils.XSLUtils"
     exclude-result-prefixes="xalan encoder i18n dri mets dim  xlink xsl util stringescapeutils">
+    <xsl:import href="../../custom/utility.xsl"/>
 
     <xsl:output indent="yes"/>
 
