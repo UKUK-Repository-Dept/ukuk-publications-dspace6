@@ -322,8 +322,6 @@
     <xsl:template match="node()/strong|em|sup" mode="display-title-html">
         <xsl:copy-of select="." />
     </xsl:template>
-    
-    <xsl:template match="dim:field[@element='displayTitle'][@qualifier='translated'][1]/node()"
 
     <xsl:template name="itemSummaryView-DIM-thumbnail">
         <div class="thumbnail">
