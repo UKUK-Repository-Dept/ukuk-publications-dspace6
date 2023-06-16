@@ -192,10 +192,14 @@
         <!-- <JR> - 2023-06-13: TODO: try handling uk.displayTitle when present -->
         <xsl:choose>
             <xsl:when test="count(dim:field[@element='displayTitle'][not(@qualifier)]) &gt; 1">
-                <xsl:call-template name="itemSummaryView-DIM-displayTitle"/>
+                <xsl:call-template name="itemSummaryView-DIM-displayTitle">
+                    <xsl:with-param name="display-title" select="dim:field[@element='displayTitle'][not(@qualifier)][1]"/>
+                </xsl:call-template>
             </xsl:when>
             <xsl:when test="count(dim:field[@element='displayTitle'][not(@qualifier)]) = 1">
-                <xsl:call-template name="itemSummaryView-DIM-displayTitle"/>
+                <xsl:call-template name="itemSummaryView-DIM-displayTitle">
+                    <xsl:with-param name="display-title" select="dim:field[@element='displayTitle'][not(@qualifier)][1]"/>
+                </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:choose>
@@ -234,10 +238,14 @@
     </xsl:template>
 
     <xsl:template name="itemSummaryView-DIM-displayTitle">
+        <xsl:param name="display-title"/>
         <h2 class="page-header first-page-header">
             <!-- <JR> - 2023-06-15: FIX: This is not working, html tags are within parentheses 
             and not interpreted in browser -->
-            <xsl:value-of select="translate(dim:field[@element='displayTitle'][not(@qualifier)][1]/node(),'&quot;','')"/>
+            <!--<xsl:value-of select="translate(dim:field[@element='displayTitle'][not(@qualifier)][1]/node(),'&quot;','')"/>-->
+            <xsl:call-template name="parse-display-title">
+                <xsl:with-param name="title-string" select="$display-title"/>
+            </xsl:call-template>
         </h2>
         <div class="simple-item-view-other">
             <p class="lead">
