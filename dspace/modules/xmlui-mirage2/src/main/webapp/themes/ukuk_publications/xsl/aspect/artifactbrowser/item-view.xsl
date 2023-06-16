@@ -302,7 +302,7 @@
         <h2 class="page-header first-page-header">
             <!-- <JR> - 2023-06-15: FIX: This is not working at all (subtring not detected?)-->
             <!--<xsl:value-of select="dim:field[@element='displayTitle'][@qualifier='translated'][1]"/>>-->
-            <!--<xsl:apply-templates mode="display-title-html"/>-->
+            <xsl:apply-templates mode="display-title-html"/>
         </h2>
         <!-- <div class="simple-item-view-other">
             <p class="lead">
@@ -319,7 +319,7 @@
         </div> -->
     </xsl:template>
 
-    <xsl:template match="node()/strong|em|sup" mode="display-title-html">
+    <xsl:template match="dim:field[@element='displayTitle'][@qualifier='translated'][1]/node()/strong|em|sup" mode="display-title-html">
         <xsl:copy-of select="." />
     </xsl:template>
 
