@@ -37,7 +37,7 @@
     xmlns:confman="org.dspace.core.ConfigurationManager"
     exclude-result-prefixes="xalan encoder i18n dri mets dim xlink xsl util jstring rights confman">
     <xsl:import href="item-view-license.xsl" />
-    <xsl:import href="../custom/utility.xsl"/>
+    <xsl:import href="../../custom/utility.xsl"/>
 
     <xsl:output indent="yes"/>
 
