@@ -37,6 +37,7 @@
     xmlns:confman="org.dspace.core.ConfigurationManager"
     exclude-result-prefixes="xalan encoder i18n dri mets dim xlink xsl util jstring rights confman">
     <xsl:import href="item-view-license.xsl" />
+    <xsl:import href="../custom/utility.xsl"/>
 
     <xsl:output indent="yes"/>
 
@@ -240,10 +241,8 @@
     <xsl:template name="itemSummaryView-DIM-displayTitle">
         <xsl:param name="display-title"/>
         <h2 class="page-header first-page-header">
-            <!-- <JR> - 2023-06-15: FIX: This is not working, html tags are within parentheses 
-            and not interpreted in browser -->
-            <!--<xsl:value-of select="translate(dim:field[@element='displayTitle'][not(@qualifier)][1]/node(),'&quot;','')"/>-->
-            <xsl:call-template name="parse-display-title">
+            <!-- <JR> - 2023-06-16: Call utility-parse-display-title form utility.xsl to handle rendering of the uk.displayTitle -->
+            <xsl:call-template name="utility-parse-display-title">
                 <xsl:with-param name="title-string" select="$display-title"/>
             </xsl:call-template>
         </h2>
@@ -313,9 +312,8 @@
     <xsl:template name="itemSummaryView-DIM-displayTitle-translated">
         <xsl:param name="display-title-translated"/>
         <h2 class="page-header first-page-header">
-            <!-- <JR> - 2023-06-15: FIX: This is not working at all (subtring not detected?)-->
-            <!--<xsl:value-of select="dim:field[@element='displayTitle'][@qualifier='translated'][1]"/>>-->
-            <xsl:call-template name="parse-display-title">
+            <!-- <JR> - 2023-06-16: Call utility-parse-display-title form utility.xsl to handle rendering of the uk.displayTitle.translated -->
+            <xsl:call-template name="utility-parse-display-title">
                 <xsl:with-param name="title-string" select="$display-title-translated"/>
             </xsl:call-template>
         </h2>
@@ -332,12 +330,6 @@
                 </xsl:for-each>
             </p>
         </div> -->
-    </xsl:template>
-
-    <!-- <JR>  2023-06-16 -->
-    <xsl:template name="parse-display-title">
-        <xsl:param name="title-string"/>
-        <xsl:value-of disable-output-escaping="yes" select="$title-string"/>
     </xsl:template>
 
     <xsl:template name="itemSummaryView-DIM-thumbnail">
