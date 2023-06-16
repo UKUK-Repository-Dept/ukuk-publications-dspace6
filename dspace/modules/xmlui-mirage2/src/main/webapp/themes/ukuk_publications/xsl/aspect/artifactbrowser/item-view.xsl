@@ -301,9 +301,10 @@
     <xsl:template name="itemSummaryView-DIM-displayTitle-translated">
         <h2 class="page-header first-page-header">
             <!-- <JR> - 2023-06-15: FIX: This is not working at all (subtring not detected?)-->
-            <xsl:text disable-output-escaping="yes"><xsl:value-of select="dim:field[@element='displayTitle'][@qualifier='translated'][1]/node()"/></xsl:text>
+            <!--<xsl:value-of select="dim:field[@element='displayTitle'][@qualifier='translated'][1]"/>>-->
+            <xsl:apply-templates mode="display-title-html"/>
         </h2>
-        <div class="simple-item-view-other">
+        <!-- <div class="simple-item-view-other">
             <p class="lead">
                 <xsl:for-each select="dim:field[@element='displayTitle'][@qualifier='translated']">
                     <xsl:if test="not(position() = 1)">
@@ -315,8 +316,14 @@
                     </xsl:if>
                 </xsl:for-each>
             </p>
-        </div>
+        </div> -->
     </xsl:template>
+
+    <xsl:template match="node()/strong|em|sup" mode="display-title-html">
+        <xsl:copy-of select="." />
+    </xsl:template>
+    
+    <xsl:template match="dim:field[@element='displayTitle'][@qualifier='translated'][1]/node()"
 
     <xsl:template name="itemSummaryView-DIM-thumbnail">
         <div class="thumbnail">
