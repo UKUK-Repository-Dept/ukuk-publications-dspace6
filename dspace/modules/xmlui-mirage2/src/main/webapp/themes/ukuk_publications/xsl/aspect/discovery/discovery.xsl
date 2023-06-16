@@ -181,7 +181,9 @@
                     <h4 class="discovery-item-title">
                         <xsl:choose>
                             <xsl:when test="dri:list[@n=(concat($handle, ':uk.displayTitle'))]">
-                                 <xsl:apply-templates select="dri:list[@n=(concat($handle, ':uk.displayTitle'))]/dri:item"/>
+                                 <xsl:call-template name="utility-parse-display-title">
+                                    <xsl:with-param name="title-string" select="$metsDoc/mets:METS/mets:dmdSec/mets:mdWrap/mets:xmlData/dim:dim/dim:field[@element='displayTitle']"/>
+                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:otherwise>
                                 <xsl:choose>
