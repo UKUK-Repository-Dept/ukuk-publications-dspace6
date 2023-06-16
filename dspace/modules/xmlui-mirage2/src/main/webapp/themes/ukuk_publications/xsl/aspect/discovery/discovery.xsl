@@ -178,13 +178,20 @@
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:attribute>
-                    <h4>
+                    <h4 class="discovery-item-title">
                         <xsl:choose>
-                            <xsl:when test="dri:list[@n=(concat($handle, ':dc.title'))]">
-                                <xsl:apply-templates select="dri:list[@n=(concat($handle, ':dc.title'))]/dri:item"/>
+                            <xsl:when test="dri:list[@n=(concat($handle, ':uk.displayTitle'))]">
+                                 <xsl:apply-templates select="dri:list[@n=(concat($handle, ':uk.displayTitle'))]/dri:item"/>
                             </xsl:when>
                             <xsl:otherwise>
-                                <i18n:text>xmlui.dri2xhtml.METS-1.0.no-title</i18n:text>
+                                <xsl:choose>
+                                    <xsl:when test="dri:list[@n=(concat($handle, ':dc.title'))]">
+                                        <xsl:apply-templates select="dri:list[@n=(concat($handle, ':dc.title'))]/dri:item"/>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <i18n:text>xmlui.dri2xhtml.METS-1.0.no-title</i18n:text>
+                                    </xsl:otherwise>
+                                </xsl:choose>
                             </xsl:otherwise>
                         </xsl:choose>
                         <!-- Generate COinS with empty content per spec but force Cocoon to not create a minified tag  -->
