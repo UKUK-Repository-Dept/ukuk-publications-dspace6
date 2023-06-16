@@ -185,7 +185,6 @@
                                  <xsl:call-template name="utility-parse-display-title">
                                     <xsl:with-param name="title-string" select="$metsDoc/mets:METS/mets:dmdSec/mets:mdWrap/mets:xmlData/dim:dim/dim:field[@element='displayTitle']"/>
                                  </xsl:call-template>
-                                 <xsl:apply-templates select="dri:list[@n=(concat($handle, ':uk.displayTitle'))]/dri:item"/>
                             </xsl:when>
                             <xsl:otherwise>
                                 <xsl:choose>
@@ -210,6 +209,7 @@
                         </span>
                     </h4>
                 </xsl:element>
+                <!-- <JR> 2023-06-16: TODO: Add uk.displayTitle.translated or dc.title.translated when available, see above for implementation -->
                 <div class="artifact-info">
                     <span class="author h4">    <small>
                         <xsl:choose>
