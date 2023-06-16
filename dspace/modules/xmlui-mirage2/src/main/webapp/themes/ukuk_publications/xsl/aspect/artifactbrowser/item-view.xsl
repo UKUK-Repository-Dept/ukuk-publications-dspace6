@@ -258,10 +258,14 @@
     <xsl:template name="itemSummaryView-DIM-title-translated">
         <xsl:choose>
             <xsl:when test="count(dim:field[@element='displayTitle'][@qualifier='translated']) &gt; 1">
-                <xsl:call-template name="itemSummaryView-DIM-displayTitle-translated"/>
+                <xsl:call-template name="itemSummaryView-DIM-displayTitle-translated">
+                    <xsl:with-param name="display-title-translated" select="dim:field[@element='displayTitle'][@qualifier='translated'][1]"/>
+                </xsl:call-template>
             </xsl:when>
             <xsl:when test="count(dim:field[@element='displayTitle'][@qualifier='translated']) = 1">
-                <xsl:call-template name="itemSummaryView-DIM-displayTitle-translated"/>
+                <xsl:call-template name="itemSummaryView-DIM-displayTitle-translated">
+                    <xsl:with-param name="display-title-translated" select="dim:field[@element='displayTitle'][@qualifier='translated'][1]"/>
+                </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:choose>
@@ -299,10 +303,13 @@
     </xsl:template>
 
     <xsl:template name="itemSummaryView-DIM-displayTitle-translated">
+        <xsl:param name="display-title-translated"/>
         <h2 class="page-header first-page-header">
             <!-- <JR> - 2023-06-15: FIX: This is not working at all (subtring not detected?)-->
             <!--<xsl:value-of select="dim:field[@element='displayTitle'][@qualifier='translated'][1]"/>>-->
-            <xsl:apply-templates mode="display-title-html"/>
+            <xsl:call-template name="parse-display-title">
+                <xsl:with-param name="title-string" select="$display-title-translated"/>
+            </xsl:call-template>
         </h2>
         <!-- <div class="simple-item-view-other">
             <p class="lead">
@@ -319,8 +326,10 @@
         </div> -->
     </xsl:template>
 
-    <xsl:template match="dim:field[@element='displayTitle'][@qualifier='translated'][1]/node()/strong|em|sup" mode="display-title-html">
-        <xsl:copy-of select="." />
+    <!-- <JR>  2023-06-16 -->
+    <xsl:template name="parse-display-title">
+        <xsl:param name="title-string"/>
+        <xsl:value-of disable-output-escaping="yes" select="$title-string"/>
     </xsl:template>
 
     <xsl:template name="itemSummaryView-DIM-thumbnail">
