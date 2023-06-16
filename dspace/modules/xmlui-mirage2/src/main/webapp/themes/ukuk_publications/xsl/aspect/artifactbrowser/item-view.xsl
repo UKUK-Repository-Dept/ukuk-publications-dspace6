@@ -311,17 +311,20 @@
 
     <xsl:template name="itemSummaryView-DIM-displayTitle-translated">
         <xsl:param name="display-title-translated"/>
-        <h2 class="page-header first-page-header">
+        <h2 class="page-header first-page-header item-title-translated">
             <!-- <JR> - 2023-06-16: Call utility-parse-display-title form utility.xsl to handle rendering of the uk.displayTitle.translated -->
             <xsl:call-template name="utility-parse-display-title">
                 <xsl:with-param name="title-string" select="$display-title-translated"/>
             </xsl:call-template>
         </h2>
-        <!-- <div class="simple-item-view-other">
+        <div class="simple-item-view-other">
             <p class="lead">
                 <xsl:for-each select="dim:field[@element='displayTitle'][@qualifier='translated']">
                     <xsl:if test="not(position() = 1)">
-                        <xsl:value-of select="./node()"/>
+                        <xsl:call-template name="utility-parse-display-title">
+                            <xsl:with-param name="title-string" select="./node()"/>
+                        </xsl:call-template>
+                        <!-- <xsl:value-of select="./node()"/>-->
                         <xsl:if test="count(following-sibling::dim:field[@element='displayTitle'][@qualifier='translated']) != 0">
                             <xsl:text>; </xsl:text>
                             <br/>
@@ -329,7 +332,7 @@
                     </xsl:if>
                 </xsl:for-each>
             </p>
-        </div> -->
+        </div>
     </xsl:template>
 
     <xsl:template name="itemSummaryView-DIM-thumbnail">
