@@ -211,11 +211,11 @@
                                     <h2 class="first-page-header item-title">
                                             <xsl:value-of select="./node()"/>
                                     </h2>
-                                    </br>
+                                    <br/>
                                     <p class="lead item-view-title-lead" />
                                 </xsl:when>
                                 <xsl:when test="position() = last()">
-                                    <h2 class="page-header first-page-header item-title">
+                                    <h2 class="first-page-header item-title">
                                         <xsl:value-of select="./node()"/>
                                     </h2>
                                 </xsl:when>
@@ -223,7 +223,7 @@
                                     <h2 class="first-page-header item-title">
                                         <xsl:value-of select="./node()"/>
                                     </h2>
-                                    </br>
+                                    <br/>
                                     <p class="lead item-view-title-lead" />
                                 </xsl:otherwise>
                             </xsl:choose>
@@ -272,11 +272,11 @@
                             <xsl:with-param name="title-string" select="$display-title/node()"/>
                         </xsl:call-template>
                     </h2>
-                    </br>
+                    <br/>
                     <p class="lead item-view-title-lead" />
                 </xsl:when>
                 <xsl:when test="position() = last()">
-                    <h2 class="page-header first-page-header item-title">
+                    <h2 class="first-page-header item-title">
                         <xsl:call-template name="utility-parse-display-title">
                             <xsl:with-param name="title-string" select="$display-title/node()"/>
                         </xsl:call-template>
@@ -288,7 +288,7 @@
                             <xsl:with-param name="title-string" select="$display-title/node()"/>
                         </xsl:call-template>
                     </h2>
-                    </br>
+                    <br/>
                     <p class="lead item-view-title-lead" />
                 </xsl:otherwise>
             </xsl:choose>
