@@ -194,21 +194,44 @@
         <xsl:choose>
             <xsl:when test="count(dim:field[@element='displayTitle'][not(@qualifier)]) &gt; 1">
                 <xsl:call-template name="itemSummaryView-DIM-displayTitle">
-                    <xsl:with-param name="display-title" select="dim:field[@element='displayTitle'][not(@qualifier)][1]"/>
+                    <xsl:with-param name="display-title" select="dim:field[@element='displayTitle'][not(@qualifier)]"/>
                 </xsl:call-template>
             </xsl:when>
             <xsl:when test="count(dim:field[@element='displayTitle'][not(@qualifier)]) = 1">
                 <xsl:call-template name="itemSummaryView-DIM-displayTitle">
-                    <xsl:with-param name="display-title" select="dim:field[@element='displayTitle'][not(@qualifier)][1]"/>
+                    <xsl:with-param name="display-title" select="dim:field[@element='displayTitle'][not(@qualifier)]"/>
                 </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:choose>
                     <xsl:when test="count(dim:field[@element='title'][not(@qualifier)]) &gt; 1">
-                        <h2 class="page-header first-page-header">
+                        <xsl:for-each select="dim:field[@element='title'][not(@qualifier)]">
+                            <xsl:choose>
+                                <xsl:when test="position() = 1">
+                                    <h2 class="first-page-header item-title">
+                                            <xsl:value-of select="./node()"/>
+                                    </h2>
+                                    </br>
+                                    <p class="lead item-view-title-lead" />
+                                </xsl:when>
+                                <xsl:when test="position() = last()">
+                                    <h2 class="page-header first-page-header item-title">
+                                        <xsl:value-of select="./node()"/>
+                                    </h2>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <h2 class="first-page-header item-title">
+                                        <xsl:value-of select="./node()"/>
+                                    </h2>
+                                    </br>
+                                    <p class="lead item-view-title-lead" />
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:for-each>
+                        <!-- <h2 class="page-header first-page-header item-title">
                             <xsl:value-of select="dim:field[@element='title'][not(@qualifier)][1]/node()"/>
-                        </h2>
-                        <div class="simple-item-view-other">
+                        </h2> -->
+                        <!-- <div class="simple-item-view-other">
                             <p class="lead">
                                 <xsl:for-each select="dim:field[@element='title'][not(@qualifier)]">
                                     <xsl:if test="not(position() = 1)">
@@ -221,7 +244,7 @@
 
                                 </xsl:for-each>
                             </p>
-                        </div>
+                        </div> -->
                     </xsl:when>
                     <xsl:when test="count(dim:field[@element='title'][not(@qualifier)]) = 1">
                         <h2 class="page-header first-page-header">
@@ -239,15 +262,45 @@
     </xsl:template>
 
     <xsl:template name="itemSummaryView-DIM-displayTitle">
+        <!-- <JR> - 2023-06-16: Call utility-parse-display-title form utility.xsl to handle rendering of the uk.displayTitle -->
         <xsl:param name="display-title"/>
-        <h2 class="page-header first-page-header">
-            <!-- <JR> - 2023-06-16: Call utility-parse-display-title form utility.xsl to handle rendering of the uk.displayTitle -->
+        <xsl:for-each select="$display-title">
+            <xsl:choose>
+                <xsl:when test="position() = 1">
+                    <h2 class="first-page-header item-title">
+                        <xsl:call-template name="utility-parse-display-title">
+                            <xsl:with-param name="title-string" select="$display-title/node()"/>
+                        </xsl:call-template>
+                    </h2>
+                    </br>
+                    <p class="lead item-view-title-lead" />
+                </xsl:when>
+                <xsl:when test="position() = last()">
+                    <h2 class="page-header first-page-header item-title">
+                        <xsl:call-template name="utility-parse-display-title">
+                            <xsl:with-param name="title-string" select="$display-title/node()"/>
+                        </xsl:call-template>
+                    </h2>
+                </xsl:when>
+                <xsl:otherwise>
+                    <h2 class="first-page-header item-title">
+                        <xsl:call-template name="utility-parse-display-title">
+                            <xsl:with-param name="title-string" select="$display-title/node()"/>
+                        </xsl:call-template>
+                    </h2>
+                    </br>
+                    <p class="lead item-view-title-lead" />
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:for-each>
+        <!-- <h2 class="first-page-header ">
+            
             <xsl:call-template name="utility-parse-display-title">
                 <xsl:with-param name="title-string" select="$display-title"/>
             </xsl:call-template>
         </h2>
         <div class="simple-item-view-other">
-            <p class="lead">
+            <p class="lead item-view-title-lead">
                 <xsl:for-each select="dim:field[@element='displayTitle'][not(@qualifier)]">
                     <xsl:if test="not(position() = 1)">
                         <xsl:value-of select="./node()"/>
@@ -258,7 +311,7 @@
                     </xsl:if>
                 </xsl:for-each>
             </p>
-        </div>
+        </div> -->
     </xsl:template>
     
     <!-- <JR> - 2023-06-14: Render translated title -->
@@ -277,11 +330,11 @@
             <xsl:otherwise>
                 <xsl:choose>
                     <xsl:when test="count(dim:field[@element='title'][@qualifier='translated']) &gt; 1">
-                        <h2 class="page-header first-page-header">
+                        <h3 class="page-header item-title-translated">
                             <xsl:value-of select="dim:field[@element='title'][@qualifier='translated'][1]/node()"/>
-                        </h2>
+                        </h3>
                         <div class="simple-item-view-other">
-                            <p class="lead">
+                            <p class="lead item-view-title-lead">
                                 <xsl:for-each select="dim:field[@element='title'][@qualifier='translated']">
                                     <xsl:if test="not(position() = 1)">
                                         <xsl:value-of select="./node()"/>
@@ -311,12 +364,12 @@
 
     <xsl:template name="itemSummaryView-DIM-displayTitle-translated">
         <xsl:param name="display-title-translated"/>
-        <h2 class="page-header first-page-header item-title-translated">
+        <h3 class="page-header item-title-translated">
             <!-- <JR> - 2023-06-16: Call utility-parse-display-title form utility.xsl to handle rendering of the uk.displayTitle.translated -->
             <xsl:call-template name="utility-parse-display-title">
                 <xsl:with-param name="title-string" select="$display-title-translated"/>
             </xsl:call-template>
-        </h2>
+        </h3>
         <div class="simple-item-view-other">
             <p class="lead">
                 <xsl:for-each select="dim:field[@element='displayTitle'][@qualifier='translated']">
