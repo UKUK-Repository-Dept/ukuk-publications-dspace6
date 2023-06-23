@@ -102,6 +102,19 @@ h5 small, h5 .small, h6 small, h6 .small,
 
 // END OF: Headings
 
+// Handling item-view (headings / lead)
+
+.item-summary-view-metadata > .item-title-translated {
+  font-size: 17px;
+  color: rgba(47,79,79,1.0);
+}
+
+.item-summary-view-metadata > .item-view-title-lead {
+  margin-bottom: 0px;
+}
+
+// END OF: Handling item-view (headings / lead)
+
 .publication-records-modal, .publication-records-modal ul {
   list-style-type: none;
   padding-left: 0px;
