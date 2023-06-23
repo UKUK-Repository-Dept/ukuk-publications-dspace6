@@ -211,6 +211,22 @@
                 </xsl:element>
                 <!-- <JR> 2023-06-16: TODO: Add uk.displayTitle.translated or dc.title.translated when available, see above for implementation -->
                 <div class="artifact-info">
+                    <xsl:choose>
+                        <xsl:when test="dri:list[@n=(concat($handle, ':uk.displayTitle.translated'))]">
+                            <div class="item-title-translated">
+                                <xsl:call-template name="utility-parse-display-title">
+                                    <xsl:with-param name="title-string" select="$metsDoc/mets:METS/mets:dmdSec/mets:mdWrap/mets:xmlData/dim:dim/dim:field[@element='displayTitle.translated']"/>
+                                 </xsl:call-template>
+                            </div>
+                        </xsl:when>
+                        <xsl:othewise>
+                            <xsl:choose>
+                                <xsl:when test="dri:list[@n=(concat($handle, ':dc.title.translated'))]">
+                                    <xsl:apply-templates select="dri:list[@n=(concat($handle, ':dc.title'))]/dri:item"/>
+                                </xsl:when>
+                            </xsl:choose>
+                        </xsl:otherwise>
+                    </xsl:choose>
                     <span class="author h4">    <small>
                         <xsl:choose>
                             <xsl:when test="dri:list[@n=(concat($handle, ':dc.contributor.author'))]">
