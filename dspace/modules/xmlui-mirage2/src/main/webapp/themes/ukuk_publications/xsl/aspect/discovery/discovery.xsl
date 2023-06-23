@@ -215,10 +215,10 @@
                         <xsl:when test="dri:list[@n=(concat($handle, ':uk.displayTitle.translated'))]">
                             <div class="item-title-translated">
                                 <xsl:call-template name="utility-parse-display-title">
-                                    <xsl:with-param name="title-string" select="$metsDoc/mets:METS/mets:dmdSec/mets:mdWrap/mets:xmlData/dim:dim/dim:field[@element='displayTitle.translated']"/>
+                                    <xsl:with-param name="title-string" select="$metsDoc/mets:METS/mets:dmdSec/mets:mdWrap/mets:xmlData/dim:dim/dim:field[@element='displayTitle'][@qualifier='translated']"/>
                                  </xsl:call-template>
                             </div>
-                            <xsl:for-each select="dim:field[@element='displayTitle'][@qualifier='translated']">
+                            <xsl:for-each select="$metsDoc/mets:METS/mets:dmdSec/mets:mdWrap/mets:xmlData/dim:dim/dim:field[@element='displayTitle'][@qualifier='translated']">
                                 <xsl:if test="not(position() = 1)">
                                     <div class="item-title-translated-other">
                                         <xsl:call-template name="utility-parse-display-title">
