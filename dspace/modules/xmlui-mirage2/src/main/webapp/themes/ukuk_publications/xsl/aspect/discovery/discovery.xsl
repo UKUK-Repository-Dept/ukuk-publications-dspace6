@@ -214,16 +214,20 @@
                     <xsl:choose>
                         <xsl:when test="dri:list[@n=(concat($handle, ':uk.displayTitle.translated'))]">
                             <div class="item-title-translated">
-                                <xsl:call-template name="utility-parse-display-title">
-                                    <xsl:with-param name="title-string" select="$metsDoc/mets:METS/mets:dmdSec/mets:mdWrap/mets:xmlData/dim:dim/dim:field[@element='displayTitle'][@qualifier='translated']"/>
-                                 </xsl:call-template>
+                                <h5 class="discovery-item-title-translated">
+                                    <xsl:call-template name="utility-parse-display-title">
+                                        <xsl:with-param name="title-string" select="$metsDoc/mets:METS/mets:dmdSec/mets:mdWrap/mets:xmlData/dim:dim/dim:field[@element='displayTitle'][@qualifier='translated']"/>
+                                    </xsl:call-template>
+                                </h5>
                             </div>
                             <xsl:for-each select="$metsDoc/mets:METS/mets:dmdSec/mets:mdWrap/mets:xmlData/dim:dim/dim:field[@element='displayTitle'][@qualifier='translated']">
                                 <xsl:if test="not(position() = 1)">
                                     <div class="item-title-translated-other">
-                                        <xsl:call-template name="utility-parse-display-title">
-                                            <xsl:with-param name="title-string" select="./node()"/>
-                                        </xsl:call-template>
+                                        <h5 class="discovery-item-title-translated">
+                                            <xsl:call-template name="utility-parse-display-title">
+                                                <xsl:with-param name="title-string" select="./node()"/>
+                                            </xsl:call-template>
+                                        </h5>
                                     </div>
                                     <!-- <xsl:value-of select="./node()"/>-->
                                     <!-- <xsl:if test="count(following-sibling::dim:field[@element='displayTitle'][@qualifier='translated']) != 0">
@@ -236,7 +240,11 @@
                         <xsl:otherwise>
                             <xsl:choose>
                                 <xsl:when test="dri:list[@n=(concat($handle, ':dc.title.translated'))]">
-                                    <xsl:apply-templates select="dri:list[@n=(concat($handle, ':dc.title'))]/dri:item"/>
+                                    <div class="item-title-translated">
+                                        <h5 class="discovery-item-title-translated">
+                                            <xsl:apply-templates select="dri:list[@n=(concat($handle, ':dc.title.translated'))]/dri:item"/>
+                                        </h5>
+                                    </div>
                                 </xsl:when>
                             </xsl:choose>
                         </xsl:otherwise>
