@@ -97,8 +97,8 @@
                     </xsl:attribute>
                     <xsl:choose>
                         <xsl:when test="dim:field[@element='displayTitle']">
-                            <xsl:call-template name="itemSummaryView-DIM-displayTitle-translated">
-                                <xsl:with-param name="display-title-translated" select="dim:field[@element='displayTitle'][1]"/>
+                            <xsl:call-template name="utility-parse-display-title">
+                                <xsl:with-param name="title-string" select="dim:field[@element='displayTitle'][1]"/>
                             </xsl:call-template>
                         </xsl:when>
                         <xsl:otherwise>
