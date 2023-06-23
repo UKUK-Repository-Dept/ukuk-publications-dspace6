@@ -203,16 +203,16 @@
                     <xsl:when test="count(dim:field[@element='title'][not(@qualifier)]) &gt; 1">
                         <xsl:for-each select="dim:field[@element='title'][not(@qualifier)]">
                             <xsl:choose>
+                                <xsl:when test="position() = last()">
+                                    <h2 class="first-page-header item-title">
+                                        <xsl:value-of select="./node()"/>
+                                    </h2>
+                                </xsl:when>
                                 <xsl:when test="position() = 1">
                                     <h2 class="first-page-header item-title">
                                             <xsl:value-of select="./node()"/>
                                     </h2>
                                     <p class="lead item-view-title-lead" />
-                                </xsl:when>
-                                <xsl:when test="position() = last()">
-                                    <h2 class="first-page-header item-title">
-                                        <xsl:value-of select="./node()"/>
-                                    </h2>
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <h2 class="first-page-header item-title">
@@ -224,12 +224,21 @@
                         </xsl:for-each>
                     </xsl:when>
                     <xsl:when test="count(dim:field[@element='title'][not(@qualifier)]) = 1">
-                        <h2 class="page-header first-page-header">
-                            <xsl:value-of select="dim:field[@element='title'][not(@qualifier)][1]/node()"/>
-                        </h2>
+                        <xsl:choose>
+                            <xsl:when test="dim:field[@element='title'][@qualifier='translated']">
+                                <h2 class="first-page-header item-title">
+                                    <xsl:value-of select="dim:field[@element='title'][not(@qualifier)][1]/node()"/>
+                                </h2>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <h2 class="page-header first-page-header item-title">
+                                    <xsl:value-of select="dim:field[@element='title'][not(@qualifier)][1]/node()"/>
+                                </h2>
+                            </xsl:otherwise>
+                        </xsl:choose>
                     </xsl:when>
                     <xsl:otherwise>
-                        <h2 class="page-header first-page-header">
+                        <h2 class="page-header first-page-header item-title">
                             <i18n:text>xmlui.dri2xhtml.METS-1.0.no-title</i18n:text>
                         </h2>
                     </xsl:otherwise>
@@ -244,6 +253,13 @@
         
         <xsl:for-each select="dim:field[@element='displayTitle'][not(@qualifier)]">
             <xsl:choose>
+                <xsl:when test="position() = last()">
+                    <h2 class="first-page-header item-title">
+                        <xsl:call-template name="utility-parse-display-title">
+                            <xsl:with-param name="title-string" select="./node()"/>
+                        </xsl:call-template>
+                    </h2>
+                </xsl:when>
                 <xsl:when test="position() = 1">
                     <h2 class="first-page-header item-title">
                         <xsl:call-template name="utility-parse-display-title">
@@ -251,13 +267,6 @@
                         </xsl:call-template>
                     </h2>
                     <p class="lead item-view-title-lead" />
-                </xsl:when>
-                <xsl:when test="position() = last()">
-                    <h2 class="first-page-header item-title">
-                        <xsl:call-template name="utility-parse-display-title">
-                            <xsl:with-param name="title-string" select="./node()"/>
-                        </xsl:call-template>
-                    </h2>
                 </xsl:when>
                 <xsl:otherwise>
                     <h2 class="first-page-header item-title">
@@ -285,16 +294,16 @@
                     <xsl:when test="count(dim:field[@element='title'][@qualifier='translated']) &gt; 1">
                         <xsl:for-each select="dim:field[@element='title'][@qualifier='translated']">
                             <xsl:choose>
+                                <xsl:when test="position() = last()">
+                                    <h3 class="page-header first-page-header item-title">
+                                        <xsl:value-of select="./node()"/>
+                                    </h3>
+                                </xsl:when>
                                 <xsl:when test="position() = 1">
                                     <h3 class="first-page-header item-title">
                                             <xsl:value-of select="./node()"/>
                                     </h3>
                                     <p class="lead item-view-title-lead" />
-                                </xsl:when>
-                                <xsl:when test="position() = last()">
-                                    <h3 class="page-header first-page-header item-title">
-                                        <xsl:value-of select="./node()"/>
-                                    </h3>
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <h3 class="first-page-header item-title">
@@ -306,7 +315,7 @@
                         </xsl:for-each>
                     </xsl:when>
                     <xsl:when test="count(dim:field[@element='title'][@qualifier='translated']) = 1">
-                        <h2 class="page-header first-page-header">
+                        <h2 class="page-header first-page-header item-title-translated">
                             <xsl:value-of select="dim:field[@element='title'][@qualifier='translated'][1]/node()"/>
                         </h2>
                     </xsl:when>
@@ -322,6 +331,13 @@
         <!-- <JR> - 2023-06-23: Reworked title.translated generation, if bugy, use implementation based on dc.title template from official DSpace repo -->
         <xsl:for-each select="dim:field[@element='displayTitle'][@qualifier='translated']">
             <xsl:choose>
+                <xsl:when test="position() = last()">
+                    <h3 class="page-header first-page-header item-title-translated">
+                        <xsl:call-template name="utility-parse-display-title">
+                            <xsl:with-param name="title-string" select="./node()"/>
+                        </xsl:call-template>
+                    </h3>
+                </xsl:when>
                 <xsl:when test="position() = 1">
                     <h3 class="first-page-header item-title-translated">
                         <xsl:call-template name="utility-parse-display-title">
@@ -329,13 +345,6 @@
                         </xsl:call-template>
                     </h3>
                     <p class="lead item-view-title-lead" />
-                </xsl:when>
-                <xsl:when test="position() = last()">
-                    <h3 class="page-header first-page-header item-title-translated">
-                        <xsl:call-template name="utility-parse-display-title">
-                            <xsl:with-param name="title-string" select="./node()"/>
-                        </xsl:call-template>
-                    </h3>
                 </xsl:when>
                 <xsl:otherwise>
                     <h3 class="first-page-header item-title-translated">
