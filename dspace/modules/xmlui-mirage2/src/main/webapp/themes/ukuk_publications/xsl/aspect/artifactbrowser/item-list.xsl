@@ -35,6 +35,7 @@
     xmlns:util="org.dspace.app.xmlui.utils.XSLUtils"
     xmlns:confman="org.dspace.core.ConfigurationManager"
     exclude-result-prefixes="xalan encoder i18n dri mets dim xlink xsl util confman">
+    <xsl:import href="../../custom/utility.xsl"/>
 
     <xsl:output indent="yes"/>
 
@@ -95,11 +96,20 @@
                         <xsl:value-of select="$href"/>
                     </xsl:attribute>
                     <xsl:choose>
-                        <xsl:when test="dim:field[@element='title']">
-                            <xsl:value-of select="dim:field[@element='title'][1]/node()"/>
+                        <xsl:when test="dim:field[@element='displayTitle']">
+                            <xsl:call-template name="itemSummaryView-DIM-displayTitle-translated">
+                                <xsl:with-param name="display-title-translated" select="dim:field[@element='displayTitle'][1]"/>
+                            </xsl:call-template>
                         </xsl:when>
                         <xsl:otherwise>
-                            <i18n:text>xmlui.dri2xhtml.METS-1.0.no-title</i18n:text>
+                            <xsl:choose>
+                                <xsl:when test="dim:field[@element='title']">
+                                    <xsl:value-of select="dim:field[@element='title'][1]/node()"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <i18n:text>xmlui.dri2xhtml.METS-1.0.no-title</i18n:text>
+                                </xsl:otherwise>
+                            </xsl:choose>
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:element>
