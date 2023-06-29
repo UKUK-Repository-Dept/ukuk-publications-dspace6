@@ -21,6 +21,7 @@
     xmlns:stringescapeutils="org.apache.commons.lang3.StringEscapeUtils"
     xmlns:util="org.dspace.app.xmlui.utils.XSLUtils"
     exclude-result-prefixes="xalan encoder i18n dri mets dim  xlink xsl util stringescapeutils">
+    <xsl:import href="../../custom/utility.xsl"/>
 
     <xsl:output indent="yes"/>
 
@@ -165,6 +166,8 @@
 
 
             <div class="col-sm-9 artifact-description">
+                <!-- <JR> - 2023-06-13: TODO: Try rendering uk.displayTitle when present, instead of dc.title in artifact description -->
+                <!-- <JR> - 2023-06-13: TODO: Add template for rendering translated title and try rendering uk.displayTitle.translated when present, instead of dc.title.translated -->
                 <xsl:element name="a">
                     <xsl:attribute name="href">
                         <xsl:choose>
@@ -176,13 +179,22 @@
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:attribute>
-                    <h4>
+                    <h4 class="discovery-item-title">
                         <xsl:choose>
-                            <xsl:when test="dri:list[@n=(concat($handle, ':dc.title'))]">
-                                <xsl:apply-templates select="dri:list[@n=(concat($handle, ':dc.title'))]/dri:item"/>
+                            <xsl:when test="dri:list[@n=(concat($handle, ':uk.displayTitle'))]">
+                                 <xsl:call-template name="utility-parse-display-title">
+                                    <xsl:with-param name="title-string" select="$metsDoc/mets:METS/mets:dmdSec/mets:mdWrap/mets:xmlData/dim:dim/dim:field[@element='displayTitle']"/>
+                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:otherwise>
-                                <i18n:text>xmlui.dri2xhtml.METS-1.0.no-title</i18n:text>
+                                <xsl:choose>
+                                    <xsl:when test="dri:list[@n=(concat($handle, ':dc.title'))]">
+                                        <xsl:apply-templates select="dri:list[@n=(concat($handle, ':dc.title'))]/dri:item"/>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <i18n:text>xmlui.dri2xhtml.METS-1.0.no-title</i18n:text>
+                                    </xsl:otherwise>
+                                </xsl:choose>
                             </xsl:otherwise>
                         </xsl:choose>
                         <!-- Generate COinS with empty content per spec but force Cocoon to not create a minified tag  -->
@@ -197,7 +209,46 @@
                         </span>
                     </h4>
                 </xsl:element>
+                <!-- <JR> 2023-06-16: TODO: Add uk.displayTitle.translated or dc.title.translated when available, see above for implementation -->
                 <div class="artifact-info">
+                    <xsl:choose>
+                        <xsl:when test="dri:list[@n=(concat($handle, ':uk.displayTitle.translated'))]">
+                            <div class="item-title-translated">
+                                <h5 class="discovery-item-title-translated">
+                                    <xsl:call-template name="utility-parse-display-title">
+                                        <xsl:with-param name="title-string" select="$metsDoc/mets:METS/mets:dmdSec/mets:mdWrap/mets:xmlData/dim:dim/dim:field[@element='displayTitle'][@qualifier='translated']"/>
+                                    </xsl:call-template>
+                                </h5>
+                            </div>
+                            <xsl:for-each select="$metsDoc/mets:METS/mets:dmdSec/mets:mdWrap/mets:xmlData/dim:dim/dim:field[@element='displayTitle'][@qualifier='translated']">
+                                <xsl:if test="not(position() = 1)">
+                                    <div class="item-title-translated-other">
+                                        <h5 class="discovery-item-title-translated">
+                                            <xsl:call-template name="utility-parse-display-title">
+                                                <xsl:with-param name="title-string" select="./node()"/>
+                                            </xsl:call-template>
+                                        </h5>
+                                    </div>
+                                    <!-- <xsl:value-of select="./node()"/>-->
+                                    <!-- <xsl:if test="count(following-sibling::dim:field[@element='displayTitle'][@qualifier='translated']) != 0">
+                                        <xsl:text>; </xsl:text>
+                                        <br/>
+                                    </xsl:if> -->
+                                </xsl:if>
+                            </xsl:for-each>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:choose>
+                                <xsl:when test="dri:list[@n=(concat($handle, ':dc.title.translated'))]">
+                                    <div class="item-title-translated">
+                                        <h5 class="discovery-item-title-translated">
+                                            <xsl:apply-templates select="dri:list[@n=(concat($handle, ':dc.title.translated'))]/dri:item"/>
+                                        </h5>
+                                    </div>
+                                </xsl:when>
+                            </xsl:choose>
+                        </xsl:otherwise>
+                    </xsl:choose>
                     <span class="author h4">    <small>
                         <xsl:choose>
                             <xsl:when test="dri:list[@n=(concat($handle, ':dc.contributor.author'))]">
