@@ -468,3 +468,125 @@ a.list-group-item:hover, a.list-group-item:focus {
 blockquote {
   border-left: 5px solid rgba(195,44,46, 0.5);
 }
+
+// Cookie consent new
+.termsfeed-com---palette-light.termsfeed-com---nb {
+	background-color: #f7f7f7;
+	color: #000;
+}
+
+.termsfeed-com---reset {
+	font-family: palanquinlight, Helvetica, Arial, sans-serif;
+}
+
+.termsfeed-com---palette-light .cc-nb-okagree {
+	background-color: #fff;
+	color: #000;
+	border: 1px solid rgba(204,44,50,1.0);
+}
+
+.termsfeed-com---palette-light .cc-nb-okagree:hover, .termsfeed-com---palette-light .cc-nb-okagree:focus {
+	background-color: rgba(204,44,50,1.0);
+	color: #fff;
+	border: 1px solid rgba(204,44,50,1.0);
+}
+
+.termsfeed-com---palette-light .cc-nb-reject {
+	background-color: #fff;
+	color: #000;
+	border: 1px solid rgba(204,44,50,1.0);
+}
+
+.termsfeed-com---palette-light .cc-nb-reject:hover, .termsfeed-com---palette-light .cc-nb-reject:focus {
+	background-color: rgba(204,44,50,1.0);
+	color: #fff;
+	border: 1px solid rgba(204,44,50,1.0);
+}
+
+.termsfeed-com---palette-light .cc-nb-changep {
+	background-color: #fff;
+	border: 1px solid rgba(204,44,50,1.0);
+	color: #000;
+}
+
+.termsfeed-com---palette-light .cc-nb-changep:hover, .termsfeed-com---palette-light .cc-nb-changep:focus {
+	background-color: rgba(204,44,50,1.0);
+	color: #fff;
+	border: 1px solid rgba(204,44,50,1.0);
+}
+
+.termsfeed-com---palette-light .cc-pc-head {
+	color: #000;
+}
+
+.termsfeed-com---palette-light .cc-pc-head-title-text {
+	color: #000;
+}
+
+.termsfeed-com---palette-light .cc-pc-head-title-headline {
+	color: #000;
+}
+
+.termsfeed-com---palette-light .cc-pc-head-close {
+	color: #000;
+}
+
+.termsfeed-com---palette-light .cc-cp-body {
+	background: #f7f7f7 !important;
+	color: #000;
+}
+
+.termsfeed-com---palette-light .cc-cp-body-tabs {
+	color: #000;
+	background: #f7f7f7;
+}
+
+.termsfeed-com---pc-dialog .cc-cp-body-tabs {
+	font-family: palanquinlight, Helvetica, Arial, sans-serif;
+}
+
+.termsfeed-com---pc-dialog .cc-cp-body-tabs-item {
+	color: #000;
+}
+
+.termsfeed-com---palette-light .cc-cp-body-tabs-item-link {
+	color: #000;
+}
+
+.termsfeed-com---palette-light .cc-cp-body-content {
+	background: #f7f7f7 !important;
+	color: #000;
+}
+
+.termsfeed-com---pc-dialog input[type=checkbox].cc-custom-checkbox:checked+label:before {
+	background: #cc2c32;
+}
+
+.termsfeed-com---palette-light .cc-cp-foot-byline {
+	visibility: hidden;
+}
+
+.termsfeed-com---palette-light .cc-cp-foot-save {
+	background-color: #fff;
+	color: #000;
+	border: 1px solid rgba(204,44,50,1.0);
+}
+
+.termsfeed-com---palette-light .cc-cp-foot-save:hover, .termsfeed-com---palette-light .cc-cp-foot-save:focus {
+	background-color: rgba(204,44,50,1.0);
+	color: #fff;
+	border: 1px solid rgba(204,44,50,1.0);
+}
+
+label#strictly-necessary_label:before {
+	background: rgba(204,44,50,0.5);
+}
+
+.termsfeed-com---pc-dialog input[type=checkbox].cc-custom-checkbox+label:before {
+	border: 1px solid #cc2c32;
+}
+
+.termsfeed-com---pc-dialog input[type=checkbox].cc-custom-checkbox+label:after {
+	border: 1px solid #cc2c32;
+}
+// END OF: Cookie consent new

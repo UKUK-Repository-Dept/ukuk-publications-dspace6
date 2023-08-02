@@ -151,9 +151,21 @@
     references to stylesheets pulled directly from the pageMeta element. -->
     <xsl:template name="buildHead">
         <head>
+            <meta charset="utf-8" />
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+            <script type="text/javascript" charset="UTF-8" src="{$theme-path}scripts/cuni_cookie-consent.js" ></script>
+            <script type="text/javascript" charset="UTF-8">
+            document.addEventListener('DOMContentLoaded', function () {
+            cookieconsent.run({"notice_banner_type":"simple",
+            "consent_type":"express","palette":"light","language":"<xsl:value-of select="$active-locale"/>","page_load_consent_levels":["strictly-necessary"],
+            "notice_banner_reject_button_hide":false,"preferences_center_close_button_hide":false,
+            "page_refresh_confirmation_buttons":false,"website_name":"Repozitář publikační činnosti UK",
+            "notice_banner_insert_legal_urls":false,"website_privacy_policy_url":"https://cuni.cz/UK-9056.html"});
+            });
+            </script>
             <xsl:call-template name="addJavascript-google-analytics"/>
             
-            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+            
 
             <!-- Use the .htaccess and remove these lines to avoid edge case issues.
              More info: h5bp.com/i/378 -->
@@ -969,8 +981,9 @@
         <!-- Add a google analytics script if the key is present -->
         <xsl:if test="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='google'][@qualifier='analytics']">
             <xsl:variable name="ga-property" select="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='google'][@qualifier='analytics']"/>
-            <script async="" src="https://www.googletagmanager.com/gtag/js?id={$ga-property}"></script>
-            <script>
+            
+            <script type="text/plain" data-cookie-consent="tracking" async="" src="https://www.googletagmanager.com/gtag/js?id={$ga-property}"></script>
+            <script type="text/plain" data-cookie-consent="tracking">
                 <xsl:text>
                     window.dataLayer = window.dataLayer || [];
                     function gtag(){dataLayer.push(arguments);}
@@ -979,15 +992,6 @@
                     gtag('config', '</xsl:text><xsl:value-of select="$ga-property"/><xsl:text>', { 'anonymize_ip': true });
                     gtag('config', '</xsl:text><xsl:value-of select="$ga-property"/><xsl:text>');</xsl:text>
             </script>
-            <!--<script><xsl:text>
-                (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-                })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-                ga('create', '</xsl:text><xsl:value-of select="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='google'][@qualifier='analytics']"/><xsl:text>', '</xsl:text><xsl:value-of select="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='request'][@qualifier='serverName']"/><xsl:text>');
-                ga('send', 'pageview');
-            </xsl:text></script>-->
         </xsl:if>
     </xsl:template>
 
