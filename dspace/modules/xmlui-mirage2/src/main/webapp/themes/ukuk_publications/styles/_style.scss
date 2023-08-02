@@ -626,4 +626,13 @@ label#strictly-necessary_label:before {
 .termsfeed-com---pc-dialog input[type=checkbox].cc-custom-checkbox+label:after {
 	border: 1px solid #cc2c32;
 }
+
+.termsfeed-com---palette-light .cc-pc-head-lang select {
+  color: #000;
+}
+
+.termsfeed-com---palette-light .cc-pc-head-lang select:focus {
+  box-shadow: 0 0 0 1px rgba(204,44,50,1.0);
+}
+
 // END OF: Cookie consent new
