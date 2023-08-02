@@ -471,8 +471,9 @@ blockquote {
 
 // Cookie consent new
 .termsfeed-com---palette-light.termsfeed-com---nb {
-	background-color: #f7f7f7;
+	background-color: #fff;
 	color: #000;
+  border: 3px solid rgba(204,44,50,1.0)
 }
 
 .termsfeed-com---reset {
@@ -517,6 +518,8 @@ blockquote {
 
 .termsfeed-com---palette-light .cc-pc-head {
 	color: #000;
+  background: #fff;
+  border-bottom: rgba(204,44,50,1.0);
 }
 
 .termsfeed-com---palette-light .cc-pc-head-title-text {
@@ -532,14 +535,22 @@ blockquote {
 }
 
 .termsfeed-com---palette-light .cc-cp-body {
-	background: #f7f7f7 !important;
+	background: #fff !important;
 	color: #000;
+}
+
+.termsfeed-com---palette-light .cc-cp-foot {
+  background: #fff !important;
+  border-top-color: rgba(204,44,50,1.0);
 }
 
 .termsfeed-com---palette-light .cc-cp-body-tabs {
 	color: #000;
-	background: #f7f7f7;
+	background: #fff;
+  border-right: 1px solid rgba(204,44,50,1.0);
 }
+
+
 
 .termsfeed-com---pc-dialog .cc-cp-body-tabs {
 	font-family: palanquinlight, Helvetica, Arial, sans-serif;
@@ -547,15 +558,41 @@ blockquote {
 
 .termsfeed-com---pc-dialog .cc-cp-body-tabs-item {
 	color: #000;
+  background: #fff;
+}
+
+.termsfeed-com---palette-light .cc-cp-body-tabs-item {
+  border-right-color: rgba(204,44,50,1.0);
+  border-bottom-color: rgba(204,44,50,1.0);
 }
 
 .termsfeed-com---palette-light .cc-cp-body-tabs-item-link {
 	color: #000;
 }
 
+.termsfeed-com---palette-light .cc-cp-body-tabs-item-link:focus {
+  box-shadow: 0 0 0 2px rgba(204,44,50,0.2);
+  background: rgba(204,44,50,0.5);
+  color: #fff;
+}
+
+.termsfeed-com---palette-light .cc-cp-body-tabs-item-link:hover {
+  box-shadow: 0 0 0 2px rgba(204,44,50,0.2);
+  background: rgba(204,44,50,0.5);
+  color: #fff;
+}
+
 .termsfeed-com---palette-light .cc-cp-body-content {
-	background: #f7f7f7 !important;
+	background: #fff !important;
 	color: #000;
+}
+
+.termsfeed-com---palette-light .cc-cp-body-tabs-item[active=true] {
+  background: rgba(204,44,50,1.0) !important;
+}
+
+.termsfeed-com---palette-light .cc-cp-body-tabs-item[active=true] button {
+  color: #fff;
 }
 
 .termsfeed-com---pc-dialog input[type=checkbox].cc-custom-checkbox:checked+label:before {
