@@ -475,7 +475,7 @@
             <xsl:text>http://localhost:8080/solr/search</xsl:text>
         </xsl:variable>
 
-        <xsl:variable name="itemHandle" select="dim:field[@element='identifier'][@qualifier='uri']" /> 
+        <xsl:variable name="itemHandle" select="dim:field[@element='identifier'][@qualifier='uri']/text()" /> 
 
         <!-- find author in solr -->
         <xsl:variable name="authorIdentifiers">
