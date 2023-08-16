@@ -476,16 +476,16 @@
         </xsl:variable>
 
         <xsl:variable name="itemHandle"> 
-            <xsl:value-of select="substring-after(dim:field[@element='identifier'][@qualifier='uri'],'https://hdl.handle.net/')"/>
+            <xsl:value-of select="dim:field[@element='identifier'][@qualifier='uri']"/>
         </xsl:variable>
 
 
         <!-- find author in solr -->
         <xsl:variable name="authorIdentifiers">
-            <xsl:apply-templates select="document(concat($solrURL,'/select?q=search.resourcetype%3A2+AND+handle%3A+', $itemHandle, '&amp;fl=uk.author.identifier&amp;wt=xml&amp;indent=true'))" mode="solrTest"/>
+            <xsl:apply-templates select="document(concat($solrURL,'/select?q=search.resourcetype%3A2+AND+dc.identifier.uri%3A', $itemHandle, '&amp;fl=uk.author.identifier&amp;wt=xml&amp;indent=true'))" mode="solrTest"/>
         </xsl:variable>
 
-        <xsl:value-of select="$solrURL"/><xsl:text>,</xsl:text><xsl:value-of select="$itemHandle"/><xsl:text>,</xsl:text><xsl:value-of select="$authorIdentifiers"/><xsl:text>,</xsl:text>
+        <xsl:text> --- </xsl:text><xsl:value-of select="$solrURL"/><xsl:text>, </xsl:text><xsl:value-of select="$itemHandle"/><xsl:text>, </xsl:text><xsl:value-of select="$authorIdentifiers"/><xsl:text>, </xsl:text>
 
         <xsl:value-of select="substring-before(substring-after($authorIdentifiers,'orcid_'),'|')"/>
         
