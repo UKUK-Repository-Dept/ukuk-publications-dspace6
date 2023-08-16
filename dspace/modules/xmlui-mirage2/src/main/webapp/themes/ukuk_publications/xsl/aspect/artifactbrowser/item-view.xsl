@@ -457,14 +457,6 @@
     </xsl:template>
 
     <xsl:template name="itemSummaryView-DIM-authors-entry">
-        <xsl:variable name="solrURL">
-            <xsl:text>http://localhost:8080/solr/search</xsl:text>
-        </xsl:variable>
-
-        <xsl:variable name="itemHandle"> 
-            <xsl:value-of select="substring-after(dim:field[@element='identifier'][@qualifier='uri'],'https://hdl.handle.net/')"/>
-        </xsl:variable>
-
         <div>
             <xsl:if test="@authority">
                 <xsl:attribute name="class"><xsl:text>ds-dc_contributor_author-authority</xsl:text></xsl:attribute>
@@ -479,6 +471,14 @@
     </xsl:template>
 
     <xsl:template name="getAuthorORCID">
+        <xsl:variable name="solrURL">
+            <xsl:text>http://localhost:8080/solr/search</xsl:text>
+        </xsl:variable>
+
+        <xsl:variable name="itemHandle"> 
+            <xsl:value-of select="substring-after(dim:field[@element='identifier'][@qualifier='uri'],'https://hdl.handle.net/')"/>
+        </xsl:variable>
+        
         <!-- find author in solr -->
         <xsl:variable name="author-identifiers">
             <xsl:apply-templates select="document(concat($solrURL,'/select?q=search.resourcetype%3A2+AND+handle%3A+$itemHandle&amp;fl=uk.author.identifier&amp;wt=xml&amp;indent=true'))" mode="solrTest"/>
