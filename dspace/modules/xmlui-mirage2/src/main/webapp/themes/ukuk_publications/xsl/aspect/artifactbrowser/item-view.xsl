@@ -482,7 +482,7 @@
 
         <!-- find author in solr -->
         <xsl:variable name="authorIdentifiers">
-            <xsl:apply-templates select="document(concat($solrURL,'/select?q=search.resourcetype%3A2+AND+handle%3A+{$itemHandle}&amp;fl=uk.author.identifier&amp;wt=xml&amp;indent=true'))" mode="solrTest"/>
+            <xsl:apply-templates select="document(concat($solrURL,'/select?q=search.resourcetype%3A2+AND+handle%3A+', $itemHandle, '&amp;fl=uk.author.identifier&amp;wt=xml&amp;indent=true'))" mode="solrTest"/>
         </xsl:variable>
 
         <xsl:value-of select="$solrURL"/><xsl:text>,</xsl:text><xsl:value-of select="$itemHandle"/><xsl:text>,</xsl:text><xsl:value-of select="$authorIdentifiers"/><xsl:text>,</xsl:text>
