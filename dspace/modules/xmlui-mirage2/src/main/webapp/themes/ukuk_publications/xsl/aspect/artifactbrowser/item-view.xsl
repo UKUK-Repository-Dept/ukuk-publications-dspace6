@@ -429,12 +429,14 @@
     </xsl:template>
 
     <xsl:template name="itemSummaryView-DIM-authors">
+        <xsl:variable name="itemHandle" select="$pagemeta/dri:metadata[@element='identifier'][@qualifier='handle']" />
         <xsl:if test="dim:field[@element='contributor'][@qualifier='author' and descendant::text()] or dim:field[@element='creator' and descendant::text()] or dim:field[@element='contributor' and descendant::text()]">
             <div class="simple-item-view-authors item-page-field-wrapper table">
                 <h5><i18n:text>xmlui.dri2xhtml.METS-1.0.item-author</i18n:text></h5>
                 <xsl:choose>
                     <xsl:when test="dim:field[@element='contributor'][@qualifier='author']">
                         <xsl:for-each select="dim:field[@element='contributor'][@qualifier='author']">
+                            <xsl:value-of select="$itemHandle"/>
                             <xsl:call-template name="itemSummaryView-DIM-authors-entry" />
                         </xsl:for-each>
                     </xsl:when>
