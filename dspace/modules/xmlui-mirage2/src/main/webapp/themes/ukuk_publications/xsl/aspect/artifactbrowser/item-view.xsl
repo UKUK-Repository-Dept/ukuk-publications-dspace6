@@ -475,11 +475,11 @@
             <xsl:text>http://localhost:8080/solr/search</xsl:text>
         </xsl:variable>
 
-        <xsl:variable name="itemHandle" select="dim:field[@element='identifier'][@qualifier='uri']/text()" /> 
+        <xsl:variable name="itemHandle" select="$pagemeta/dri:metadata[@element='identifier'][@qualifier='handle']" /> 
 
         <!-- find author in solr -->
         <xsl:variable name="authorIdentifiers">
-            <xsl:apply-templates select="document(concat($solrURL,'/select?q=search.resourcetype%3A2+AND+dc.identifier.uri%3A', $itemHandle, '&amp;fl=uk.author.identifier&amp;wt=xml&amp;indent=true'))" mode="solrTest"/>
+            <xsl:apply-templates select="document(concat($solrURL,'/select?q=search.resourcetype%3A2+AND+handle%3A', $itemHandle, '&amp;fl=uk.author.identifier&amp;wt=xml&amp;indent=true'))" mode="solrTest"/>
         </xsl:variable>
 
         <xsl:text> --- </xsl:text><xsl:value-of select="$solrURL"/><xsl:text>, </xsl:text><xsl:value-of select="$itemHandle"/><xsl:text>, </xsl:text><xsl:value-of select="$authorIdentifiers"/><xsl:text>, </xsl:text>
