@@ -429,7 +429,21 @@
     </xsl:template>
 
     <xsl:template name="itemSummaryView-DIM-authors">
-        <xsl:variable name="itemHandle" select="$pagemeta/dri:metadata[@element='identifier'][@qualifier='handle']" />
+        <!-- TODO: Try using object.focus instead, since test server does not have identifier.handle in pageMeta -->
+        <xsl:variable name="itemHandle">
+            <xsl:choose>
+                <xsl:when test="$pagemeta/dri:metadata[@element='identifier'][@qualifier='handle']">
+                    <xsl:value-of select="$pagemeta/dri:metadata[@element='identifier'][@qualifier='handle']"/>
+                </xsl:when>
+                <xsl:when test="$pagemeta/dri:metadata[@element='focus'][@qualifier='object']">
+                    <xsl:variable name="handleWithPrefix" select="$pagemeta/dri:metadata[@element='focus'][@qualifier='object']"/>
+                    <xsl:value-of select="substring-after($handleWithPrefix, 'hdl:')"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>no handle</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
         <xsl:if test="dim:field[@element='contributor'][@qualifier='author' and descendant::text()] or dim:field[@element='creator' and descendant::text()] or dim:field[@element='contributor' and descendant::text()]">
             <div class="simple-item-view-authors item-page-field-wrapper table">
                 <h5><i18n:text>xmlui.dri2xhtml.METS-1.0.item-author</i18n:text></h5>
