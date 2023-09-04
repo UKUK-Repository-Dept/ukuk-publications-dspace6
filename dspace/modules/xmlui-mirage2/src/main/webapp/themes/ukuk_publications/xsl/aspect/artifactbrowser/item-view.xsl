@@ -1026,7 +1026,8 @@
                 <xsl:text>No field found</xsl:text>
             </xsl:when>
             <xsl:when test="/response/result/@numFound = '1'">
-                <xsl:variable name="solrAuthorsIdentifiers" select="./arr[@name='uk.author.identifier']/str/text()"/>
+                <xsl:for-each select="/response/result/doc">
+                    <xsl:variable name="solrAuthorsIdentifiers" select="./arr[@name='uk.author.identifier']/str/text()"/>
                 <!-- 
                     Get authors identifiers and process the value:
                         1) search for the string after ('orcid_'), but before string '|'
@@ -1037,7 +1038,8 @@
                         <xsl:with-param name="value" select="./arr[@name='dc.type.version']/str/text()" />
                         <xsl:with-param name="separator" select="'/'" />
                     </xsl:call-template> -->
-                <xsl:value-of select="substring-before(substring-after($solrAuthorsIdentifiers, 'orcid_'), '|')"/>
+                    <xsl:value-of select="substring-before(substring-after($solrAuthorsIdentifiers, 'orcid_'), '|')"/>
+                </xsl:for-each>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:text>Too many fields found</xsl:text>
