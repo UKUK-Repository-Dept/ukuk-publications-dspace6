@@ -498,7 +498,7 @@
 
         <!-- find author in solr -->
         <xsl:variable name="authorIdentifiers">
-            <xsl:apply-templates select="document(concat($solrURL,'/select?q=search.resourcetype%3A2+AND+handle%3A', $itemHandle, '&amp;fl=uk.author.identifier&amp;wt=xml&amp;indent=true'))" mode="solrTest"/>
+            <xsl:apply-templates select="document(concat($solrURL,'/select?q=search.resourcetype%3A2+AND+handle%3A', $itemHandle, '&amp;fl=uk.author.identifier&amp;wt=xml&amp;indent=true'))" mode="solrAuthorORCID"/>
         </xsl:variable>
 
         <xsl:text> --- </xsl:text><xsl:value-of select="$solrURL"/><xsl:text>, </xsl:text><xsl:value-of select="$itemHandle"/><xsl:text>, </xsl:text><xsl:value-of select="$authorIdentifiers"/><xsl:text>, </xsl:text>
@@ -1019,6 +1019,31 @@
             </xsl:otherwise>
         </xsl:choose>
   </xsl:template>
+
+  <xsl:template match="*" mode="solrAuthorORCID">
+        <xsl:choose>
+            <xsl:when test="/response/result/@numFound = '0'">
+                <xsl:text>No field found</xsl:text>
+            </xsl:when>
+            <xsl:when test="/response/result/@numFound = '1'">
+                <xsl:variable name="solrAuthorsIndentifiers" select="./arr[@name='uk.author.identifier']/str/text()"/>
+                <!-- 
+                    Get authors identifiers and process the value:
+                        1) search for the string after ('orcid_'), but before string '|'
+                        2) return this value
+                -->
+                
+                    <!-- <xsl:call-template name="GetLastSegment">
+                        <xsl:with-param name="value" select="./arr[@name='dc.type.version']/str/text()" />
+                        <xsl:with-param name="separator" select="'/'" />
+                    </xsl:call-template> -->
+                <xsl:value-of select="substring-before(substring-after($solrAuthorsIndetifiers, 'orcid_'), '|')"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>Too many fields found</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
 
 
 </xsl:stylesheet>
