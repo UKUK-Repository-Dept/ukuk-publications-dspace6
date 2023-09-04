@@ -480,9 +480,9 @@
             </xsl:if>
             
             <xsl:copy-of select="node()"/>
-            <span class="author-orcid">
-                <xsl:call-template name="getAuthorORCID"/>
-            </span>
+            
+            <xsl:call-template name="getAuthorORCID"/>
+            
         
         </div>
     </xsl:template>
@@ -501,9 +501,9 @@
             <xsl:apply-templates select="document(concat($solrURL,'/select?q=search.resourcetype%3A2+AND+handle%3A', $itemHandle, '&amp;fl=uk.author.identifier&amp;wt=xml&amp;indent=true'))" mode="solrAuthorORCID"/>
         </xsl:variable>
 
-        <xsl:text> --- </xsl:text><xsl:value-of select="$solrURL"/><xsl:text>, </xsl:text><xsl:value-of select="$itemHandle"/><xsl:text>, </xsl:text><xsl:value-of select="$authorIdentifiers"/><xsl:text>, </xsl:text>
-
-        <xsl:value-of select="substring-before(substring-after($authorIdentifiers,'orcid_'),'|')"/>
+        <xsl:if test="$authorIdentifiers != ''">
+            <span><a href="https://orcid.org/{$authorIdentifiers}" target="_blank"><img src="{$theme-path}/images/ORCID_iD.svg" class="img-responsive" alt="ORCiD Profile" /></a></span>
+        </xsl:if>
         
     </xsl:template>
 
@@ -1021,28 +1021,24 @@
   </xsl:template>
 
   <xsl:template match="*" mode="solrAuthorORCID">
+        <!-- 
+        Get authors identifiers and process the value:
+            1) search for the string after ('orcid_'), but before string '|'
+            2) return this value
+        -->
         <xsl:choose>
             <xsl:when test="/response/result/@numFound = '0'">
-                <xsl:text>No field found</xsl:text>
+                <!-- Don't do anything -->
             </xsl:when>
             <xsl:when test="/response/result/@numFound = '1'">
                 <xsl:for-each select="/response/result/doc">
                     <xsl:variable name="solrAuthorsIdentifiers" select="./arr[@name='uk.author.identifier']/str/text()"/>
-                <!-- 
-                    Get authors identifiers and process the value:
-                        1) search for the string after ('orcid_'), but before string '|'
-                        2) return this value
-                -->
                 
-                    <!-- <xsl:call-template name="GetLastSegment">
-                        <xsl:with-param name="value" select="./arr[@name='dc.type.version']/str/text()" />
-                        <xsl:with-param name="separator" select="'/'" />
-                    </xsl:call-template> -->
                     <xsl:value-of select="substring-before(substring-after($solrAuthorsIdentifiers, 'orcid_'), '|')"/>
                 </xsl:for-each>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:text>Too many fields found</xsl:text>
+                <!-- Don't do anything -->
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
