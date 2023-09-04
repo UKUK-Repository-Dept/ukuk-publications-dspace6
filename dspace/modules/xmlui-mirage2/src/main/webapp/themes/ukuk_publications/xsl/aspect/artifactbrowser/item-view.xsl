@@ -452,7 +452,6 @@
                 <xsl:choose>
                     <xsl:when test="dim:field[@element='contributor'][@qualifier='author']">
                         <xsl:for-each select="dim:field[@element='contributor'][@qualifier='author']">
-                            <xsl:value-of select="$itemHandle"/>
                             <xsl:call-template name="itemSummaryView-DIM-authors-entry" />
                         </xsl:for-each>
                     </xsl:when>
@@ -493,7 +492,9 @@
             <xsl:text>http://localhost:8080/solr/search</xsl:text>
         </xsl:variable>
 
-        <xsl:variable name="itemHandle" select="$pagemeta/dri:metadata[@element='identifier'][@qualifier='handle']" /> 
+        <!-- <xsl:variable name="itemHandle" select="$pagemeta/dri:metadata[@element='identifier'][@qualifier='handle']" /> -->
+
+        <!-- <xsl:value-of select="$itemHandle"/> -->
 
         <!-- find author in solr -->
         <xsl:variable name="authorIdentifiers">
