@@ -87,7 +87,8 @@
 	<xsl:variable name="currentLocale" select="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='page'][@qualifier='currentLocale']"/>
 
     <!-- 2023-09-04: <JR> - Added SOLR server variable -->
-    <xsl:variable name="solrURL" select="confman:getProperty('solr.server','http://localhost:8080/solr')"/>
+    <!-- FIX: Not working, error message: No scheme found in URI -->
+    <!-- <xsl:variable name="solrURL" select="confman:getProperty('solr.server','http://localhost:8080/solr')"/>-->
 
 
 
