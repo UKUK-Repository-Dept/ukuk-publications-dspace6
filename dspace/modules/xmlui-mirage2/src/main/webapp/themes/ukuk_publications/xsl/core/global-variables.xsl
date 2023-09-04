@@ -86,6 +86,9 @@
 
 	<xsl:variable name="currentLocale" select="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='page'][@qualifier='currentLocale']"/>
 
+    <!-- 2023-09-04: <JR> - Added SOLR server variable -->
+    <xsl:variable name="solrURL" select="confman:getStrProperty('solr.server','http://localhost:8080/solr')"/>
+
 
 
 </xsl:stylesheet>
