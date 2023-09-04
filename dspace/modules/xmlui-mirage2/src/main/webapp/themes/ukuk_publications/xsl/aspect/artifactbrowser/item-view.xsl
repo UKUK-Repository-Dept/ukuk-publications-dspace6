@@ -163,9 +163,9 @@
         <xsl:apply-templates select="document(concat($solrURL,'/select?q=search.resourcetype%3A2+AND+handle%3A+123456789%2F1393&amp;fl=uk.author.identifier&amp;wt=xml&amp;indent=true'))" mode="solrTest"/>
     </xsl:template>-->
 	<xsl:template name="itemSummaryView-DIM-other-output-versions">
-		<!-- <xsl:variable name="solrURL">
+		<xsl:variable name="solrURL">
 			<xsl:text>http://localhost:8080/solr/search</xsl:text>
-        </xsl:variable> -->
+        </xsl:variable>
 		<xsl:variable name="currentOutputVersion" select="dim:field[@element='type'][@qualifier='version']"/>
 		<xsl:variable name="outputOBDid" select="dim:field[@element='identifier'][@qualifier='obd']"/>
 		<xsl:apply-templates select="document(concat($solrURL,'/select?q=search.resourcetype%3A2+AND+!dc.type.version%3A%22',$currentOutputVersion,'%22+AND+dc.identifier.obd%3A',$outputOBDid,'&amp;fl=dc.identifier.uri%2Cdc.type.version&amp;wt=xml&amp;indent=true'))" mode="solrOtherOutputVersions"/>
@@ -489,9 +489,9 @@
     </xsl:template>
 
     <xsl:template name="getAuthorORCID">
-        <!-- <xsl:variable name="solrURL">
+        <xsl:variable name="solrURL">
             <xsl:text>http://localhost:8080/solr/search</xsl:text>
-        </xsl:variable> -->
+        </xsl:variable>
 
         <!-- <xsl:variable name="itemHandle" select="$pagemeta/dri:metadata[@element='identifier'][@qualifier='handle']" /> -->
 
