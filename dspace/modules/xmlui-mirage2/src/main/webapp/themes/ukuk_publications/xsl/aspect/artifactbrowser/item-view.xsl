@@ -497,9 +497,9 @@
         <!-- <xsl:value-of select="$itemHandle"/> -->
 
         <!-- find author in solr -->
-        <xsl:variable name="authorIdentifiers">
-            <xsl:apply-templates select="document(concat($solrURL,'/select?q=search.resourcetype%3A2+AND+handle%3A', $itemHandle, '&amp;fl=uk.author.identifier&amp;wt=xml&amp;indent=true'))" mode="solrAuthorIdentifiers"/>
-        </xsl:variable>
+        <!-- <xsl:variable name="authorIdentifiers"> -->
+        <xsl:apply-templates select="document(concat($solrURL,'/select?q=search.resourcetype%3A2+AND+handle%3A', $itemHandle, '&amp;fl=uk.author.identifier&amp;wt=xml&amp;indent=true'))" mode="solrAuthorIdentifiers"/>
+        <!-- </xsl:variable> -->
 
         <!-- <xsl:if test="$authorIdentifiers != ''">
             <span class="author-identifier"><a href="https://orcid.org/{$authorIdentifiers}" target="_blank" class="author-identifier-link"><img src="{$theme-path}/images/ORCID_iD.svg" class="author-identifier-icon" alt="ORCiD Profile" /></a></span>
@@ -1026,6 +1026,7 @@
             1) search for the string after ('orcid_'), but before string '|'
             2) return this value
         -->
+        <xsl:value-of select="$solrURL"/>
         <xsl:choose>
             <xsl:when test="/response/result/@numFound = '0'">
                 <!-- Don't do anything -->
