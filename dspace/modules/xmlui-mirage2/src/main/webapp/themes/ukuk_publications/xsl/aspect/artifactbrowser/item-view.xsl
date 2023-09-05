@@ -161,12 +161,6 @@
     </xsl:template>
 
     <!-- <JR> - 2022-09-02 - THIS EXAMPLE WORKS -->
-    <!-- <xsl:template name="itemSummaryView-DIM-SOLR-test">
-        <xsl:variable name="solrURL">
-            <xsl:text>http://localhost:8080/solr/search</xsl:text>
-        </xsl:variable>
-        <xsl:apply-templates select="document(concat($solrURL,'/select?q=search.resourcetype%3A2+AND+handle%3A+123456789%2F1393&amp;fl=uk.author.identifier&amp;wt=xml&amp;indent=true'))" mode="solrTest"/>
-    </xsl:template>-->
 	<xsl:template name="itemSummaryView-DIM-other-output-versions">
 		<xsl:variable name="solrURL">
 			<xsl:text>http://localhost:8080/solr/search</xsl:text>
@@ -494,9 +488,9 @@
     </xsl:template>
 
     <xsl:template name="getAuthorORCID">
-        <xsl:variable name="solrURL">
+        <!-- <xsl:variable name="solrURL">
             <xsl:text>http://localhost:8080/solr/search</xsl:text>
-        </xsl:variable>
+        </xsl:variable> -->
 
         <!-- <xsl:variable name="itemHandle" select="$pagemeta/dri:metadata[@element='identifier'][@qualifier='handle']" /> -->
 
