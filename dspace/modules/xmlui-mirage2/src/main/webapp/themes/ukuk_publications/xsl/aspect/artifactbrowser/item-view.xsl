@@ -56,6 +56,11 @@
         </xsl:choose>
     </xsl:variable>
 
+    <xsl:variable name="solrURL">
+        <!--<xsl:text>http://localhost:8080/solr/search</xsl:text>-->
+        <xsl:value-of select="concat(confman:getProperty('solr.server','http://localhost:8080/solr'), '/search')" />
+    </xsl:variable>
+
     <xsl:template name="itemSummaryView-DIM">
         <!-- Generate the info about the item from the metadata section -->
         <xsl:apply-templates select="./mets:dmdSec/mets:mdWrap[@OTHERMDTYPE='DIM']/mets:xmlData/dim:dim"
