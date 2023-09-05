@@ -497,6 +497,7 @@
         <!-- <xsl:value-of select="$itemHandle"/> -->
 
         <!-- find author and his identifiers in solr and create HTML elements for each identifier found -->
+        <!-- 2023-09-05: <JR> - FIX: Ask for author identifiers just once, not for each author in the items metadata!!! -->
         <xsl:apply-templates select="document(concat($solrURL,'/select?q=search.resourcetype%3A2+AND+handle%3A', $itemHandle, '&amp;fl=uk.author.identifier&amp;wt=xml&amp;indent=true'))" mode="solrAuthorIdentifiers"/>
         
     </xsl:template>
@@ -1020,7 +1021,7 @@
             1) search for the string after ('orcid_'), but before string '|'
             2) return this value
         -->
-        <!-- 2023-09-05: FIX: Correct values need to be parsed from an array for each author. Currently every author has the same identifiers!!! -->
+        <!-- 2023-09-05: <JR> - FIX: Correct values need to be parsed from an array for each author. Currently every author has the same identifiers!!! -->
         
         <xsl:choose>
             <xsl:when test="/response/result/@numFound = '0'">
