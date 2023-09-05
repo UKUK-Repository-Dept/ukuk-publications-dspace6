@@ -58,7 +58,7 @@
 
     <xsl:variable name="solrURL">
         <!--<xsl:text>http://localhost:8080/solr/search</xsl:text>-->
-        <xsl:value-of select="concat(confman:getProperty('solr.server','http://localhost:8080/solr'), '/search')" />
+        <xsl:value-of select="concat(confman:getProperty('solr.server'), '/search')" />
     </xsl:variable>
 
     <xsl:template name="itemSummaryView-DIM">
@@ -481,13 +481,13 @@
                 <xsl:copy-of select="node()"/>
             </span>
             
-            <xsl:call-template name="getAuthorORCID"/>
-            
+            <xsl:call-template name="getAuthorIdentifiers"/>
+
         
         </div>
     </xsl:template>
 
-    <xsl:template name="getAuthorORCID">
+    <xsl:template name="getAuthorIdentifiers">
         <!-- <xsl:variable name="solrURL">
             <xsl:text>http://localhost:8080/solr/search</xsl:text>
         </xsl:variable> -->
@@ -498,12 +498,12 @@
 
         <!-- find author in solr -->
         <xsl:variable name="authorIdentifiers">
-            <xsl:apply-templates select="document(concat($solrURL,'/select?q=search.resourcetype%3A2+AND+handle%3A', $itemHandle, '&amp;fl=uk.author.identifier&amp;wt=xml&amp;indent=true'))" mode="solrAuthorORCID"/>
+            <xsl:apply-templates select="document(concat($solrURL,'/select?q=search.resourcetype%3A2+AND+handle%3A', $itemHandle, '&amp;fl=uk.author.identifier&amp;wt=xml&amp;indent=true'))" mode="solrAuthorIdentifiers"/>
         </xsl:variable>
 
-        <xsl:if test="$authorIdentifiers != ''">
+        <!-- <xsl:if test="$authorIdentifiers != ''">
             <span class="author-identifier"><a href="https://orcid.org/{$authorIdentifiers}" target="_blank" class="author-identifier-link"><img src="{$theme-path}/images/ORCID_iD.svg" class="author-identifier-icon" alt="ORCiD Profile" /></a></span>
-        </xsl:if>
+        </xsl:if> -->
         
     </xsl:template>
 
@@ -1020,7 +1020,7 @@
         </xsl:choose>
   </xsl:template>
 
-  <xsl:template match="*" mode="solrAuthorORCID">
+  <xsl:template match="*" mode="solrAuthorIdentifiers">
         <!-- 
         Get authors identifiers and process the value:
             1) search for the string after ('orcid_'), but before string '|'
@@ -1032,9 +1032,28 @@
             </xsl:when>
             <xsl:when test="/response/result/@numFound = '1'">
                 <xsl:for-each select="/response/result/doc">
-                    <xsl:variable name="solrAuthorsIdentifiers" select="./arr[@name='uk.author.identifier']/str/text()"/>
-                
-                    <xsl:value-of select="substring-before(substring-after($solrAuthorsIdentifiers, 'orcid_'), '|')"/>
+                    <xsl:variable name="solrAuthorsIdentifiersValue" select="./arr[@name='uk.author.identifier']/str/text()"/>
+
+                    <xsl:if test="substring-before(substring-after($solrAuthorsIdentifiersValue, 'orcid_'), '|') != ''">
+                        <xsl:variable name="authorORCID" select="substring-before(substring-after($solrAuthorsIdentifiersValue, 'orcid_'), '|')"/>
+                        <span class="author-identifier">
+                            <a href="https://orcid.org/{$authorORCID}" target="_blank" class="author-identifier-link">
+                                <img src="{$theme-path}/images/ORCID_iD.svg" class="author-identifier-icon" alt="ORCiD Profile" />
+                            </a>
+                        </span>
+                    
+                    <xsl:if test="substring-before(substring-after($solrAuthorsIdentifiersValue, 'researcherid_'), '|') != ''">
+                        <xsl:variable name="authorResearcherID" select="substring-before(substring-after($solrAuthorsIdentifiersValue, 'researcherid_'), '|')"/>
+                        <span class="author-identifier">
+                            <xsl:value-of select="$authorResearcherID"/>
+                        </span>
+
+                    <xsl:if test="substring-after($solrAuthorsIdentifiersValue, 'scopus_') != ''">
+                        <xsl:variable name="authorScopusID" select="substring-after($solrAuthorsIdentifiersValue, 'scopus_')"/>
+                        <span class="author-identifier">
+                            <xsl:value-of select="$authorScopusID"/>
+                        </span>
+                    
                 </xsl:for-each>
             </xsl:when>
             <xsl:otherwise>
