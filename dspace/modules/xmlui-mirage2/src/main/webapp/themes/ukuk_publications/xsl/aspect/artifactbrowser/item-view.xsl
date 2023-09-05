@@ -1020,6 +1020,7 @@
             1) search for the string after ('orcid_'), but before string '|'
             2) return this value
         -->
+        <!-- 2023-09-05: FIX: Correct values need to be parsed from an array for each author. Currently every author has the same identifiers!!! -->
         
         <xsl:choose>
             <xsl:when test="/response/result/@numFound = '0'">
@@ -1051,7 +1052,7 @@
                         <xsl:variable name="authorScopusID" select="substring-after($solrAuthorsIdentifiersValue, 'scopus_')"/>
                         <span class="author-identifier">
                             <a href="https://www.scopus.com/authid/detail.uri?authorId={$authorScopusID}" target="_blank" class="author-identifier-link">
-                                <img src="{$theme-path}/images/sc.svg" class="author-identifier-icon" alt="Scopus Profile - {$authorScopusID}" />
+                                <img src="{$theme-path}/images/sc.png" class="author-identifier-icon" alt="Scopus Profile - {$authorScopusID}" />
                             </a>
                         </span>
                     </xsl:if>
