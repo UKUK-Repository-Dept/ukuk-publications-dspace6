@@ -1041,18 +1041,21 @@
                                 <img src="{$theme-path}/images/ORCID_iD.svg" class="author-identifier-icon" alt="ORCiD Profile" />
                             </a>
                         </span>
+                    </xsl:if>
                     
                     <xsl:if test="substring-before(substring-after($solrAuthorsIdentifiersValue, 'researcherid_'), '|') != ''">
                         <xsl:variable name="authorResearcherID" select="substring-before(substring-after($solrAuthorsIdentifiersValue, 'researcherid_'), '|')"/>
                         <span class="author-identifier">
                             <xsl:value-of select="$authorResearcherID"/>
                         </span>
+                    </xsl:if>
 
                     <xsl:if test="substring-after($solrAuthorsIdentifiersValue, 'scopus_') != ''">
                         <xsl:variable name="authorScopusID" select="substring-after($solrAuthorsIdentifiersValue, 'scopus_')"/>
                         <span class="author-identifier">
                             <xsl:value-of select="$authorScopusID"/>
                         </span>
+                    </xsl:if>
                     
                 </xsl:for-each>
             </xsl:when>
