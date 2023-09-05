@@ -1050,7 +1050,9 @@
                     <xsl:if test="substring-after($solrAuthorsIdentifiersValue, 'scopus_') != ''">
                         <xsl:variable name="authorScopusID" select="substring-after($solrAuthorsIdentifiersValue, 'scopus_')"/>
                         <span class="author-identifier">
-                            <xsl:value-of select="$authorScopusID"/>
+                            <a href="https://www.scopus.com/authid/detail.uri?authorId={$authorScopusID}" target="_blank" class="author-identifier-link">
+                                <img src="{$theme-path}/images/sc.svg" class="author-identifier-icon" alt="Scopus Profile - {$authorScopusID}" />
+                            </a>
                         </span>
                     </xsl:if>
                     
