@@ -503,7 +503,7 @@
         </xsl:variable>
 
         <xsl:if test="$authorIdentifiers != ''">
-            <span class="author-orcid"><a href="https://orcid.org/{$authorIdentifiers}" target="_blank" class="author-orcid-link"><img src="{$theme-path}/images/ORCID_iD.svg" class="img-responsive author-orcid-icon" alt="ORCiD Profile" /></a></span>
+            <span class="author-identifier"><a href="https://orcid.org/{$authorIdentifiers}" target="_blank" class="author-identifier-link"><img src="{$theme-path}/images/ORCID_iD.svg" class="author-identifier-icon" alt="ORCiD Profile" /></a></span>
         </xsl:if>
         
     </xsl:template>
