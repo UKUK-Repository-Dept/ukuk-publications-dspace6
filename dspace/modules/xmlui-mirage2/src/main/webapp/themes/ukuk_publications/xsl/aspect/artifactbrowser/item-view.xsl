@@ -444,6 +444,8 @@
 
     <xsl:template name="itemSummaryView-DIM-authors">
         <!-- TODO: Try using object.focus instead, since test server does not have identifier.handle in pageMeta -->
+
+        <xsl:variable name="itemAuthorIdentifiers" select="document(concat($solrURL,'/select?q=search.resourcetype%3A2+AND+handle%3A', $itemHandle, '&amp;fl=uk.author.identifier&amp;wt=xml&amp;indent=true'))"/>
         
         <xsl:if test="dim:field[@element='contributor'][@qualifier='author' and descendant::text()] or dim:field[@element='creator' and descendant::text()] or dim:field[@element='contributor' and descendant::text()]">
             <div class="simple-item-view-authors item-page-field-wrapper table">
@@ -451,17 +453,44 @@
                 <xsl:choose>
                     <xsl:when test="dim:field[@element='contributor'][@qualifier='author']">
                         <xsl:for-each select="dim:field[@element='contributor'][@qualifier='author']">
-                            <xsl:call-template name="itemSummaryView-DIM-authors-entry" />
+                            <!-- Return a metadata string of author's identifiers belonging just to currently processed author and store it in variable -->
+                            <xsl:variable name="currentAuthorIdentifiers">
+                                <xsl:call-template name="utility-authorIdentifiersParse">
+                                    <xsl:with-param name="authorIdentifiersXML" select="$itemAuthorIdentifiers"/>
+                                    <xsl:with-param name="authorNameInMetadata" select="node()"/>
+                                </xsl:call-template>
+                            </xsl:variable>
+                            <xsl:call-template name="itemSummaryView-DIM-authors-entry">
+                                <xsl:with-param name="currentAuthorIdentifiersRecord" select="$currentAuthorIdentifiers"/>
+                            </xsl:call-template>
                         </xsl:for-each>
                     </xsl:when>
                     <xsl:when test="dim:field[@element='creator']">
                         <xsl:for-each select="dim:field[@element='creator']">
-                            <xsl:call-template name="itemSummaryView-DIM-authors-entry" />
+                            <!-- Return a metadata string of author's identifiers belonging just to currently processed author and store it in variable -->
+                            <xsl:variable name="currentAuthorIdentifiers">
+                                <xsl:call-template name="utility-authorIdentifiersParse">
+                                    <xsl:with-param name="authorIdentifiersXML" select="$itemAuthorIdentifiers"/>
+                                    <xsl:with-param name="authorNameInMetadata" select="node()"/>
+                                </xsl:call-template>
+                            </xsl:variable>
+                            <xsl:call-template name="itemSummaryView-DIM-authors-entry">
+                                <xsl:with-param name="currentAuthorIdentifiersRecord" select="$currentAuthorIdentifiers"/>
+                            </xsl:call-template>
                         </xsl:for-each>
                     </xsl:when>
                     <xsl:when test="dim:field[@element='contributor']">
                         <xsl:for-each select="dim:field[@element='contributor']">
-                            <xsl:call-template name="itemSummaryView-DIM-authors-entry" />
+                            <!-- Return a metadata string of author's identifiers belonging just to currently processed author and store it in variable -->
+                            <xsl:variable name="currentAuthorIdentifiers">
+                                <xsl:call-template name="utility-authorIdentifiersParse">
+                                    <xsl:with-param name="authorIdentifiersXML" select="$itemAuthorIdentifiers"/>
+                                    <xsl:with-param name="authorNameInMetadata" select="node()"/>
+                                </xsl:call-template>
+                            </xsl:variable>
+                            <xsl:call-template name="itemSummaryView-DIM-authors-entry">
+                                <xsl:with-param name="currentAuthorIdentifiersRecord" select="$currentAuthorIdentifiers"/>
+                            </xsl:call-template>
                         </xsl:for-each>
                     </xsl:when>
                     <xsl:otherwise>
@@ -473,6 +502,7 @@
     </xsl:template>
 
     <xsl:template name="itemSummaryView-DIM-authors-entry">
+        <xsl:param name="currentAuthorIdentifiersRecord"/>
         <div class="simple-item-view-author-line">
             <xsl:if test="@authority">
                 <xsl:attribute name="class"><xsl:text>ds-dc_contributor_author-authority</xsl:text></xsl:attribute>
@@ -481,13 +511,14 @@
                 <xsl:copy-of select="node()"/>
             </span>
             
-            <xsl:call-template name="getAuthorIdentifiers"/>
+            <!--<xsl:call-template name="getAuthorIdentifiers"/>-->
+            <xsl:apply-templates select="$currentAuthorIdentifiersRecord" mode="solrAuthorIdentifiers"/>
 
         
         </div>
     </xsl:template>
 
-    <xsl:template name="getAuthorIdentifiers">
+    <!-- <xsl:template name="getAuthorIdentifiers"> -->
         <!-- <xsl:variable name="solrURL">
             <xsl:text>http://localhost:8080/solr/search</xsl:text>
         </xsl:variable> -->
@@ -498,9 +529,9 @@
 
         <!-- find author and his identifiers in solr and create HTML elements for each identifier found -->
         <!-- 2023-09-05: <JR> - FIX: Ask for author identifiers just once, not for each author in the items metadata!!! -->
-        <xsl:apply-templates select="document(concat($solrURL,'/select?q=search.resourcetype%3A2+AND+handle%3A', $itemHandle, '&amp;fl=uk.author.identifier&amp;wt=xml&amp;indent=true'))" mode="solrAuthorIdentifiers"/>
+        <!--<xsl:apply-templates select="document(concat($solrURL,'/select?q=search.resourcetype%3A2+AND+handle%3A', $itemHandle, '&amp;fl=uk.author.identifier&amp;wt=xml&amp;indent=true'))" mode="solrAuthorIdentifiers"/>-->
         
-    </xsl:template>
+    <!-- </xsl:template> -->
 
     <xsl:template name="itemSummaryView-DIM-URI">
         <xsl:if test="dim:field[@element='identifier' and @qualifier='uri' and descendant::text()]">
@@ -1013,9 +1044,9 @@
                 <xsl:value-of select="$value" />
             </xsl:otherwise>
         </xsl:choose>
-  </xsl:template>
+    </xsl:template>
 
-  <xsl:template match="*" mode="solrAuthorIdentifiers">
+    <xsl:template match="*" mode="solrAuthorIdentifiers">
         <!-- 
         Get authors identifiers and process the value:
             1) search for the string after ('orcid_'), but before string '|'
@@ -1023,47 +1054,46 @@
         -->
         <!-- 2023-09-05: <JR> - FIX: Correct values need to be parsed from an array for each author. Currently every author has the same identifiers!!! -->
         
-        <xsl:choose>
+        <!-- <xsl:choose>
             <xsl:when test="/response/result/@numFound = '0'">
-                <!-- Don't do anything -->
+                
             </xsl:when>
             <xsl:when test="/response/result/@numFound = '1'">
                 <xsl:for-each select="/response/result/doc">
-                    <xsl:variable name="solrAuthorsIdentifiersValue" select="./arr[@name='uk.author.identifier']/str/text()"/>
+                    <xsl:variable name="solrAuthorsIdentifiersValue" select="./arr[@name='uk.author.identifier']/str/text()"/> -->
 
-                    <xsl:if test="substring-before(substring-after($solrAuthorsIdentifiersValue, 'orcid_'), '|') != ''">
-                        <xsl:variable name="authorORCID" select="substring-before(substring-after($solrAuthorsIdentifiersValue, 'orcid_'), '|')"/>
-                        <span class="author-identifier">
-                            <a href="https://orcid.org/{$authorORCID}" target="_blank" class="author-identifier-link">
-                                <img src="{$theme-path}/images/ORCID_iD.svg" class="author-identifier-icon" alt="ORCiD Profile - {$authorORCID}" />
-                            </a>
-                        </span>
-                    </xsl:if>
+        <xsl:if test="substring-before(substring-after($solrAuthorsIdentifiersValue, 'orcid_'), '|') != ''">
+            <xsl:variable name="authorORCID" select="substring-before(substring-after($solrAuthorsIdentifiersValue, 'orcid_'), '|')"/>
+            <span class="author-identifier">
+                <a href="https://orcid.org/{$authorORCID}" target="_blank" class="author-identifier-link">
+                    <img src="{$theme-path}/images/ORCID_iD.svg" class="author-identifier-icon" alt="ORCiD Profile - {$authorORCID}" />
+                </a>
+            </span>
+        </xsl:if>
                     
-                    <xsl:if test="substring-before(substring-after($solrAuthorsIdentifiersValue, 'researcherid_'), '|') != ''">
-                        <xsl:variable name="authorResearcherID" select="substring-before(substring-after($solrAuthorsIdentifiersValue, 'researcherid_'), '|')"/>
-                        <span class="author-identifier">
-                            <a href="https://www.webofscience.com/wos/author/record/{$authorResearcherID}" target="_blank" class="author-identifier-link">
-                                <img src="{$theme-path}/images/CLVT.svg" class="author-identifier-icon" alt="WoS Profile - {$authorResearcherID}" />
-                            </a>
-                        </span>
-                    </xsl:if>
+        <xsl:if test="substring-before(substring-after($solrAuthorsIdentifiersValue, 'researcherid_'), '|') != ''">
+            <xsl:variable name="authorResearcherID" select="substring-before(substring-after($solrAuthorsIdentifiersValue, 'researcherid_'), '|')"/>
+            <span class="author-identifier">
+                <a href="https://www.webofscience.com/wos/author/record/{$authorResearcherID}" target="_blank" class="author-identifier-link">
+                    <img src="{$theme-path}/images/CLVT.svg" class="author-identifier-icon" alt="WoS Profile - {$authorResearcherID}" />
+                </a>
+            </span>
+        </xsl:if>
 
-                    <xsl:if test="substring-after($solrAuthorsIdentifiersValue, 'scopus_') != ''">
-                        <xsl:variable name="authorScopusID" select="substring-after($solrAuthorsIdentifiersValue, 'scopus_')"/>
-                        <span class="author-identifier">
-                            <a href="https://www.scopus.com/authid/detail.uri?authorId={$authorScopusID}" target="_blank" class="author-identifier-link">
-                                <img src="{$theme-path}/images/sc.png" class="author-identifier-icon" alt="Scopus Profile - {$authorScopusID}" />
-                            </a>
-                        </span>
-                    </xsl:if>
+        <xsl:if test="substring-after($solrAuthorsIdentifiersValue, 'scopus_') != ''">
+            <xsl:variable name="authorScopusID" select="substring-after($solrAuthorsIdentifiersValue, 'scopus_')"/>
+            <span class="author-identifier">
+                <a href="https://www.scopus.com/authid/detail.uri?authorId={$authorScopusID}" target="_blank" class="author-identifier-link">
+                    <img src="{$theme-path}/images/sc.png" class="author-identifier-icon" alt="Scopus Profile - {$authorScopusID}" />
+                </a>
+            </span>
+        </xsl:if>
                     
-                </xsl:for-each>
+                <!-- </xsl:for-each>
             </xsl:when>
             <xsl:otherwise>
-                <!-- Don't do anything -->
             </xsl:otherwise>
-        </xsl:choose>
+        </xsl:choose> -->
     </xsl:template>
 
 
