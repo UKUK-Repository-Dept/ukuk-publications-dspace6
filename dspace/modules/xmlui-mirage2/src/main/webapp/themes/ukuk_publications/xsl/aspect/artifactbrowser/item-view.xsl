@@ -443,8 +443,12 @@
     </xsl:template>
 
     <xsl:template name="itemSummaryView-DIM-authors">
-        <!-- TODO: Try using object.focus instead, since test server does not have identifier.handle in pageMeta -->
+        
+        <!-- 
+            Variable holding SOLR XML response containing information about researcher identifiers of all authors of a given item.
 
+            If the item is not found in SOLR, variable does not have a value and no identifiers are added to author's name in simple-item-view.
+        -->
         <xsl:variable name="itemAuthorIdentifiers" select="document(concat($solrURL,'/select?q=search.resourcetype%3A2+AND+handle%3A', $itemHandle, '&amp;fl=uk.author.identifier&amp;wt=xml&amp;indent=true'))"/>
         
         <xsl:if test="dim:field[@element='contributor'][@qualifier='author' and descendant::text()] or dim:field[@element='creator' and descendant::text()] or dim:field[@element='contributor' and descendant::text()]">
@@ -453,7 +457,14 @@
                 <xsl:choose>
                     <xsl:when test="dim:field[@element='contributor'][@qualifier='author']">
                         <xsl:for-each select="dim:field[@element='contributor'][@qualifier='author']">
-                            <!-- Return a metadata string of author's identifiers belonging just to currently processed author and store it in variable -->
+                            <!-- 
+                                Calling template that matches author's name with names available in the metadata field holding his identifiers.
+                                Since one item could have multiple authors with multiple researcher identifiers, each author's identifiers are stored in separate metadata fields.
+                                To assign correct identifiers to a correct person, we need to match author's name with a correct metadata field holding his / her identifiers.
+
+                                Correct metadata string for a given author is then stored in variable which value is passed to itemSummaryView-DIM-authors-entry template
+                                responsible for adding author's name to HTML.
+                            -->
                             <xsl:variable name="currentAuthorIdentifiers">
                                 <xsl:call-template name="utility-authorIdentifiersParse">
                                     <xsl:with-param name="authorIdentifiersXML" select="$itemAuthorIdentifiers"/>
@@ -467,7 +478,14 @@
                     </xsl:when>
                     <xsl:when test="dim:field[@element='creator']">
                         <xsl:for-each select="dim:field[@element='creator']">
-                            <!-- Return a metadata string of author's identifiers belonging just to currently processed author and store it in variable -->
+                            <!-- 
+                                Calling template that matches author's name with names available in the metadata field holding his identifiers.
+                                Since one item could have multiple authors with multiple researcher identifiers, each author's identifiers are stored in separate metadata fields.
+                                To assign correct identifiers to a correct person, we need to match author's name with a correct metadata field holding his / her identifiers.
+
+                                Correct metadata string for a given author is then stored in variable which value is passed to itemSummaryView-DIM-authors-entry template
+                                responsible for adding author's name to HTML.
+                            -->
                             <xsl:variable name="currentAuthorIdentifiers">
                                 <xsl:call-template name="utility-authorIdentifiersParse">
                                     <xsl:with-param name="authorIdentifiersXML" select="$itemAuthorIdentifiers"/>
@@ -481,7 +499,14 @@
                     </xsl:when>
                     <xsl:when test="dim:field[@element='contributor']">
                         <xsl:for-each select="dim:field[@element='contributor']">
-                            <!-- Return a metadata string of author's identifiers belonging just to currently processed author and store it in variable -->
+                            <!-- 
+                                Calling template that matches author's name with names available in the metadata field holding his identifiers.
+                                Since one item could have multiple authors with multiple researcher identifiers, each author's identifiers are stored in separate metadata fields.
+                                To assign correct identifiers to a correct person, we need to match author's name with a correct metadata field holding his / her identifiers.
+
+                                Correct metadata string for a given author is then stored in variable which value is passed to itemSummaryView-DIM-authors-entry template
+                                responsible for adding author's name to HTML.
+                            --> 
                             <xsl:variable name="currentAuthorIdentifiers">
                                 <xsl:call-template name="utility-authorIdentifiersParse">
                                     <xsl:with-param name="authorIdentifiersXML" select="$itemAuthorIdentifiers"/>
@@ -502,39 +527,30 @@
     </xsl:template>
 
     <xsl:template name="itemSummaryView-DIM-authors-entry">
+        <!-- 
+            String containing currently processed author's name and researcher identifiers.
+
+            passed from template:   itemSummaryView-DIM-authors
+        -->
         <xsl:param name="currentAuthorIdentifiersRecord"/>
         <div class="simple-item-view-author-line">
             <xsl:if test="@authority">
                 <xsl:attribute name="class"><xsl:text>ds-dc_contributor_author-authority</xsl:text></xsl:attribute>
             </xsl:if>
+            <!-- Adding author's name from metadata -->
             <span>
                 <xsl:copy-of select="node()"/>
             </span>
             
-            <!--<xsl:call-template name="getAuthorIdentifiers"/>-->
+            <!--
+                Calling template that actually creates the HTML elements holding author's identifiers information
+            -->
             <xsl:call-template name="addAuthorIdentifiers">
                 <xsl:with-param name="authorIdentifiersRecord" select="$currentAuthorIdentifiersRecord"/>
             </xsl:call-template>
-            <!--<xsl:apply-templates select="$currentAuthorIdentifiersRecord" mode="solrAuthorIdentifiers"/>-->
 
-        
         </div>
     </xsl:template>
-
-    <!-- <xsl:template name="getAuthorIdentifiers"> -->
-        <!-- <xsl:variable name="solrURL">
-            <xsl:text>http://localhost:8080/solr/search</xsl:text>
-        </xsl:variable> -->
-
-        <!-- <xsl:variable name="itemHandle" select="$pagemeta/dri:metadata[@element='identifier'][@qualifier='handle']" /> -->
-
-        <!-- <xsl:value-of select="$itemHandle"/> -->
-
-        <!-- find author and his identifiers in solr and create HTML elements for each identifier found -->
-        <!-- 2023-09-05: <JR> - FIX: Ask for author identifiers just once, not for each author in the items metadata!!! -->
-        <!--<xsl:apply-templates select="document(concat($solrURL,'/select?q=search.resourcetype%3A2+AND+handle%3A', $itemHandle, '&amp;fl=uk.author.identifier&amp;wt=xml&amp;indent=true'))" mode="solrAuthorIdentifiers"/>-->
-        
-    <!-- </xsl:template> -->
 
     <xsl:template name="itemSummaryView-DIM-URI">
         <xsl:if test="dim:field[@element='identifier' and @qualifier='uri' and descendant::text()]">
@@ -1049,22 +1065,19 @@
         </xsl:choose>
     </xsl:template>
 
+    <!-- 
+        Template for adding author's identifiers to his name in the item-view 
+    
+        @author:    Jakub Řihák <JR>
+        @date:      2023-09-06
+    -->
     <xsl:template name="addAuthorIdentifiers">
-        <xsl:param name="authorIdentifiersRecord"/>
         <!-- 
-        Get authors identifiers and process the value:
-            1) search for the string after ('orcid_'), but before string '|'
-            2) return this value
+            String containing author's name and his researcher identifiers
+            
+            passed from template: itemSummaryView-DIM-authors-entry
         -->
-        <!-- 2023-09-05: <JR> - FIX: Correct values need to be parsed from an array for each author. Currently every author has the same identifiers!!! -->
-        
-        <!-- <xsl:choose>
-            <xsl:when test="/response/result/@numFound = '0'">
-                
-            </xsl:when>
-            <xsl:when test="/response/result/@numFound = '1'">
-                <xsl:for-each select="/response/result/doc">
-                    <xsl:variable name="solrAuthorsIdentifiersValue" select="./arr[@name='uk.author.identifier']/str/text()"/> -->
+        <xsl:param name="authorIdentifiersRecord"/>
 
         <xsl:if test="substring-before(substring-after($authorIdentifiersRecord, 'orcid_'), '|') != ''">
             <xsl:variable name="authorORCID" select="substring-before(substring-after($authorIdentifiersRecord, 'orcid_'), '|')"/>
@@ -1092,12 +1105,7 @@
                 </a>
             </span>
         </xsl:if>
-                    
-                <!-- </xsl:for-each>
-            </xsl:when>
-            <xsl:otherwise>
-            </xsl:otherwise>
-        </xsl:choose> -->
+        
     </xsl:template>
 
 
