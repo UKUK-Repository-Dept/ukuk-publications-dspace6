@@ -48,5 +48,25 @@
         <xsl:param name="title-string"/>
         <xsl:value-of disable-output-escaping="yes" select="$title-string"/>
     </xsl:template>
+    
+    <xsl:template name="utility-authorIdentifiersParse">
+        <xsl:param name="authorIdentifiersXML"/>
+        <xsl:param name="authorNameInMetadata"/>
+        <xsl:choose>
+            <xsl:when test="$authorIdentifiersXML/response/result/@numFound = '0'">
+                <!-- Don't do anything -->
+            </xsl:when>
+            <xsl:when test="$authorIdentifiersXML/response/result/@numFound = '1'">
+                <xsl:for-each select="$authorIdentifiersXML/response/result/doc/arr[@name='uk.author.identifier']/str">
+                    <xsl:if test="substring-before(./text(),'|') = $authorNameMetadata">
+                        <xsl:value-of select="./text()"/>
+                    </xsl:if>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:otherwise>
+                <!-- Don't do anything -->
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
 
 </xsl:stylesheet>
