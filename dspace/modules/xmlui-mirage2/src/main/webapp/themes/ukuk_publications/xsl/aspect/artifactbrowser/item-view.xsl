@@ -459,7 +459,7 @@
                 <xsl:choose>
                     <xsl:when test="dim:field[@element='contributor'][@qualifier='author']">
                         <xsl:for-each select="dim:field[@element='contributor'][@qualifier='author']">
-                            <xsl:variable name="processedContributorsCount" select="count(number($processedContributorsCount)) + 1"/>
+                            <xsl:variable name="processedContributorsCount" select="number($processedContributorsCount) + 1"/>
                             <!-- 
                                 Calling template that matches author's name with names available in the metadata field holding his identifiers.
                                 Since one item could have multiple authors with multiple researcher identifiers, each author's identifiers are stored in separate metadata fields.
@@ -481,7 +481,7 @@
                     </xsl:when>
                     <xsl:when test="dim:field[@element='creator']">
                         <xsl:for-each select="dim:field[@element='creator']">
-                            <xsl:variable name="processedContributorsCount" select="count(number($processedContributorsCount)) + 1"/>
+                            <xsl:variable name="processedContributorsCount" select="number($processedContributorsCount) + 1"/>
                             <!-- 
                                 Calling template that matches author's name with names available in the metadata field holding his identifiers.
                                 Since one item could have multiple authors with multiple researcher identifiers, each author's identifiers are stored in separate metadata fields.
@@ -503,7 +503,7 @@
                     </xsl:when>
                     <xsl:when test="dim:field[@element='contributor']">
                         <xsl:for-each select="dim:field[@element='contributor']">
-                            <xsl:variable name="processedContributorsCount" select="count(number($processedContributorsCount)) + 1"/>
+                            <xsl:variable name="processedContributorsCount" select="number($processedContributorsCount) + 1"/>
                             <!-- 
                                 Calling template that matches author's name with names available in the metadata field holding his identifiers.
                                 Since one item could have multiple authors with multiple researcher identifiers, each author's identifiers are stored in separate metadata fields.
