@@ -48,7 +48,12 @@
         <xsl:param name="title-string"/>
         <xsl:value-of disable-output-escaping="yes" select="$title-string"/>
     </xsl:template>
-    
+
+    <!--
+        This template processes a XML response from SOLR and returns string containing author's research identifiers from it.
+
+        If no item is found based on the SOLR query or more then 1 item is found, nothing happens.
+    -->
     <xsl:template name="utility-authorIdentifiersParse">
         <xsl:param name="authorIdentifiersXML"/>
         <xsl:param name="authorNameInMetadata"/>
