@@ -1069,8 +1069,8 @@
         <xsl:if test="substring-before(substring-after($authorIdentifiersRecord, 'orcid_'), '|') != ''">
             <xsl:variable name="authorORCID" select="substring-before(substring-after($authorIdentifiersRecord, 'orcid_'), '|')"/>
             <span class="author-identifier">
-                <a href="https://orcid.org/{$authorORCID}" target="_blank" class="author-identifier-link">
-                    <img src="{$theme-path}/images/ORCID_iD.svg" class="author-identifier-icon" alt="ORCiD Profile - {$authorORCID}" />
+                <a href="https://orcid.org/{$authorORCID}" target="_blank" class="author-identifier-link" title="ORCiD Profile - {$authorORCID}">
+                    <img src="{$theme-path}/images/ORCID_iD.svg" class="author-identifier-icon" alt="ORCiD Profile - {$authorORCID}" title="ORCiD Profile - {$authorORCID}"/>
                 </a>
             </span>
         </xsl:if>
@@ -1078,8 +1078,8 @@
         <xsl:if test="substring-before(substring-after($authorIdentifiersRecord, 'researcherid_'), '|') != ''">
             <xsl:variable name="authorResearcherID" select="substring-before(substring-after($authorIdentifiersRecord, 'researcherid_'), '|')"/>
             <span class="author-identifier">
-                <a href="https://www.webofscience.com/wos/author/record/{$authorResearcherID}" target="_blank" class="author-identifier-link">
-                    <img src="{$theme-path}/images/CLVT.svg" class="author-identifier-icon" alt="WoS Profile - {$authorResearcherID}" />
+                <a href="https://www.webofscience.com/wos/author/record/{$authorResearcherID}" target="_blank" class="author-identifier-link" title="WoS Profile - {$authorResearcherID}">
+                    <img src="{$theme-path}/images/CLVT.svg" class="author-identifier-icon" alt="WoS Profile - {$authorResearcherID}" title="WoS Profile - {$authorResearcherID}" />
                 </a>
             </span>
         </xsl:if>
@@ -1087,8 +1087,8 @@
         <xsl:if test="substring-after($authorIdentifiersRecord, 'scopus_') != ''">
             <xsl:variable name="authorScopusID" select="substring-after($authorIdentifiersRecord, 'scopus_')"/>
             <span class="author-identifier">
-                <a href="https://www.scopus.com/authid/detail.uri?authorId={$authorScopusID}" target="_blank" class="author-identifier-link">
-                    <img src="{$theme-path}/images/sc.png" class="author-identifier-icon" alt="Scopus Profile - {$authorScopusID}" />
+                <a href="https://www.scopus.com/authid/detail.uri?authorId={$authorScopusID}" target="_blank" class="author-identifier-link" title="Scopus Profile - {$authorScopusID}">
+                    <img src="{$theme-path}/images/sc.png" class="author-identifier-icon" alt="Scopus Profile - {$authorScopusID}" title="Scopus Profile - {$authorScopusID}"/>
                 </a>
             </span>
         </xsl:if>
