@@ -41,6 +41,26 @@
 
     <xsl:output indent="yes"/>
 
+    <xsl:variable name="itemHandle">
+        <xsl:choose>
+            <xsl:when test="$pagemeta/dri:metadata[@element='identifier'][@qualifier='handle']">
+                <xsl:value-of select="$pagemeta/dri:metadata[@element='identifier'][@qualifier='handle']"/>
+            </xsl:when>
+            <xsl:when test="$pagemeta/dri:metadata[@element='focus'][@qualifier='object']">
+                <xsl:variable name="handleWithPrefix" select="$pagemeta/dri:metadata[@element='focus'][@qualifier='object']"/>
+                <xsl:value-of select="substring-after($handleWithPrefix, 'hdl:')"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>no handle</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
+
+    <xsl:variable name="solrURL">
+        <!--<xsl:text>http://localhost:8080/solr/search</xsl:text>-->
+        <xsl:value-of select="concat(confman:getProperty('solr.server'), '/search')" />
+    </xsl:variable>
+
     <xsl:template name="itemSummaryView-DIM">
         <!-- Generate the info about the item from the metadata section -->
         <xsl:apply-templates select="./mets:dmdSec/mets:mdWrap[@OTHERMDTYPE='DIM']/mets:xmlData/dim:dim"
@@ -141,12 +161,6 @@
     </xsl:template>
 
     <!-- <JR> - 2022-09-02 - THIS EXAMPLE WORKS -->
-    <!-- <xsl:template name="itemSummaryView-DIM-SOLR-test">
-        <xsl:variable name="solrURL">
-            <xsl:text>http://localhost:8080/solr/search</xsl:text>
-        </xsl:variable>
-        <xsl:apply-templates select="document(concat($solrURL,'/select?q=search.resourcetype%3A2+AND+handle%3A+123456789%2F1393&amp;fl=uk.author.identifier&amp;wt=xml&amp;indent=true'))" mode="solrTest"/>
-    </xsl:template>-->
 	<xsl:template name="itemSummaryView-DIM-other-output-versions">
 		<xsl:variable name="solrURL">
 			<xsl:text>http://localhost:8080/solr/search</xsl:text>
@@ -429,23 +443,79 @@
     </xsl:template>
 
     <xsl:template name="itemSummaryView-DIM-authors">
+        
+        <!-- 
+            Variable holding SOLR XML response containing information about researcher identifiers of all authors of a given item.
+
+            If the item is not found in SOLR, variable does not have a value and no identifiers are added to author's name in simple-item-view.
+        -->
+        <xsl:variable name="itemAuthorIdentifiers" select="document(concat($solrURL,'/select?q=search.resourcetype%3A2+AND+handle%3A', $itemHandle, '&amp;fl=uk.author.identifier&amp;wt=xml&amp;indent=true'))"/>
+        
         <xsl:if test="dim:field[@element='contributor'][@qualifier='author' and descendant::text()] or dim:field[@element='creator' and descendant::text()] or dim:field[@element='contributor' and descendant::text()]">
             <div class="simple-item-view-authors item-page-field-wrapper table">
                 <h5><i18n:text>xmlui.dri2xhtml.METS-1.0.item-author</i18n:text></h5>
                 <xsl:choose>
                     <xsl:when test="dim:field[@element='contributor'][@qualifier='author']">
                         <xsl:for-each select="dim:field[@element='contributor'][@qualifier='author']">
-                            <xsl:call-template name="itemSummaryView-DIM-authors-entry" />
+                            <!-- 
+                                Calling template that matches author's name with names available in the metadata field holding his identifiers.
+                                Since one item could have multiple authors with multiple researcher identifiers, each author's identifiers are stored in separate metadata fields.
+                                To assign correct identifiers to a correct person, we need to match author's name with a correct metadata field holding his / her identifiers.
+
+                                Correct metadata string for a given author is then stored in variable which value is passed to itemSummaryView-DIM-authors-entry template
+                                responsible for adding author's name to HTML.
+                            -->
+                            <xsl:variable name="currentAuthorIdentifiers">
+                                <xsl:call-template name="utility-authorIdentifiersParse">
+                                    <xsl:with-param name="authorIdentifiersXML" select="$itemAuthorIdentifiers"/>
+                                    <xsl:with-param name="authorNameInMetadata" select="node()"/>
+                                </xsl:call-template>
+                            </xsl:variable>
+                            <xsl:call-template name="itemSummaryView-DIM-authors-entry">
+                                <xsl:with-param name="currentAuthorIdentifiersRecord" select="$currentAuthorIdentifiers"/>
+                            </xsl:call-template>
                         </xsl:for-each>
                     </xsl:when>
                     <xsl:when test="dim:field[@element='creator']">
                         <xsl:for-each select="dim:field[@element='creator']">
-                            <xsl:call-template name="itemSummaryView-DIM-authors-entry" />
+                            <!-- 
+                                Calling template that matches author's name with names available in the metadata field holding his identifiers.
+                                Since one item could have multiple authors with multiple researcher identifiers, each author's identifiers are stored in separate metadata fields.
+                                To assign correct identifiers to a correct person, we need to match author's name with a correct metadata field holding his / her identifiers.
+
+                                Correct metadata string for a given author is then stored in variable which value is passed to itemSummaryView-DIM-authors-entry template
+                                responsible for adding author's name to HTML.
+                            -->
+                            <xsl:variable name="currentAuthorIdentifiers">
+                                <xsl:call-template name="utility-authorIdentifiersParse">
+                                    <xsl:with-param name="authorIdentifiersXML" select="$itemAuthorIdentifiers"/>
+                                    <xsl:with-param name="authorNameInMetadata" select="node()"/>
+                                </xsl:call-template>
+                            </xsl:variable>
+                            <xsl:call-template name="itemSummaryView-DIM-authors-entry">
+                                <xsl:with-param name="currentAuthorIdentifiersRecord" select="$currentAuthorIdentifiers"/>
+                            </xsl:call-template>
                         </xsl:for-each>
                     </xsl:when>
                     <xsl:when test="dim:field[@element='contributor']">
                         <xsl:for-each select="dim:field[@element='contributor']">
-                            <xsl:call-template name="itemSummaryView-DIM-authors-entry" />
+                            <!-- 
+                                Calling template that matches author's name with names available in the metadata field holding his identifiers.
+                                Since one item could have multiple authors with multiple researcher identifiers, each author's identifiers are stored in separate metadata fields.
+                                To assign correct identifiers to a correct person, we need to match author's name with a correct metadata field holding his / her identifiers.
+
+                                Correct metadata string for a given author is then stored in variable which value is passed to itemSummaryView-DIM-authors-entry template
+                                responsible for adding author's name to HTML.
+                            --> 
+                            <xsl:variable name="currentAuthorIdentifiers">
+                                <xsl:call-template name="utility-authorIdentifiersParse">
+                                    <xsl:with-param name="authorIdentifiersXML" select="$itemAuthorIdentifiers"/>
+                                    <xsl:with-param name="authorNameInMetadata" select="node()"/>
+                                </xsl:call-template>
+                            </xsl:variable>
+                            <xsl:call-template name="itemSummaryView-DIM-authors-entry">
+                                <xsl:with-param name="currentAuthorIdentifiersRecord" select="$currentAuthorIdentifiers"/>
+                            </xsl:call-template>
                         </xsl:for-each>
                     </xsl:when>
                     <xsl:otherwise>
@@ -457,11 +527,28 @@
     </xsl:template>
 
     <xsl:template name="itemSummaryView-DIM-authors-entry">
-        <div>
+        <!-- 
+            String containing currently processed author's name and researcher identifiers.
+
+            passed from template:   itemSummaryView-DIM-authors
+        -->
+        <xsl:param name="currentAuthorIdentifiersRecord"/>
+        <div class="simple-item-view-author-line">
             <xsl:if test="@authority">
                 <xsl:attribute name="class"><xsl:text>ds-dc_contributor_author-authority</xsl:text></xsl:attribute>
             </xsl:if>
-            <xsl:copy-of select="node()"/>
+            <!-- Adding author's name from metadata -->
+            <span>
+                <xsl:copy-of select="node()"/>
+            </span>
+            
+            <!--
+                Calling template that actually creates the HTML elements holding author's identifiers information
+            -->
+            <xsl:call-template name="addAuthorIdentifiers">
+                <xsl:with-param name="authorIdentifiersRecord" select="$currentAuthorIdentifiersRecord"/>
+            </xsl:call-template>
+
         </div>
     </xsl:template>
 
@@ -976,7 +1063,50 @@
                 <xsl:value-of select="$value" />
             </xsl:otherwise>
         </xsl:choose>
-  </xsl:template>
+    </xsl:template>
+
+    <!-- 
+        Template for adding author's identifiers to his name in the item-view 
+    
+        @author:    Jakub Řihák <JR>
+        @date:      2023-09-06
+    -->
+    <xsl:template name="addAuthorIdentifiers">
+        <!-- 
+            String containing author's name and his researcher identifiers
+            
+            passed from template: itemSummaryView-DIM-authors-entry
+        -->
+        <xsl:param name="authorIdentifiersRecord"/>
+
+        <xsl:if test="substring-before(substring-after($authorIdentifiersRecord, 'orcid_'), '|') != ''">
+            <xsl:variable name="authorORCID" select="substring-before(substring-after($authorIdentifiersRecord, 'orcid_'), '|')"/>
+            <span class="author-identifier">
+                <a href="https://orcid.org/{$authorORCID}" target="_blank" class="author-identifier-link" title="ORCiD Profile - {$authorORCID}">
+                    <img src="{$theme-path}/images/ORCID_iD.svg" class="author-identifier-icon" alt="ORCiD Profile - {$authorORCID}" title="ORCiD Profile - {$authorORCID}"/>
+                </a>
+            </span>
+        </xsl:if>
+                    
+        <xsl:if test="substring-before(substring-after($authorIdentifiersRecord, 'researcherid_'), '|') != ''">
+            <xsl:variable name="authorResearcherID" select="substring-before(substring-after($authorIdentifiersRecord, 'researcherid_'), '|')"/>
+            <span class="author-identifier">
+                <a href="https://www.webofscience.com/wos/author/record/{$authorResearcherID}" target="_blank" class="author-identifier-link" title="WoS Profile - {$authorResearcherID}">
+                    <img src="{$theme-path}/images/CLVT.svg" class="author-identifier-icon" alt="WoS Profile - {$authorResearcherID}" title="WoS Profile - {$authorResearcherID}" />
+                </a>
+            </span>
+        </xsl:if>
+
+        <xsl:if test="substring-after($authorIdentifiersRecord, 'scopus_') != ''">
+            <xsl:variable name="authorScopusID" select="substring-after($authorIdentifiersRecord, 'scopus_')"/>
+            <span class="author-identifier">
+                <a href="https://www.scopus.com/authid/detail.uri?authorId={$authorScopusID}" target="_blank" class="author-identifier-link" title="Scopus Profile - {$authorScopusID}">
+                    <img src="{$theme-path}/images/sc.png" class="author-identifier-icon" alt="Scopus Profile - {$authorScopusID}" title="Scopus Profile - {$authorScopusID}"/>
+                </a>
+            </span>
+        </xsl:if>
+        
+    </xsl:template>
 
 
 </xsl:stylesheet>
