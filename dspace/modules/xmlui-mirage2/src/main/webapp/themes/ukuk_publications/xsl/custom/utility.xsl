@@ -58,7 +58,7 @@
             </xsl:when>
             <xsl:when test="$authorIdentifiersXML/response/result/@numFound = '1'">
                 <xsl:for-each select="$authorIdentifiersXML/response/result/doc/arr[@name='uk.author.identifier']/str">
-                    <xsl:if test="substring-before(./text(),'|') = $authorNameMetadata">
+                    <xsl:if test="substring-before(./text(),'|') = $authorNameInMetadata">
                         <xsl:value-of select="./text()"/>
                     </xsl:if>
                 </xsl:for-each>
