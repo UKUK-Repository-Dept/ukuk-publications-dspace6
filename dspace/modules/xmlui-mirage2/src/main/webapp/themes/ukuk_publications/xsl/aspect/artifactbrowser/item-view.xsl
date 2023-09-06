@@ -512,7 +512,10 @@
             </span>
             
             <!--<xsl:call-template name="getAuthorIdentifiers"/>-->
-            <xsl:apply-templates select="$currentAuthorIdentifiersRecord" mode="solrAuthorIdentifiers"/>
+            <xsl:call-template name="addAuthorIdentifiers">
+                <xsl:with-param name="record" select="$currentAuthorIdentifiersRecord"/>
+            </xsl:call-template>
+            <!--<xsl:apply-templates select="$currentAuthorIdentifiersRecord" mode="solrAuthorIdentifiers"/>-->
 
         
         </div>
