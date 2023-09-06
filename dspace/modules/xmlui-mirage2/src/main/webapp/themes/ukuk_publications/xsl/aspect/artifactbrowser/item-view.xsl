@@ -513,7 +513,7 @@
             
             <!--<xsl:call-template name="getAuthorIdentifiers"/>-->
             <xsl:call-template name="addAuthorIdentifiers">
-                <xsl:with-param name="record" select="$currentAuthorIdentifiersRecord"/>
+                <xsl:with-param name="authorIdentifiersRecord" select="$currentAuthorIdentifiersRecord"/>
             </xsl:call-template>
             <!--<xsl:apply-templates select="$currentAuthorIdentifiersRecord" mode="solrAuthorIdentifiers"/>-->
 
@@ -1049,7 +1049,8 @@
         </xsl:choose>
     </xsl:template>
 
-    <xsl:template match="*" mode="solrAuthorIdentifiers">
+    <xsl:template name="addAuthorIdentifiers">
+        <xsl:param name="authorIdentifiersRecord"/>
         <!-- 
         Get authors identifiers and process the value:
             1) search for the string after ('orcid_'), but before string '|'
@@ -1065,8 +1066,8 @@
                 <xsl:for-each select="/response/result/doc">
                     <xsl:variable name="solrAuthorsIdentifiersValue" select="./arr[@name='uk.author.identifier']/str/text()"/> -->
 
-        <xsl:if test="substring-before(substring-after($solrAuthorsIdentifiersValue, 'orcid_'), '|') != ''">
-            <xsl:variable name="authorORCID" select="substring-before(substring-after($solrAuthorsIdentifiersValue, 'orcid_'), '|')"/>
+        <xsl:if test="substring-before(substring-after($authorIdentifiersRecord, 'orcid_'), '|') != ''">
+            <xsl:variable name="authorORCID" select="substring-before(substring-after($authorIdentifiersRecord, 'orcid_'), '|')"/>
             <span class="author-identifier">
                 <a href="https://orcid.org/{$authorORCID}" target="_blank" class="author-identifier-link">
                     <img src="{$theme-path}/images/ORCID_iD.svg" class="author-identifier-icon" alt="ORCiD Profile - {$authorORCID}" />
@@ -1074,8 +1075,8 @@
             </span>
         </xsl:if>
                     
-        <xsl:if test="substring-before(substring-after($solrAuthorsIdentifiersValue, 'researcherid_'), '|') != ''">
-            <xsl:variable name="authorResearcherID" select="substring-before(substring-after($solrAuthorsIdentifiersValue, 'researcherid_'), '|')"/>
+        <xsl:if test="substring-before(substring-after($authorIdentifiersRecord, 'researcherid_'), '|') != ''">
+            <xsl:variable name="authorResearcherID" select="substring-before(substring-after($authorIdentifiersRecord, 'researcherid_'), '|')"/>
             <span class="author-identifier">
                 <a href="https://www.webofscience.com/wos/author/record/{$authorResearcherID}" target="_blank" class="author-identifier-link">
                     <img src="{$theme-path}/images/CLVT.svg" class="author-identifier-icon" alt="WoS Profile - {$authorResearcherID}" />
@@ -1083,8 +1084,8 @@
             </span>
         </xsl:if>
 
-        <xsl:if test="substring-after($solrAuthorsIdentifiersValue, 'scopus_') != ''">
-            <xsl:variable name="authorScopusID" select="substring-after($solrAuthorsIdentifiersValue, 'scopus_')"/>
+        <xsl:if test="substring-after($authorIdentifiersRecord, 'scopus_') != ''">
+            <xsl:variable name="authorScopusID" select="substring-after($authorIdentifiersRecord, 'scopus_')"/>
             <span class="author-identifier">
                 <a href="https://www.scopus.com/authid/detail.uri?authorId={$authorScopusID}" target="_blank" class="author-identifier-link">
                     <img src="{$theme-path}/images/sc.png" class="author-identifier-icon" alt="Scopus Profile - {$authorScopusID}" />
