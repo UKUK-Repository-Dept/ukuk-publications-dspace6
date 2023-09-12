@@ -478,7 +478,7 @@
                 </xsl:if>
                 <div id="collapse-authors" class="collapse" aria-labelledby="item-view-authors">
                     <xsl:for-each select="dim:field[@element='contributor'][@qualifier]">
-                        <xsl:if test="count(preceding-sibling::dim:field[@element='contributor'][@qualifier]) => 3">
+                        <xsl:if test="count(preceding-sibling::dim:field[@element='contributor'][@qualifier]) >= 3">
                             <xsl:variable name="currentAuthorIdentifiers">
                                 <xsl:call-template name="utility-authorIdentifiersParse">
                                     <xsl:with-param name="authorIdentifiersXML" select="$itemAuthorIdentifiers"/>
