@@ -475,22 +475,23 @@
                             Zobrazit další
                         </a>
                     </p>
-                </xsl:if>
-                <div id="collapse-authors" class="collapse" aria-labelledby="item-view-authors">
-                    <xsl:for-each select="dim:field[@element='contributor'][@qualifier]">
-                        <xsl:if test="count(preceding-sibling::dim:field[@element='contributor'][@qualifier]) >= 3">
-                            <xsl:variable name="currentAuthorIdentifiers">
-                                <xsl:call-template name="utility-authorIdentifiersParse">
-                                    <xsl:with-param name="authorIdentifiersXML" select="$itemAuthorIdentifiers"/>
-                                    <xsl:with-param name="authorNameInMetadata" select="node()"/>
+                
+                    <div id="collapse-authors" class="collapse" aria-labelledby="item-view-authors">
+                        <xsl:for-each select="dim:field[@element='contributor'][@qualifier]">
+                            <xsl:if test="count(preceding-sibling::dim:field[@element='contributor'][@qualifier]) >= 3">
+                                <xsl:variable name="currentAuthorIdentifiers">
+                                    <xsl:call-template name="utility-authorIdentifiersParse">
+                                        <xsl:with-param name="authorIdentifiersXML" select="$itemAuthorIdentifiers"/>
+                                        <xsl:with-param name="authorNameInMetadata" select="node()"/>
+                                    </xsl:call-template>
+                                </xsl:variable>
+                                <xsl:call-template name="itemSummaryView-DIM-authors-entry">
+                                    <xsl:with-param name="currentAuthorIdentifiersRecord" select="$currentAuthorIdentifiers"/>
                                 </xsl:call-template>
-                            </xsl:variable>
-                            <xsl:call-template name="itemSummaryView-DIM-authors-entry">
-                                <xsl:with-param name="currentAuthorIdentifiersRecord" select="$currentAuthorIdentifiers"/>
-                            </xsl:call-template>
-                        </xsl:if>
-                    </xsl:for-each>
-                </div>
+                            </xsl:if>
+                        </xsl:for-each>
+                    </div>
+                </xsl:if>
                 <!-- <xsl:choose>
                     <xsl:when test="dim:field[@element='contributor'][@qualifier='author']">
                         <xsl:for-each select="dim:field[@element='contributor'][@qualifier='author']">
