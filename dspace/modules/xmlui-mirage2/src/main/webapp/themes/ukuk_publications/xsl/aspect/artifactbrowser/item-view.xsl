@@ -469,11 +469,13 @@
                         </xsl:call-template>
                     </xsl:if>
                 </xsl:for-each>
-                <p>
-                    <a role="button" data-toggle="collapse" data-parent="#item-view-authors" href="#collapse-authors" aria-expanded="false" aria-controls="collapse-authors">
-                        Zobrazit další
-                    </a>
-                </p>
+                <xsl:if test="count(dim:field[@element='contributor'][@qualifier]) > 3">
+                    <p>
+                        <a role="button" data-toggle="collapse" data-parent="#item-view-authors" href="#collapse-authors" aria-expanded="false" aria-controls="collapse-authors">
+                            Zobrazit další
+                        </a>
+                    </p>
+                </xsl:if>
                 <div id="collapse-authors" class="collapse" aria-labelledby="item-view-authors">
                     <xsl:for-each select="dim:field[@element='contributor'][@qualifier]">
                         <xsl:if test="count(preceding-sibling::dim:field[@element='contributor'][@qualifier]) > 3">
