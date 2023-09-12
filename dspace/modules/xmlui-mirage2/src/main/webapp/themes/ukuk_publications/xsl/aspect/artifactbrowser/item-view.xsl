@@ -451,15 +451,28 @@
         -->
         <xsl:variable name="itemAuthorIdentifiers" select="document(concat($solrURL,'/select?q=search.resourcetype%3A2+AND+handle%3A', $itemHandle, '&amp;fl=uk.author.identifier&amp;wt=xml&amp;indent=true'))"/>
         
-        <xsl:variable name="processedContributorsCount"><xsl:text>0</xsl:text></xsl:variable>
+        <!-- <xsl:variable name="processedContributorsCount"><xsl:text>0</xsl:text></xsl:variable> -->
 
         <xsl:if test="dim:field[@element='contributor'][@qualifier='author' and descendant::text()] or dim:field[@element='creator' and descendant::text()] or dim:field[@element='contributor' and descendant::text()]">
             <div class="simple-item-view-authors item-page-field-wrapper table">
                 <h5><i18n:text>xmlui.dri2xhtml.METS-1.0.item-author</i18n:text></h5>
-                <xsl:choose>
+                <xsl:for-each select="dim:field[@element='contributor'][@qualifier]">
+                    <xsl:if test="count(preceding-sibling::dim:field[@element='contributor'][@qualifier]) != 2">
+                        <xsl:variable name="currentAuthorIdentifiers">
+                                <xsl:call-template name="utility-authorIdentifiersParse">
+                                    <xsl:with-param name="authorIdentifiersXML" select="$itemAuthorIdentifiers"/>
+                                    <xsl:with-param name="authorNameInMetadata" select="node()"/>
+                                </xsl:call-template>
+                        </xsl:variable>
+                        <xsl:call-template name="itemSummaryView-DIM-authors-entry">
+                            <xsl:with-param name="currentAuthorIdentifiersRecord" select="$currentAuthorIdentifiers"/>
+                        </xsl:call-template>
+                    </xsl:if>
+                </xsl:for-each>
+                <!-- <xsl:choose>
                     <xsl:when test="dim:field[@element='contributor'][@qualifier='author']">
                         <xsl:for-each select="dim:field[@element='contributor'][@qualifier='author']">
-                            <xsl:variable name="processedContributorsCount" select="number($processedContributorsCount) + 1"/>
+                            <xsl:variable name="processedContributorsCount" select="number($processedContributorsCount) + 1"/> -->
                             <!-- 
                                 Calling template that matches author's name with names available in the metadata field holding his identifiers.
                                 Since one item could have multiple authors with multiple researcher identifiers, each author's identifiers are stored in separate metadata fields.
@@ -468,7 +481,7 @@
                                 Correct metadata string for a given author is then stored in variable which value is passed to itemSummaryView-DIM-authors-entry template
                                 responsible for adding author's name to HTML.
                             -->
-                            <xsl:variable name="currentAuthorIdentifiers">
+                            <!-- <xsl:variable name="currentAuthorIdentifiers">
                                 <xsl:call-template name="utility-authorIdentifiersParse">
                                     <xsl:with-param name="authorIdentifiersXML" select="$itemAuthorIdentifiers"/>
                                     <xsl:with-param name="authorNameInMetadata" select="node()"/>
@@ -477,11 +490,11 @@
                             <xsl:call-template name="itemSummaryView-DIM-authors-entry">
                                 <xsl:with-param name="currentAuthorIdentifiersRecord" select="$currentAuthorIdentifiers"/>
                             </xsl:call-template>
-                        </xsl:for-each>
-                    </xsl:when>
+                        </xsl:for-each> -->
+                    <!-- </xsl:when>
                     <xsl:when test="dim:field[@element='creator']">
                         <xsl:for-each select="dim:field[@element='creator']">
-                            <xsl:variable name="processedContributorsCount" select="number($processedContributorsCount) + 1"/>
+                            <xsl:variable name="processedContributorsCount" select="number($processedContributorsCount) + 1"/> -->
                             <!-- 
                                 Calling template that matches author's name with names available in the metadata field holding his identifiers.
                                 Since one item could have multiple authors with multiple researcher identifiers, each author's identifiers are stored in separate metadata fields.
@@ -490,7 +503,7 @@
                                 Correct metadata string for a given author is then stored in variable which value is passed to itemSummaryView-DIM-authors-entry template
                                 responsible for adding author's name to HTML.
                             -->
-                            <xsl:variable name="currentAuthorIdentifiers">
+                            <!-- <xsl:variable name="currentAuthorIdentifiers">
                                 <xsl:call-template name="utility-authorIdentifiersParse">
                                     <xsl:with-param name="authorIdentifiersXML" select="$itemAuthorIdentifiers"/>
                                     <xsl:with-param name="authorNameInMetadata" select="node()"/>
@@ -499,11 +512,11 @@
                             <xsl:call-template name="itemSummaryView-DIM-authors-entry">
                                 <xsl:with-param name="currentAuthorIdentifiersRecord" select="$currentAuthorIdentifiers"/>
                             </xsl:call-template>
-                        </xsl:for-each>
-                    </xsl:when>
+                        </xsl:for-each> -->
+                    <!-- </xsl:when>
                     <xsl:when test="dim:field[@element='contributor']">
                         <xsl:for-each select="dim:field[@element='contributor']">
-                            <xsl:variable name="processedContributorsCount" select="number($processedContributorsCount) + 1"/>
+                            <xsl:variable name="processedContributorsCount" select="number($processedContributorsCount) + 1"/> -->
                             <!-- 
                                 Calling template that matches author's name with names available in the metadata field holding his identifiers.
                                 Since one item could have multiple authors with multiple researcher identifiers, each author's identifiers are stored in separate metadata fields.
@@ -512,7 +525,7 @@
                                 Correct metadata string for a given author is then stored in variable which value is passed to itemSummaryView-DIM-authors-entry template
                                 responsible for adding author's name to HTML.
                             --> 
-                            <xsl:variable name="currentAuthorIdentifiers">
+                            <!-- <xsl:variable name="currentAuthorIdentifiers">
                                 <xsl:call-template name="utility-authorIdentifiersParse">
                                     <xsl:with-param name="authorIdentifiersXML" select="$itemAuthorIdentifiers"/>
                                     <xsl:with-param name="authorNameInMetadata" select="node()"/>
@@ -521,13 +534,13 @@
                             <xsl:call-template name="itemSummaryView-DIM-authors-entry">
                                 <xsl:with-param name="currentAuthorIdentifiersRecord" select="$currentAuthorIdentifiers"/>
                             </xsl:call-template>
-                        </xsl:for-each>
-                    </xsl:when>
+                        </xsl:for-each> -->
+                    <!-- </xsl:when>
                     <xsl:otherwise>
                         <i18n:text>xmlui.dri2xhtml.METS-1.0.no-author</i18n:text>
                     </xsl:otherwise>
                 </xsl:choose>
-                <xsl:value-of select="$processedContributorsCount"/>
+                <xsl:value-of select="$processedContributorsCount"/> -->
             </div>
         </xsl:if>
     </xsl:template>
