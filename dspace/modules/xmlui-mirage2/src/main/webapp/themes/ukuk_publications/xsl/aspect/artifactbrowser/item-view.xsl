@@ -457,7 +457,7 @@
             <div class="simple-item-view-authors item-page-field-wrapper table" id="item-view-authors">
                 <h5><i18n:text>xmlui.dri2xhtml.METS-1.0.item-author</i18n:text></h5>
                 <xsl:for-each select="dim:field[@element='contributor'][@qualifier]">
-                    <xsl:if test="count(preceding-sibling::dim:field[@element='contributor'][@qualifier]) != 3">
+                    <xsl:if test="count(preceding-sibling::dim:field[@element='contributor'][@qualifier]) &lt;= 3">
                         <xsl:variable name="currentAuthorIdentifiers">
                                 <xsl:call-template name="utility-authorIdentifiersParse">
                                     <xsl:with-param name="authorIdentifiersXML" select="$itemAuthorIdentifiers"/>
