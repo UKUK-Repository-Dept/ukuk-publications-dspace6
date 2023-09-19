@@ -186,7 +186,7 @@
 
 			<!-- RIGHTS (textual information about the license) -->
 			<!-- dc.rights -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='license']/doc:element/doc:field[@name='value']">
+			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='rights']/doc:element/doc:field[@name='value']">
 				<dc:rights>
 					<xsl:attribute name="lang">
 						<xsl:value-of select="../@name" />
