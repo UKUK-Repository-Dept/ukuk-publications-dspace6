@@ -184,6 +184,17 @@
 				<dc:accessRights><xsl:value-of select="." /></dc:accessRights>
 			</xsl:for-each>
 
+			<!-- RIGHTS (textual information about the license) -->
+			<!-- dc.rights -->
+			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='license']/doc:element/doc:field[@name='value']">
+				<dc:rights>
+					<xsl:attribute name="lang">
+						<xsl:value-of select="../@name" />
+					</xsl:attribute>
+					<xsl:value-of select="." />
+				</dc:rights>
+			</xsl:for-each>
+
 			<!-- ABSTRACT -->
 			<!-- dc.description.abstract-->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='description']/doc:element[@name='abstract']/doc:element/doc:field[@name='value']">
