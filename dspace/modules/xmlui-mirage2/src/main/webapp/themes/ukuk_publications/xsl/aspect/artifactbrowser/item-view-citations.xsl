@@ -30,16 +30,16 @@
         <p class="citation">
             <xsl:for-each select="dim:field[@element='contributor' and @qualifier='author']">
                 <xsl:if test="count(following-sibling::dim:field[@element='contributor'][@qualifier='author']) = 1">
-                    <xsl:if test="count(preceding-sibling::dim:field[@element='contributor'][@qualifier='author']) = 0)">
+                    <xsl:if test="count(preceding-sibling::dim:field[@element='contributor'][@qualifier='author']) = 0">
                         <span class="contributor-surname"><xsl:value-of select="substring-before(.,',')"/></span><xsl:text>, </xsl:text><xsl:value-of select="substring-after(.,',')"/>
                     <xsl:if>
                 </xsl:if>
 
                 <xsl:if test="count(following-sibling::dim:field[@element='contributor'][@qualifier='author']) > 1">
-                    <xsl:if test="count(preceding-sibling::dim:field[@element='contributor'][@qualifier='author']) = 0)">
+                    <xsl:if test="count(preceding-sibling::dim:field[@element='contributor'][@qualifier='author']) = 0">
                         <span class="contributor-surname"><xsl:value-of select="substring-before(.,',')"/></span><xsl:text>, </xsl:text><xsl:value-of select="substring-after(.,',')"/><xsl:text>, </xsl:text>
                     </xsl:if>
-                    <xsl:if test="count(following-sibling::dim:field[@element='contributor'][@qualifier='author']) = 0)">
+                    <xsl:if test="count(following-sibling::dim:field[@element='contributor'][@qualifier='author']) = 0">
                         <xsl:value-of select="substring-after(.,',')"/><xsl:text> </xsl:text><span class="contributor-surname"><xsl:value-of select="substring-before(.,',')"/></span>
                     </xsl:if>
 
