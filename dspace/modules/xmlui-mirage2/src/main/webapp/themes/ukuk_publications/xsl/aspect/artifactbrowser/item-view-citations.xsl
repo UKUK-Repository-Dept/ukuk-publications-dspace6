@@ -29,10 +29,24 @@
     <xsl:template name="itemSummaryView-DIM-citations-article">
         <p class="citation">
             <xsl:for-each select="dim:field[@element='contributor' and @qualifier='author']">
-                <span class="contributor-surname"><xsl:value-of select="substring-before(.,',')"/></span><xsl:text>, </xsl:text><xsl:value-of select="substring-after(.,',')"/>
+                <xsl:if test="count(following-sibling::dim:field[@element='contributor'][@qualifier='author']) = 1">
+                    <xsl:if test="count(preceeding-sibling::dim:field[@element='contributor'][@qualifier='author']) = 0)">
+                        <span class="contributor-surname"><xsl:value-of select="substring-before(.,',')"/></span><xsl:text>, </xsl:text><xsl:value-of select="substring-after(.,',')"/>
+                    <xsl:if>
+                </xsl:if>
+
+                <xsl:if test="count(following-sibling::dim:field[@element='contributor'][@qualifier='author']) > 1">
+                    <xsl:if test="count(preceeding-sibling::dim:field[@element='contributor'][@qualifier='author']) = 0)">
+                        <span class="contributor-surname"><xsl:value-of select="substring-before(.,',')"/></span><xsl:text>, </xsl:text><xsl:value-of select="substring-after(.,',')"/><xsl:text>, </xsl:text>
+                    </xsl:if>
+                    <xsl:if test="count(following-sibling::dim:field[@element='contributor'][@qualifier='author']) = 0)">
+                        <xsl:value-of select="substring-after(.,',')"/><xsl:text> </xsl:text><span class="contributor-surname"><xsl:value-of select="substring-before(.,',')"/></span>
+                    </xsl:if>
+
+                    <xsl:value-of select="substring-after(.,',')"/><xsl:text> </xsl:text><span class="contributor-surname"><xsl:value-of select="substring-before(.,',')"/></span><xsl:text>, </xsl:text>
+                </xsl:if>
             </xsl:for-each>
         </p>
-
     </xsl:template>
 
 </xsl:stylesheet>
