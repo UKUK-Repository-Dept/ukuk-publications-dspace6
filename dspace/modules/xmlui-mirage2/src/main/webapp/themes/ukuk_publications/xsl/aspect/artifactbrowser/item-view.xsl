@@ -37,6 +37,7 @@
     xmlns:confman="org.dspace.core.ConfigurationManager"
     exclude-result-prefixes="xalan encoder i18n dri mets dim xlink xsl util jstring rights confman">
     <xsl:import href="item-view-license.xsl" />
+    <xsl:import href="item-view-citations.xsl" />
     <xsl:import href="../../custom/utility.xsl"/>
 
     <xsl:output indent="yes"/>
@@ -148,6 +149,7 @@
                     </xsl:if>
                 </div>
                 <div class="col-sm-8">
+                    <xsl:call-template name="itemSummaryView-DIM-citation"/>
                     <xsl:call-template name="itemSummaryView-DIM-abstract"/>
                     <xsl:call-template name="itemSummaryView-DIM-URI"/>
                     <xsl:call-template name="license">
@@ -410,6 +412,20 @@
                     </img>
                 </xsl:otherwise>
             </xsl:choose>
+        </div>
+    </xsl:template>
+
+    <xsl:template name="itemSummaryView-DIM-citation">
+        <div class="simple-item-view-description item-page-field-wrapper table">
+            <h5 class="item-view-metadata-heading" if="item-view-metadata-citation"><i18n:text>xmlui.dri2xhtml.METS-1.0.item-citation</i18n:text></h5>
+
+            <div>
+                <xsl:call-template name="itemSummaryView-DIM-citations-by-doc-type">
+                    <xsl:with-param name="documentType">
+                        <xsl:value-of select="dim:field[@element='type'][@qualifier='obd']"/>
+                    </xsl:with-param>
+                </xsl:call-template>
+            </div>
         </div>
     </xsl:template>
 
