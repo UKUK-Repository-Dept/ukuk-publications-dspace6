@@ -25,9 +25,14 @@
         <p class="citation">
             <xsl:if test="$documentType = 73">
                 <xsl:call-template name="itemSummaryView-DIM-citations-contributors"/>
-                <xsl:call-template name="itemSummaryView-DIM-citations-title"/>
-                <xsl:call-template name="itemSummaryView-DIM-citations-source-title" />
-                <xsl:call-template name="itemSummaryView-DIM-citations-publication-year" />
+                <xsl:call-template name="itemSummaryView-DIM-citations-title"/><xsl:text>. </xsl:text>
+                <xsl:call-template name="itemSummaryView-DIM-citations-source-title" /><xsl:text>. </xsl:text>
+                <xsl:call-template name="itemSummaryView-DIM-citations-publication-year" /><xsl:text>, </xsl:text>
+                <xsl:call-template name="itemSummaryView-DIM-citations-publication-journalVolume" />
+                <xsl:text>(</xsl:text><xsl:call-template name="itemSummaryView-DIM-citations-publication-journalIssue" /><xsl:text>)</xsl:text><xsl:text>, </xsl:text>
+                <xsl:call-template name="itemSummaryView-DIM-citations-publication-pageRange" /><xsl:text>. </xsl:text>
+                <xsl:call-template name="itemSummaryView-DIM-citations-publication-journalISSN" /><xsl:text>. </xsl:text>
+                <xsl:call-template name="itemSummaryView-DIM-citations-publication-repositoryPermalink" />
             </xsl:if>
         </p>
     </xsl:template>
@@ -117,7 +122,7 @@
             </xsl:when>
             <xsl:otherwise>
                 <xsl:for-each select="dim:field[@element='title'][not(@qualifier)]">
-                    <span class="citation-title"><xsl:text> </xsl:text><xsl:value-of select="."/><xsl:text>. </xsl:text></span>
+                    <span class="citation-title"><xsl:text> </xsl:text><xsl:value-of select="."/></span>
                 </xsl:for-each>        
             </xsl:otherwise>
         </xsl:choose>
@@ -125,13 +130,44 @@
 
     <xsl:template name="itemSummaryView-DIM-citations-source-title">
         <xsl:for-each select="dim:field[@element='isPartOf' and @qualifier = 'name']">
-            <span class="citation-source-title"><xsl:value-of select="."/></span><xsl:text>. </xsl:text>
+            <span class="citation-source-title"><xsl:value-of select="."/></span>
         </xsl:for-each>
     </xsl:template>
 
     <xsl:template name="itemSummaryView-DIM-citations-publication-year">
         <xsl:for-each select="dim:field[@element='date' and @qualifier = 'issued']">
-            <span class="citation-publication-year"><xsl:value-of select="."/></span><xsl:text>, </xsl:text>
+            <span class="citation-publication-year"><xsl:value-of select="."/></span>
+        </xsl:for-each>
+    </xsl:template>
+
+    <xsl:template name="itemSummaryView-DIM-citations-publication-journalVolume">
+        <xsl:for-each select="dim:field[@element='isPartOf' and @qualifier = 'journalYear']">
+            <span class="citation-publication-journalVolume"><xsl:value-of select="."/></span>
+        </xsl:for-each>
+    </xsl:template>
+
+    <xsl:template name="itemSummaryView-DIM-citations-publication-journalIssue">
+        <xsl:for-each select="dim:field[@element='isPartOf' and @qualifier = 'journalIssue']">
+            <span class="citation-publication-journalIssue"><xsl:value-of select="."/></span>
+        </xsl:for-each>
+    </xsl:template>
+
+    <xsl:template name="itemSummaryView-DIM-citations-publication-pageRange">
+        <xsl:for-each select="dim:field[@element='description' and @qualifier = 'pageRange']">
+            <span class="citation-publication-pageRange"><xsl:value-of select="."/></span>
+        </xsl:for-each>
+    </xsl:template>
+
+    <xsl:template name="itemSummaryView-DIM-citations-publication-journalISSN">
+        <xsl:for-each select="dim:field[@element='isPartOf' and @qualifier = 'issn']">
+            <span class="citation-publication-journalISSN"><xsl:text>ISSN </xsl:text><xsl:value-of select="."/></span>
+        </xsl:for-each>
+    </xsl:template>
+
+    <xsl:template name="itemSummaryView-DIM-citations-publication-repositoryPermalink">
+        <xsl:for-each select="dim:field[@element='identifier' and @qualifier = 'uri']">
+            <!-- TODO: value of <xsl:text> should be a translation string (?) -->
+            <span class="citation-publication-journalISSN"><xsl:text>Dostupné také z: </xsl:text><xsl:value-of select="."/></span>
         </xsl:for-each>
     </xsl:template>
 
