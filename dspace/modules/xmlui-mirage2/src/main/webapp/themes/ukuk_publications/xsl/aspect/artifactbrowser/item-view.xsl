@@ -142,6 +142,7 @@
                     </div>
 					<xsl:call-template name="itemSummaryView-DIM-other-output-versions"/>
                     <xsl:call-template name="itemSummaryView-DIM-date"/>
+                    <xsl:call-template name="itemSummaryView-DIM-publication-type"/>
                     <xsl:call-template name="itemSummaryView-DIM-authors"/>
                     <xsl:if test="$ds_item_view_toggle_url != ''">
                         <xsl:call-template name="itemSummaryView-show-full"/>
@@ -569,6 +570,45 @@
             </div>
         </xsl:if>
     </xsl:template>
+
+    <!-- <JR> - 2023-10-26: Adding publication type information to item-view -->
+    <xsl:template name="itemSummaryView-DIM-publication-type">
+        <xsl:if test="$active-locale = 'cs'">
+            <xsl:if test="dim:field[@element='type' and @qualifier='obdHierarchyCs']">
+                <xsl:call-template name="itemSummaryView-DIM-publication-type-content">
+                    <xsl:with-param name="qualifier">
+                        <xsl:text>obdHierarchyCs</xsl:text>
+                    </xsl:with-param>
+                </xsl:call-template>
+            </xsl:if>
+        </xsl:if>
+
+        <xsl:if test="$active-locale = 'en'">
+            <xsl:if test="dim:field[@element='type' and @qualifier='obdHierarchyEn']">
+                <xsl:call-template name="itemSummaryView-DIM-publication-type-content">
+                    <xsl:with-param name="qualifier">
+                        <xsl:text>obdHierarchyEn</xsl:text>
+                    </xsl:with-param>
+                </xsl:call-template>
+            </xsl:if>
+        </xsl:if>
+    </xsl:template>
+
+    <xsl:template name="itemSummaryView-DIM-publication-type-content">
+        <xsl:param name="qualifier"/>
+        <div class="simple-item-view-publication-type word-break item-page-field-wrapper table">
+        
+            <h5 id="itemSummaryView-DIM-publication-type">
+                <i18n:text>xmlui.dri2xhtml.METS-1.0.item-publication-type</i18n:text>
+            </h5>
+        
+            <xsl:for-each select="dim:field[@element='type' and @qualifier=$qualifier]">
+                <xsl:copy-of select="substring-after(substring-after(./node(),'::'),'::')" />
+            </xsl:for-each>
+
+        </div>
+    </xsl:template>
+    <!-- END OF: Adding publication type information to item-view -->
 
     <xsl:template name="itemSummaryView-show-full">
         <div class="simple-item-view-show-full item-page-field-wrapper table">
