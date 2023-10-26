@@ -498,7 +498,7 @@
 
                     <p>
                         <a role="button" data-toggle="collapse" data-parent="#item-view-authors" href="#collapse-authors" aria-expanded="false" aria-controls="collapse-authors">
-                            Zobrazit další
+                            <i18n:text>xmlui.dri2xhtml.METS-1.0.item-author-collapse</i18n:text>
                         </a>
                     </p>
                 </xsl:if>
