@@ -2222,7 +2222,7 @@
 	<message key="xmlui.dri2xhtml.METS-1.0.item-abstract">Abstrakt</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-description">Popis</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-uri">URI</message>
-	<message key="xmlui.dri2xhtml.METS-1.0.item-date">Datum</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-date">Datum vydání</message>
 	<!-- <JR> - 2023-10-26: Added new key for translation publication type in item-view -->
 	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-type">Typ publikace</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-publisher">Nakladatel</message>
