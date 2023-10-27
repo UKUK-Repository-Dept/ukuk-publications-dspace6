@@ -2206,7 +2206,7 @@
 	<message key="xmlui.dri2xhtml.METS-1.0.item-abstract">Abstract</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-description">Description</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-uri">URI</message>
-	<message key="xmlui.dri2xhtml.METS-1.0.item-date">Date</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-date">Publication Date</message>
 	<!-- <JR> - 2023-10-26: Added new key for translation publication type in item-view -->
 	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-type">Publication type</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-publisher">Publisher</message>
@@ -3540,7 +3540,7 @@
 	<!--OUTPUT PUBLICATION VERSIONS TRANSLATIONS-->
 	
 	<!-- other output versions item-view heading translation -->
-	<message key="xmlui.dri2xhtml.METS-1.0.item-otherOutputVersions">Other output versions</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-otherOutputVersions">Other publication versions</message>
 	
 	<!-- other output versions values translations -->
 	<message key="xmlui.publication.version.draft">Draft</message>

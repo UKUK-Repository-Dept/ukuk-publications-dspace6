@@ -140,13 +140,17 @@
                             <xsl:call-template name="itemSummaryView-DIM-file-section"/>
                         </div>
                     </div>
-					<xsl:call-template name="itemSummaryView-DIM-other-output-versions"/>
+                    <xsl:call-template name="itemSummaryView-DIM-authors"/>
                     <xsl:call-template name="itemSummaryView-DIM-date"/>
                     <xsl:call-template name="itemSummaryView-DIM-publication-type"/>
-                    <xsl:call-template name="itemSummaryView-DIM-authors"/>
+                    <xsl:call-template name="itemSummaryView-DIM-source-publication-name"/>
+                    <xsl:call-template name="itemSummaryView-DIM-source-publication-volume-issue"/>
+                    <xsl:call-template name="itemSummaryView-DIM-source-publication-isbn-issn" />
+                    <xsl:call-template name="itemSummaryView-DIM-publication-isbn-issn" />
                     <xsl:if test="$ds_item_view_toggle_url != ''">
                         <xsl:call-template name="itemSummaryView-show-full"/>
                     </xsl:if>
+                    <xsl:call-template name="itemSummaryView-collections"/>
                 </div>
                 <div class="col-sm-8">
                     <xsl:call-template name="itemSummaryView-DIM-abstract"/>
@@ -155,7 +159,7 @@
                         <xsl:with-param name="metadataURL" select="./dri:referenceSet/dri:reference/@url"/>
                     </xsl:call-template>
                     <!-- <xsl:call-template name="itemSummaryView-DIM-SOLR-test"/> -->
-                    <xsl:call-template name="itemSummaryView-collections"/>
+                    <xsl:call-template name="itemSummaryView-DIM-other-output-versions"/>
                 </div>
             </div>
         </div>
@@ -610,6 +614,109 @@
         </div>
     </xsl:template>
     <!-- END OF: Adding publication type information to item-view -->
+
+    <!-- <JR> - 2023-10-27: Source publication name -->
+    <xsl:template name="itemSummaryView-DIM-source-publication-name">
+        <xsl:if test="dim:field[@element='isPartOf' and @qualifier='name']">
+            <div class="simple-item-view-source-publication-name word-break item-page-field-wrapper table">
+                <h5 id="itemSummaryView-DIM-source-publication-name">
+                    <i18n:text>xmlui.dri2xhtml.METS-1.0.item-source-publication-name</i18n:text>
+                </h5>
+
+                <xsl:for-each select="dim:field[@element='isPartOf' and @qualifier='name']">
+                    <xsl:copy-of select="./node()" />
+                </xsl:for-each>
+            </div>
+        </xsl:if>
+    </xsl:template>
+    <!-- END OF: Source document name -->
+
+    <!-- <JR> - 2023-10-27: Source  publication volume & issue -->
+
+    <xsl:template name="itemSummaryView-DIM-source-publication-volume-issue">
+        <xsl:if test="dim:field[@element='isPartOf' and @qualifier=('journalVolume' or 'journalIssue')]">
+            <div class="simple-item-view-source-publication-volume-issue word-break item-page-field-wrapper table">
+                <h5 id="itemSummaryView-DIM-source-publication-volume-issue">
+                    <i18n:text>xmlui.dri2xhtml.METS-1.0.item-source-publication-volume-issue</i18n:text>
+                </h5>
+
+                <xsl:if test="dim:field[@element='isPartOf' and @qualifier='journalVolume']">
+                    <xsl:for-each select="dim:field[@element='isPartOf' and @qualifier='journalVolume']">
+                        <xsl:copy-of select="./node()"/>
+                    </xsl:for-each>
+                </xsl:if>
+
+                <xsl:if test="dim:field[@element='isPartOf' and @qualifier='journalIssue']">
+                    <xsl:for-each select="dim:field[@element='isPartOf' and @qualifier='journalIssue']">
+                        <xsl:text> (</xsl:text><xsl:copy-of select="./node()" /><xsl:text>)</xsl:text>
+                    </xsl:for-each>
+                </xsl:if>
+            </div>
+        </xsl:if>
+    </xsl:template>
+    <!-- END OF: Source  publication volume & issue -->
+
+    <!-- <JR> - 2023-10-27: TODO: Information about the source publication's ISBN / ISSN or E-ISSN identifiers
+                
+                Create better template!
+    -->
+    <xsl:template name="itemSummaryView-DIM-source-publication-isbn-issn">
+        <xsl:if test="dim:field[@element='isPartOf' and @qualifier=('isbn' or 'issn' or 'eissn')]">
+            <div class="simple-item-view-source-publication-isbn-issn word-break item-page-field-wrapper table">
+                <h5 id="itemSummaryView-DIM-source-publication-isbn-issn">
+                    <i18n:text>xmlui.dri2xhtml.METS-1.0.item-source-publication-isbn-issn</i18n:text>
+                </h5>
+
+                <xsl:if test="dim:field[@element='isPartOf' and @qualifier='isbn']">
+                    <xsl:for-each select="dim:field[@element='isPartOf' and @qualifier='isbn']">
+                        <xsl:copy-of select="./node()"/>
+                    </xsl:for-each>
+                </xsl:if>
+
+                <xsl:if test="dim:field[@element='isPartOf' and @qualifier='issn']">
+                    <xsl:for-each select="dim:field[@element='isPartOf' and @qualifier='issn']">
+                        <xsl:copy-of select="./node()"/>
+                    </xsl:for-each>
+                </xsl:if>
+
+                <xsl:if test="dim:field[@element='isPartOf' and @qualifier='eissn']">
+                    <xsl:for-each select="dim:field[@element='isPartOf' and @qualifier='eissn']">
+                        <xsl:copy-of select="./node()"/>
+                    </xsl:for-each>
+                </xsl:if>
+            </div>
+        </xsl:if>
+    </xsl:template>
+
+    <!-- <JR> - 2023-10-27: TODO: Information about the publication's ISBN / ISSN or E-ISSN identifiers
+                
+                Create better template!
+    -->
+    <xsl:template name="itemSummaryView-DIM-publication-isbn-issn">
+
+        <xsl:if test="dim:field[@element='identifier' and @qulifier=('isbn' or 'issn' or 'eissn')]">
+            <div class="simple-item-view-publication-isbn-issn word-break item-page-field-wrapper table">
+                <h5 id="itemSummaryView-DIM-publication-isbn-issn">
+                    <i18n:text>xmlui.dri2xhtml.METS-1.0.item-publication-isbn-issn</i18n:text>
+                </h5>
+
+                <xsl:if test="dim:field[@element='identifier' and @qualifier='isbn']">
+                    <xsl:for-each select="dim:field[@element='identifier' and @qualifier='isbn']">
+
+                    </xsl:for-each>
+                </xsl:if>
+
+                <xsl:if test="dim:field[@element='identifier' and @qualifier='issn']">
+
+                </xsl:if>
+
+                <xsl:if test="dim:field[@element='identifier' and @qualifier='eissn']">
+
+                </xsl:if>
+            </div>
+        </xsl:if>
+
+    </xsl:template>
 
     <xsl:template name="itemSummaryView-show-full">
         <div class="simple-item-view-show-full item-page-field-wrapper table">
