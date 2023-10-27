@@ -3540,7 +3540,7 @@
 	<!--OUTPUT PUBLICATION VERSIONS TRANSLATIONS-->
 	
 	<!-- other output versions item-view heading translation -->
-	<message key="xmlui.dri2xhtml.METS-1.0.item-otherOutputVersions">Other output versions</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-otherOutputVersions">Other publication versions</message>
 	
 	<!-- other output versions values translations -->
 	<message key="xmlui.publication.version.draft">Draft</message>

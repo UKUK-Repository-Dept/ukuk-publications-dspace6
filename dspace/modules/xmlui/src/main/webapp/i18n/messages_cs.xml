@@ -3632,7 +3632,7 @@
 	<!--OUTPUT PUBLICATION VERSIONS TRANSLATIONS-->
 	
 	<!-- other output versions item-view heading translation -->
-	<message key="xmlui.dri2xhtml.METS-1.0.item-otherOutputVersions">Další verze výsledku</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-otherOutputVersions">Další verze publikace</message>
 	
 	<!-- other output versions values translations -->
 	<message key="xmlui.publication.version.draft">Koncept - pracovní verze</message>
