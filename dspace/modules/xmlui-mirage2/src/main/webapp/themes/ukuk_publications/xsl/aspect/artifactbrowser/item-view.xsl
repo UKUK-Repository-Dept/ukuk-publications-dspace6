@@ -140,13 +140,14 @@
                             <xsl:call-template name="itemSummaryView-DIM-file-section"/>
                         </div>
                     </div>
-					<xsl:call-template name="itemSummaryView-DIM-authors"/>
-                    <xsl:call-template name="itemSummaryView-DIM-other-output-versions"/>
+                    <xsl:call-template name="itemSummaryView-DIM-authors"/>
                     <xsl:call-template name="itemSummaryView-DIM-date"/>
                     <xsl:call-template name="itemSummaryView-DIM-publication-type"/>
+                    
                     <xsl:if test="$ds_item_view_toggle_url != ''">
                         <xsl:call-template name="itemSummaryView-show-full"/>
                     </xsl:if>
+                    <xsl:call-template name="itemSummaryView-collections"/>
                 </div>
                 <div class="col-sm-8">
                     <xsl:call-template name="itemSummaryView-DIM-abstract"/>
@@ -155,7 +156,7 @@
                         <xsl:with-param name="metadataURL" select="./dri:referenceSet/dri:reference/@url"/>
                     </xsl:call-template>
                     <!-- <xsl:call-template name="itemSummaryView-DIM-SOLR-test"/> -->
-                    <xsl:call-template name="itemSummaryView-collections"/>
+                    <xsl:call-template name="itemSummaryView-DIM-other-output-versions"/>
                 </div>
             </div>
         </div>
