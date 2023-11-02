@@ -658,7 +658,7 @@
 
     <!-- <JR> - 2023-10-27: TODO: Information about the source publication's ISBN / ISSN or E-ISSN identifiers
                 
-                Create better template!
+            TODO: Create better template!
     -->
     <xsl:template name="itemSummaryView-DIM-source-publication-isbn-issn">
         <xsl:if test="dim:field[@element='isPartOf' and @qualifier=('isbn' or 'issn' or 'eissn')]">
@@ -669,19 +669,19 @@
 
                 <xsl:if test="dim:field[@element='isPartOf' and @qualifier='isbn']">
                     <xsl:for-each select="dim:field[@element='isPartOf' and @qualifier='isbn']">
-                        <xsl:copy-of select="./node()"/>
+                        <xsl:text>ISBN: </xsl:text><xsl:copy-of select="./node()"/>
                     </xsl:for-each>
                 </xsl:if>
 
                 <xsl:if test="dim:field[@element='isPartOf' and @qualifier='issn']">
                     <xsl:for-each select="dim:field[@element='isPartOf' and @qualifier='issn']">
-                        <xsl:copy-of select="./node()"/>
+                        <xsl:text>ISSN: </xsl:text><xsl:copy-of select="./node()"/>
                     </xsl:for-each>
                 </xsl:if>
 
                 <xsl:if test="dim:field[@element='isPartOf' and @qualifier='eissn']">
                     <xsl:for-each select="dim:field[@element='isPartOf' and @qualifier='eissn']">
-                        <xsl:copy-of select="./node()"/>
+                        <xsl:text>eISSN: </xsl:text><xsl:copy-of select="./node()"/>
                     </xsl:for-each>
                 </xsl:if>
             </div>
@@ -690,11 +690,11 @@
 
     <!-- <JR> - 2023-10-27: TODO: Information about the publication's ISBN / ISSN or E-ISSN identifiers
                 
-                Create better template!
+            TODO: Create better template!
     -->
     <xsl:template name="itemSummaryView-DIM-publication-isbn-issn">
 
-        <xsl:if test="dim:field[@element='identifier' and @qulifier=('isbn' or 'issn' or 'eissn')]">
+        <xsl:if test="dim:field[@element='identifier' and @qualifier=('isbn' or 'issn' or 'eissn')]">
             <div class="simple-item-view-publication-isbn-issn word-break item-page-field-wrapper table">
                 <h5 id="itemSummaryView-DIM-publication-isbn-issn">
                     <i18n:text>xmlui.dri2xhtml.METS-1.0.item-publication-isbn-issn</i18n:text>
@@ -702,16 +702,20 @@
 
                 <xsl:if test="dim:field[@element='identifier' and @qualifier='isbn']">
                     <xsl:for-each select="dim:field[@element='identifier' and @qualifier='isbn']">
-
+                        <xsl:text>ISBN: </xsl:text><xsl:copy-of select="./node()"/>
                     </xsl:for-each>
                 </xsl:if>
 
                 <xsl:if test="dim:field[@element='identifier' and @qualifier='issn']">
-
+                    <xsl:for-each select="dim:field[@element='identifier' and @qualifier='issn']">
+                        <xsl:text>ISSN: </xsl:text><xsl:copy-of select="./node()"/>
+                    </xsl:for-each>
                 </xsl:if>
 
                 <xsl:if test="dim:field[@element='identifier' and @qualifier='eissn']">
-
+                    <xsl:for-each select="dim:field[@element='identifier' and @qualifier='eissn']">
+                        <xsl:text>eISSN: </xsl:text><xsl:copy-of select="./node()"/>
+                    </xsl:for-each>
                 </xsl:if>
             </div>
         </xsl:if>
