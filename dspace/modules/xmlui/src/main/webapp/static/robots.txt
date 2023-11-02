@@ -152,5 +152,3 @@ Disallow: /
 # https://help.ahrefs.com/en/articles/78158-how-do-i-control-your-bot-s-crawling-behaviour
 User-agent: AhrefsBot
 Disallow: /
-
-# <JR> - Test
