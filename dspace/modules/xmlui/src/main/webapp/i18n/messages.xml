@@ -2202,8 +2202,11 @@
 	<message key="xmlui.dri2xhtml.METS-1.0.item-preview">Preview</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-title">Title</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-author">Author</message>
-	<message key="xmlui.dri2xhtml.METS-1.0.item-author-collapse">Display other authors</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-author-collapse">Show other authors</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-abstract">Abstract</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-abstract.show.original">Show original language</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-keywords">Keywords</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-keywords.show.original">Show original language</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-description">Description</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-uri">URI</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-date">Publication date</message>
