@@ -154,6 +154,7 @@
                 </div>
                 <div class="col-sm-8">
                     <xsl:call-template name="itemSummaryView-DIM-abstract"/>
+                    <xsl:call-template name="itemSummaryView-DIM-keywords"/>
                     <xsl:call-template name="itemSummaryView-DIM-URI"/>
                     <xsl:call-template name="license">
                         <xsl:with-param name="metadataURL" select="./dri:referenceSet/dri:reference/@url"/>
@@ -418,34 +419,97 @@
         </div>
     </xsl:template>
 
+    <!-- <JR> - 2023-11-07: Handling abstracts -->
     <xsl:template name="itemSummaryView-DIM-abstract">
         <xsl:if test="dim:field[@element='description' and @qualifier='abstract']">
-            <div class="simple-item-view-description item-page-field-wrapper table">
-                <!-- <JR> - Add heading for abstract visible all the time and specifying the abstract language -->
-                <!-- <h5 class="visible-xs"><i18n:text>xmlui.dri2xhtml.METS-1.0.item-abstract</i18n:text></h5>-->
-                <div>
-                    <xsl:for-each select="dim:field[@element='description' and @qualifier='abstract']">
-                        <xsl:variable name="language" select="@language"/>
-                        <h5 class="item-view-metadata-heading" if="item-view-metadata-abstract-{$language}"><i18n:text>xmlui.dri2xhtml.METS-1.0.item-abstract</i18n:text> (<xsl:value-of select="$language"/>)</h5>
-                        <xsl:choose>
-                            <xsl:when test="node()">
-                                <xsl:copy-of select="node()"/>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:text>&#160;</xsl:text>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                        <xsl:if test="count(following-sibling::dim:field[@element='description' and @qualifier='abstract']) != 0">
-                            <div class="spacer">&#160;</div>
-                        </xsl:if>
-                    </xsl:for-each>
-                    <xsl:if test="count(dim:field[@element='description' and @qualifier='abstract']) &gt; 1">
-                        <div class="spacer">&#160;</div>
-                    </xsl:if>
+            <div id="item-view-abstract" class="simple-item-view-description item-page-field-wrapper table">
+                <h5 class="item-view-metadata-heading" id="item-view-metadata-abstract-en"><i18n:text>xmlui.dri2xhtml.METS-1.0.item-abstract</i18n:text></h5>
+                <div class="row abstract-language-row">
+                    <div class="col-sm-12 col-md-12">
+                        <xsl:for-each select="dim:field[@element='description' and @qualifier='abstract'][@language='en']">
+                            <xsl:variable name="language" select="@language"/>
+                            <span id="abstract-en">
+                                <xsl:choose>
+                                    <xsl:when test="node()">
+                                        <xsl:copy-of select="node()"/>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:text>&#160;</xsl:text>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </span>
+                        </xsl:for-each>
+                    </div>
                 </div>
+                <xsl:if test="dim:field[@element='subject'][@qualifier='keyword'][not(@language='en')]">
+                    <div class="row abstract-language-row collapse" aria-labelledby="item-view-abstract-original" id="collapse-abstract-original" aria-expanded="false">
+                        <div class="spacer">&#160;</div>
+                        <div class="col-sm-12 col-md-12">
+                            <xsl:for-each select="dim:field[@element='description'][@qualifier='abstract'][not(@language='en')]">
+                                <xsl:variable name="language" select="@language"/>
+                                <span id="abstract-{$language}">
+                                    <xsl:copy-of select="node()"/>
+                                </span>
+                                <xsl:if test="count(following-sibling::dim:field[@element='description'][@qualifier='abstract'][not(@language='en')]) != 0">
+                                    <div class="spacer">&#160;</div>
+                                </xsl:if>
+                            </xsl:for-each>
+                        </div>
+                    </div>
+                    <a aria-controls="collapse-abstract-original" aria-expanded="false" href="#collapse-abstract-original" 
+                    data-parent="#item-view-abstract" data-toggle="collapse" role="button">
+                        <i18n:text>xmlui.dri2xhtml.METS-1.0.item-abstract.show.original</i18n:text>
+                    </a>
+                </xsl:if>
             </div>
         </xsl:if>
     </xsl:template>
+    <!-- END OF: Handling abstracts -->
+
+    <!-- <JR> - 2023-11-03: Handling keywords -->
+    <xsl:template name="itemSummaryView-DIM-keywords">
+        <xsl:if test="dim:field[@element='subject' and @qualifier='keyword']">
+            <div id="item-view-keywords" class="simple-item-view-keywords item-page-field-wrapper table">
+                <h5><i18n:text>xmlui.dri2xhtml.METS-1.0.item-keywords</i18n:text></h5>
+                
+                <xsl:if test="dim:field[@element='subject'][@qualifier='keyword'][@language='en']">
+                    <div class="row kewords-language-row">
+                        <div class="col-sm-12 col-md-12">
+                            <span class="keywords-en">
+                                <xsl:for-each select="dim:field[@element='subject'][@qualifier='keyword'][@language='en']">
+                                    <xsl:copy-of select="node()"/>
+                                    <xsl:if test="count(following-sibling::dim:field[@element='subject'][@qualifier='keyword'][@language='en']) != 0">
+                                        <xsl:text>, </xsl:text>
+                                    </xsl:if>
+                                </xsl:for-each>
+                            </span>
+                        </div>
+                    </div>
+                </xsl:if>
+
+                <xsl:if test="dim:field[@element='subject'][@qualifier='keyword'][not(@language='en')]">
+                    <div class="row kewords-language-row collapse" aria-labelledby="item-view-keywords-original" id="collapse-keywords-original" aria-expanded="false">
+                        <div class="spacer">&#160;</div>
+                        <div class="col-sm-12 col-md-12">
+                            <span class="keywords-original">
+                                <xsl:for-each select="dim:field[@element='subject'][@qualifier='keyword'][not(@language='en')]">
+                                    <xsl:copy-of select="node()"/>
+                                    <xsl:if test="count(following-sibling::dim:field[@element='subject'][@qualifier='keyword'][not(@language='en')]) != 0">
+                                        <xsl:text>, </xsl:text>
+                                    </xsl:if>
+                                </xsl:for-each>
+                            </span>
+                        </div>
+                    </div>
+                    <a aria-controls="collapse-keywords-original" aria-expanded="false" href="#collapse-keywords-original" 
+                    data-parent="#item-view-keywords" data-toggle="collapse" role="button">
+                        <i18n:text>xmlui.dri2xhtml.METS-1.0.item-keywords.show.original</i18n:text>
+                    </a> 
+                </xsl:if>
+            </div>
+        </xsl:if>
+    </xsl:template>
+    <!-- END OF: Handling keywords-->
 
     <!-- 
         <JR> - 2023-09-12: Different handling of the dc.contributor.* information
