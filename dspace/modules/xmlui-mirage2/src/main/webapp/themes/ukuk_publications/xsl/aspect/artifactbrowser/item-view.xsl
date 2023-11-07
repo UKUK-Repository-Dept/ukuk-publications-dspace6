@@ -127,16 +127,21 @@
 
     <xsl:template match="dim:dim" mode="itemSummaryView-DIM">
         <div class="item-summary-view-metadata">
-            <xsl:call-template name="itemSummaryView-DIM-title"/>
-            <!-- <JR> - 2023-06-13: TODO: Add template for rendering translated title and try rendering uk.displayTitle.translated when present, instead of dc.title.translated -->
-            <xsl:call-template name="itemSummaryView-DIM-title-translated"/>
+            <div class="row item-view-titles-row">
+                <div class="col-sm-12 col-md-12 item-view-title-column">
+                    <xsl:call-template name="itemSummaryView-DIM-title"/>
+                </div>
+                <div class="col-sm-12 col-md-12 item-view-translated-title-column">
+                    <xsl:call-template name="itemSummaryView-DIM-title-translated"/>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-sm-4">
                     <div class="row">
-                        <div class="col-xs-6 col-sm-12">
+                        <div class="col-xs-6 col-sm-12 item-view-thumbnail-column">
                             <xsl:call-template name="itemSummaryView-DIM-thumbnail"/>
                         </div>
-                        <div class="col-xs-6 col-sm-12">
+                        <div class="col-xs-6 col-sm-12 item-view-file-section-column">
                             <xsl:call-template name="itemSummaryView-DIM-file-section"/>
                         </div>
                     </div>
@@ -316,18 +321,18 @@
                             <xsl:choose>
                                 <xsl:when test="position() = last()">
                                     <h3 class="page-header first-page-header item-title">
-                                        <xsl:value-of select="./node()"/>
+                                        <xsl:text>( </xsl:text> <xsl:value-of select="./node()"/> <xsl:text> )</xsl:text>
                                     </h3>
                                 </xsl:when>
                                 <xsl:when test="position() = 1">
                                     <h3 class="first-page-header item-title">
-                                            <xsl:value-of select="./node()"/>
+                                        <xsl:text>( </xsl:text> <xsl:value-of select="./node()"/> <xsl:text> )</xsl:text>
                                     </h3>
                                     <p class="lead item-view-title-lead" />
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <h3 class="first-page-header item-title">
-                                        <xsl:value-of select="./node()"/>
+                                        <xsl:text>( </xsl:text> <xsl:value-of select="./node()"/> <xsl:text> )</xsl:text>
                                     </h3>
                                     <p class="lead item-view-title-lead" />
                                 </xsl:otherwise>
@@ -353,24 +358,30 @@
             <xsl:choose>
                 <xsl:when test="position() = last()">
                     <h3 class="page-header first-page-header item-title-translated">
+                        <xsl:text>( </xsl:text>
                         <xsl:call-template name="utility-parse-display-title">
                             <xsl:with-param name="title-string" select="./node()"/>
                         </xsl:call-template>
+                        <xsl:text> )</xsl:text>
                     </h3>
                 </xsl:when>
                 <xsl:when test="position() = 1">
                     <h3 class="first-page-header item-title-translated">
+                        <xsl:text>( </xsl:text>
                         <xsl:call-template name="utility-parse-display-title">
                             <xsl:with-param name="title-string" select="./node()"/>
                         </xsl:call-template>
+                        <xsl:text> )</xsl:text>
                     </h3>
                     <p class="lead item-view-title-lead" />
                 </xsl:when>
                 <xsl:otherwise>
                     <h3 class="first-page-header item-title-translated">
+                        <xsl:text>( </xsl:text>
                         <xsl:call-template name="utility-parse-display-title">
                             <xsl:with-param name="title-string" select="./node()"/>
                         </xsl:call-template>
+                        <xsl:text> )</xsl:text>
                     </h3>
                     <p class="lead item-view-title-lead" />
                 </xsl:otherwise>

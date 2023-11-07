@@ -104,9 +104,29 @@ h5 small, h5 .small, h6 small, h6 .small,
 
 // Handling item-view (headings / lead)
 
-.item-summary-view-metadata > .item-title-translated {
-  font-size: 15px;
-  color: rgba(47,79,79,1.0);
+.item-view-titles-row {
+  background-color: #cc2c32 ;
+  margin-right: 0px;
+}
+
+.item-title {
+  color: white;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+#aspect_artifactbrowser_ItemViewer_div_item-view {
+  margin-top: -20px;
+}
+
+#aspect_artifactbrowser_ItemViewer_div_item-view .item-summary-view-metadata h2 {
+  margin-bottom: 10px;
+}
+
+.item-view-translated-title-column >.item-title-translated {
+  font-size: 14px;
+  color: rgba(255,255,255,1.0);
+  border-bottom: 0px;
 }
 
 .item-summary-view-metadata > .item-view-title-lead {
@@ -653,3 +673,19 @@ label#strictly-necessary_label:before {
 }
 
 // END OF: Authors' lines and identifiers 
+
+// <JR> - 2023-11-07: Thumbnails
+
+.img-thumbnail {
+  border-radius: 0px;
+}
+
+// END OF: item-view Thumbnails
+
+// <JR> - 2023-11-07: item-view thumbnails
+
+.item-view-thumbnail-column {
+  margin-top: 8px;
+}
+
+// END OF: item-view thumbnails
