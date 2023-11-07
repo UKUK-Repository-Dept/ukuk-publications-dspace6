@@ -2220,6 +2220,9 @@
 	<message key="xmlui.dri2xhtml.METS-1.0.item-author">Autor</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-author-collapse">Zobrazit další autory</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-abstract">Abstrakt</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-abstract.show.original">Zobrazit v původním jazyce</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-keywords">Klíčová slova</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-keywords.show.original">Zobrazit v původním jazyce</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-description">Popis</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-uri">URI</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-date">Datum vydání</message>
