@@ -135,6 +135,32 @@
                     <xsl:call-template name="itemSummaryView-DIM-title-translated"/>
                 </div>
             </div>
+            <div class="row item-view-additional-info-row">
+                <div class="col-xs-12 col-sm-12 item-view-additional-info-column">
+                    <div class="btn-group label-group" role="group" aria-label="additional-item-info">
+                        <xsl:call-template name="itemSummaryView-DIM-publication-type"/>
+                        <!-- <span class="label label-additinional-info">původní článek</span> -->
+                        <!-- <span class="label label-additinional-info">(vydavatelská verze)</span> -->
+                        <!-- <span class="label label-additinional-info">(open access)</span> -->
+                    </div>
+                    <!-- <JR> - 2023-11-08: TODO: Merge dropdown for selecting other versions of the publication with the label used to display current version -->
+                    <div class="btn-group label-group" role="group" aria-label="additional-item-versions" style="float: right;">
+                        <span type="button" class="label label-additional-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding-right: 0px;">
+                        verze výsledku: <span>3</span> <span class="caret">
+                        </span>
+                        </span>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">draft</a></li>
+                            <li><a href="#">preprint</a></li>
+                            <li><a href="#">postprint</a></li>
+                            <li><a href="#">published version</a></li>
+                        </ul>
+                        <xsl:call-template name="itemSummaryView-DIM-publication-version"/>
+                    </div>
+    
+                </div>
+            </div>
+
             <div class="row">
                 <div class="col-sm-4">
                     <div class="row">
@@ -147,7 +173,7 @@
                     </div>
                     <xsl:call-template name="itemSummaryView-DIM-authors"/>
                     <xsl:call-template name="itemSummaryView-DIM-date"/>
-                    <xsl:call-template name="itemSummaryView-DIM-publication-type"/>
+                    <!-- <xsl:call-template name="itemSummaryView-DIM-publication-type"/> -->
                     <xsl:call-template name="itemSummaryView-DIM-source-publication-name"/>
                     <xsl:call-template name="itemSummaryView-DIM-source-publication-volume-issue"/>
                     <xsl:call-template name="itemSummaryView-DIM-source-publication-isbn-issn" />
@@ -653,6 +679,7 @@
 
     <!-- <JR> - 2023-10-26: Adding publication type information to item-view -->
     <xsl:template name="itemSummaryView-DIM-publication-type">
+        
         <xsl:if test="$active-locale = 'cs'">
             <xsl:if test="dim:field[@element='type' and @qualifier='obdHierarchyCs']">
                 <xsl:call-template name="itemSummaryView-DIM-publication-type-content">
@@ -675,20 +702,29 @@
     </xsl:template>
 
     <xsl:template name="itemSummaryView-DIM-publication-type-content">
-        <xsl:param name="qualifier"/>
-        <div class="simple-item-view-publication-type word-break item-page-field-wrapper table">
-        
-            <h5 id="itemSummaryView-DIM-publication-type">
+        <!-- <span class="label label-additinional-info">původní článek</span> -->
+        <xsl:param name="qualifier"/>        
+            <!-- <span id="itemSummaryView-DIM-publication-type">
                 <i18n:text>xmlui.dri2xhtml.METS-1.0.item-publication-type</i18n:text>
-            </h5>
+            </span> -->
         
             <xsl:for-each select="dim:field[@element='type' and @qualifier=$qualifier]">
-                <xsl:copy-of select="substring-after(substring-after(./node(),'::'),'::')" />
+                <span id="{$itemHandle}-publication-type-info" class="label label-additional-info"><xsl:copy-of select="substring-after(substring-after(./node(),'::'),'::')" /></span>
             </xsl:for-each>
-
-        </div>
     </xsl:template>
     <!-- END OF: Adding publication type information to item-view -->
+
+    <!-- <JR> - 2023-11-08: Adding publication version info to item-view -->
+    <xsl:template name="itemSummaryView-DIM-publication-version">
+        <xsl:if test="dim:field[@element='type'][@qualifier='version']">
+            <xsl:for-each select="dim:field[@element='type'][@qualifier='version']">
+                <span id="{$itemHandle}-publication-version-info" class="lable label-additional-info">
+                    <xsl:text>( </xsl:text><i18n:text>xmlui.dri2xhtml.METS-1.0.item-publication-version-<xsl:copy-of select="substring-after(./node(), 'info:eu-repo/semantics/')" /></i18n:text><xsl:text> )</xsl:text>
+                </span>
+            </xsl:for-each>
+        </xsl:if>
+    </xsl:template>
+    <!-- END OF: Adding publication version info to item-view-->
 
     <!-- <JR> - 2023-10-27: Source publication name -->
     <xsl:template name="itemSummaryView-DIM-source-publication-name">
