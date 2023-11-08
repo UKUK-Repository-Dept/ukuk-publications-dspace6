@@ -2228,6 +2228,10 @@
 	<message key="xmlui.dri2xhtml.METS-1.0.item-date">Datum vydání</message>
 	<!-- <JR> - 2023-10-26: Added new key for translation publication type in item-view -->
 	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-type">Typ publikace</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-version-draft">draft</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-version-submittedVersion">preprint</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-version-acceptedVersion">postprint</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-version-publishedVersion">vydavatelská verze</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-source-publication-name">Publikováno v</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-source-publication-volume-issue">Ročník / Číslo vydání</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-source-publication-isbn-issn">ISBN / ISSN</message>
