@@ -119,6 +119,32 @@ h5 small, h5 .small, h6 small, h6 .small,
   margin-top: -20px;
 }
 
+#aspect_artifactbrowser_ItemViewer_div_item-view > .item-summary-view-metadata > .item-view-titles-row > .item-view-title-column > .item-title {
+  padding-left: 0px;
+}
+
+#aspect_artifactbrowser_ItemViewer_div_item-view .item-view-toggle-top {
+  padding-top: 20px;
+  padding-left: 8px;
+  margin-bottom: 0px;
+  padding-bottom: 10px;
+  background-color: #cc2c32;
+}
+
+#aspect_artifactbrowser_ItemViewer_div_item-view .item-title {
+  background-color: #cc2c32;
+  margin-top: 0px; /* 20px */
+  margin-bottom: 0px; /* 10px */
+  padding-left: 8px;
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+
+#aspect_artifactbrowser_ItemViewer_div_item-view .item-view-toggle-top > a {
+  color:white;
+  font-weight: bold;
+}
+
 #aspect_artifactbrowser_ItemViewer_div_item-view .item-summary-view-metadata h2 {
   margin-bottom: 10px;
 }
