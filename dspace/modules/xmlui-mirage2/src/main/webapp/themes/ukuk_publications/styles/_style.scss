@@ -161,6 +161,29 @@ h5 small, h5 .small, h6 small, h6 .small,
 
 // END OF: Handling item-view (headings / lead)
 
+// Handling additional-item-info in item-view
+
+.row.item-view-additional-info-row {
+  margin-right: 0px;
+  border-bottom: 3px solid #cc2c32;
+  border-right: 3px solid #cc2c32;
+}
+
+.item-view-additional-info-column {
+  padding-left: 15px;
+}
+
+.item-view-additional-info-row > .item-view-additional-info-column > .label-group > .label-additional-info {
+  color: #000;
+  font-size: 100%;
+  font-weight: normal;
+  border-radius: 0px;
+  font-family: palanquinmedium;
+  padding-left: 0px;
+}
+
+// END OF: Handling additional-item-info in item-view
+
 // Handling discovery artifact-info headings
 
 .discovery-item-title-translated {
