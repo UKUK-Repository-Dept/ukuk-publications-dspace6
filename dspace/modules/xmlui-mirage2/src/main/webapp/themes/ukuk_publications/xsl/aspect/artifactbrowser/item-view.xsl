@@ -736,7 +736,7 @@
             TODO: Create better template!
     -->
     <xsl:template name="itemSummaryView-DIM-source-publication-isbn-issn">
-        <xsl:if test="dim:field[@element='isPartOf' and @qualifier=('isbn' or 'issn' or 'eissn')]">
+        <xsl:if test="dim:field[@element='isPartOf'][@qualifier='isbn' or @qualifier='issn' or @qualifier='eissn']">
             <div class="simple-item-view-source-publication-isbn-issn word-break item-page-field-wrapper table">
                 <h5 id="itemSummaryView-DIM-source-publication-isbn-issn">
                     <i18n:text>xmlui.dri2xhtml.METS-1.0.item-source-publication-isbn-issn</i18n:text>
@@ -769,7 +769,7 @@
     -->
     <xsl:template name="itemSummaryView-DIM-publication-isbn-issn">
 
-        <xsl:if test="dim:field[@element='identifier' and @qualifier=('isbn' or 'issn' or 'eissn')]">
+        <xsl:if test="dim:field[@element='identifier'][@qualifier='isbn' or @qualifier='issn' or @qualifier='eissn']">
             <div class="simple-item-view-publication-isbn-issn word-break item-page-field-wrapper table">
                 <h5 id="itemSummaryView-DIM-publication-isbn-issn">
                     <i18n:text>xmlui.dri2xhtml.METS-1.0.item-publication-isbn-issn</i18n:text>
