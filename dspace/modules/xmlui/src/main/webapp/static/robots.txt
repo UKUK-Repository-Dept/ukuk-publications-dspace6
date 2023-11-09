@@ -152,3 +152,16 @@ Disallow: /
 # https://help.ahrefs.com/en/articles/78158-how-do-i-control-your-bot-s-crawling-behaviour
 User-agent: AhrefsBot
 Disallow: /
+
+# ByteSpider
+# spider-feedback@bytedance.com
+User-agent: Bytespider
+Disallow: /
+
+# GPTBot/1.0
+# +https://openai.com/gptbot
+GPTBot/1.0
+Disallow: /
+
+GPTBot
+Disallow: /
