@@ -162,10 +162,15 @@ Disallow: /
 # +https://openai.com/gptbot
 # Let's see if this helps with the traffic, otherwise Disallow: /
 User-agent: GPTBot/1.0
-crawl-delay: 10
+crawl-delay: 30
 
 User-agent: GPTBot
-crawl-delay: 10
+crawl-delay: 30
+
+# ClaudeBot
+# Let's see if this helps with the traffic, otherwise Disallow: /
+User-agent: ClaudeBot
+crawl-delay: 30
 
 # DotBot
 User-agent: dotbot
@@ -208,11 +213,29 @@ Disallow: /
 User-agent: VelenPublicWebCrawler
 Disallow: /
 
-# ClaudeBot
-User-agent: ClaudeBot
-crawl-delay: 10
-#Disallow: /
-
 # PetalBot
 User-agent: PetalBot
+Disallow: /
+
+# Yandex
+User-agent: YandexAdNet
+User-agent: YandexAccessibilityBot
+User-agent: YandexBlogs
+User-agent: YandexBot
+User-agent: YandexCalendar
+User-agent: YandexForDomain
+User-agent: YandexImages
+User-agent: YandexImageResizer
+User-agent: YandexMarket
+User-agent: YandexVideo
+User-agent: YandexMedia
+User-agent: YandexNews
+User-agent: YandexOntoDB 
+User-agent: YandexPagechecker
+User-agent: YandexSitelinks
+User-agent: YandexSpravBot
+User-agent: YandexTurbo
+User-agent: YandexVertis
+User-agent: YandexVerticals
+User-agent: YandexWebmaster
 Disallow: /
