@@ -2232,6 +2232,7 @@
 	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-version-submittedVersion">preprint</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-version-acceptedVersion">postprint</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-version-publishedVersion">vydavatelská verze</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-version-none">žádná další verze</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-source-publication-name">Publikováno v</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-source-publication-volume-issue">Ročník / Číslo vydání</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-source-publication-isbn-issn">ISBN / ISSN</message>

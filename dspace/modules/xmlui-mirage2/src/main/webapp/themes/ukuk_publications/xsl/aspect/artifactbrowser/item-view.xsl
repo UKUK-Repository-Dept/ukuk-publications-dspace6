@@ -139,22 +139,9 @@
                 <div class="col-xs-12 col-sm-12 item-view-additional-info-column">
                     <div class="btn-group label-group" role="group" aria-label="additional-item-info">
                         <xsl:call-template name="itemSummaryView-DIM-publication-type"/>
-                        <!-- <span class="label label-additinional-info">původní článek</span> -->
-                        <!-- <span class="label label-additinional-info">(vydavatelská verze)</span> -->
-                        <!-- <span class="label label-additinional-info">(open access)</span> -->
                     </div>
                     <!-- <JR> - 2023-11-08: TODO: Merge dropdown for selecting other versions of the publication with the label used to display current version -->
                     <div class="btn-group label-group" role="group" aria-label="additional-item-versions" style="float: right;">
-                        <span type="button" class="label label-additional-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding-right: 0px;">
-                        verze výsledku: <span>3</span> <span class="caret">
-                        </span>
-                        </span>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">draft</a></li>
-                            <li><a href="#">preprint</a></li>
-                            <li><a href="#">postprint</a></li>
-                            <li><a href="#">published version</a></li>
-                        </ul>
                         <xsl:call-template name="itemSummaryView-DIM-publication-version"/>
                     </div>
     
@@ -195,49 +182,6 @@
                 </div>
             </div>
         </div>
-    </xsl:template>
-
-    <!-- <JR> - 2022-09-02 - THIS EXAMPLE WORKS -->
-	<xsl:template name="itemSummaryView-DIM-other-output-versions">
-		<xsl:variable name="solrURL">
-			<xsl:text>http://localhost:8080/solr/search</xsl:text>
-        </xsl:variable>
-		<xsl:variable name="currentOutputVersion" select="dim:field[@element='type'][@qualifier='version']"/>
-		<xsl:variable name="outputOBDid" select="dim:field[@element='identifier'][@qualifier='obd']"/>
-		<xsl:apply-templates select="document(concat($solrURL,'/select?q=search.resourcetype%3A2+AND+!dc.type.version%3A%22',$currentOutputVersion,'%22+AND+dc.identifier.obd%3A',$outputOBDid,'&amp;fl=dc.identifier.uri%2Cdc.type.version&amp;wt=xml&amp;indent=true'))" mode="solrOtherOutputVersions"/>
-	</xsl:template>
-
-
-
-    <xsl:template match="*" mode="solrOtherOutputVersions">
-        <xsl:if test="/response/result/@numFound != '0'">
-            <div class="simple-item-view-otherOutputVersions item-page-field-wrapper table">
-                <h5><i18n:text>xmlui.dri2xhtml.METS-1.0.item-otherOutputVersions</i18n:text></h5>
-                <xsl:for-each select="/response/result/doc">
-                    <xsl:variable name="otherOutputVersionURL" select="./arr[@name='dc.identifier.uri']/str/text()"/>
-                    <!-- 
-                        Get other output's version and process the value:
-                            1) search for the string after last separator ('/')
-                            2) return just the last string after last separator
-                            3) store value in this variable
-                    -->
-                    <xsl:variable name="otherOutputVersionType">
-                        <xsl:call-template name="GetLastSegment">
-                            <xsl:with-param name="value" select="./arr[@name='dc.type.version']/str/text()" />
-                            <xsl:with-param name="separator" select="'/'" />
-                        </xsl:call-template>
-                    </xsl:variable>
-                    <!-- 
-                        Create link to other output version:
-                            - href: value of otherOutputVersionURL variable - value is parsed directly from SOLR response
-                            - link text: i18n string created by a prefix (hardcoded) and processed other output's version name, connected by '.'
-                    -->
-                    <a href="{$otherOutputVersionURL}" target="_blank">
-                        <i18n:text><xsl:value-of select="concat('xmlui.publication.version.',$otherOutputVersionType)"/></i18n:text>
-                    </a>
-                </xsl:for-each>
-            </div>
-        </xsl:if>
     </xsl:template>
 
     <xsl:template name="itemSummaryView-DIM-title">
@@ -702,29 +646,88 @@
     </xsl:template>
 
     <xsl:template name="itemSummaryView-DIM-publication-type-content">
-        <!-- <span class="label label-additinional-info">původní článek</span> -->
-        <xsl:param name="qualifier"/>        
-            <!-- <span id="itemSummaryView-DIM-publication-type">
-                <i18n:text>xmlui.dri2xhtml.METS-1.0.item-publication-type</i18n:text>
-            </span> -->
         
-            <xsl:for-each select="dim:field[@element='type' and @qualifier=$qualifier]">
-                <span id="{$itemHandle}-publication-type-info" class="label label-additional-info"><xsl:copy-of select="substring-after(substring-after(./node(),'::'),'::')" /></span>
-            </xsl:for-each>
+        <xsl:param name="qualifier"/>        
+            
+        <xsl:for-each select="dim:field[@element='type' and @qualifier=$qualifier]">
+
+            <span type="button" class="label label-additional-info" aria-haspopup="true">
+                <xsl:copy-of select="substring-after(substring-after(./node(),'::'),'::')" />
+            </span>
+            
+        </xsl:for-each>
     </xsl:template>
     <!-- END OF: Adding publication type information to item-view -->
+
+
+    
 
     <!-- <JR> - 2023-11-08: Adding publication version info to item-view -->
     <xsl:template name="itemSummaryView-DIM-publication-version">
         <xsl:if test="dim:field[@element='type'][@qualifier='version']">
+            <xsl:variable name="outputOBDid" select="dim:field[@element='identifier'][@qualifier='obd']"/>
             <xsl:for-each select="dim:field[@element='type'][@qualifier='version']">
-                <span id="{$itemHandle}-publication-version-info" class="lable label-additional-info">
-                    <xsl:text>( </xsl:text><i18n:text>xmlui.dri2xhtml.METS-1.0.item-publication-version-<xsl:copy-of select="substring-after(./node(), 'info:eu-repo/semantics/')" /></i18n:text><xsl:text> )</xsl:text>
-                </span>
+                <xsl:call-template name="itemSummaryView-DIM-other-output-versions">
+                    <xsl:with-param name="OBDid"><xsl:value-of select="$outputOBDid" /></xsl:with-param>
+                </xsl:call-template>
             </xsl:for-each>
         </xsl:if>
     </xsl:template>
     <!-- END OF: Adding publication version info to item-view-->
+
+    <!-- <JR> - 2022-09-02 - Checking other publications versiosn - THIS EXAMPLE WORKS -->
+	<xsl:template name="itemSummaryView-DIM-other-output-versions">
+        <xsl:param name="OBDid" />
+		<xsl:variable name="solrURL">
+			<xsl:text>http://localhost:8080/solr/search</xsl:text>
+        </xsl:variable>
+		<xsl:variable name="currentOutputVersion" select="./node()"/>
+		
+
+        <span type="button" id="publication-versions-toggle" class="label label-additional-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i18n:text>xmlui.dri2xhtml.METS-1.0.item-publication-version-<xsl:copy-of select="substring-after(./node(), 'info:eu-repo/semantics/')" />
+            </i18n:text>
+            <span class="caret"></span>
+        </span>
+	
+        <xsl:apply-templates select="document(concat($solrURL,'/select?q=search.resourcetype%3A2+AND+!dc.type.version%3A%22',$currentOutputVersion,'%22+AND+dc.identifier.obd%3A',$OBDid,'&amp;fl=dc.identifier.uri%2Cdc.type.version&amp;wt=xml&amp;indent=true'))" mode="solrOtherOutputVersions"/>
+	</xsl:template>
+
+    <xsl:template match="*" mode="solrOtherOutputVersions">
+        <xsl:if test="/response/result/@numFound != '0'">
+            <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="publications-versions-toggle">
+                <xsl:for-each select="/response/result/doc">
+                    <xsl:variable name="otherOutputVersionURL" select="./arr[@name='dc.identifier.uri']/str/text()"/>
+                    <!-- 
+                        Get other output's version and process the value:
+                            1) search for the string after last separator ('/')
+                            2) return just the last string after last separator
+                            3) store value in this variable
+                    -->
+                    <xsl:variable name="otherOutputVersionType">
+                        <xsl:call-template name="GetLastSegment">
+                            <xsl:with-param name="value" select="./arr[@name='dc.type.version']/str/text()" />
+                            <xsl:with-param name="separator" select="'/'" />
+                        </xsl:call-template>
+                    </xsl:variable>
+                    <li>
+                        <a href="{$otherOutputVersionURL}">
+                            <i18n:text><xsl:value-of select="concat('xmlui.dri2xhtml.METS-1.0.item-publication-version-',$otherOutputVersionType)"/></i18n:text>
+                        </a>
+                    </li>
+                </xsl:for-each>
+            </ul>
+        </xsl:if>
+        <xsl:if test="/response/result/@numFound = '0'">
+            <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="publications-versions-toggle">
+                <li class="disabled">
+                    <a>
+                        <i18n:text>xmlui.dri2xhtml.METS-1.0.item-publication-version-none</i18n:text>
+                    </a>
+                </li>
+            </ul>
+        </xsl:if>
+    </xsl:template>
 
     <!-- <JR> - 2023-10-27: Source publication name -->
     <xsl:template name="itemSummaryView-DIM-source-publication-name">
