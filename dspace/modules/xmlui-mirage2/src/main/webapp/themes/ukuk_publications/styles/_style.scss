@@ -184,6 +184,8 @@ h5 small, h5 .small, h6 small, h6 .small,
 
 #publication-versions-toggle {
   cursor: pointer;
+  -webkit-box-shadow: none;
+  box-shadow: none;
 }
 
 // END OF: Handling additional-item-info in item-view
