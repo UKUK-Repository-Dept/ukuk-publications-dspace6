@@ -684,7 +684,7 @@
 		<xsl:variable name="currentOutputVersion" select="./node()"/>
 		
 
-        <span type="button" id="publication-versions-toggle" class="label label-additional-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding-right: 0px;">
+        <span type="button" id="publication-versions-toggle" class="label label-additional-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i18n:text>xmlui.dri2xhtml.METS-1.0.item-publication-version-<xsl:copy-of select="substring-after(./node(), 'info:eu-repo/semantics/')" />
             </i18n:text>
             <span class="caret"></span>
