@@ -102,6 +102,79 @@ h5 small, h5 .small, h6 small, h6 .small,
 
 // END OF: Headings
 
+// Buttons
+
+.btn {
+  border-radius: 0px;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #c32c2e;
+  border-color: #c32c2e;
+}
+
+.btn-default {
+  color: #fff;
+  background-color: #c32c2e;
+  border-color:#000;
+}
+
+.btn-default:hover, .btn-default:focus, 
+.btn-default.focus, .btn-default:active, 
+.btn-default.active, .open > .btn-default.dropdown-toggle {
+  color: #000;
+  background-color: #fff;
+  border-color: #c32c2e;
+}
+
+.btn-primary:hover, .btn-primary:focus, 
+.btn-primary.focus, .btn-primary:active, 
+.btn-primary.active, .open > .btn-primary.dropdown-toggle {
+  color: #000;
+  background-color: #fff;
+  border-color: #c32c2e;
+}
+
+header .navbar-default .navbar-toggle:hover, 
+header .navbar-default .navbar-toggle:focus, 
+header .navbar-default .navbar-nav:hover, 
+header .navbar-default .navbar-nav:focus {
+  background-color: rgba(195,44,46, 0.5);
+  color: #fff;
+}
+
+header .navbar-default .navbar-toggle > .open > a, 
+header .navbar-default .navbar-toggle > .open > a:hover, 
+header .navbar-default .navbar-toggle > .open > a:focus, 
+header .navbar-default .navbar-nav > .open > a, 
+header .navbar-default .navbar-nav > .open > a:hover, 
+header .navbar-default .navbar-nav > .open > a:focus {
+  background-color:rgba(195,44,46, 0.5);
+  color: #fff;
+}
+
+header .navbar-default .navbar-toggle > li > a, 
+header .navbar-default .navbar-nav > li > a {
+  color: #fff;
+}
+
+header .navbar-default .navbar-toggle, 
+header .navbar-default .navbar-nav {
+  color: #fff;
+  background-color: #c32c2e;
+}
+
+header .navbar-default .navbar-toggle > li > a:hover, 
+header .navbar-default .navbar-toggle > li > a:focus, 
+header .navbar-default .navbar-nav > li > a:hover, 
+header .navbar-default .navbar-nav > li > a:focus {
+  background-color:rgba(195,44,46, 0.5);
+  color: #fff;
+}
+
+// END OF: Buttons
+
 // Handling item-view (headings / lead)
 
 .item-view-titles-row {
@@ -190,6 +263,55 @@ h5 small, h5 .small, h6 small, h6 .small,
 }
 
 // END OF: Handling additional-item-info in item-view
+
+
+// <JR> - 2023-11-15: item-view Thumbnails
+.img-thumbnail {
+  border-radius: 0px;
+}
+
+.item-view-thumbnail-column {
+  margin-top: 10px;
+}
+
+// Center item-view thumbnail in row
+.thumbnail > .item-view-thumbnail {
+  margin: 0 auto;
+}
+
+// END OF: item-view Thumbnails
+
+// Handling item-view file section
+
+.button-file-icon {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  border: 0px;
+}
+
+.button-file-text {
+  border: 3px solid #cc2c32;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: #fff;
+  font-family: palanquinmedium;
+  text-transform: uppercase;
+}
+
+.button-file-icon:hover, .button-file-icon:focus, .button-file-icon.focus, .button-file-icon:active, .button-file-icon.active,
+.open > .button-file-icon.dropdown-toggle {
+  color: #fff;
+  background-color: #cc2c32;
+  border: 0px;
+}
+
+.button-file-text:hover, .button-file-text:focus, .button-file-text.focus, .button-file-text:active, .button-file-text.active,
+.open > .button-file-text.dropdown-toggle {
+  background-color: #fff;
+}
+
+// END OF: Handling item-view file section
+
 
 // Handling discovery artifact-info headings
 
@@ -343,76 +465,6 @@ a {
   color: #c32c2e;
 }
 
-// Buttons
-
-.btn {
-  border-radius: 0px;
-}
-
-.btn-primary {
-  color: #fff;
-  background-color: #c32c2e;
-  border-color: #c32c2e;
-}
-
-.btn-default {
-  color: #fff;
-  background-color: #c32c2e;
-  border-color:#000;
-}
-
-.btn-default:hover, .btn-default:focus, 
-.btn-default.focus, .btn-default:active, 
-.btn-default.active, .open > .btn-default.dropdown-toggle {
-  color: #000;
-  background-color: #fff;
-  border-color: #c32c2e;
-}
-
-.btn-primary:hover, .btn-primary:focus, 
-.btn-primary.focus, .btn-primary:active, 
-.btn-primary.active, .open > .btn-primary.dropdown-toggle {
-  color: #000;
-  background-color: #fff;
-  border-color: #c32c2e;
-}
-
-header .navbar-default .navbar-toggle:hover, 
-header .navbar-default .navbar-toggle:focus, 
-header .navbar-default .navbar-nav:hover, 
-header .navbar-default .navbar-nav:focus {
-  background-color: rgba(195,44,46, 0.5);
-  color: #fff;
-}
-
-header .navbar-default .navbar-toggle > .open > a, 
-header .navbar-default .navbar-toggle > .open > a:hover, 
-header .navbar-default .navbar-toggle > .open > a:focus, 
-header .navbar-default .navbar-nav > .open > a, 
-header .navbar-default .navbar-nav > .open > a:hover, 
-header .navbar-default .navbar-nav > .open > a:focus {
-  background-color:rgba(195,44,46, 0.5);
-  color: #fff;
-}
-
-header .navbar-default .navbar-toggle > li > a, 
-header .navbar-default .navbar-nav > li > a {
-  color: #fff;
-}
-
-header .navbar-default .navbar-toggle, 
-header .navbar-default .navbar-nav {
-  color: #fff;
-  background-color: #c32c2e;
-}
-
-header .navbar-default .navbar-toggle > li > a:hover, 
-header .navbar-default .navbar-toggle > li > a:focus, 
-header .navbar-default .navbar-nav > li > a:hover, 
-header .navbar-default .navbar-nav > li > a:focus {
-  background-color:rgba(195,44,46, 0.5);
-  color: #fff;
-}
 
 // Menus + its items
 
@@ -713,7 +765,7 @@ label#strictly-necessary_label:before {
 
 // END OF: Cookie consent new
 
-// Authors' lines and identifiers 
+// item-view: Authors' lines and identifiers 
 
 .simple-item-view-author-line {
   padding-top: 2px;
@@ -728,20 +780,4 @@ label#strictly-necessary_label:before {
   width: 1.4em;
 }
 
-// END OF: Authors' lines and identifiers 
-
-// <JR> - 2023-11-07: Thumbnails
-
-.img-thumbnail {
-  border-radius: 0px;
-}
-
-// END OF: item-view Thumbnails
-
-// <JR> - 2023-11-07: item-view thumbnails
-
-.item-view-thumbnail-column {
-  margin-top: 8px;
-}
-
-// END OF: item-view thumbnails
+// END OF: item-view: Authors' lines and identifiers  
