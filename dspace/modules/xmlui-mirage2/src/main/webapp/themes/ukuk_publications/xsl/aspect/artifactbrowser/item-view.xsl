@@ -154,6 +154,8 @@
                         <div class="col-xs-12 col-sm-12 item-view-thumbnail-column">
                             <xsl:call-template name="itemSummaryView-DIM-thumbnail"/>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-xs-12 col-sm-12 item-view-file-section-column">
                             <xsl:call-template name="itemSummaryView-DIM-file-section"/>
                         </div>
@@ -379,16 +381,16 @@
                     <xsl:choose>
                         <xsl:when test="contains($src,'isAllowed=n')"/>
                         <xsl:otherwise>
-                            <img class="img-thumbnail" alt="Thumbnail">
+                            <img class="img-thumbnail item-view-thumbnail" alt="Thumbnail">
                                 <xsl:attribute name="src">
                                     <xsl:value-of select="$src"/>
-                                </xsl:attribute>
+                                </xsl:attribute>            
                             </img>
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:when>
                 <xsl:otherwise>
-                    <img class="img-thumbnail" alt="Thumbnail">
+                    <img class="img-thumbnail  item-view-thumbnail" alt="Thumbnail">
                         <xsl:attribute name="data-src">
                             <xsl:text>holder.js/100%x</xsl:text>
                             <xsl:value-of select="$thumbnail.maxheight"/>
@@ -1289,7 +1291,7 @@
         <xsl:choose>
             <xsl:when test="contains(mets:FLocat[@LOCTYPE='URL']/@xlink:href,'isAllowed=n')">
                 <xsl:if test="$embargoValue">
-                    <i18n:text>xmlui.dri2xhtml.METS-1.0.item-file-button-emgargoed</i18n:text>
+                    <i18n:text>xmlui.dri2xhtml.METS-1.0.item-file-button-embargoed</i18n:text>
                     <xsl:value-of select="concat(' ', $embargoValue)" />
                 </xsl:if>
                 <xsl:if test="not($embargoValue)">
