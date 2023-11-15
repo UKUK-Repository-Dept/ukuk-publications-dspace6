@@ -151,10 +151,10 @@
             <div class="row">
                 <div class="col-sm-4">
                     <div class="row">
-                        <div class="col-xs-6 col-sm-12 item-view-thumbnail-column">
+                        <div class="col-xs-12 col-sm-12 item-view-thumbnail-column">
                             <xsl:call-template name="itemSummaryView-DIM-thumbnail"/>
                         </div>
-                        <div class="col-xs-6 col-sm-12 item-view-file-section-column">
+                        <div class="col-xs-12 col-sm-12 item-view-file-section-column">
                             <xsl:call-template name="itemSummaryView-DIM-file-section"/>
                         </div>
                     </div>
@@ -863,9 +863,9 @@
         <xsl:choose>
             <xsl:when test="//mets:fileSec/mets:fileGrp[@USE='CONTENT' or @USE='ORIGINAL' or @USE='LICENSE']/mets:file">
                 <div class="item-page-field-wrapper table word-break">
-                    <h5>
+                    <!-- <h5>
                         <i18n:text>xmlui.dri2xhtml.METS-1.0.item-files-viewOpen</i18n:text>
-                    </h5>
+                    </h5> -->
 
                     <xsl:variable name="label-1">
                             <xsl:choose>
