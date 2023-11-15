@@ -283,6 +283,14 @@ header .navbar-default .navbar-nav > li > a:focus {
 
 // Handling item-view file section
 
+.download-button-group {
+  // Following properties have to be set on the btn-group to enable stretching height of the button without wrapped text,
+  // othewise the button without wordwrap in the same group with the button WITH wrapped words will be smaller in height
+  // then then it's neighbour
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .button-file-icon {
   padding-top: 8px;
   padding-bottom: 8px;
@@ -296,6 +304,7 @@ header .navbar-default .navbar-nav > li > a:focus {
   background-color: #fff;
   font-family: palanquinmedium;
   text-transform: uppercase;
+  white-space: normal; // text wrapping when it's longer then the button width
 }
 
 .button-file-icon:hover, .button-file-icon:focus, .button-file-icon.focus, .button-file-icon:active, .button-file-icon.active,
