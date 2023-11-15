@@ -2225,6 +2225,9 @@
 	<message key="xmlui.dri2xhtml.METS-1.0.item-keywords.show.original">Zobrazit v původním jazyce</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-description">Popis</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-uri">URI</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-file-button-download">Získat publikaci</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-file-button-embargoed">Přístupné od</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-file-button-restricted">Přístupné po přihlášení</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-date">Datum vydání</message>
 	<!-- <JR> - 2023-10-26: Added new key for translation publication type in item-view -->
 	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-type">Typ publikace</message>
