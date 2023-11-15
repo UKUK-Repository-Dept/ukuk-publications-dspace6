@@ -890,16 +890,20 @@
                     </xsl:variable>
 
                     <xsl:for-each select="//mets:fileSec/mets:fileGrp[@USE='CONTENT' or @USE='ORIGINAL' or @USE='LICENSE']/mets:file">
-                        <xsl:call-template name="itemSummaryView-DIM-file-section-entry">
-                            <xsl:with-param name="href" select="mets:FLocat[@LOCTYPE='URL']/@xlink:href" />
-                            <xsl:with-param name="mimetype" select="@MIMETYPE" />
-                            <xsl:with-param name="label-1" select="$label-1" />
-                            <xsl:with-param name="label-2" select="$label-2" />
-                            <xsl:with-param name="title" select="mets:FLocat[@LOCTYPE='URL']/@xlink:title" />
-                            <xsl:with-param name="label" select="mets:FLocat[@LOCTYPE='URL']/@xlink:label" />
-                            <xsl:with-param name="size" select="@SIZE" />
-                            <xsl:with-param name="embargo" select="//dim:dim/dim:field[@element='date' and @qualifier='embargoEndDate']" />
-                        </xsl:call-template>
+                        <div class="row item-view-filesection-file-row">
+                            <div class="btn-group download-button-group col-xs-12">
+                                <xsl:call-template name="itemSummaryView-DIM-file-section-entry">
+                                    <xsl:with-param name="href" select="mets:FLocat[@LOCTYPE='URL']/@xlink:href" />
+                                    <xsl:with-param name="mimetype" select="@MIMETYPE" />
+                                    <xsl:with-param name="label-1" select="$label-1" />
+                                    <xsl:with-param name="label-2" select="$label-2" />
+                                    <xsl:with-param name="title" select="mets:FLocat[@LOCTYPE='URL']/@xlink:title" />
+                                    <xsl:with-param name="label" select="mets:FLocat[@LOCTYPE='URL']/@xlink:label" />
+                                    <xsl:with-param name="size" select="@SIZE" />
+                                    <xsl:with-param name="embargo" select="//dim:dim/dim:field[@element='date' and @qualifier='embargoEndDate']" />
+                                </xsl:call-template>
+                            </div>
+                        </div>
                     </xsl:for-each>
                 </div>
             </xsl:when>
@@ -919,8 +923,51 @@
         <xsl:param name="label" />
         <xsl:param name="size" />
         <xsl:param name="embargo" />
-        <div>
-            <a>
+        <!-- <div> -->
+            <button id="{$label}" class="button-file-icon btn btn-default col-xs-2" aria-haspopup="true">
+                <xsl:call-template name="getFileIcon">
+                    <xsl:with-param name="mimetype">
+                        <xsl:value-of select="substring-before($mimetype,'/')"/>
+                        <xsl:text>/</xsl:text>
+                        <xsl:value-of select="substring-after($mimetype,'/')"/>
+                    </xsl:with-param>
+                    <xsl:with-param name="embargoValue">
+                        <xsl:value-of select="$embargo" />
+                    </xsl:with-param>
+                </xsl:call-template>
+            </button>
+            <button type="button" class="button-file-text btn btn-default col-xs-10" aria-haspopup="true">
+                <a>
+                    <xsl:attribute name="href">
+                        <xsl:value-of select="$href"/>
+                    </xsl:attribute>
+                    <xsl:call-template name="getFileText">
+                        <xsl:with-param name="embargoValue">
+                            <xsl:value-of select="$embargo"/>
+                        </xsl:with-param>
+                    </xsl:call-template>
+                    <!-- <i18n:text>xmlui.dri2xhtml.METS-1.0.item-file-button-download</i18n:text> -->
+                    
+                    <!-- <xsl:text> ( </xsl:text>
+                        <xsl:call-template name="getFileTypeDesc">
+                            <xsl:with-param name="mimetype">
+                                <xsl:value-of select="substring-before($mimetype,'/')"/>
+                                <xsl:text>/</xsl:text>
+                                <xsl:choose>
+                                    <xsl:when test="contains($mimetype,';')">
+                                        <xsl:value-of select="substring-before(substring-after($mimetype,'/'),';')"/>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:value-of select="substring-after($mimetype,'/')"/>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:with-param>
+                        </xsl:call-template>
+                    <xsl:text> ) </xsl:text> -->
+                </a>    
+            </button>
+            
+            <!-- <a>
                 <xsl:attribute name="href">
                     <xsl:value-of select="$href"/>
                 </xsl:attribute>
@@ -931,11 +978,11 @@
                         <xsl:value-of select="substring-after($mimetype,'/')"/>
                     </xsl:with-param>
                 </xsl:call-template>
-                <xsl:choose>
+                <xsl:choose> -->
                     <!-- <JR> - 21. 9. 2020 - Generate i18n text from file label (stored in <dim:field mdschema="dc" element="description" /> element 
                     of the SOURCEMD part of each file in mets.xml)
                     -->
-                    <xsl:when test="contains($label-1, 'label') and string-length($label)!=0">
+                    <!-- <xsl:when test="contains($label-1, 'label') and string-length($label)!=0">
                         <i18n:text>xmlui.dri2xhtml.METS-1.0.item-files-label.<xsl:value-of select="$label"/></i18n:text>
                     </xsl:when>
                     <xsl:when test="contains($label-1, 'title') and string-length($title)!=0">
@@ -984,13 +1031,13 @@
                     </xsl:otherwise>
                 </xsl:choose>
                 <xsl:text>)</xsl:text>
-            </a>
-            <xsl:if test="$embargo">
+            </a> -->
+            <!-- <xsl:if test="$embargo">
                 <span id="embargo-{$href}">
                     <xsl:text>(</xsl:text><i18n:text>xmlui.dri2xhtml.METS-1.0.embargo-text</i18n:text><xsl:value-of select="$embargo" /><xsl:text>)</xsl:text>
                 </span>
-            </xsl:if>
-        </div>
+            </xsl:if> -->
+        <!-- </div> -->
     </xsl:template>
 
     <xsl:template match="dim:dim" mode="itemDetailView-DIM">
@@ -1236,22 +1283,63 @@
         </xsl:choose>
     </xsl:template>
 
+    <xsl:template name="getFileText">
+        <xsl:param name="embargoValue"/>
+
+        <xsl:choose>
+            <xsl:when test="contains(mets:FLocat[@LOCTYPE='URL']/@xlink:href,'isAllowed=n')">
+                <xsl:if test="$embargoValue">
+                    <i18n:text>xmlui.dri2xhtml.METS-1.0.item-file-button-emgargoed</i18n:text>
+                    <xsl:value-of select="concat(' ', $embargoValue)" />
+                </xsl:if>
+                <xsl:if test="not($embargoValue)">
+                    <i18n:text>xmlui.dri2xhtml.METS-1.0.item-file-button-restricted</i18n:text>
+                </xsl:if>
+            </xsl:when>
+            <xsl:otherwise>
+                    <i18n:text>xmlui.dri2xhtml.METS-1.0.item-file-button-download</i18n:text>
+            </xsl:otherwise>
+        </xsl:choose>
+        
+    </xsl:template>
+
     <xsl:template name="getFileIcon">
         <xsl:param name="mimetype"/>
-            <i aria-hidden="true">
-                <xsl:attribute name="class">
+        <xsl:param name="embargoValue" />
+
+        <span aria-hidden="true">
+            <xsl:attribute name="class">
                 <xsl:text>glyphicon </xsl:text>
                 <xsl:choose>
                     <xsl:when test="contains(mets:FLocat[@LOCTYPE='URL']/@xlink:href,'isAllowed=n')">
-                        <xsl:text> glyphicon-lock</xsl:text>
+                        <xsl:if test="$embargoValue">
+                            <xsl:text> glyphicon-time</xsl:text>
+                        </xsl:if>
+                        <xsl:if test="not($embargoValue)">
+                            <xsl:text> glyphicon-lock</xsl:text>
+                        </xsl:if>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:text> glyphicon-file</xsl:text>
+                        <xsl:text> glyphicon-floppy-save</xsl:text>
                     </xsl:otherwise>
                 </xsl:choose>
-                </xsl:attribute>
-            </i>
-        <xsl:text> </xsl:text>
+            </xsl:attribute>
+        </span>
+        <!-- TODO: Use i18n:text for translating these sr-only strings -->
+        <xsl:choose>
+            <xsl:when test="contains(mets:FLocat[@LOCTYPE='URL']/@xlink:href,'isAllowed=n')">
+                <xsl:if test="$embargoValue">
+                    <span class="sr-only">File can be accessed after logging in from <xsl:value-of select="$embargoValue" />.</span>        
+                </xsl:if>
+                <xsl:if test="not($embargoValue)">
+                    <span class="sr-only">File can be accessed only after logging in.</span>
+                </xsl:if>
+            </xsl:when>
+            <xsl:otherwise>
+                <span class="sr-only">File can be accessed.</span>
+            </xsl:otherwise>
+        </xsl:choose>
+
     </xsl:template>
 
     <!-- Generate the license information from the file section -->
