@@ -162,7 +162,6 @@
                     </div>
                     <xsl:call-template name="itemSummaryView-DIM-authors"/>
                     <xsl:call-template name="itemSummaryView-DIM-date"/>
-                    <!-- <xsl:call-template name="itemSummaryView-DIM-publication-type"/> -->
                     <xsl:call-template name="itemSummaryView-DIM-source-publication-name"/>
                     <xsl:call-template name="itemSummaryView-DIM-source-publication-volume-issue"/>
                     <xsl:call-template name="itemSummaryView-DIM-source-publication-isbn-issn" />
@@ -176,10 +175,10 @@
                     <xsl:call-template name="itemSummaryView-DIM-abstract"/>
                     <xsl:call-template name="itemSummaryView-DIM-keywords"/>
                     <xsl:call-template name="itemSummaryView-DIM-URI"/>
+                    <xsl:call-template name="itemSummaryView-DIM-otherIdentifiers"/>
                     <xsl:call-template name="license">
                         <xsl:with-param name="metadataURL" select="./dri:referenceSet/dri:reference/@url"/>
                     </xsl:call-template>
-                    <!-- <xsl:call-template name="itemSummaryView-DIM-SOLR-test"/> -->
                     <xsl:call-template name="itemSummaryView-DIM-other-output-versions"/>
                 </div>
             </div>
@@ -607,6 +606,83 @@
         </xsl:if>
     </xsl:template>
 
+    <xsl:template name="itemSummaryView-DIM-otherIdentifiers">
+        <xsl:if test="dim:field[@element='identifier'][@qualifier='obd' or @qualifier='doi' or @qualifier='utWos' or @qualfier='eidScopus' or @qualifier='pubmed']">
+            <div id="item-view-otherIdentifiers" class="simple-item-view-description item-page-field-wrapper table">
+                <!-- <h5 class="item-view-metadata-heading" id="item-view-metadata-abstract-en"><i18n:text>xmlui.dri2xhtml.METS-1.0.item-abstract</i18n:text></h5> -->
+                <div class="row other-identifiers-row">
+                    <xsl:variable name="otherIdentifiersCount" select="count(dim:field[@element='identifier'][@qualifier='obd' or @qualifier='doi' or @qualifier='utWos' or @qualifier='eidScopus' or @qualifier='pubmed'])"/>
+                    <!-- <xsl:value-of select="$otherIdentifiersCount"/> -->
+                    <xsl:call-template name="itemSummaryView-DIM-otherIdentifiers-content">
+                        <xsl:with-param name="identifiersCount" select="$otherIdentifiersCount" />
+                    </xsl:call-template>
+                </div>
+            </div>
+        </xsl:if>
+    </xsl:template>
+
+    <xsl:template name="itemSummaryView-DIM-otherIdentifiers-content">
+        <xsl:param name="identifiersCount" />
+        <xsl:variable name="grid-columns-width" select="number(12 div $identifiersCount)" />
+        <!-- <xsl:value-of select="$grid-columns-width"/> -->
+        <xsl:if test="number(12 mod $identifiersCount) = 0">
+            <xsl:variable name="gridColumnsWidth" select="number(12 div $identifiersCount)"/>
+            <xsl:for-each select="dim:field[@element='identifier'][@qualifier='obd' or @qualifier='doi' or @qualifier='utWos' or @qualifier='eidScopus' or @qualifier='pubmed']">
+                <div class="col-sm-{$gridColumnsWidth} other-identifier-column">
+                    <xsl:call-template name="itemSummaryView-DIM-otherIdentifiers-create-link-icons">
+                        <xsl:with-param name="qualifier" select="@qualifier"/>
+                        <xsl:with-param name="otherIdentifierValue" select="./node()"/>
+                    </xsl:call-template>
+                </div>
+            </xsl:for-each>
+        </xsl:if>
+        <xsl:if test="not(number(12 mod $identifiersCount = 0)) and $identifiersCount &lt; 6">
+            <xsl:for-each select="dim:field[@element='identifier'][@qualifier='obd' or @qualifier='doi' or @qualifier='utWos' or @qualifier='eidScopus' or @qualifier='pubmed']">
+                <xsl:sort select="(position( ) - 1) mod 3"/>
+                <div class="col-xs-2 col-xs-offset-right-2 other-identifier-column">
+                    <xsl:call-template name="itemSummaryView-DIM-otherIdentifiers-create-link-icons">
+                        <xsl:with-param name="qualifier" select="@qualifier"/>
+                        <xsl:with-param name="otherIdentifierValue" select="./node()"/>
+                    </xsl:call-template>
+                </div>
+            </xsl:for-each>
+        </xsl:if>
+
+    </xsl:template>
+
+    <xsl:template name="itemSummaryView-DIM-otherIdentifiers-create-link-icons">
+        <xsl:param name="qualifier"/>
+        <xsl:param name="otherIdentifierValue"/>
+        <xsl:choose>
+            <xsl:when test="$qualifier='doi'">
+                <a href="https://doi.org/{$otherIdentifierValue}" class="other-identifier-link" target="_blank">
+                    <img class="other-identifier-image" src="{$theme-path}images/logo_DOI.svg" alt="DOI:{$otherIdentifierValue}"/>
+                </a>
+            </xsl:when>
+            <xsl:when test="$qualifier='utWos'">
+                <a href="https://www.webofscience.com/wos/woscc/full-record/WOS:{$otherIdentifierValue}" class="other-identifier-link" target="_blank">
+                    <img class="other-identifier-image" src="{$theme-path}images/logo_Clarivate.svg" alt="WOS:{$otherIdentifierValue}"/>
+                </a>
+            </xsl:when>
+            <xsl:when test="$qualifier='eidScopus'">
+                <a href="https://www.scopus.com/record/display.uri?eid={$otherIdentifierValue}&amp;origin=resultslist" class="other-identifier-link" target="_blank">
+                    <img class="other-identifier-image" src="{$theme-path}images/logo_Scopus.svg" alt="SCOPUS:{$otherIdentifierValue}"/>
+                </a>
+            </xsl:when>
+            <xsl:when test="$qualifier='pubmed'">
+                <a href="https://pubmed.ncbi.nlm.nih.gov/{$otherIdentifierValue}/" class="other-identifier-link" target="_blank">
+                    <img class="other-identifier-image" src="{$theme-path}images/logo_PubMed.svg" alt="PUBMED:{$otherIdentifierValue}"/>
+                </a>
+            </xsl:when>
+            <xsl:when test="$qualifier='obd'">
+                <a href="https://verso.is.cuni.cz/pub/verso.fpl/?fname=obd_publicnew_det&amp;id={$otherIdentifierValue}" class="other-identifier-link" target="_blank">
+                    <img class="other-identifier-image" src="{$theme-path}images/logo_isveda.svg" alt="OBD:{$otherIdentifierValue}"/>
+                </a>
+            </xsl:when>
+            <xsl:otherwise></xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+
     <xsl:template name="itemSummaryView-DIM-date">
         <xsl:if test="dim:field[@element='date' and @qualifier='issued' and descendant::text()]">
             <div class="simple-item-view-date word-break item-page-field-wrapper table">
@@ -948,98 +1024,9 @@
                             <xsl:value-of select="$embargo"/>
                         </xsl:with-param>
                     </xsl:call-template>
-                    <!-- <i18n:text>xmlui.dri2xhtml.METS-1.0.item-file-button-download</i18n:text> -->
-                    
-                    <!-- <xsl:text> ( </xsl:text>
-                        <xsl:call-template name="getFileTypeDesc">
-                            <xsl:with-param name="mimetype">
-                                <xsl:value-of select="substring-before($mimetype,'/')"/>
-                                <xsl:text>/</xsl:text>
-                                <xsl:choose>
-                                    <xsl:when test="contains($mimetype,';')">
-                                        <xsl:value-of select="substring-before(substring-after($mimetype,'/'),';')"/>
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <xsl:value-of select="substring-after($mimetype,'/')"/>
-                                    </xsl:otherwise>
-                                </xsl:choose>
-                            </xsl:with-param>
-                        </xsl:call-template>
-                    <xsl:text> ) </xsl:text> -->
                 </a>    
             </button>
             
-            <!-- <a>
-                <xsl:attribute name="href">
-                    <xsl:value-of select="$href"/>
-                </xsl:attribute>
-                <xsl:call-template name="getFileIcon">
-                    <xsl:with-param name="mimetype">
-                        <xsl:value-of select="substring-before($mimetype,'/')"/>
-                        <xsl:text>/</xsl:text>
-                        <xsl:value-of select="substring-after($mimetype,'/')"/>
-                    </xsl:with-param>
-                </xsl:call-template>
-                <xsl:choose> -->
-                    <!-- <JR> - 21. 9. 2020 - Generate i18n text from file label (stored in <dim:field mdschema="dc" element="description" /> element 
-                    of the SOURCEMD part of each file in mets.xml)
-                    -->
-                    <!-- <xsl:when test="contains($label-1, 'label') and string-length($label)!=0">
-                        <i18n:text>xmlui.dri2xhtml.METS-1.0.item-files-label.<xsl:value-of select="$label"/></i18n:text>
-                    </xsl:when>
-                    <xsl:when test="contains($label-1, 'title') and string-length($title)!=0">
-                        <xsl:value-of select="$title"/>
-                    </xsl:when>
-                    <xsl:when test="contains($label-2, 'label') and string-length($label)!=0">
-                        <i18n:text>xmlui.dri2xhtml.METS-1.0.item-files-label.<xsl:value-of select="$label"/></i18n:text>
-                    </xsl:when>
-                    <xsl:when test="contains($label-2, 'title') and string-length($title)!=0">
-                        <xsl:value-of select="$title"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:call-template name="getFileTypeDesc">
-                            <xsl:with-param name="mimetype">
-                                <xsl:value-of select="substring-before($mimetype,'/')"/>
-                                <xsl:text>/</xsl:text>
-                                <xsl:choose>
-                                    <xsl:when test="contains($mimetype,';')">
-                                        <xsl:value-of select="substring-before(substring-after($mimetype,'/'),';')"/>
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <xsl:value-of select="substring-after($mimetype,'/')"/>
-                                    </xsl:otherwise>
-                                </xsl:choose>
-                            </xsl:with-param>
-                        </xsl:call-template>
-                    </xsl:otherwise>
-                </xsl:choose>
-                <xsl:text> (</xsl:text>
-                <xsl:choose>
-                    <xsl:when test="$size &lt; 1024">
-                        <xsl:value-of select="$size"/>
-                        <i18n:text>xmlui.dri2xhtml.METS-1.0.size-bytes</i18n:text>
-                    </xsl:when>
-                    <xsl:when test="$size &lt; 1024 * 1024">
-                        <xsl:value-of select="substring(string($size div 1024),1,5)"/>
-                        <i18n:text>xmlui.dri2xhtml.METS-1.0.size-kilobytes</i18n:text>
-                    </xsl:when>
-                    <xsl:when test="$size &lt; 1024 * 1024 * 1024">
-                        <xsl:value-of select="substring(string($size div (1024 * 1024)),1,5)"/>
-                        <i18n:text>xmlui.dri2xhtml.METS-1.0.size-megabytes</i18n:text>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:value-of select="substring(string($size div (1024 * 1024 * 1024)),1,5)"/>
-                        <i18n:text>xmlui.dri2xhtml.METS-1.0.size-gigabytes</i18n:text>
-                    </xsl:otherwise>
-                </xsl:choose>
-                <xsl:text>)</xsl:text>
-            </a> -->
-            <!-- <xsl:if test="$embargo">
-                <span id="embargo-{$href}">
-                    <xsl:text>(</xsl:text><i18n:text>xmlui.dri2xhtml.METS-1.0.embargo-text</i18n:text><xsl:value-of select="$embargo" /><xsl:text>)</xsl:text>
-                </span>
-            </xsl:if> -->
-        <!-- </div> -->
     </xsl:template>
 
     <xsl:template match="dim:dim" mode="itemDetailView-DIM">
