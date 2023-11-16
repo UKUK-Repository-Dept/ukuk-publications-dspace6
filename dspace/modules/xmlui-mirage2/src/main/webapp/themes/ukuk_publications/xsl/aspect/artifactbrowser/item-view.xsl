@@ -1309,24 +1309,27 @@
         <xsl:param name="mimetype"/>
         <xsl:param name="embargoValue" />
 
-        <span aria-hidden="true">
+        <img aria-hidden="true">
             <xsl:attribute name="class">
-                <xsl:text>glyphicon </xsl:text>
+                <xsl:text>filesection-file-icon </xsl:text>
+            </xsl:attribute>
+            <xsl:attribute name="src">
                 <xsl:choose>
                     <xsl:when test="contains(mets:FLocat[@LOCTYPE='URL']/@xlink:href,'isAllowed=n')">
                         <xsl:if test="$embargoValue">
-                            <xsl:text> glyphicon-time</xsl:text>
+                            <xsl:value-of select="concat($theme-path,'/', 'images', '/', 'embargoed_access.svg')" />
                         </xsl:if>
                         <xsl:if test="not($embargoValue)">
-                            <xsl:text> glyphicon-lock</xsl:text>
+                            <xsl:value-of select="concat($theme-path,'/', 'images', '/', 'restricted_access.svg')" />
                         </xsl:if>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:text> glyphicon-floppy-save</xsl:text>
+                        <xsl:value-of select="concat($theme-path,'/', 'images', '/', 'open_access.svg')" />
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:attribute>
-        </span>
+            
+        </img>
         <!-- TODO: Use i18n:text for translating these sr-only strings -->
         <xsl:choose>
             <xsl:when test="contains(mets:FLocat[@LOCTYPE='URL']/@xlink:href,'isAllowed=n')">
