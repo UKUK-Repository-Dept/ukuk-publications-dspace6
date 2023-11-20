@@ -394,15 +394,6 @@
                 <div class="container">
                     <div class="navbar-header">
 
-                        <button type="button" class="navbar-toggle" data-toggle="offcanvas">
-                            <span class="sr-only">
-                                <i18n:text>xmlui.mirage2.page-structure.toggleNavigation</i18n:text>
-                            </span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-
                         <a href="{$context-path}/" class="navbar-brand">
                             <img class="img-responsive" title="CU Research Publications Repository Logo" src="{$theme-path}images/logo_repo_final4.svg" />
                         </a>
@@ -476,6 +467,16 @@
                                     </li>
                                 </xsl:otherwise>
                             </xsl:choose>
+                            <li>
+                                <button type="button" class="navbar-toggle" data-toggle="offcanvas">
+                                    <span class="sr-only">
+                                        <i18n:text>xmlui.mirage2.page-structure.toggleNavigation</i18n:text>
+                                    </span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                            </li>
                         </ul>
                               </div>
                     </div>
@@ -529,13 +530,17 @@
                                 </xsl:otherwise>
                             </xsl:choose>
                         </ul>
+                        <ul class="nav navbar-nav">
+                            <li>
+                                <button data-toggle="offcanvas" class="navbar-toggle visible-sm" type="button">
+                                    <span class="sr-only"><i18n:text>xmlui.mirage2.page-structure.toggleNavigation</i18n:text></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                            </li>
+                        </ul>
 
-                        <button data-toggle="offcanvas" class="navbar-toggle visible-sm" type="button">
-                            <span class="sr-only"><i18n:text>xmlui.mirage2.page-structure.toggleNavigation</i18n:text></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
                     </div>
                 </div>
             </div>
