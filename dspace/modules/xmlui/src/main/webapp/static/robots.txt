@@ -158,20 +158,6 @@ Disallow: /
 User-agent: Bytespider
 Disallow: /
 
-# GPTBot/1.0
-# +https://openai.com/gptbot
-# Let's see if this helps with the traffic, otherwise Disallow: /
-User-agent: GPTBot/1.0
-crawl-delay: 30
-
-User-agent: GPTBot
-crawl-delay: 30
-
-# ClaudeBot
-# Let's see if this helps with the traffic, otherwise Disallow: /
-User-agent: ClaudeBot
-crawl-delay: 30
-
 # DotBot
 User-agent: dotbot
 Disallow: /
@@ -227,11 +213,6 @@ Disallow: /
 User-agent: BLEXBot
 Disallow: /
 
-# Googlebot & GoogleOther bot
-User-agent: Googlebot
-User-agent: GoogleOther
-crawl-delay: 10
-
 # Yandex
 User-agent: YandexAdNet
 User-agent: YandexAccessibilityBot
@@ -255,6 +236,20 @@ User-agent: YandexVerticals
 User-agent: YandexWebmaster
 Disallow: /
 
+# GPTBot/1.0
+# +https://openai.com/gptbot
+# Let's see if this helps with the traffic, otherwise Disallow: /
+User-agent: GPTBot/1.0
+crawl-delay: 30
+
+User-agent: GPTBot
+crawl-delay: 30
+
+# ClaudeBot
+# Let's see if this helps with the traffic, otherwise Disallow: /
+User-agent: ClaudeBot
+crawl-delay: 30
+
 # Amazon
 User-agent: Amazonbot
 crawl-delay: 10
@@ -262,3 +257,8 @@ crawl-delay: 10
 # Bing
 User-agent: bingbot
 crawl-delay: 10
+
+# Googlebot & GoogleOther bot
+# User-agent: GoogleOther
+# User-agent: Googlebot
+# crawl-delay: 10
