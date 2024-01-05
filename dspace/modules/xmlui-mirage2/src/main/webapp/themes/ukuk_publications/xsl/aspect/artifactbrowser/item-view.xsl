@@ -140,6 +140,9 @@
                     <div class="btn-group label-group" role="group" aria-label="additional-item-info">
                         <xsl:call-template name="itemSummaryView-DIM-publication-type"/>
                     </div>
+                    <div class="btn-group label-group" role="group" aria-label="additional-item-info">
+                        <xsl:call-template name="itemSummaryView-DIM-license-icons"/>
+                    </div>
                     <!-- <JR> - 2023-11-08: TODO: Merge dropdown for selecting other versions of the publication with the label used to display current version -->
                     <div class="btn-group label-group" role="group" aria-label="additional-item-versions" style="float: right;">
                         <xsl:call-template name="itemSummaryView-DIM-publication-version"/>
@@ -172,6 +175,7 @@
                     <xsl:call-template name="itemSummaryView-collections"/>
                 </div>
                 <div class="col-sm-8">
+                    <xsl:call-template name="itemSummaryView-DIM-citation"/>
                     <xsl:call-template name="itemSummaryView-DIM-abstract"/>
                     <xsl:call-template name="itemSummaryView-DIM-keywords"/>
                     <xsl:call-template name="itemSummaryView-DIM-URI"/>
@@ -398,6 +402,32 @@
                     </img>
                 </xsl:otherwise>
             </xsl:choose>
+        </div>
+    </xsl:template>
+
+    <xsl:template name="itemSummaryView-DIM-citation">
+        <div id="item-view-citation" class="simple-item-view-citation item-page-field-wrapper table">
+            <h5 class="item-view-metadata-heading" id="item-view-metadata-citation">Citace</h5>
+            <div class="row citation-row">
+                <xsl:call-template name="getCitation" />
+            </div>
+        </div>
+    </xsl:template>
+
+    <xsl:template name="getCitation">
+        <xsl:choose>
+            <xsl:when test="dim:field[@element='identifier' and @qualifier='doi']">
+
+            </xsl:when>
+            <xsl:otherwise>
+
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+
+    <xsl:template name="citationEmbed">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <embed type="text/html" style="width:100%;" src="https://www.citacepro.com/sfx?instituce=cuni&amp;citacepro_display=bibliography&amp;sid=UK&amp;genre=article&amp;doi=10.3390/jpm11030164" />
         </div>
     </xsl:template>
 
@@ -735,6 +765,8 @@
             
         </xsl:for-each>
     </xsl:template>
+
+    
     <!-- END OF: Adding publication type information to item-view -->
 
 

@@ -40,21 +40,19 @@
         
         <div class="simple-item-view-description item-page-field-wrapper table" about="{$handleUri}">
         
-            <h5 class="item-view-metadata-heading" if="item-view-metadata-license"><i18n:text>xmlui.dri2xhtml.METS-1.0.item-license</i18n:text></h5>
+            <h5 class="item-view-metadata-heading" id="item-view-metadata-license"><i18n:text>xmlui.dri2xhtml.METS-1.0.item-license</i18n:text></h5>
                 
             <xsl:choose>
                 <xsl:when test="$licenseText and $licenseUri and contains($licenseUri, 'creativecommons')">
-                    <a rel="license" href="{$licenseUri}" alt="{$licenseText}" title="{$licenseText}">
-                        <xsl:call-template name="cc-logo">
-                            <xsl:with-param name="licenseText" select="$licenseText"/>
-                            <xsl:with-param name="licenseUri" select="$licenseUri"/>
-                        </xsl:call-template>
-                    </a>
-        
-                    <span>
+                    <p>
                         <i18n:text>xmlui.dri2xhtml.METS-1.0.cc-license-text-custom</i18n:text>
                         <xsl:value-of select="$licenseText"/>
-                    </span>
+                    </p>
+                    <p>
+                        <a rel="license" target="_blank" href="{$licenseUri}" alt="{$licenseText}" title="{$licenseText}">
+                            <i18n:text>xmlui.dri2xhtml.METS-1.0.link-to-license-text</i18n:text>
+                        </a>
+                    </p>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:call-template name="no-cc-license">
@@ -161,5 +159,109 @@
                 <xsl:value-of select="$licenseText"/>
             </xsl:attribute>
         </img>
+    </xsl:template>
+
+    <xsl:template name="itemSummaryView-DIM-license-icons">
+        <xsl:variable name="licenseText" select="dim:field[@element='rights']" />
+        <!-- <JR> 2023-02-01 - by default, in our installation of DSpace for publications.cuni.cz, CC license URI is stored in dcterms.license -->
+        <xsl:variable name="licenseUri" select="dim:field[@element='license']" />
+
+        <xsl:choose>
+            <xsl:when test="$licenseText and $licenseUri and contains($licenseUri, 'creativecommons')">
+                <a rel="license" href="#item-view-metadata-license" alt="{$licenseText}" title="{$licenseText}">
+                    <xsl:call-template name="cc-icon">
+                        <xsl:with-param name="licenseURL" select="$licenseUri"/>
+                    </xsl:call-template>
+                </a>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="no-cc-license">
+                    <xsl:with-param name="licenseText" select="$licenseText"/>
+                    <xsl:with-param name="licenseUri" select="$licenseUri"/>
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+
+    <xsl:template name="cc-icon">
+        <xsl:param name="licenseURL"/>
+        
+        <xsl:call-template name="cc-icon-content">
+            <xsl:with-param name="licenseTerms" select="substring-before(substring-after($licenseURL, 'https://creativecommons.org/licenses/'),'/')" />
+        </xsl:call-template>
+        
+    </xsl:template>
+
+    <xsl:template name="cc-icon-content">
+        <xsl:param name="licenseTerms"/>
+        
+        <span id="cc-icon-general" class="cc-icon">
+            <img src="{$theme-path}/images/cc/cc.svg" class="cc-icon-image" alt="Creative Commons License Icon" />
+        </span>
+
+        <xsl:choose>
+            <xsl:when test="$licenseTerms = 'by'">
+                <span id="cc-icon-by" class="cc-icon">
+                    <img src="{$theme-path}/images/cc/by.svg" class="cc-icon-image" alt="Creative Commons BY Icon" />
+                </span>
+            </xsl:when>
+
+            <xsl:when test="$licenseTerms = 'by-nc'">
+                <span id="cc-icon-by" class="cc-icon">
+                    <img src="{$theme-path}/images/cc/by.svg" class="cc-icon-image" alt="Creative Commons BY Icon" />
+                </span>
+                <span id="cc-icon-nc" class="cc-icon">
+                    <img src="{$theme-path}/images/cc/nc-eu.svg" class="cc-icon-image" alt="Creative Commons NC Icon" />
+                </span>
+            </xsl:when>
+
+            <xsl:when test="$licenseTerms = 'by-nc-nd'">
+                <span id="cc-icon-by" class="cc-icon">
+                    <img src="{$theme-path}/images/cc/by.svg" class="cc-icon-image" alt="Creative Commons BY Icon" />
+                </span>
+                <span id="cc-icon-nc" class="cc-icon">
+                    <img src="{$theme-path}/images/cc/nc-eu.svg" class="cc-icon-image" alt="Creative Commons NC Icon" />
+                </span>
+                <span id="cc-icon-nd" class="cc-icon">
+                    <img src="{$theme-path}/images/cc/nd.svg" class="cc-icon-image" alt="Creative Commons NC Icon" />
+                </span>
+            </xsl:when>
+
+            <xsl:when test="$licenseTerms = 'by-nc-sa'">
+                <span id="cc-icon-by" class="cc-icon">
+                    <img src="{$theme-path}/images/cc/by.svg" class="cc-icon-image" alt="Creative Commons BY Icon" />
+                </span>
+                <span id="cc-icon-nc" class="cc-icon">
+                    <img src="{$theme-path}/images/cc/nc-eu.svg" class="cc-icon-image" alt="Creative Commons NC Icon" />
+                </span>
+                <span id="cc-icon-sa" class="cc-icon">
+                    <img src="{$theme-path}/images/cc/sa.svg" class="cc-icon-image" alt="Creative Commons SA Icon" />
+                </span>
+            </xsl:when>
+
+            <xsl:when test="$licenseTerms = 'by-nd'">
+                <span id="cc-icon-by" class="cc-icon">
+                    <img src="{$theme-path}/images/cc/by.svg" class="cc-icon-image" alt="Creative Commons BY Icon" />
+                </span>
+                <span id="cc-icon-nd" class="cc-icon">
+                    <img src="{$theme-path}/images/cc/nd.svg" class="cc-icon-image" alt="Creative Commons ND Icon" />
+                </span>
+            </xsl:when>
+
+            <xsl:when test="$licenseTerms = 'by-sa'">
+                <span id="cc-icon-by" class="cc-icon">
+                    <img src="{$theme-path}/images/cc/by.svg" class="cc-icon-image" alt="Creative Commons BY Icon" />
+                </span>
+                <span id="cc-icon-sa" class="cc-icon">
+                    <img src="{$theme-path}/images/cc/sa.svg" class="cc-icon-image" alt="Creative Commons SA Icon" />
+                </span>
+            </xsl:when>
+
+            <xsl:otherwise>
+                <span id="cc-text-other" class="cc-text-other">
+                    <xsl:value-of select="$licenseTerms" />
+                </span>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 </xsl:stylesheet>

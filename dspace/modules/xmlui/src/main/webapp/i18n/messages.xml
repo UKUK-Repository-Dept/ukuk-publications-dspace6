@@ -2250,6 +2250,7 @@
 	<message key="xmlui.dri2xhtml.METS-1.0.item-license">License</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.license-text">The following license files are associated with this item:</message>
     <message key="xmlui.dri2xhtml.METS-1.0.cc-license-text">Except where otherwise noted, this item's license is described as </message>
+	<message key="xmlui.dri2xhtml.METS-1.0.link-to-license-text">Show license terms</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.cc-license-text-custom">Full text of this result is licensed under: </message>
 	<message key="xmlui.dri2xhtml.METS-1.0.no-license-text">
 		The full text of this result is made available in the repository as read-only, i.e. in gratis open access mode. 
