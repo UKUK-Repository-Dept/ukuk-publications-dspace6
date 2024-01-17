@@ -658,7 +658,7 @@
         <xsl:if test="number(12 mod $identifiersCount) = 0">
             <xsl:variable name="gridColumnsWidth" select="number(12 div $identifiersCount)"/>
             <xsl:for-each select="dim:field[@element='identifier'][@qualifier='obd' or @qualifier='doi' or @qualifier='utWos' or @qualifier='eidScopus' or @qualifier='pubmed']">
-                <div class="col-xs-6 col-md-{$gridColumnsWidth} other-identifier-column">
+                <div class="col-xs-6 col-sm-2 col-md-2 other-identifier-column">
                     <xsl:call-template name="itemSummaryView-DIM-otherIdentifiers-create-link-icons">
                         <xsl:with-param name="qualifier" select="@qualifier"/>
                         <xsl:with-param name="otherIdentifierValue" select="./node()"/>
@@ -669,7 +669,7 @@
         <xsl:if test="not(number(12 mod $identifiersCount = 0)) and $identifiersCount &lt; 6">
             <xsl:for-each select="dim:field[@element='identifier'][@qualifier='obd' or @qualifier='doi' or @qualifier='utWos' or @qualifier='eidScopus' or @qualifier='pubmed']">
                 <xsl:sort select="(position( ) - 1) mod 3"/>
-                <div class="col-xs-6 col-md-2 other-identifier-column">
+                <div class="col-xs-6 col-sm-2 col-md-2 other-identifier-column">
                     <xsl:call-template name="itemSummaryView-DIM-otherIdentifiers-create-link-icons">
                         <xsl:with-param name="qualifier" select="@qualifier"/>
                         <xsl:with-param name="otherIdentifierValue" select="./node()"/>
