@@ -196,64 +196,64 @@
         <xsl:param name="licenseTerms"/>
         
         <span id="cc-icon-general" class="cc-icon">
-            <img src="{$theme-path}/images/cc/cc.svg" class="cc-icon-image" alt="Creative Commons License Icon" />
+            <img src="{$theme-path}/images/cc/cc_square.svg" class="cc-icon-image" alt="Creative Commons License Icon" />
         </span>
 
         <xsl:choose>
             <xsl:when test="$licenseTerms = 'by'">
                 <span id="cc-icon-by" class="cc-icon">
-                    <img src="{$theme-path}/images/cc/by.svg" class="cc-icon-image" alt="Creative Commons BY Icon" />
+                    <img src="{$theme-path}/images/cc/by_square.svg" class="cc-icon-image" alt="Creative Commons BY Icon" />
                 </span>
             </xsl:when>
 
             <xsl:when test="$licenseTerms = 'by-nc'">
                 <span id="cc-icon-by" class="cc-icon">
-                    <img src="{$theme-path}/images/cc/by.svg" class="cc-icon-image" alt="Creative Commons BY Icon" />
+                    <img src="{$theme-path}/images/cc/by_square.svg" class="cc-icon-image" alt="Creative Commons BY Icon" />
                 </span>
                 <span id="cc-icon-nc" class="cc-icon">
-                    <img src="{$theme-path}/images/cc/nc-eu.svg" class="cc-icon-image" alt="Creative Commons NC Icon" />
+                    <img src="{$theme-path}/images/cc/nc_square.svg" class="cc-icon-image" alt="Creative Commons NC Icon" />
                 </span>
             </xsl:when>
 
             <xsl:when test="$licenseTerms = 'by-nc-nd'">
                 <span id="cc-icon-by" class="cc-icon">
-                    <img src="{$theme-path}/images/cc/by.svg" class="cc-icon-image" alt="Creative Commons BY Icon" />
+                    <img src="{$theme-path}/images/cc/by_square.svg" class="cc-icon-image" alt="Creative Commons BY Icon" />
                 </span>
                 <span id="cc-icon-nc" class="cc-icon">
-                    <img src="{$theme-path}/images/cc/nc-eu.svg" class="cc-icon-image" alt="Creative Commons NC Icon" />
+                    <img src="{$theme-path}/images/cc/nc_square.svg" class="cc-icon-image" alt="Creative Commons NC Icon" />
                 </span>
                 <span id="cc-icon-nd" class="cc-icon">
-                    <img src="{$theme-path}/images/cc/nd.svg" class="cc-icon-image" alt="Creative Commons NC Icon" />
+                    <img src="{$theme-path}/images/cc/nd_square.svg" class="cc-icon-image" alt="Creative Commons NC Icon" />
                 </span>
             </xsl:when>
 
             <xsl:when test="$licenseTerms = 'by-nc-sa'">
                 <span id="cc-icon-by" class="cc-icon">
-                    <img src="{$theme-path}/images/cc/by.svg" class="cc-icon-image" alt="Creative Commons BY Icon" />
+                    <img src="{$theme-path}/images/cc/by_square.svg" class="cc-icon-image" alt="Creative Commons BY Icon" />
                 </span>
                 <span id="cc-icon-nc" class="cc-icon">
-                    <img src="{$theme-path}/images/cc/nc-eu.svg" class="cc-icon-image" alt="Creative Commons NC Icon" />
+                    <img src="{$theme-path}/images/cc/nc_square.svg" class="cc-icon-image" alt="Creative Commons NC Icon" />
                 </span>
                 <span id="cc-icon-sa" class="cc-icon">
-                    <img src="{$theme-path}/images/cc/sa.svg" class="cc-icon-image" alt="Creative Commons SA Icon" />
+                    <img src="{$theme-path}/images/cc/sa_square.svg" class="cc-icon-image" alt="Creative Commons SA Icon" />
                 </span>
             </xsl:when>
 
             <xsl:when test="$licenseTerms = 'by-nd'">
                 <span id="cc-icon-by" class="cc-icon">
-                    <img src="{$theme-path}/images/cc/by.svg" class="cc-icon-image" alt="Creative Commons BY Icon" />
+                    <img src="{$theme-path}/images/cc/by_square.svg" class="cc-icon-image" alt="Creative Commons BY Icon" />
                 </span>
                 <span id="cc-icon-nd" class="cc-icon">
-                    <img src="{$theme-path}/images/cc/nd.svg" class="cc-icon-image" alt="Creative Commons ND Icon" />
+                    <img src="{$theme-path}/images/cc/nd_square.svg" class="cc-icon-image" alt="Creative Commons ND Icon" />
                 </span>
             </xsl:when>
 
             <xsl:when test="$licenseTerms = 'by-sa'">
                 <span id="cc-icon-by" class="cc-icon">
-                    <img src="{$theme-path}/images/cc/by.svg" class="cc-icon-image" alt="Creative Commons BY Icon" />
+                    <img src="{$theme-path}/images/cc/by_square.svg" class="cc-icon-image" alt="Creative Commons BY Icon" />
                 </span>
                 <span id="cc-icon-sa" class="cc-icon">
-                    <img src="{$theme-path}/images/cc/sa.svg" class="cc-icon-image" alt="Creative Commons SA Icon" />
+                    <img src="{$theme-path}/images/cc/sa_square.svg" class="cc-icon-image" alt="Creative Commons SA Icon" />
                 </span>
             </xsl:when>
 
