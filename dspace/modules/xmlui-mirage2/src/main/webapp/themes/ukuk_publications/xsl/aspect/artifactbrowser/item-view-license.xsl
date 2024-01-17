@@ -175,12 +175,26 @@
                 </a>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:call-template name="no-cc-license">
-                    <xsl:with-param name="licenseText" select="$licenseText"/>
-                    <xsl:with-param name="licenseUri" select="$licenseUri"/>
-                </xsl:call-template>
+                <a rel="license" href="item-view-metadata-license" alt="{$licenseText}" title="{$licenseText}">
+                    <xsl:call-template name="no-cc-license-icon">
+                        <xsl:with-param name="licenseText" select="$licenseText"/>
+                        <xsl:with-param name="licenseURL" select="$licenseUri"/>
+                    </xsl:call-template>
+                </a>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+
+    <xsl:template name="no-cc-license-icon">
+        <xsl:param name="licenseText"/>
+        <xsl:param name="licenseURL"/>
+
+        <xsl:if test="contains($licenseText, 'bez licence')">
+            <span id="cc-icon-general" class="cc-icon">
+                <img src="{$theme-path}/images/cc/gratis_oa.svg" class="cc-icon-image" alt="Gratis Apen Access Icon"/>
+            </span>
+        </xsl:if>
+
     </xsl:template>
 
     <xsl:template name="cc-icon">
