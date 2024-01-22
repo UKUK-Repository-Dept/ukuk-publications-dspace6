@@ -691,7 +691,7 @@
             </xsl:when>
             <xsl:when test="$qualifier='utWos'">
                 <a href="https://www.webofscience.com/wos/woscc/full-record/WOS:{$otherIdentifierValue}" class="other-identifier-link" target="_blank">
-                    <img class="other-identifier-image" src="{$theme-path}images/logo_Clarivate.svg" alt="WOS:{$otherIdentifierValue}"/>
+                    <img class="other-identifier-image" src="{$theme-path}images/wos-logo.svg" alt="WOS:{$otherIdentifierValue}"/>
                 </a>
             </xsl:when>
             <xsl:when test="$qualifier='eidScopus'">
