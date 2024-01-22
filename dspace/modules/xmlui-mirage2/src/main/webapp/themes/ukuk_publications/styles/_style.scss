@@ -88,7 +88,7 @@ h5, .h5 {
 }
 
 h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5 {
-  font-family: palanquinmedium;
+  font-family: 'palanquinbold';
 }
 
 h1 small, h1 .small, h2 small, h2 .small, 
@@ -492,12 +492,14 @@ header .navbar-default {
 
 .breadcrumb {
   padding: 8px 0 8px 0px;
+  font-family: 'palanquinbold';
 }
 
 // Links
 
 a {
   color: #c32c2e;
+  font-family: 'palanquinbold';
 }
 
 
