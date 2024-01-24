@@ -41,6 +41,7 @@
 	<message key="xmlui.general.untitled">Nepojmenovaný</message>
 	<message key="xmlui.general.perform">Vykonat</message>
 	<message key="xmlui.general.queue">Fronta</message>
+	<message key="xmlui.general.repositoryTitle">Repozitář publikační činnosti</message>
 	
         <!-- Keys which are used by exception2dri.xsl on error pages -->
         <message key="xmlui.error.contact_msg">Pokud chcete nahlásit tuto chybu, prosím kontaktujte správce. Pokud je to možné, uveďte prosím podrobnosti o tom, co jste dělali v době, kdy k této chybě došlo.</message>
