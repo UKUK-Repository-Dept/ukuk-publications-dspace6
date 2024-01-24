@@ -395,8 +395,15 @@
                     <div class="navbar-header">
 
                         <a href="{$context-path}/" class="navbar-brand">
-                            <img class="img-responsive" title="CU Research Publications Repository Logo" src="{$theme-path}images/logo_repo_final4.svg" />
+                            <xsl:if test="$active-locale = 'cs'">
+                                <img class="img-responsive" title="Charles University Logo" src="{$theme-path}images/UK-logo-square-white-CZ.svg" />
+                            </xsl:if>
+                            <xsl:if test="$active-locale = 'en'">
+                                <img class="img-responsive" title="Charles University Logo" src="{$theme-path}images/UK-logo-square-white-EN.svg" />
+                            </xsl:if>
                         </a>
+
+                        <h1 class="navbar-text"><i18n:text>xmlui.general.repositoryTitle</i18n:text></h1>
 
 
                         <div class="navbar-header pull-right visible-xs hidden-sm hidden-md hidden-lg">
@@ -457,7 +464,7 @@
                                     </li>
                                 </xsl:when>
                                 <xsl:otherwise>
-                                    <li>
+                                    <li id="ds-login-selection-xs">
                                         <form style="display: inline" action="{/dri:document/dri:meta/dri:userMeta/
                             dri:metadata[@element='identifier' and @qualifier='loginURL']}" method="get">
                                             <button class="navbar-toggle navbar-link">
@@ -467,7 +474,7 @@
                                     </li>
                                 </xsl:otherwise>
                             </xsl:choose>
-                            <li>
+                            <li id="ds-navigation-selection-xs">
                                 <button type="button" class="navbar-toggle" data-toggle="offcanvas">
                                     <span class="sr-only">
                                         <i18n:text>xmlui.mirage2.page-structure.toggleNavigation</i18n:text>
@@ -519,7 +526,7 @@
                                     </li>
                                 </xsl:when>
                                 <xsl:otherwise>
-                                    <li>
+                                    <li id="ds-login-selection-xs">
                                         <a href="{/dri:document/dri:meta/dri:userMeta/
                             dri:metadata[@element='identifier' and @qualifier='loginURL']}">
                                             <span class="hidden-xs">
@@ -531,7 +538,7 @@
                             </xsl:choose>
                         </ul>
                         <ul class="nav navbar-nav">
-                            <li>
+                            <li id="ds-navigation-selection-xs">
                                 <button data-toggle="offcanvas" class="navbar-toggle visible-sm" type="button">
                                     <span class="sr-only"><i18n:text>xmlui.mirage2.page-structure.toggleNavigation</i18n:text></span>
                                     <span class="icon-bar"></span>
@@ -603,9 +610,10 @@
     <xsl:template match="dri:trail">
         <!--put an arrow between the parts of the trail-->
         <li>
-            <xsl:if test="position()=1">
+            <!-- <JR> - 2024-01-23 - don't use this glyphicon -->
+            <!-- <xsl:if test="position()=1">
                 <i class="glyphicon glyphicon-home" aria-hidden="true"/>&#160;
-            </xsl:if>
+            </xsl:if> -->
             <!-- Determine whether we are dealing with a link or plain text trail link -->
             <xsl:choose>
                 <xsl:when test="./@target">
