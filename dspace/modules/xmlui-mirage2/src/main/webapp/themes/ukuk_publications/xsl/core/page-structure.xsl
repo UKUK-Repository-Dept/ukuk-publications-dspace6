@@ -182,7 +182,17 @@
             <link rel="shortcut icon">
                 <xsl:attribute name="href">
                     <xsl:value-of select="$theme-path"/>
-                    <xsl:text>images/favicon.ico</xsl:text>
+                    <xsl:choose>
+                        <xsl:when test="$active-locale = 'cs'">
+                            <xsl:text>images/UK-logo-pro_omezena_zobrazeni-CZ.svg</xsl:text>
+                        </xsl:when>
+                        <xsl:when test="$active-locale = 'en'">
+                            <xsl:text>images/UK-logo-pro_omezena_zobrazeni-EN.svg</xsl:text>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>images/UK-logo-pro_omezena_zobrazeni-EN.svg</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:attribute>
             </link>
             <link rel="apple-touch-icon">
