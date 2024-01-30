@@ -2243,6 +2243,8 @@
 	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-isbn-issn">ISBN / ISSN</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-publisher">Nakladatel</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-subject">Klíčové slovo</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-other-systems-identifiers">Zobraz publikaci v dalších systémech</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-doi-alert-text">Tato publikace má vydavatelskou verzi s DOI</message>
 	
 	<message key="xmlui.dri2xhtml.METS-1.0.item-files-head">Soubory tohoto záznamu</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-files-file">Soubory</message>
