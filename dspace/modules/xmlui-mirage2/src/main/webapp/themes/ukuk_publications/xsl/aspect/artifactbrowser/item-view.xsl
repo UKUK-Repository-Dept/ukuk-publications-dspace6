@@ -175,7 +175,11 @@
                     <xsl:call-template name="itemSummaryView-collections"/>
                 </div>
                 <div class="col-sm-8">
-                    <xsl:call-template name="itemSummaryView-DIM-citation"/>
+                    <!-- <JR> - 2024-01-30: We are still unable to generate citations, disabling this template,
+                                for now
+                    -->
+                    <!-- <xsl:call-template name="itemSummaryView-DIM-citation"/> -->
+                    <xsl:call-template name="itemSummaryView-DIM-DOI"/>
                     <xsl:call-template name="itemSummaryView-DIM-abstract"/>
                     <xsl:call-template name="itemSummaryView-DIM-keywords"/>
                     <xsl:call-template name="itemSummaryView-DIM-URI"/>
@@ -405,6 +409,23 @@
         </div>
     </xsl:template>
 
+    <xsl:template name="itemSummaryView-DIM-DOI">
+        <xsl:if test="dim:field[@element='identifier' and @qualifier='doi']">
+            <xsl:variable name="doiIdentifier" select="dim:field[@element='identifier' and @qualifier='doi']"/>
+            <div id="item-view-DOI" class="simple-item-view-DOI simple-item-view-first-in-second-column item-page-field-wrapper table">
+                <div class="alert alert-success item-view-doi-alert" role="alert">
+                    <p class="item-view-doi-alert-text"><i18n:text>xmlui.dri2xhtml.METS-1.0.item-doi-alert-text</i18n:text><xsl:text> </xsl:text><a href="https://doi.org/{$doiIdentifier}" target="_blank" class="item-view-doi-alert-link">
+                        <xsl:value-of select="$doiIdentifier"/>
+                    </a>.</p>
+                    
+
+                </div>
+            </div>
+        </xsl:if>
+    </xsl:template>
+
+    <!-- <JR> - 2024-01-30: We are still unable to generate citation,
+    so this template is disabled, for now -->
     <xsl:template name="itemSummaryView-DIM-citation">
         <div id="item-view-citation" class="simple-item-view-citation item-page-field-wrapper table">
             <h5 class="item-view-metadata-heading" id="item-view-metadata-citation">Citace</h5>
@@ -434,46 +455,57 @@
     <!-- <JR> - 2023-11-07: Handling abstracts -->
     <xsl:template name="itemSummaryView-DIM-abstract">
         <xsl:if test="dim:field[@element='description' and @qualifier='abstract']">
-            <div id="item-view-abstract" class="simple-item-view-description item-page-field-wrapper table">
-                <h5 class="item-view-metadata-heading" id="item-view-metadata-abstract-en"><i18n:text>xmlui.dri2xhtml.METS-1.0.item-abstract</i18n:text></h5>
-                <div class="row abstract-language-row">
-                    <div class="col-sm-12 col-md-12">
-                        <xsl:for-each select="dim:field[@element='description' and @qualifier='abstract'][@language='en']">
-                            <xsl:variable name="language" select="@language"/>
-                            <span id="abstract-en">
-                                <xsl:choose>
-                                    <xsl:when test="node()">
-                                        <xsl:copy-of select="node()"/>
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <xsl:text>&#160;</xsl:text>
-                                    </xsl:otherwise>
-                                </xsl:choose>
-                            </span>
-                        </xsl:for-each>
-                    </div>
+            <xsl:if test="not(dim:field[@element='identifier'][@qualifier='doi'])">
+                <div id="item-view-abstract" class="simple-item-view-description simple-item-view-first-in-second-column item-page-field-wrapper table">
+                    <xsl:call-template name="itemSummaryView-DIM-abstract-content"/>
                 </div>
-                <xsl:if test="dim:field[@element='subject'][@qualifier='keyword'][not(@language='en')]">
-                    <div class="row abstract-language-row collapse" aria-labelledby="item-view-abstract-original" id="collapse-abstract-original" aria-expanded="false">
-                        <div class="spacer">&#160;</div>
-                        <div class="col-sm-12 col-md-12">
-                            <xsl:for-each select="dim:field[@element='description'][@qualifier='abstract'][not(@language='en')]">
-                                <xsl:variable name="language" select="@language"/>
-                                <span id="abstract-{$language}">
-                                    <xsl:copy-of select="node()"/>
-                                </span>
-                                <xsl:if test="count(following-sibling::dim:field[@element='description'][@qualifier='abstract'][not(@language='en')]) != 0">
-                                    <div class="spacer">&#160;</div>
-                                </xsl:if>
-                            </xsl:for-each>
-                        </div>
-                    </div>
-                    <a aria-controls="collapse-abstract-original" aria-expanded="false" href="#collapse-abstract-original" 
-                    data-parent="#item-view-abstract" data-toggle="collapse" role="button">
-                        <i18n:text>xmlui.dri2xhtml.METS-1.0.item-abstract.show.original</i18n:text>
-                    </a>
-                </xsl:if>
+            </xsl:if>
+            <xsl:if test="dim:field[@element='identifier'][@qualifier='doi']">
+                <div id="item-view-abstract" class="simple-item-view-description item-page-field-wrapper table">
+                    <xsl:call-template name="itemSummaryView-DIM-abstract-content"/>
+                </div>
+            </xsl:if>
+        </xsl:if>
+    </xsl:template>
+
+    <xsl:template name="itemSummaryView-DIM-abstract-content">
+        <h5 class="item-view-metadata-heading" id="item-view-metadata-abstract-en"><i18n:text>xmlui.dri2xhtml.METS-1.0.item-abstract</i18n:text></h5>
+        <div class="row abstract-language-row">
+            <div class="col-sm-12 col-md-12">
+                <xsl:for-each select="dim:field[@element='description' and @qualifier='abstract'][@language='en']">
+                    <xsl:variable name="language" select="@language"/>
+                    <span id="abstract-en">
+                        <xsl:choose>
+                            <xsl:when test="node()">
+                                <xsl:copy-of select="node()"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:text>&#160;</xsl:text>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </span>
+                </xsl:for-each>
             </div>
+        </div>
+        <xsl:if test="dim:field[@element='subject'][@qualifier='keyword'][not(@language='en')]">
+            <div class="row abstract-language-row collapse" aria-labelledby="item-view-abstract-original" id="collapse-abstract-original" aria-expanded="false">
+                <div class="spacer">&#160;</div>
+                <div class="col-sm-12 col-md-12">
+                    <xsl:for-each select="dim:field[@element='description'][@qualifier='abstract'][not(@language='en')]">
+                        <xsl:variable name="language" select="@language"/>
+                        <span id="abstract-{$language}">
+                            <xsl:copy-of select="node()"/>
+                        </span>
+                        <xsl:if test="count(following-sibling::dim:field[@element='description'][@qualifier='abstract'][not(@language='en')]) != 0">
+                            <div class="spacer">&#160;</div>
+                        </xsl:if>
+                    </xsl:for-each>
+                </div>
+            </div>
+            <a aria-controls="collapse-abstract-original" aria-expanded="false" href="#collapse-abstract-original" 
+            data-parent="#item-view-abstract" data-toggle="collapse" role="button">
+                <i18n:text>xmlui.dri2xhtml.METS-1.0.item-abstract.show.original</i18n:text>
+            </a>
         </xsl:if>
     </xsl:template>
     <!-- END OF: Handling abstracts -->
@@ -482,7 +514,7 @@
     <xsl:template name="itemSummaryView-DIM-keywords">
         <xsl:if test="dim:field[@element='subject' and @qualifier='keyword']">
             <div id="item-view-keywords" class="simple-item-view-keywords item-page-field-wrapper table">
-                <h5><i18n:text>xmlui.dri2xhtml.METS-1.0.item-keywords</i18n:text></h5>
+                <h5 class="item-view-metadata-heading"><i18n:text>xmlui.dri2xhtml.METS-1.0.item-keywords</i18n:text></h5>
                 
                 <xsl:if test="dim:field[@element='subject'][@qualifier='keyword'][@language='en']">
                     <div class="row kewords-language-row">
@@ -544,7 +576,7 @@
         
         <xsl:if test="dim:field[@element='contributor'][@qualifier='author' and descendant::text()] or dim:field[@element='creator' and descendant::text()] or dim:field[@element='contributor' and descendant::text()]">
             <div class="simple-item-view-authors item-page-field-wrapper table" id="item-view-authors">
-                <h5><i18n:text>xmlui.dri2xhtml.METS-1.0.item-author</i18n:text></h5>
+                <h5 class="item-view-metadata-heading"><i18n:text>xmlui.dri2xhtml.METS-1.0.item-author</i18n:text></h5>
                 <xsl:for-each select="dim:field[@element='contributor'][@qualifier]">
                     <xsl:if test="count(preceding-sibling::dim:field[@element='contributor'][@qualifier]) &lt;= 2">
                         <xsl:variable name="currentAuthorIdentifiers">
@@ -618,7 +650,7 @@
             <div class="simple-item-view-uri item-page-field-wrapper table">
                 <!-- <JR> 2022-09-19: Added a new translation key for permanent link to DSpace item record -->
                 <!--<h5><i18n:text>xmlui.dri2xhtml.METS-1.0.item-uri</i18n:text></h5>-->
-                <h5><i18n:text>item-view.cuni.permanent-link.heading</i18n:text></h5>
+                <h5 class="item-view-metadata-heading"><i18n:text>item-view.cuni.permanent-link.heading</i18n:text></h5>
                 <span>
                     <xsl:for-each select="dim:field[@element='identifier' and @qualifier='uri']">
                         <a>
@@ -637,12 +669,15 @@
     </xsl:template>
 
     <xsl:template name="itemSummaryView-DIM-otherIdentifiers">
-        <xsl:if test="dim:field[@element='identifier'][@qualifier='obd' or @qualifier='doi' or @qualifier='utWos' or @qualfier='eidScopus' or @qualifier='pubmed']">
+        <!-- <JR> - 2024-01-30 - removed DOI from the condition, since we want it displayed in differnt way and place -->
+        <!-- <xsl:if test="dim:field[@element='identifier'][@qualifier='obd' or @qualifier='doi' or @qualifier='utWos' or @qualfier='eidScopus' or @qualifier='pubmed']"> -->
+        <xsl:if test="dim:field[@element='identifier'][@qualifier='utWos' or @qualfier='eidScopus' or @qualifier='pubmed']">
             <div id="item-view-otherIdentifiers" class="simple-item-view-description item-page-field-wrapper table">
-                <!-- <h5 class="item-view-metadata-heading" id="item-view-metadata-abstract-en"><i18n:text>xmlui.dri2xhtml.METS-1.0.item-abstract</i18n:text></h5> -->
+                <h5 class="item-view-metadata-heading" id="item-view-metadata-other-system-identifiers"><i18n:text>xmlui.dri2xhtml.METS-1.0.item-other-systems-identifiers</i18n:text></h5>
                 <div class="row other-identifiers-row">
-                    <xsl:variable name="otherIdentifiersCount" select="count(dim:field[@element='identifier'][@qualifier='obd' or @qualifier='doi' or @qualifier='utWos' or @qualifier='eidScopus' or @qualifier='pubmed'])"/>
-                    <!-- <xsl:value-of select="$otherIdentifiersCount"/> -->
+                    <!-- <JR> - 2024-01-30 - removed DOI from the condition, since we want it displayed in differnt way and place -->
+                    <!-- <xsl:variable name="otherIdentifiersCount" select="count(dim:field[@element='identifier'][@qualifier='obd' or @qualifier='doi' or @qualifier='utWos' or @qualifier='eidScopus' or @qualifier='pubmed'])"/> -->
+                    <xsl:variable name="otherIdentifiersCount" select="count(dim:field[@element='identifier'][@qualifier='utWos' or @qualifier='eidScopus' or @qualifier='pubmed'])"/>
                     <xsl:call-template name="itemSummaryView-DIM-otherIdentifiers-content">
                         <xsl:with-param name="identifiersCount" select="$otherIdentifiersCount" />
                     </xsl:call-template>
@@ -654,11 +689,13 @@
     <xsl:template name="itemSummaryView-DIM-otherIdentifiers-content">
         <xsl:param name="identifiersCount" />
         <xsl:variable name="grid-columns-width" select="number(12 div $identifiersCount)" />
-        <!-- <xsl:value-of select="$grid-columns-width"/> -->
+        
         <xsl:if test="number(12 mod $identifiersCount) = 0">
             <xsl:variable name="gridColumnsWidth" select="number(12 div $identifiersCount)"/>
-            <xsl:for-each select="dim:field[@element='identifier'][@qualifier='obd' or @qualifier='doi' or @qualifier='utWos' or @qualifier='eidScopus' or @qualifier='pubmed']">
-                <div class="col-xs-6 col-sm-2 col-md-2 other-identifier-column">
+            <!-- <JR> - 2024-01-30 - removed DOI from the condition, since we want it displayed in differnt way and place -->
+            <!-- <xsl:for-each select="dim:field[@element='identifier'][@qualifier='obd' or @qualifier='doi' or @qualifier='utWos' or @qualifier='eidScopus' or @qualifier='pubmed']"> -->
+            <xsl:for-each select="dim:field[@element='identifier'][@qualifier='utWos' or @qualifier='eidScopus' or @qualifier='pubmed']">
+                <div class="col-xs-12 col-sm-3 col-md-3 other-identifier-column">
                     <xsl:call-template name="itemSummaryView-DIM-otherIdentifiers-create-link-icons">
                         <xsl:with-param name="qualifier" select="@qualifier"/>
                         <xsl:with-param name="otherIdentifierValue" select="./node()"/>
@@ -667,9 +704,9 @@
             </xsl:for-each>
         </xsl:if>
         <xsl:if test="not(number(12 mod $identifiersCount = 0)) and $identifiersCount &lt; 6">
-            <xsl:for-each select="dim:field[@element='identifier'][@qualifier='obd' or @qualifier='doi' or @qualifier='utWos' or @qualifier='eidScopus' or @qualifier='pubmed']">
+            <xsl:for-each select="dim:field[@element='identifier'][@qualifier='utWos' or @qualifier='eidScopus' or @qualifier='pubmed']">
                 <xsl:sort select="(position( ) - 1) mod 3"/>
-                <div class="col-xs-6 col-sm-2 col-md-2 other-identifier-column">
+                <div class="col-xs-12 col-sm-3 col-md-3 other-identifier-column">
                     <xsl:call-template name="itemSummaryView-DIM-otherIdentifiers-create-link-icons">
                         <xsl:with-param name="qualifier" select="@qualifier"/>
                         <xsl:with-param name="otherIdentifierValue" select="./node()"/>
@@ -684,11 +721,12 @@
         <xsl:param name="qualifier"/>
         <xsl:param name="otherIdentifierValue"/>
         <xsl:choose>
-            <xsl:when test="$qualifier='doi'">
+            <!-- <JR> - 2024-01-30: Removed DOI from condition since we want to display it in a different way / place -->
+            <!-- <xsl:when test="$qualifier='doi'">
                 <a href="https://doi.org/{$otherIdentifierValue}" class="other-identifier-link" target="_blank">
                     <img class="other-identifier-image" src="{$theme-path}images/logo_DOI.svg" alt="DOI:{$otherIdentifierValue}"/>
                 </a>
-            </xsl:when>
+            </xsl:when> -->
             <xsl:when test="$qualifier='utWos'">
                 <a href="https://www.webofscience.com/wos/woscc/full-record/WOS:{$otherIdentifierValue}" class="other-identifier-link" target="_blank">
                     <img class="other-identifier-image" src="{$theme-path}images/wos-logo.svg" alt="WOS:{$otherIdentifierValue}"/>
@@ -704,11 +742,11 @@
                     <img class="other-identifier-image" src="{$theme-path}images/logo_PubMed.svg" alt="PUBMED:{$otherIdentifierValue}"/>
                 </a>
             </xsl:when>
-            <xsl:when test="$qualifier='obd'">
+            <!-- <xsl:when test="$qualifier='obd'">
                 <a href="https://verso.is.cuni.cz/pub/verso.fpl/?fname=obd_publicnew_det&amp;id={$otherIdentifierValue}" class="other-identifier-link" target="_blank">
                     <img class="other-identifier-image" src="{$theme-path}images/logo_isveda.svg" alt="OBD:{$otherIdentifierValue}"/>
                 </a>
-            </xsl:when>
+            </xsl:when> -->
             <xsl:otherwise></xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -716,7 +754,7 @@
     <xsl:template name="itemSummaryView-DIM-date">
         <xsl:if test="dim:field[@element='date' and @qualifier='issued' and descendant::text()]">
             <div class="simple-item-view-date word-break item-page-field-wrapper table">
-                <h5>
+                <h5 class="item-view-metadata-heading">
                     <i18n:text>xmlui.dri2xhtml.METS-1.0.item-date</i18n:text>
                 </h5>
                 <xsl:for-each select="dim:field[@element='date' and @qualifier='issued']">
@@ -843,7 +881,7 @@
     <xsl:template name="itemSummaryView-DIM-source-publication-name">
         <xsl:if test="dim:field[@element='isPartOf' and @qualifier='name']">
             <div class="simple-item-view-source-publication-name word-break item-page-field-wrapper table">
-                <h5 id="itemSummaryView-DIM-source-publication-name">
+                <h5 class="item-view-metadata-heading" id="itemSummaryView-DIM-source-publication-name">
                     <i18n:text>xmlui.dri2xhtml.METS-1.0.item-source-publication-name</i18n:text>
                 </h5>
 
@@ -860,7 +898,7 @@
     <xsl:template name="itemSummaryView-DIM-source-publication-volume-issue">
         <xsl:if test="dim:field[@element='isPartOf' and @qualifier=('journalVolume' or 'journalIssue')]">
             <div class="simple-item-view-source-publication-volume-issue word-break item-page-field-wrapper table">
-                <h5 id="itemSummaryView-DIM-source-publication-volume-issue">
+                <h5 class="item-view-metadata-heading" id="itemSummaryView-DIM-source-publication-volume-issue">
                     <i18n:text>xmlui.dri2xhtml.METS-1.0.item-source-publication-volume-issue</i18n:text>
                 </h5>
 
@@ -887,7 +925,7 @@
     <xsl:template name="itemSummaryView-DIM-source-publication-isbn-issn">
         <xsl:if test="dim:field[@element='isPartOf'][@qualifier='isbn' or @qualifier='issn' or @qualifier='eissn']">
             <div class="simple-item-view-source-publication-isbn-issn word-break item-page-field-wrapper table">
-                <h5 id="itemSummaryView-DIM-source-publication-isbn-issn">
+                <h5 class="item-view-metadata-heading" id="itemSummaryView-DIM-source-publication-isbn-issn">
                     <i18n:text>xmlui.dri2xhtml.METS-1.0.item-source-publication-isbn-issn</i18n:text>
                 </h5>
 
@@ -920,7 +958,7 @@
 
         <xsl:if test="dim:field[@element='identifier'][@qualifier='isbn' or @qualifier='issn' or @qualifier='eissn']">
             <div class="simple-item-view-publication-isbn-issn word-break item-page-field-wrapper table">
-                <h5 id="itemSummaryView-DIM-publication-isbn-issn">
+                <h5 class="item-view-metadata-heading" id="itemSummaryView-DIM-publication-isbn-issn">
                     <i18n:text>xmlui.dri2xhtml.METS-1.0.item-publication-isbn-issn</i18n:text>
                 </h5>
 
@@ -948,7 +986,7 @@
 
     <xsl:template name="itemSummaryView-show-full">
         <div class="simple-item-view-show-full item-page-field-wrapper table">
-            <h5>
+            <h5 class="item-view-metadata-heading">
                 <i18n:text>xmlui.mirage2.itemSummaryView.MetaData</i18n:text>
             </h5>
             <a>
@@ -961,7 +999,7 @@
     <xsl:template name="itemSummaryView-collections">
         <xsl:if test="$document//dri:referenceSet[@id='aspect.artifactbrowser.ItemViewer.referenceSet.collection-viewer']">
             <div class="simple-item-view-collections item-page-field-wrapper table">
-                <h5>
+                <h5 class="item-view-metadata-heading">
                     <i18n:text>xmlui.mirage2.itemSummaryView.Collections</i18n:text>
                 </h5>
                 <xsl:apply-templates select="$document//dri:referenceSet[@id='aspect.artifactbrowser.ItemViewer.referenceSet.collection-viewer']/dri:reference"/>
@@ -973,6 +1011,7 @@
         <xsl:choose>
             <xsl:when test="//mets:fileSec/mets:fileGrp[@USE='CONTENT' or @USE='ORIGINAL' or @USE='LICENSE']/mets:file">
                 <div class="item-page-field-wrapper table word-break">
+                    <!-- <JR> - 2024-01-30: Just confirming we don't want this heading to be displayed -->
                     <!-- <h5>
                         <i18n:text>xmlui.dri2xhtml.METS-1.0.item-files-viewOpen</i18n:text>
                     </h5> -->
@@ -1033,8 +1072,10 @@
         <xsl:param name="label" />
         <xsl:param name="size" />
         <xsl:param name="embargo" />
-        <!-- <div> -->
-            <button id="{$label}" class="button-file-icon btn btn-default col-xs-2" aria-haspopup="true">
+            <a type="button" id="{$label}" class="button-file-icon btn btn-default col-xs-2" aria-haspopup="true">
+                <xsl:attribute name="href">
+                    <xsl:value-of select="$href"/>
+                </xsl:attribute>
                 <xsl:call-template name="getFileIcon">
                     <xsl:with-param name="mimetype">
                         <xsl:value-of select="substring-before($mimetype,'/')"/>
@@ -1045,19 +1086,17 @@
                         <xsl:value-of select="$embargo" />
                     </xsl:with-param>
                 </xsl:call-template>
-            </button>
-            <button type="button" class="button-file-text btn btn-default col-xs-10" aria-haspopup="true">
-                <a>
-                    <xsl:attribute name="href">
-                        <xsl:value-of select="$href"/>
-                    </xsl:attribute>
-                    <xsl:call-template name="getFileText">
-                        <xsl:with-param name="embargoValue">
-                            <xsl:value-of select="$embargo"/>
-                        </xsl:with-param>
-                    </xsl:call-template>
-                </a>    
-            </button>
+            </a>
+            <a type="button" class="button-file-text btn btn-default col-xs-10" aria-haspopup="true">
+                <xsl:attribute name="href">
+                    <xsl:value-of select="$href"/>
+                </xsl:attribute>
+                <xsl:call-template name="getFileText">
+                    <xsl:with-param name="embargoValue">
+                        <xsl:value-of select="$embargo"/>
+                    </xsl:with-param>
+                </xsl:call-template>
+            </a>
             
     </xsl:template>
 
@@ -1310,8 +1349,9 @@
         <xsl:choose>
             <xsl:when test="contains(mets:FLocat[@LOCTYPE='URL']/@xlink:href,'isAllowed=n')">
                 <xsl:if test="$embargoValue">
-                    <i18n:text>xmlui.dri2xhtml.METS-1.0.item-file-button-embargoed</i18n:text>
-                    <xsl:value-of select="concat(' ', $embargoValue)" />
+                    <span><i18n:text>xmlui.dri2xhtml.METS-1.0.item-file-button-embargoed</i18n:text></span>
+                    <br/>
+                    <span><xsl:value-of select="concat(' ', $embargoValue)" /></span>
                 </xsl:if>
                 <xsl:if test="not($embargoValue)">
                     <i18n:text>xmlui.dri2xhtml.METS-1.0.item-file-button-restricted</i18n:text>
