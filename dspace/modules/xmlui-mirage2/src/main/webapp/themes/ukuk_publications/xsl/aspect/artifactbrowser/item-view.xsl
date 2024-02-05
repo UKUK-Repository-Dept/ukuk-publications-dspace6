@@ -319,9 +319,9 @@
                         </xsl:for-each>
                     </xsl:when>
                     <xsl:when test="count(dim:field[@element='title'][@qualifier='translated']) = 1">
-                        <h2 class="page-header first-page-header item-title-translated">
-                            <xsl:value-of select="dim:field[@element='title'][@qualifier='translated'][1]/node()"/>
-                        </h2>
+                        <h3 class="page-header first-page-header item-title-translated">
+                            <xsl:text>( </xsl:text><xsl:value-of select="dim:field[@element='title'][@qualifier='translated'][1]/node()"/><xsl:text> )</xsl:text>
+                        </h3>
                     </xsl:when>
                     <xsl:otherwise>
                     </xsl:otherwise>
