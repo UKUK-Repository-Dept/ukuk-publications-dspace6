@@ -50,8 +50,8 @@
         <br/>
         <p><i18n:text>xmlui.mirage2.static-pages.metadata.section.intro.para.3</i18n:text></p>
         <br/>
-        <div class="table-responsive">
-            <table class="table-bordered table-condensed">
+        <div class="table-responsive mandatory-metadata-table">
+            <table class="table table-condensed cuni-static-page-table">
                 <caption class="sr-only">Rozdíly mezi povinnými a podmíněně povinnými popisnými údaji</caption>
                 <thead>
                     <tr>
@@ -125,8 +125,8 @@
     <xsl:template name="create_general_mandatory_metadata_tables">
         <xsl:param name="meta_type"/>
        
-        <div class="table-responsive">
-            <table class="table">
+        <div class="table-responsive mandatory-metadata-table">
+            <table class="table cuni-static-page-table">
                 <!--<caption class="sr-only">Seznam povinných údajů</caption>-->
                 <thead>
                     <tr>
@@ -242,14 +242,14 @@
 
                 <xsl:choose>
                     <xsl:when test="position() = 1">
-                        <div role="tabpanel" class="tab-pane fade active in" id="metadata-contents-{$formValueID}">
+                        <div role="tabpanel" class="tab-pane mandatory-metadata-table fade active in" id="metadata-contents-{$formValueID}">
                             <xsl:call-template name="start-generating-tables">
                                 <xsl:with-param name="form-valueID" select="$formValueID"/>
                             </xsl:call-template>
                         </div>
                     </xsl:when>
                     <xsl:otherwise>
-                        <div role="tabpanel" class="tab-pane fade" id="metadata-contents-{$formValueID}">
+                        <div role="tabpanel" class="tab-pane mandatory-metadata-table fade" id="metadata-contents-{$formValueID}">
                             <xsl:call-template name="start-generating-tables">
                                 <xsl:with-param name="form-valueID" select="$formValueID"/>
                             </xsl:call-template>
@@ -276,7 +276,7 @@
         <xsl:param name="publicationFormID"/>
         <xsl:param name="metadata-type"/>
         
-        <table class="table">
+        <table class="table cuni-static-page-table">
             <xsl:choose>
                 <xsl:when test="$metadata-type = 'mandatory'">
                     <caption><i18n:text>xmlui.mirage2.static-pages.metadata.dropdown.title.mandatory-metadata-by-form.caption.mandatory</i18n:text> - <i18n:text><xsl:value-of select="concat('obd.typology.form.id.', $publicationFormID)"/></i18n:text></caption>
