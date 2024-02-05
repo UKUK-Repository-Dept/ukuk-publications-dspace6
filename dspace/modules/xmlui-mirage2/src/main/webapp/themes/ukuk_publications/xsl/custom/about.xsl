@@ -126,8 +126,8 @@
         <p>
             <i18n:text>obd.about-typology-availability.para.2</i18n:text> 
         </p>
-        <div class="table-responsive">
-            <table id="about-table-availability" class="table-bordered table-condensed">
+        <div class="table-responsive ">
+            <table id="about-table-availability" class="table-bordered table-condensed cuni-static-page-table">
                 <caption class="sr-only"><i18n:text>obd.about-typology.table-availability.caption</i18n:text></caption>
                 <thead>
                     <tr>
@@ -172,7 +172,7 @@
             <i18n:text>obd.about-fulltext-versions.para.1</i18n:text>
         </p>
         <div class="table-responsive">
-            <table id="about-table-fulltext-versions" class="table-bordered table-condensed">
+            <table id="about-table-fulltext-versions" class="table-bordered table-condensed cuni-static-page-table">
                 <caption class="sr-only"><i18n:text>obd.about-fulltext-versions.table-fulltext-versions.caption</i18n:text></caption>
                 <thead>
                     <tr>
@@ -237,7 +237,7 @@
             <i18n:text>obd.about-licensing.para.2</i18n:text>
         </p>
         <div class="table-responsive">
-            <table id="about-table-licensing" class="table-bordered table-condensed">
+            <table id="about-table-licensing" class="table-bordered table-condensed cuni-static-page-table">
                 <caption class="sr-only"><i18n:text>obd.about-licensing.table-licensing.caption</i18n:text></caption>
                 <thead>
                     <tr>
@@ -315,7 +315,7 @@
             <i18n:text>obd.about-confirmations.para.3</i18n:text>
         </p>
         <div class="table-responsive">
-            <table id="about-table-confirmations" class="table-bordered table-condensed">
+            <table id="about-table-confirmations" class="table-bordered table-condensed cuni-static-page-table">
                 <caption class="sr-only"><i18n:text>obd.about-confirmations.table-confirmations.caption</i18n:text></caption>
                 <thead>
                     <tr>
@@ -357,7 +357,7 @@
         <h2 id="heading-about-workflow"><i18n:text>obd.about-workflow.heading</i18n:text></h2>
         <p><i18n:text>obd.about-workflow.para.1</i18n:text></p>
         <div class="table-responsive">
-            <table id="about-table-workflow" class="table-bordered table-condensed">
+            <table id="about-table-workflow" class="table-bordered table-condensed cuni-static-page-table">
                 <caption class="sr-only"><i18n:text>obd.about-workflow.table-workflow.caption</i18n:text></caption>
                 <thead>
                     <tr>

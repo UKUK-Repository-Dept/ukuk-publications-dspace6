@@ -863,7 +863,7 @@
             <!-- Check for the custom pages -->
             <xsl:choose>
                 <xsl:when test="starts-with($request-uri, 'page/about')">
-                    <div class="hero-unit">
+                    <div class="hero-unit cuni-static-info-page">
                         <h1><i18n:text>xmlui.mirage2.page-structure.heroUnit.title</i18n:text></h1>
                         <!--<p><i18n:text>xmlui.mirage2.page-structure.heroUnit.content</i18n:text></p>-->
                         <xsl:call-template name="about-create"/>
@@ -877,7 +877,7 @@
                     </div>
                 </xsl:when> -->
                 <xsl:when test="starts-with($request-uri, 'page/metadata')">
-                    <div class="hero-unit" id="metadata">
+                    <div class="hero-unit cuni-static-info-page" id="metadata">
                         <h1><i18n:text>xmlui.mirage2.static-pages.heading.metadata</i18n:text></h1>
                         <!-- TODO: Create custom text and make it translatable via i18n:text -->
                         <!--<p><i18n:text>xmlui.mirage2.page-structure.heroUnit.content</i18n:text></p>-->
@@ -886,7 +886,7 @@
                     
                 </xsl:when>
                 <xsl:when test="starts-with($request-uri, 'page/typology')">
-                    <div class="hero-unit">
+                    <div class="hero-unit cuni-static-info-page">
                         <h1><i18n:text>xmlui.mirage2.static-pages.heading.typology</i18n:text></h1>
                         <!-- TODO: Create custom text and make it translatable via i18n:text -->
                         <!--<p><i18n:text>xmlui.mirage2.page-structure.heroUnit.content</i18n:text></p>-->
@@ -895,12 +895,12 @@
                     
                 </xsl:when>
                 <xsl:when test="starts-with($request-uri, 'page/disclaimer')">
-                    <div class="hero-unit">
+                    <div class="hero-unit cuni-static-info-page">
                         <xsl:call-template name="disclaimer-create"/>
                     </div>
                 </xsl:when>
                 <xsl:when test="starts-with($request-uri, 'page/licenses')">
-                    <div class="hero-unit">
+                    <div class="hero-unit cuni-static-info-page">
                         <xsl:call-template name="licenses-create"/>
                     </div>
                 </xsl:when>
