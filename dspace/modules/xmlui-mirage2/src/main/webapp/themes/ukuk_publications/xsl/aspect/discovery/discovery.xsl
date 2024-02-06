@@ -249,6 +249,10 @@
                             </xsl:choose>
                         </xsl:otherwise>
                     </xsl:choose>
+                    <!-- <JR> - 2024-02-06: Adding template for additional info row -->
+                    <xsl:call-template name="discovery-additional-info">
+                        <xsl:with-param name="handleID" select="$handle"/>
+                    </xsl:call-template>
                     <span class="author h4">    <small>
                         <xsl:choose>
                             <xsl:when test="dri:list[@n=(concat($handle, ':dc.contributor.author'))]">
@@ -367,6 +371,88 @@
             </xsl:call-template>
             <xsl:apply-templates select="*[not(name()='label' or name()='head')]" />
         </fieldset>
+    </xsl:template>
+
+    <xsl:template name="discovery-additional-info-type">
+        <xsl:param name="handleID"/>
+        <xsl:variable name="languageCapitalized">
+            <xsl:choose>
+                <xsl:when test="$active-locale = 'cs'">
+                    <xsl:text>Cs</xsl:text>
+                </xsl:when> 
+                <xsl:when test="$active-locale = 'en'">
+                    <xsl:text>En</xsl:text>
+                </xsl:when>
+                <xsl:otherwise><xsl:text>En</xsl:text></xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+
+        <xsl:choose>
+            <xsl:when test="dri:list[@n=(concat($handleID, ':dc.type.obdHierarchy', $languageCapitalized))]">
+                
+                <span type="button" class="label label-additional-info" aria-haspopup="true">
+                    <xsl:value-of 
+                        select="substring-after(substring-after(dri:list[@n=(concat($handleID, 
+                        ':dc.type.obdHierarchy', $languageCapitalized))]/dri:item[1],'::'),'::')"/>
+                </span>
+
+            </xsl:when>
+            <xsl:otherwise>
+                    
+                <span type="button" class="label label-additional-info" aria-haspopup="true">
+                    <xsl:text>uknown type</xsl:text>
+                </span>
+
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+
+    <xsl:template name="discovery-additional-info-version">
+        <xsl:param name="handleID"/>
+        
+        <xsl:choose>
+            <xsl:when test="dri:list[@n=(concat($handleID, ':dc.type.version'))]">
+
+                <xsl:variable name="publicationVersionValue">
+                    <xsl:value-of select="substring-after(dri:list[@n=(concat($handleID, 
+                                    ':dc.type.version'))]/dri:item[1], 'info:eu-repo/semantics/')" />
+                </xsl:variable>
+                    
+                <span id="publication-versions-toggle" class="label label-additional-info" aria-haspopup="true">
+                    <i18n:text>xmlui.dri2xhtml.METS-1.0.item-publication-version-<xsl:value-of select="$publicationVersionValue" />
+                    </i18n:text>
+                </span>
+                
+            </xsl:when>
+            <xsl:otherwise>
+                
+                <span id="publication-versions-toggle" class="label label-additional-info" aria-haspopup="true">
+                    <xsl:text>uknown version</xsl:text>
+                </span>
+                
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+
+    <xsl:template name="discovery-additional-info">
+        <xsl:param name="handleID" />
+        <div class="row item-view-additional-info-row">
+            <div class="col-xs-12 col-sm-12 item-view-additional-info-column">
+            
+                <div aria-label="additional-item-info" role="group" class="btn-group label-group">
+                    <xsl:call-template name="discovery-additional-info-type">
+                        <xsl:with-param name="handleID" select="$handleID"/>
+                    </xsl:call-template>
+                </div>
+
+                <div class="btn-group label-group" role="group" aria-label="additional-item-versions" style="float: right;">
+                    <xsl:call-template name="discovery-additional-info-version">
+                        <xsl:with-param name="handleID" select="$handleID"/>
+                    </xsl:call-template>
+                </div>
+            
+            </div>          
+        </div>
     </xsl:template>
 
     <xsl:template match="dri:list[@id='aspect.discovery.SimpleSearch.list.primary-search']//dri:item[dri:field[@id='aspect.discovery.SimpleSearch.field.query']]" priority="3">
