@@ -515,18 +515,13 @@ header .navbar-default .navbar-toggle > li > a:hover, header .navbar-default .na
   flex-wrap: wrap; }
 
 .button-file-icon {
-  /* padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 8px;
-  padding-right: 8px; */
   padding: 0;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   vertical-align: middle;
-  border: 0px; 
-  height: auto;
-}
+  border: 0px;
+  height: auto; }
 
 .filesection-file-icon {
   width: 100%;
@@ -544,9 +539,8 @@ header .navbar-default .navbar-toggle > li > a:hover, header .navbar-default .na
   white-space: normal;
   word-wrap: break-word;
   font-size: 13px;
-  color: #d22d40; 
-  height: auto;
-}
+  color: #d22d40;
+  height: auto; }
 
 .button-file-icon:hover, .button-file-icon:focus, .button-file-icon.focus, .button-file-icon:active, .button-file-icon.active,
 .open > .button-file-icon.dropdown-toggle {
@@ -939,8 +933,16 @@ label#strictly-necessary_label:before {
 .cc-icon-image {
   width: 1.4em; }
 
+.custom-licence-gratis-icon-image {
+  width: 6em;
+}
+
 .custom-licence-icon-image {
-  width: 2.8em; }
+  width: 7.0em; }
+
+.custom-licence-icon-image-en {
+  width: 8.0em;
+}
 
 /* Item's detailView */
 .detailtable .label-cell {
@@ -1027,88 +1029,40 @@ table.cuni-static-page-table > thead {
 div#about-toc {
   text-wrap: wrap; }
 
-/* #metadata > p {
-  text-align: justify;
-  word-wrap: break-word;
-  text-wrap: pretty;
-}
-
-#metadata > blockquote > p {
-  text-align: justify;
-  word-wrap: break-word;
-  text-wrap: pretty;
-}
-
-#metadata > h1, #metadata > h2, #metadata > h3, #metadata > h4, #metadata > h5, #metadata > h6 {
-  text-align: justify;
-  word-wrap: break-word;
-  text-wrap: pretty;
-}
-
-.mandatory-metadata-table > table > caption {
-  font-family: 'silkasemibold';
-}
-
-.mandatory-metadata-table > table > thead {
-  font-family: 'silkasemibold';
-}
-
-
-div#about-toc {
-  text-align: justify;
-  text-wrap: wrap;
-  word-wrap: break-word;
-}
-
-div#about-help {
-  text-align: justify;
-  text-wrap: pretty;
-  word-wrap: break-word;
-} */
-
 /* DISCOVERY */
-
 #filters-overview-wrapper .label {
   font-size: 0.9em;
   font-family: 'silkalight';
   font-weight: normal;
   color: #000;
   background-color: #fff;
-  border-radius: 0px;
-}
+  border-radius: 0px; }
 
 #filters-overview-wrapper .label:hover, #filters-overview-wrapper .label:focus {
   color: #d22d40;
   font-family: 'silkasemibold';
-  font-size: 0.9em;
-  
-}
+  font-size: 0.9em; }
 
 #aspect_discovery_SimpleSearch_div_search-results .ds-artifact-item {
   margin-left: -10px;
   margin-right: -5px;
   padding-top: 5px;
   margin-top: 10px;
-  margin-bottom: 25px;
-}
+  margin-bottom: 25px; }
 
-.row.ds-artifact-item:hover {
-
-  box-shadow: -5px 0px 0px #003657, -5px -3px 0px #d22d40, -5px 3px 0px #003657;
+.row.ds-artifact-item:hover, .row.ds-artifact-item:focus, .row.ds-artifact-item:active {
+  box-shadow: -5px 0px 0px #003657, inset 10px 0px 0px #003657;
 }
 
 .row.ds-artifact-item .img-thumbnail {
-  max-width: 75%;
-}
+  max-width: 75%; }
 
 h4.discovery-item-title {
   font-family: 'silkalight';
-  font-size: 17px;
-}
+  font-size: 17px; }
 
 h5.discovery-item-title-translated {
   font-family: 'silkalight';
-  font-size: 13px;
-}
+  font-size: 13px; }
 
 /* END OF: DISCOVERY */
