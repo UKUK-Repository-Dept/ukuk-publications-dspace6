@@ -257,8 +257,3 @@ crawl-delay: 10
 # Bing
 User-agent: bingbot
 crawl-delay: 10
-
-# Googlebot & GoogleOther bot
-# User-agent: GoogleOther
-# User-agent: Googlebot
-# crawl-delay: 10
