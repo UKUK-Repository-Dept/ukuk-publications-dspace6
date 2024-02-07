@@ -571,6 +571,7 @@
                 <string name="operator">contains</string>
                 <list name="values">
                     <string>openAccess</string>
+                    <string>embargoedAccess</string>
                     <string>restrictedAccess</string>
                 </list>
             </Configuration>
