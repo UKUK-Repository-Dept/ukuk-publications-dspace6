@@ -934,15 +934,13 @@ label#strictly-necessary_label:before {
   width: 1.4em; }
 
 .custom-licence-gratis-icon-image {
-  width: 6em;
-}
+  width: 6em; }
 
 .custom-licence-icon-image {
   width: 7.0em; }
 
 .custom-licence-icon-image-en {
-  width: 8.0em;
-}
+  width: 8.0em; }
 
 /* Item's detailView */
 .detailtable .label-cell {
@@ -1051,18 +1049,84 @@ div#about-toc {
   margin-bottom: 25px; }
 
 .row.ds-artifact-item:hover, .row.ds-artifact-item:focus, .row.ds-artifact-item:active {
-  box-shadow: -5px 0px 0px #003657, inset 10px 0px 0px #003657;
-}
+  box-shadow: -5px 0px 0px #003657, inset 10px 0px 0px #003657; }
 
 .row.ds-artifact-item .img-thumbnail {
   max-width: 75%; }
 
 h4.discovery-item-title {
   font-family: 'silkalight';
-  font-size: 17px; }
+  font-size: 17px; 
+  text-align: justify;
+}
 
 h5.discovery-item-title-translated {
   font-family: 'silkalight';
   font-size: 13px; }
+
+.row.discovery-additional-info-row {
+  margin-right: 0px;
+  /* border-bottom: 3px solid #003657;
+  border-right: 3px solid #003657; */
+} 
+
+.discovery-additional-info-column {
+  padding-left: 15px;
+  /* padding-top: 5px; */
+  padding-bottom: 5px; }
+
+.discovery-additional-info-row > .discovery-additional-info-column > .label-group > .label-additional-info {
+  color: #000;
+  font-size: 100%;
+  font-weight: normal;
+  border-radius: 0px;
+  font-family: 'silkasemibold';
+  font-size: 14px;
+  padding-left: 0px;
+  font-variant: small-caps;
+  /**vertical-align: middle;*/ }
+
+.discovery-additional-info-row > .discovery-additional-info-column > .label-group > .label-additional-info > .caret {
+  vertical-align: baseline;
+  border-top: 6px solid;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent; }
+
+.discovery-additional-item-info-licence, .label-discovery-publication-type, 
+.label-discovery-publication-version, .label-discovery-publication-licence,
+.label-discovery-publication-accessRights {
+  padding-right: 0;
+}
+
+
+.discovery-additional-info-access, .discovery-additional-info-licence, .label-discovery-publication-accessRights {
+  float:right;
+}
+
+.discovery-additional-info-column-right {
+  padding-right: 0px;
+}
+
+.discovery-authors-row-column {
+  text-align: justify;
+  text-wrap: pretty;
+}
+
+h4.discovery-author {
+  display: inline;
+  font-size: 13px;
+  font-family: 'silkalight';
+  font-weight: normal;
+  font-variant: petite-caps;
+  color: #000;
+}
+
+/* @media (max-width: 300px) 
+{
+  .discovery-additional-info-access, .discovery-additional-info-licence
+  {
+    float: left; 
+  } 
+} */
 
 /* END OF: DISCOVERY */

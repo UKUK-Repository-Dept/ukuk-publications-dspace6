@@ -162,6 +162,8 @@
     </xsl:template>
 
     <xsl:template name="itemSummaryView-DIM-license-icons">
+        <xsl:param name="licenseText"/>
+        <xsl:param name="licenseUri"/>
         <xsl:variable name="licenseText" select="dim:field[@element='rights']" />
         <!-- <JR> 2023-02-01 - by default, in our installation of DSpace for publications.cuni.cz, CC license URI is stored in dcterms.license -->
         <xsl:variable name="licenseUri" select="dim:field[@element='license']" />
@@ -181,6 +183,29 @@
                         <xsl:with-param name="licenseURL" select="$licenseUri"/>
                     </xsl:call-template>
                 </a>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+
+    <xsl:template name="discovery-DIM-license-icons">
+        <xsl:param name="licenseText"/>
+        <xsl:param name="licenseUri"/>
+
+        <xsl:choose>
+            <xsl:when test="$licenseText and $licenseUri and contains($licenseUri, 'creativecommons')">
+                <!-- <a rel="license" href="{$licenseUri}" target="_blank" alt="{$licenseText}" title="{$licenseText}"> -->
+                    <xsl:call-template name="cc-icon">
+                        <xsl:with-param name="licenseURL" select="$licenseUri"/>
+                    </xsl:call-template>
+                <!-- </a> -->
+            </xsl:when>
+            <xsl:otherwise>
+                <!-- <a rel="license" href="{$licenseUri}" target="_blank" alt="{$licenseText}" title="{$licenseText}"> -->
+                    <xsl:call-template name="no-cc-license-icon">
+                        <xsl:with-param name="licenseText" select="$licenseText"/>
+                        <xsl:with-param name="licenseURL" select="$licenseUri"/>
+                    </xsl:call-template>
+                <!-- </a> -->
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>

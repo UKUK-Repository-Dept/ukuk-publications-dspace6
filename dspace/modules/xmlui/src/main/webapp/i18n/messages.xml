@@ -2221,6 +2221,9 @@
 	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-version-acceptedVersion">accepted version</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-version-publishedVersion">published version</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-version-none">no other version</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-accessRights.openAccess">open access</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-accessRights.embargoedAccess">embargoed access</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-accessRights.restrictedAccess">restricted access</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-source-publication-name">Published in</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-source-publication-volume-issue">Volume / Issue</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-source-publication-isbn-issn">ISBN / ISSN</message>
