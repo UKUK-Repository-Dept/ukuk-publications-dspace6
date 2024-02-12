@@ -505,7 +505,7 @@
                         <ul class="nav navbar-nav pull-left">
                             <xsl:choose>
                                 <xsl:when test="/dri:document/dri:meta/dri:userMeta/@authenticated = 'yes'">
-                                    <li class="dropdown">
+                                    <li class="dropdown" id="user-profile-selection">
                                         <a id="user-dropdown-toggle" href="#" role="button" class="dropdown-toggle"
                                            data-toggle="dropdown">
                                             <span class="hidden-xs">

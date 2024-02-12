@@ -331,7 +331,14 @@ header .navbar-default .navbar-nav:focus .icon-bar {
   .other-identifier-column {
     /* padding-top: 5px;
     padding-bottom: 5px;  */
-    text-align: center; } }
+    text-align: center; } 
+
+  #user-profile-selection > ul > li > a {
+    line-height: 12px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+}
 
 /**
 LANGUAGE BUTTON
@@ -1056,9 +1063,8 @@ div#about-toc {
 
 h4.discovery-item-title {
   font-family: 'silkalight';
-  font-size: 17px; 
-  text-align: justify;
-}
+  font-size: 17px;
+  text-align: justify; }
 
 h5.discovery-item-title-translated {
   font-family: 'silkalight';
@@ -1067,8 +1073,7 @@ h5.discovery-item-title-translated {
 .row.discovery-additional-info-row {
   margin-right: 0px;
   /* border-bottom: 3px solid #003657;
-  border-right: 3px solid #003657; */
-} 
+  border-right: 3px solid #003657; */ }
 
 .discovery-additional-info-column {
   padding-left: 15px;
@@ -1092,25 +1097,20 @@ h5.discovery-item-title-translated {
   border-left: 4px solid transparent;
   border-right: 4px solid transparent; }
 
-.discovery-additional-item-info-licence, .label-discovery-publication-type, 
+.discovery-additional-item-info-licence, .label-discovery-publication-type,
 .label-discovery-publication-version, .label-discovery-publication-licence,
 .label-discovery-publication-accessRights {
-  padding-right: 0;
-}
-
+  padding-right: 0; }
 
 .discovery-additional-info-access, .discovery-additional-info-licence, .label-discovery-publication-accessRights {
-  float:right;
-}
+  float: right; }
 
 .discovery-additional-info-column-right {
-  padding-right: 0px;
-}
+  padding-right: 0px; }
 
 .discovery-authors-row-column {
   text-align: justify;
-  text-wrap: pretty;
-}
+  text-wrap: pretty; }
 
 h4.discovery-author {
   display: inline;
@@ -1118,8 +1118,7 @@ h4.discovery-author {
   font-family: 'silkalight';
   font-weight: normal;
   font-variant: petite-caps;
-  color: #000;
-}
+  color: #000; }
 
 /* @media (max-width: 300px) 
 {
@@ -1128,5 +1127,4 @@ h4.discovery-author {
     float: left; 
   } 
 } */
-
 /* END OF: DISCOVERY */
