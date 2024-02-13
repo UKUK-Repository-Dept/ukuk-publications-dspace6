@@ -215,6 +215,11 @@
         <xsl:param name="licenseURL"/>
         
         <xsl:choose>
+            <xsl:when test="not($licenseText)">
+                <span class="label label-additional-info label-discovery-publication-licence" label="Unknown licence" aria-label="Licence information" aria-haspopup="true">
+                    <i18n:text>xmlui.dri2xhtml.METS-1.0.item-publication-licence-unknown</i18n:text>
+                </span>
+            </xsl:when>
             <xsl:when test="contains($licenseText, 'gratis open access')">
                 <span id="gratis-oa-icon" class="custom-licence-icon-gratis">
                     <img src="{$theme-path}/images/cc/gratis_oa.svg" class="custom-licence-gratis-icon-image" alt="Gratis Apen Access Icon"/>
@@ -223,12 +228,12 @@
             <xsl:otherwise>
                 <xsl:if test="$active-locale = 'cs'">
                     <span id="custom-licence-icon" class="custom-licence-icon">
-                        <img src="{$theme-path}/images/cc/other_license_cs.svg" class="custom-licence-icon-image" alt="Ikona Jiná licence"/>
+                        <img src="{$theme-path}/images/cc/other_license_cs.svg" class="custom-licence-icon-image" title="{$licenseText}" alt="Ikona Jiná licence"/>
                     </span>
                 </xsl:if>
                 <xsl:if test="$active-locale = 'en'">
                     <span id="custom-licence-icon" class="custom-licence-icon">
-                        <img src="{$theme-path}/images/cc/other_license_en.svg" class="custom-licence-icon-image-en" alt="Custom Licence Icon"/>
+                        <img src="{$theme-path}/images/cc/other_license_en.svg" class="custom-licence-icon-image-en" title="{$licenseText}" alt="Custom Licence Icon"/>
                     </span>
                 </xsl:if>
             </xsl:otherwise>
