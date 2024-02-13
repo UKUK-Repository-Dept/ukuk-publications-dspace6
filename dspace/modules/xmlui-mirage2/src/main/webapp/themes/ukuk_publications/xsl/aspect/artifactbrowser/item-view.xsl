@@ -166,6 +166,7 @@
                     <xsl:call-template name="itemSummaryView-DIM-authors"/>
                     <xsl:call-template name="itemSummaryView-DIM-date"/>
                     <xsl:call-template name="itemSummaryView-DIM-source-publication-name"/>
+                    <xsl:call-template name="itemSummaryView-DIM-publisher-publicationPlace"/>
                     <xsl:call-template name="itemSummaryView-DIM-source-publication-volume-issue"/>
                     <xsl:call-template name="itemSummaryView-DIM-source-publication-isbn-issn" />
                     <xsl:call-template name="itemSummaryView-DIM-publication-isbn-issn" />
@@ -843,7 +844,7 @@
 
     <xsl:template match="*" mode="solrOtherOutputVersions">
         <xsl:if test="/response/result/@numFound != '0'">
-            <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="publications-versions-toggle">
+            <ul class="dropdown-menu dropdown-menu-right publications-versions-toggle" aria-labelledby="publications-versions-toggle">
                 <xsl:for-each select="/response/result/doc">
                     <xsl:variable name="otherOutputVersionURL" select="./arr[@name='dc.identifier.uri']/str/text()"/>
                     <!-- 
@@ -859,7 +860,7 @@
                         </xsl:call-template>
                     </xsl:variable>
                     <li>
-                        <a href="{$otherOutputVersionURL}">
+                        <a href="{$otherOutputVersionURL}" class="publication-versions-toggle-link">
                             <i18n:text><xsl:value-of select="concat('xmlui.dri2xhtml.METS-1.0.item-publication-version-',$otherOutputVersionType)"/></i18n:text>
                         </a>
                     </li>
@@ -896,7 +897,8 @@
     <!-- <JR> - 2023-10-27: Source  publication volume & issue -->
 
     <xsl:template name="itemSummaryView-DIM-source-publication-volume-issue">
-        <xsl:if test="dim:field[@element='isPartOf' and @qualifier=('journalVolume' or 'journalIssue')]">
+        <xsl:if test="dim:field[@element='isPartOf' and @qualifier='journalVolume'] or 
+        dim:field[@element='isPartOf' and @qualifier='journalIssue']">
             <div class="simple-item-view-source-publication-volume-issue word-break item-page-field-wrapper table">
                 <h5 class="item-view-metadata-heading" id="itemSummaryView-DIM-source-publication-volume-issue">
                     <i18n:text>xmlui.dri2xhtml.METS-1.0.item-source-publication-volume-issue</i18n:text>
@@ -982,6 +984,32 @@
             </div>
         </xsl:if>
 
+    </xsl:template>
+
+    <xsl:template name="itemSummaryView-DIM-publisher-publicationPlace">
+        <xsl:if test="dim:field[@element='publisher' and not(@qualifier)] or dim:field[@element='publisher' and @qualifier='publicationPlace']">
+            <div class="simple-item-view-publication-publisher word-break item-page-field-wrapper table">
+                <h5 class="item-view-metadata-heading" id="itemSummaryView-DIM-publisher-info">
+                    <i18n:text>xmlui.dri2xhtml.METS-1.0.item-publisher</i18n:text>
+                    <xsl:text> / </xsl:text>
+                    <i18n:text>xmlui.dri2xhtml.METS-1.0.item-publisher-publication-place</i18n:text>
+                </h5>
+
+                <xsl:if test="dim:field[@element='publisher' and not(@qualifier)]">
+                    <xsl:for-each select="dim:field[@element='publisher' and not(@qualifier)]">
+                        <xsl:copy-of select="./node()"/>
+                    </xsl:for-each>
+                </xsl:if>
+
+                <xsl:if test="dim:field[@element='publisher' and @qualifier='publicationPlace']">
+                    <xsl:text> (</xsl:text>
+                    <xsl:for-each select="dim:field[@element='publisher' and @qualifier='publicationPlace']">
+                        <xsl:copy-of select="./node()"/>
+                    </xsl:for-each>
+                    <xsl:text>)</xsl:text>
+                </xsl:if>
+            </div>
+        </xsl:if>
     </xsl:template>
 
     <xsl:template name="itemSummaryView-show-full">
