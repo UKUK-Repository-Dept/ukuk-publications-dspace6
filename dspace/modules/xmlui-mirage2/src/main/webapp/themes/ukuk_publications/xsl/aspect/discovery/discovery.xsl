@@ -260,30 +260,16 @@
                         <xsl:with-param name="metsDoc" select="$metsDoc"/>
                     </xsl:call-template>
                     
-                    <xsl:text> </xsl:text>
-                    <xsl:if test="dri:list[@n=(concat($handle, ':dc.date.issued'))]">
-                        <span class="publisher-date h4">   <small>
-                            <xsl:text>(</xsl:text>
-                            <xsl:if test="dri:list[@n=(concat($handle, ':dc.publisher'))]">
-                                <span class="publisher">
-                                    <xsl:apply-templates select="dri:list[@n=(concat($handle, ':dc.publisher'))]/dri:item"/>
-                                </span>
-                                <xsl:text>, </xsl:text>
-                            </xsl:if>
-                            <xsl:if test="dri:list[@n=(concat($handle, ':dc.publisher.publicationPlace'))]">
-                                <span class="publisherPlace">
-                                    <xsl:apply-templates select="dri:list[@n=(concat($handle, ':dc.publisher.publicationPlace'))]/dri:item"/>
-                                </span>
-                                <xsl:text>, </xsl:text>
-                            </xsl:if>
-                            <span class="date">
-                                <xsl:value-of
-                                        select="substring(dri:list[@n=(concat($handle, ':dc.date.issued'))]/dri:item,1,10)"/>
-                            </span>
-                            <xsl:text>)</xsl:text>
-                            </small></span>
-                    </xsl:if>
-                    <xsl:choose>
+                    <xsl:call-template name="discovery-publication-info">
+                        <xsl:with-param name="handle" select="$handle" />
+                        <xsl:with-param name="metsDoc" select="$metsDoc"/>
+                    </xsl:call-template>
+
+                    <xsl:call-template name="discovery-abstract">
+                        <xsl:with-param name="handle" select="$handle" />
+                        <xsl:with-param name="metsDoc" select="$metsDoc"/>
+                    </xsl:call-template>
+                    <!-- <xsl:choose>
                         <xsl:when test="dri:list[@n=(concat($handle, ':dc.description.abstract'))]/dri:item/dri:hi">
                             <div class="abstract">
                                 <xsl:for-each select="dri:list[@n=(concat($handle, ':dc.description.abstract'))]/dri:item">
@@ -308,7 +294,7 @@
                                 <xsl:value-of select="util:shortenString(dri:list[@n=(concat($handle, ':dc.description.abstract'))]/dri:item[1], 220, 10)"/>
                         </div>
                     </xsl:when>
-                    </xsl:choose>
+                    </xsl:choose> -->
                 </div>
             </div>
         </div>
@@ -354,89 +340,145 @@
         <xsl:choose>
             <xsl:when test="dri:list[@n=(concat($handleID, ':dc.type.obdHierarchy', $languageCapitalized))]">
                 
-                <span class="label label-additional-info label-discovery-publication-type" aria-haspopup="true">
+                <h4 class="label label-additional-info label-discovery-publication-type" aria-haspopup="true">
                     <xsl:value-of 
                         select="substring-after(substring-after(dri:list[@n=(concat($handleID, 
                         ':dc.type.obdHierarchy', $languageCapitalized))]/dri:item[1],'::'),'::')"/>
-                </span>
+                </h4>
 
             </xsl:when>
             <xsl:otherwise>
                     
-                <span type="button" class="label label-additional-info label-discovery-publication-type" aria-haspopup="true">
-                    <xsl:text>unknown type</xsl:text>
-                </span>
+                <h4 class="label label-additional-info label-discovery-publication-type" aria-haspopup="false">
+                    <i18n:text>xmlui.dri2xhtml.METS-1.0.item-publication-type-unknown</i18n:text>
+                </h4>
 
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
 
+    <xsl:template name="discovery-authors-value">
+        <xsl:param name="authorItem"/>
+        <xsl:param name="metsDoc"/>
+
+        <xsl:variable name="author">
+            <xsl:apply-templates select="$authorItem"/>
+        </xsl:variable>
+        <h4 class="discovery-author">
+            <!--Check authority in the mets document-->
+            <xsl:if test="$metsDoc/mets:METS/mets:dmdSec/mets:mdWrap/mets:xmlData/dim:dim/dim:field[@element='contributor' and @qualifier='author' and $authorItem = $author]/@authority">
+                <xsl:attribute name="class">
+                    <xsl:text>ds-dc_contributor_author-authority</xsl:text>
+                </xsl:attribute>
+            </xsl:if>
+            <xsl:apply-templates select="$authorItem"/>
+        </h4>
+
+    </xsl:template>
+
+    <xsl:template name="discovery-authors-three-or-less">
+        <xsl:param name="handle"/>
+        <xsl:param name="metsDoc"/>
+
+        <xsl:for-each select="dri:list[@n=(concat($handle, ':dc.contributor.author'))]/dri:item">
+            <xsl:if test="count(preceding-sibling::dri:item) &lt;= 2">
+                <xsl:call-template name="discovery-authors-value">
+                    <xsl:with-param name="authorItem" select="." />
+                    <xsl:with-param name="metsDoc" select="$metsDoc" />
+                </xsl:call-template>
+            </xsl:if>
+
+            <xsl:if test="count(preceding-sibling::dri:item) &lt;2 
+            and not(count(following-sibling::dri:item) = 0)">
+                <xsl:text>; </xsl:text>
+            </xsl:if>
+            <xsl:if test="count(preceding-sibling::dri:item) = 2 and count(following-sibling::dri:item) > 0">
+                <xsl:text>; </xsl:text>
+            </xsl:if>
+        </xsl:for-each>
+    </xsl:template>
+
+    <xsl:template name="discovery-authors-more-then-three">
+        <xsl:param name="handle"/>
+        <xsl:param name="metsDoc"/>
+
+        <xsl:variable name="handleNew">
+            <xsl:value-of select="substring-after($handle, '/')"/>
+        </xsl:variable>
+
+        <xsl:call-template name="discovery-authors-three-or-less">
+            <xsl:with-param name="handle" select="$handle"/>
+            <xsl:with-param name="metsDoc" select="$metsDoc" />
+        </xsl:call-template>
+        
+        <div id="collapse-discovery-authors-{$handleNew}" class="collapse" 
+        aria-labelledby="discovery-item-authors-{$handleNew}">
+            <xsl:for-each select="dri:list[@n=(concat($handle, ':dc.contributor.author'))]/dri:item">
+                <xsl:if test="count(preceding-sibling::dri:item) > 3 and count(following-sibling::dri:item) > 0">
+
+                    <xsl:call-template name="discovery-authors-value">
+                        <xsl:with-param name="authorItem" select="." />
+                        <xsl:with-param name="metsDoc" select="$metsDoc" />
+                    </xsl:call-template>
+
+                    <xsl:if test="count(following-sibling::dri:item) != 0">
+                        <xsl:text>; </xsl:text>
+                    </xsl:if>
+                </xsl:if>
+                <xsl:if test="count(preceding-sibling::dri:item) > 3 and count(following-sibling::dri:item) = 0">
+                   
+                    <xsl:call-template name="discovery-authors-value">
+                        <xsl:with-param name="authorItem" select="." />
+                        <xsl:with-param name="metsDoc" select="$metsDoc" />
+                    </xsl:call-template>
+                </xsl:if>
+                
+            </xsl:for-each>
+        </div>
+
+        <div class="discovery-authors-button-div">
+            <button class="btn btn-link collapsed discovery-show-authors-button" type="button" data-toggle="collapse" 
+            data-target="#collapse-discovery-authors-{$handleNew}" aria-expanded="false"
+            aria-controls="collapse-discovery-authors-{$handleNew}">
+                <i18n:text>xmlui.dri2xhtml.METS-1.0.item-author-collapse</i18n:text>
+            </button>
+        </div>
+
+    </xsl:template>
+
     <xsl:template name="discovery-authors">
         <xsl:param name="handle"/>
         <xsl:param name="metsDoc"/>
-        <div class="row authors-row">
-            <div class="col-xs-12 col-sm-12 col-md-12 discovery-authors-row-column">
+        <xsl:variable name="handleNew">
+            <xsl:value-of select="substring-after($handle, '/')"/>
+        </xsl:variable>
         
-            <xsl:choose>
-                <xsl:when test="dri:list[@n=(concat($handle, ':dc.contributor.author'))]">
-                    <xsl:for-each select="dri:list[@n=(concat($handle, ':dc.contributor.author'))]/dri:item">
-                        <xsl:if test="count(preceding-sibling::dri:item) &lt;= 2">
-                            <xsl:variable name="author">
-                                <xsl:apply-templates select="."/>
-                            </xsl:variable>
-                            <h4 class="discovery-author">
-                                <!--Check authority in the mets document-->
-                                <xsl:if test="$metsDoc/mets:METS/mets:dmdSec/mets:mdWrap/mets:xmlData/dim:dim/dim:field[@element='contributor' and @qualifier='author' and . = $author]/@authority">
-                                    <xsl:attribute name="class">
-                                        <xsl:text>ds-dc_contributor_author-authority</xsl:text>
-                                    </xsl:attribute>
-                                </xsl:if>
-                                <xsl:apply-templates select="."/>
-                            </h4>
+        <xsl:variable name="authorsCount" select="count(dri:list[@n=(concat($handle, ':dc.contributor.author'))]/dri:item)"/>
+        <div class="row discovery-authors-row">
+            <div class="col-xs-12 col-sm-12 col-md-12 discovery-authors-row-column" id="discovery-item-authors-{$handleNew}">
+                <xsl:choose>
+                    <xsl:when test="dri:list[@n=(concat($handle, ':dc.contributor.author'))]">
+                        <xsl:if test="$authorsCount &lt;= 3">
+                            <xsl:call-template name="discovery-authors-three-or-less">
+                                <xsl:with-param name="handle" select="$handle"/>
+                                <xsl:with-param name="metsDoc" select="$metsDoc" />
+                            </xsl:call-template>
                         </xsl:if>
 
-                        <xsl:if test="count(preceding-sibling::dri:item) &lt;2 
-                        and not(count(following-sibling::dri:item) = 0)">
-                            <xsl:text>; </xsl:text>
+                        <xsl:if test="$authorsCount > 3">
+                            <xsl:call-template name="discovery-authors-more-then-three">
+                                <xsl:with-param name="handle" select="$handle"/>
+                                <xsl:with-param name="metsDoc" select="$metsDoc"/>
+                            </xsl:call-template>
                         </xsl:if>
-                        <xsl:if test="count(preceding-sibling::dri:item) = 2">
-                            <xsl:text>; </xsl:text><h4 class="discovery-author">et al.</h4>
-                        </xsl:if>
-                    </xsl:for-each>
-
-                    <xsl:if test="count(dri:list[@n=(concat($handle, ':dc.contributor.author'))]/dri:item) > 3">
-                        <div class="row authors-row">
-                            <div class="col-xs-12 col-sm-12 col-md-12 discovery-authors-row-column">
-                                <a role="button" data-toggle="collapse" data-parent="#discovery-authors" 
-                                    href="#collapse-authors" aria-expanded="false" aria-controls="collapse-discovery-authors">
-                                    <i18n:text>xmlui.dri2xhtml.METS-1.0.item-author-collapse</i18n:text>
-                                </a>
-                            </div>
-                        </div>
-                    </xsl:if>
-                </xsl:when>
-                <xsl:when test="dri:list[@n=(concat($handle, ':dc.creator'))]">
-                    <xsl:for-each select="dri:list[@n=(concat($handle, ':dc.creator'))]/dri:item">
-                        <xsl:apply-templates select="."/>
-                        <xsl:if test="count(following-sibling::dri:item) != 0">
-                            <xsl:text>; </xsl:text>
-                        </xsl:if>
-                    </xsl:for-each>
-                </xsl:when>
-                <xsl:when test="dri:list[@n=(concat($handle, ':dc.contributor'))]">
-                    <xsl:for-each select="dri:list[@n=(concat($handle, ':dc.contributor'))]/dri:item">
-                        <xsl:apply-templates select="."/>
-                        <xsl:if test="count(following-sibling::dri:item) != 0">
-                            <xsl:text>; </xsl:text>
-                        </xsl:if>
-                    </xsl:for-each>
-                </xsl:when>
-                <xsl:otherwise>
-                    <i18n:text>xmlui.dri2xhtml.METS-1.0.no-author</i18n:text>
-                </xsl:otherwise>
-            </xsl:choose>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <i18n:text>xmlui.dri2xhtml.METS-1.0.no-author</i18n:text>
+                    </xsl:otherwise>
+                </xsl:choose>
             </div>
         </div>
+
     </xsl:template>
 
     <xsl:template name="discovery-additional-info-version">
@@ -450,17 +492,17 @@
                                     ':dc.type.version'))]/dri:item[1], 'info:eu-repo/semantics/')" />
                 </xsl:variable>
                     
-                <span id="discovery-publication-version" class="label label-additional-info label-discovery-publication-version" aria-haspopup="true">
+                <h4 id="discovery-publication-version" class="label label-additional-info label-discovery-publication-version" aria-haspopup="false">
                     <i18n:text>xmlui.dri2xhtml.METS-1.0.item-publication-version-<xsl:value-of select="$publicationVersionValue" />
                     </i18n:text>
-                </span>
+                </h4>
                 
             </xsl:when>
             <xsl:otherwise>
                 
-                <span id="discovery-publication-version" class="label label-additional-info label-discovery-publication-version" aria-haspopup="true">
-                    <xsl:text>unknown version</xsl:text>
-                </span>
+                <h4 id="discovery-publication-version" class="label label-additional-info label-discovery-publication-version" aria-haspopup="false">
+                    <i18n:text>xmlui.dri2xhtml.METS-1.0.item-publication-version-unknown</i18n:text>
+                </h4>
                 
             </xsl:otherwise>
         </xsl:choose>
@@ -482,7 +524,7 @@
                         <xsl:variable name="embargoEndDate" 
                         select="dri:list[@n=(concat($handleID, ':dc.date.embargoEndDate'))]/dri:item[1]"/>
 
-                        <span class="label label-additional-info label-discovery-publication-accessRights"
+                        <h4 class="label label-additional-info label-discovery-publication-accessRights"
                             data-toggle="tooltip" data-placement="bottom" 
                             aria-label="Access information">
                             <xsl:if test="$active-locale = 'cs'">
@@ -493,20 +535,20 @@
                             </xsl:if>
                             
                             <i18n:text><xsl:value-of select="$publicationAccessRightsValue" /></i18n:text>
-                        </span>
+                        </h4>
                     </xsl:when>
                     <xsl:otherwise>
-                        <span class="label label-additional-info label-discovery-publication-accessRights" 
+                        <h4 class="label label-additional-info label-discovery-publication-accessRights" 
                             aria-label="Access information">
                             <i18n:text><xsl:value-of select="$publicationAccessRightsValue" /></i18n:text>
-                        </span>
+                        </h4>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
             <xsl:otherwise>
-                <span class="label label-additional-info label-discovery-publication-accessRights" aria-haspopup="true">
-                    <xsl:text>uknown access rights</xsl:text>
-                </span>
+                <h4 class="label label-additional-info label-discovery-publication-accessRights" aria-haspopup="false">
+                    <i18n:text>xmlui.dri2xhtml.METS-1.0.item-publication-accessRights.unknown</i18n:text>
+                </h4>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -514,25 +556,17 @@
     <xsl:template name="discovery-additional-info-licence">
         <xsl:param name="handleID"/>
         
-        <xsl:choose>
-            <xsl:when test="dri:list[@n=(concat($handleID, ':dc.rights'))] and dri:list[@n=(concat($handleID, ':dcterms.license'))]">
-                <xsl:variable name="licenseText" select="dri:list[@n=(concat($handleID, ':dc.rights'))]/dri:item[1]"/>
-                <xsl:variable name="licenseUri" select="dri:list[@n=(concat($handleID, ':dcterms.license'))]/dri:item[1]"/>
-                
-                <div class="btn-group label-group discovery-additional-item-info-licence" 
-                    data-toggle="tooltip" data-placement="bottom" title="{$licenseText}" role="group" aria-label="License information">
-                    <xsl:call-template name="discovery-DIM-license-icons">
-                        <xsl:with-param name="licenseText" select="$licenseText"/>
-                        <xsl:with-param name="licenseUri" select="$licenseUri" />
-                    </xsl:call-template>
-                </div>
-            </xsl:when>
-            <xsl:otherwise>
-                    <span class="label label-additional-info label-discovery-publication-licence" label="Uknown licence" aria-label="Licence information" aria-haspopup="true">
-                        <xsl:text>unknown license</xsl:text>
-                    </span>
-            </xsl:otherwise>
-        </xsl:choose>
+        <xsl:variable name="licenseText" select="dri:list[@n=(concat($handleID, ':dc.rights'))]/dri:item[1]"/>
+        <xsl:variable name="licenseUri" select="dri:list[@n=(concat($handleID, ':dcterms.license'))]/dri:item[1]"/>
+        
+        <div class="btn-group label-group discovery-additional-item-info-licence" 
+            data-toggle="tooltip" data-placement="bottom" title="{$licenseText}" role="group" aria-label="License information">
+            <xsl:call-template name="discovery-DIM-license-icons">
+                <xsl:with-param name="licenseText" select="$licenseText"/>
+                <xsl:with-param name="licenseUri" select="$licenseUri" />
+            </xsl:call-template>
+        </div>
+        
     </xsl:template>
 
     <xsl:template name="discovery-additional-info">
@@ -571,6 +605,102 @@
                 </div>
             </div>
         </div>
+    </xsl:template>
+
+    <xsl:template name="discovery-publication-info">
+        <xsl:param name="handle" />
+        <xsl:param name="metsDoc" />
+        <div class="row discovery-publication-info-row">
+            <div class="col-xs-12 col-sm-12 col-md-12 discovery-publication-info-column">
+                <xsl:if test="dri:list[@n=(concat($handle, ':dc.date.issued'))]">
+                    <h4 class="discovery-publication-info-heading">
+                        <xsl:value-of
+                                select="substring(dri:list[@n=(concat($handle, ':dc.date.issued'))]/dri:item,1,10)"/>
+                    </h4>
+                </xsl:if>
+
+                <xsl:if test="dri:list[@n=(concat($handle, ':dc.publisher.publicationPlace'))]">
+                    <xsl:text>, </xsl:text>
+                    <h4 class="discovery-publication-info-heading">
+                        <xsl:apply-templates select="dri:list[@n=(concat($handle, ':dc.publisher.publicationPlace'))]/dri:item"/>
+                    </h4>
+                </xsl:if>
+                <xsl:if test="dri:list[@n=(concat($handle, ':dc.publisher'))]">
+                    <xsl:text>, </xsl:text>
+                    <h4 class="discovery-publication-info-heading">
+                        <xsl:apply-templates select="dri:list[@n=(concat($handle, ':dc.publisher'))]/dri:item"/>
+                    </h4>
+                </xsl:if>
+                
+                <xsl:if test="dri:list[@n=(concat($handle, ':dcterms.isPartOf.name'))]">
+                    <xsl:text>, </xsl:text>
+                    <h4 class="discovery-publication-info-heading">
+                        <xsl:apply-templates select="dri:list[@n=(concat($handle, ':dcterms.isPartOf.name'))]/dri:item"/>
+                    </h4>
+                </xsl:if>
+                <xsl:if test="dri:list[@n=(concat($handle, ':dcterms.isPartOf.journalVolume'))] 
+                or dri:list[@n=(concat($handle, ':dcterms.isPartOf.journalIssue'))]">
+                    <xsl:if test="dri:list[@n=(concat($handle, ':dcterms.isPartOf.journalVolume'))]">
+                        <xsl:text>, </xsl:text>
+                        <h4 class="discovery-publication-info-heading">
+                            <xsl:apply-templates select="dri:list[@n=(concat($handle, ':dcterms.isPartOf.journalVolume'))]/dri:item"/>
+                        </h4>
+                    </xsl:if>
+                    <xsl:if test="dri:list[@n=(concat($handle, ':dcterms.isPartOf.journalIssue'))]">
+                        <xsl:text> </xsl:text>
+                        <h4 class="discovery-publication-info-heading">
+                            <xsl:text>(</xsl:text>
+                            <xsl:apply-templates select="dri:list[@n=(concat($handle, ':dcterms.isPartOf.journalIssue'))]/dri:item"/>
+                            <xsl:text>)</xsl:text>
+                        </h4>
+                    </xsl:if>
+                </xsl:if>
+            </div>
+        </div>
+
+    </xsl:template>
+
+    <xsl:template name="discovery-abstract">
+        <xsl:param name="handle" />
+        <xsl:param name="metsDoc"/>
+
+        <xsl:choose>
+            <xsl:when test="dri:list[@n=(concat($handle, ':dc.description.abstract'))]/dri:item/dri:hi">
+                <div class="row discovery-abstract-row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 discovery-abstract-column">
+                        <h4 class="discovery-abstract">
+                            <xsl:for-each select="dri:list[@n=(concat($handle, ':dc.description.abstract'))]/dri:item">
+                                <xsl:apply-templates select="."/>
+                                <xsl:text>...</xsl:text>
+                                <br/>
+                            </xsl:for-each>
+                        </h4>
+                    </div>
+                </div>
+            </xsl:when>
+            <xsl:when test="dri:list[@n=(concat($handle, ':fulltext'))]">
+                <div class="row discovery-abstract-row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 discovery-abstract-column">
+                        <h4 class="discovery-abstract">
+                            <xsl:for-each select="dri:list[@n=(concat($handle, ':fulltext'))]/dri:item">
+                                <xsl:apply-templates select="."/>
+                                <xsl:text>...</xsl:text>
+                                <br/>
+                            </xsl:for-each>
+                        </h4>
+                    </div>
+                </div>
+            </xsl:when>
+            <xsl:when test="dri:list[@n=(concat($handle, ':dc.description.abstract'))]/dri:item">
+                <div class="row discovery-abstract-row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 discovery-abstract-column">
+                        <h4 class="discovery-abstract">
+                            <xsl:value-of select="util:shortenString(dri:list[@n=(concat($handle, ':dc.description.abstract'))]/dri:item[1], 220, 10)"/>
+                        </h4>
+                    </div>
+                </div>
+            </xsl:when>
+        </xsl:choose>
     </xsl:template>
 
     <xsl:template match="dri:list[@id='aspect.discovery.SimpleSearch.list.primary-search']//dri:item[dri:field[@id='aspect.discovery.SimpleSearch.field.query']]" priority="3">
