@@ -269,32 +269,7 @@
                         <xsl:with-param name="handle" select="$handle" />
                         <xsl:with-param name="metsDoc" select="$metsDoc"/>
                     </xsl:call-template>
-                    <!-- <xsl:choose>
-                        <xsl:when test="dri:list[@n=(concat($handle, ':dc.description.abstract'))]/dri:item/dri:hi">
-                            <div class="abstract">
-                                <xsl:for-each select="dri:list[@n=(concat($handle, ':dc.description.abstract'))]/dri:item">
-                                    <xsl:apply-templates select="."/>
-                                    <xsl:text>...</xsl:text>
-                                    <br/>
-                                </xsl:for-each>
-
-                            </div>
-                        </xsl:when>
-                        <xsl:when test="dri:list[@n=(concat($handle, ':fulltext'))]">
-                            <div class="abstract">
-                                <xsl:for-each select="dri:list[@n=(concat($handle, ':fulltext'))]/dri:item">
-                                    <xsl:apply-templates select="."/>
-                                    <xsl:text>...</xsl:text>
-                                    <br/>
-                                </xsl:for-each>
-                            </div>
-                        </xsl:when>
-                        <xsl:when test="dri:list[@n=(concat($handle, ':dc.description.abstract'))]/dri:item">
-                        <div class="abstract">
-                                <xsl:value-of select="util:shortenString(dri:list[@n=(concat($handle, ':dc.description.abstract'))]/dri:item[1], 220, 10)"/>
-                        </div>
-                    </xsl:when>
-                    </xsl:choose> -->
+                    
                 </div>
             </div>
         </div>
@@ -414,7 +389,7 @@
         <div id="collapse-discovery-authors-{$handleNew}" class="collapse" 
         aria-labelledby="discovery-item-authors-{$handleNew}">
             <xsl:for-each select="dri:list[@n=(concat($handle, ':dc.contributor.author'))]/dri:item">
-                <xsl:if test="count(preceding-sibling::dri:item) > 3 and count(following-sibling::dri:item) > 0">
+                <xsl:if test="count(preceding-sibling::dri:item) >= 3 and count(following-sibling::dri:item) > 0">
 
                     <xsl:call-template name="discovery-authors-value">
                         <xsl:with-param name="authorItem" select="." />
@@ -425,7 +400,7 @@
                         <xsl:text>; </xsl:text>
                     </xsl:if>
                 </xsl:if>
-                <xsl:if test="count(preceding-sibling::dri:item) > 3 and count(following-sibling::dri:item) = 0">
+                <xsl:if test="count(preceding-sibling::dri:item) >= 3 and count(following-sibling::dri:item) = 0">
                    
                     <xsl:call-template name="discovery-authors-value">
                         <xsl:with-param name="authorItem" select="." />
