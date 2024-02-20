@@ -54,6 +54,8 @@ public class SiteRecentSubmissions extends AbstractRecentSubmissionTransformer {
 
             lastSubmittedDiv.setHead(T_head_recent_submissions);
 
+            Division lastSubmittedSearchDiv = home.addDivision("site-recent-submission-search", "secondary recent-submission-search");
+
             ReferenceSet lastSubmitted = lastSubmittedDiv.addReferenceSet(
                     "site-last-submitted", ReferenceSet.TYPE_SUMMARY_LIST,
                     null, "recent-submissions");
