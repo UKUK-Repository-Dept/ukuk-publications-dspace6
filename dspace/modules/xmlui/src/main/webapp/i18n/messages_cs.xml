@@ -3668,4 +3668,9 @@
 	<message key="xmlui.publication.version.publishedVersion">Vydavatelská publikovaná verze</message>
 	<message key="xmlui.publication.version.updatedVersion">Aktualizovaná publikovaná verze</message>
 
+	<!-- HOMEPAGE -->
+	<message key="xmlui.homepage.recentSubmissions.info.text">Objevte publikace nedávno vložené do repozitáře.</message>
+	<message key="xmlui.homepage.howToSubmit">Jak uložit publikaci?</message>
+	<message key="xmlui.homepage.getHelp">Potřebujete pomoct?</message>
+
 </catalogue>

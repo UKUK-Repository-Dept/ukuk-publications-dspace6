@@ -3576,4 +3576,9 @@
 	<message key="xmlui.publication.version.publishedVersion">Published version</message>
 	<message key="xmlui.publication.version.updatedVersion">Updated published version</message>
 
+	<!-- HOMEPAGE -->
+	<message key="xmlui.homepage.recentSubmissions.info.text">Discover recently submitted publications</message>
+	<message key="xmlui.homepage.howToSubmit">How to deposit?</message>
+	<message key="xmlui.homepage.getHelp">Do you need help?</message>
+
 </catalogue>
