@@ -122,6 +122,10 @@ public class RecentSubmissionTransformer extends AbstractDSpaceTransformer {
 
         Division mainDivision = body.addDivision("main-recent-submissions");
         setMainTitle(dso, mainDivision);
+
+        // <JR> - 2024-02-20: Added a new Division (div) to /recent-submissions page - it will hold a seach form
+        Division mainRecentSubmissionsSearch = mainDivision.addDivision("main-recent-submissions-search");
+
         Division recentSubmissionDivision = mainDivision.addDivision("recent-submissions");
         if(isHomePage){
             recentSubmissionDivision.setHead(T_recent_submission_head);
