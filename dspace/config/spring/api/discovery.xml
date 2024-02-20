@@ -100,10 +100,10 @@
             <list>
                 <ref bean="searchFilterFacetOBDTypeHierarchyCs" />
                 <ref bean="searchFilterFacetOBDTypeHierarchyEn" />
-                <ref bean="searchFilterAuthor" />
-                <ref bean="searchFilterSubject" />
                 <ref bean="searchFilterIssued" />
-		        <ref bean="searchFilterContentInOriginalBundle"/>
+                <!-- <ref bean="searchFilterAuthor" /> -->
+                <!-- <ref bean="searchFilterSubject" /> -->
+		        <!-- <ref bean="searchFilterContentInOriginalBundle"/> -->
             </list>
         </property>
         <!-- Set TagCloud configuration per discovery configuration -->
@@ -117,9 +117,9 @@
                 <ref bean="searchFilterAuthor" />
                 <ref bean="searchFilterSubject" />
                 <ref bean="searchFilterIssued" />
-		        <ref bean="searchFilterContentInOriginalBundle"/>
-                <ref bean="searchFilterFileNameInOriginalBundle" />
-                <ref bean="searchFilterFileDescriptionInOriginalBundle" />
+		        <!-- <ref bean="searchFilterContentInOriginalBundle"/>-->
+                <!-- <ref bean="searchFilterFileNameInOriginalBundle" /> -->
+                <!-- <ref bean="searchFilterFileDescriptionInOriginalBundle" /> -->
             </list>
         </property>
         <!--The sort filters for the discovery search-->
@@ -137,12 +137,12 @@
             </bean>
         </property>
         <!--Any default filter queries, these filter queries will be used for all queries done by discovery for this configuration-->
-        <!--<property name="defaultFilterQueries">-->
-            <!--<list>-->
+        <property name="defaultFilterQueries">
+            <list>
                 <!--Only find items-->
-                <!--<value>search.resourcetype:2</value>-->
-            <!--</list>-->
-        <!--</property>-->
+                <value>search.resourcetype:2</value>
+            </list>
+        </property>
         <!--The configuration for the recent submissions-->
         <property name="recentSubmissionConfiguration">
             <bean class="org.dspace.discovery.configuration.DiscoveryRecentSubmissionsConfiguration">
@@ -230,10 +230,10 @@
             <list>
                 <ref bean="searchFilterFacetOBDTypeHierarchyCs" />
                 <ref bean="searchFilterFacetOBDTypeHierarchyEn" />
-                <ref bean="searchFilterAuthor" />
-                <ref bean="searchFilterSubject" />
                 <ref bean="searchFilterIssued" />
-		        <ref bean="searchFilterContentInOriginalBundle"/>
+                <!-- <ref bean="searchFilterAuthor" /> -->
+                <!-- <ref bean="searchFilterSubject" /> -->
+		        <!-- <ref bean="searchFilterContentInOriginalBundle"/> -->
             </list>
         </property>
         <!-- Set TagCloud configuration per discovery configuration -->
@@ -247,9 +247,9 @@
                 <ref bean="searchFilterIssued" />
                 <ref bean="searchFilterFacetOBDTypeHierarchyCs" />
                 <ref bean="searchFilterFacetOBDTypeHierarchyEn" />
-		        <ref bean="searchFilterContentInOriginalBundle"/>
-                <ref bean="searchFilterFileNameInOriginalBundle" />
-                <ref bean="searchFilterFileDescriptionInOriginalBundle" />
+		        <!-- <ref bean="searchFilterContentInOriginalBundle"/> -->
+                <!-- <ref bean="searchFilterFileNameInOriginalBundle" /> -->
+                <!-- <ref bean="searchFilterFileDescriptionInOriginalBundle" /> -->
             </list>
         </property>
         <!--The sort filters for the discovery search (same as defaultConfiguration above)-->
@@ -420,7 +420,7 @@
                 <value>dc.type.obdHierarchyCs</value>
             </list>
         </property>
-        <property name="facetLimit" value="20"/>
+        <property name="facetLimit" value="5"/>
         <property name="sortOrderSidebar" value="COUNT"/>
         <property name="sortOrderFilterPage" value="COUNT"/>
         <property name="splitter" value="::"/>
@@ -433,7 +433,7 @@
                 <value>dc.type.obdHierarchyEn</value>
             </list>
         </property>
-        <property name="facetLimit" value="20"/>
+        <property name="facetLimit" value="5"/>
         <property name="sortOrderSidebar" value="COUNT"/>
         <property name="sortOrderFilterPage" value="COUNT"/>
         <property name="splitter" value="::"/>
@@ -462,7 +462,7 @@
     </bean>
 
     <!-- <JR> - 2022-11-07 -->
-    <!-- Search filter faccet based only on dd.subject.keyword for now -->
+    <!-- Search filter facet based only on dc.subject.keyword for now -->
     <bean id="searchFilterSubject" class="org.dspace.discovery.configuration.HierarchicalSidebarFacetConfiguration">
         <property name="indexFieldName" value="subject"/>
         <property name="metadataFields">
