@@ -239,6 +239,18 @@
 
 <xsl:template match="/dri:document/dri:body/dri:div[@id='aspect.artifactbrowser.CommunityBrowser.div.comunity-browser'][@n='comunity-browser']">
 
+    <!--  If we are no homepage, don't render community-browser...-->
+    <xsl:choose>
+        <xsl:when test="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='request'][@qualifier='URI'] = ''">
+
+        </xsl:when>
+        <xsl:otherwise>
+            <!--  ...apply necessary templates otherwise, i.e. render communities and collections on /community-list page -->
+            <xsl:apply-templates/>
+        </xsl:otherwise>
+    </xsl:choose>
+
+
 </xsl:template>
 
 <xsl:template match="/dri:document/dri:body/dri:div[@id='aspect.discovery.SiteRecentSubmissions.div.site-home'][@n='site-home']">
