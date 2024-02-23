@@ -28,7 +28,7 @@
 		--> 
 	
 	<!-- General keys -->
-	<message key="xmlui.general.dspace_home">Domovská stránka DSpace</message>
+	<message key="xmlui.general.dspace_home">Repozitář publikační činnosti UK</message>
 	<message key="xmlui.general.search">Hledat</message>
 	<message key="xmlui.general.go">Vykonat</message>
 	<message key="xmlui.general.go_home">Přejít na domovskou stránku DSpace</message>
@@ -3669,8 +3669,20 @@
 	<message key="xmlui.publication.version.updatedVersion">Aktualizovaná publikovaná verze</message>
 
 	<!-- HOMEPAGE -->
-	<message key="xmlui.homepage.recentSubmissions.info.text">Objevte publikace nedávno vložené do repozitáře.</message>
-	<message key="xmlui.homepage.howToSubmit">Jak uložit publikaci?</message>
+	<message key="xmlui.homepage.recentSubmissions.info.text">Objevte publikace nedávno vložené do Repozitáře publikační činnosti UK.</message>
+	<message key="xmlui.homepage.recentSubmissions.button.text">Zobrazit publikace</message>
+	
+	<message key="xmlui.homepage.howToDeposit">Jak uložit publikaci?</message>
+	<message key="xmlui.homepage.howToDeposit.info.text">Jste zaměstnancem nebo studentem Univerzity Karlovy? Zjistěte, jak uložit svou publikaci 
+		do Repozitáře publikační činnosti.
+	</message>
+	<message key="xmlui.homepage.howToDeposit.button.text">Zjistit víc</message>
+	
 	<message key="xmlui.homepage.getHelp">Potřebujete pomoct?</message>
+	<message key="xmlui.homepage.getHelp.info.text">Pokud potřebujete pomoct s open access publikováním a podporou tohoto publikačního modelu na Univerzitě Karlově,
+		případně potřebujete poradit s management vědeckých dat nebo jiným tématem v oblasti podpory a uplatnění principů open science na Univerzitě Karlově,
+		navštivte webový portál Centra pro podporu open science.
+	</message>
+	<message key="xmlui.homepage.getHelp.button.text">Navštívit portál</message>
 
 </catalogue>
