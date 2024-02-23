@@ -86,49 +86,67 @@
         </div>
     </div>
     <div class="container-fluid homepage-selection">
-        <div class="row">
-            <div class="col-sm-6 col-md-4">
+        <div class="row feature-row">
+            <div class="col-xs-12 col-sm-6 col-md-4 feature-column">
                 <div class="col-md-12 feature-box">
                     <img class="img img-responsive" src="https://placehold.co/70/003657/FFF"/>
-                    <!-- <span class="glyphicon glyphicon-cog icon"></span> -->
-                    <h4><i18n:text>xmlui.ArtifactBrowser.CollectionViewer.head_recent_submissions</i18n:text></h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sapien augue, dictum et gravida et, viverra et est.</p>
-                    <a role="button" class="btn btn-primary site-btn homepage-options-button" href="{$recentSubmissionsURL}">Zobrazit publikace</a>
-
+                    <h4>
+                        <i18n:text>xmlui.ArtifactBrowser.CollectionViewer.head_recent_submissions</i18n:text>
+                    </h4>
+                    <p>
+                        <i18n:text>xmlui.homepage.recentSubmissions.info.text</i18n:text>
+                    </p>
+                    <div class="row feature-box-button-row">
+                        <div class="feature-box-column-content">
+                            <a role="button" class="btn btn-primary site-btn homepage-options-button" href="{$recentSubmissionsURL}">
+                                <i18n:text>xmlui.homepage.recentSubmissions.button.text</i18n:text>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div> <!-- End Col -->
-            <div class="col-sm-6 col-md-4">
-                    <div class="col-md-12 feature-box">
+            <div class="col-xs-12 col-sm-6 col-md-4 feature-column">
+                <div class="col-md-12 feature-box">
                     <img class="img img-responsive" src="https://placehold.co/70/003657/FFF"/>
-                    <!-- <span class="glyphicon glyphicon-cog icon"></span> -->
-                    <h4><i18n:text>xmlui.homepage.howToSubmit</i18n:text></h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sapien augue, dictum et gravida et, viverra et est. </p>
-                    <xsl:variable name="howToDepositURL" select="concat(confman:getProperty('dspace.baseUrl'),'/page/about#heading-about-workflow')"/>
-                    <a role="button" class="btn btn-primary site-btn homepage-options-button" href="{$howToDepositURL}" target="_blank">Zjistit víc</a>
+                    <h4>
+                        <i18n:text>xmlui.homepage.howToDeposit</i18n:text>
+                    </h4>
+                    <p>
+                        <i18n:text>xmlui.homepage.howToDeposit.info.text</i18n:text>
+                    </p>
+                    <div class="row feature-box-button-row">
+                        <div class="col-md-12 feature-box-column-content">
+                            <xsl:variable name="howToDepositURL" select="concat(confman:getProperty('dspace.baseUrl'),'/page/about#heading-about-workflow')"/>
+                            <a role="button" class="btn btn-primary site-btn homepage-options-button" href="{$howToDepositURL}" target="_blank">
+                                <i18n:text>xmlui.homepage.howToDeposit.button.text</i18n:text>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div> <!-- End Col -->	
             
-            <div class="col-sm-6 col-md-4">
-                    <div class="feature-box">
+            <div class="col-xs-12 col-sm-6 col-md-4 feature-column">
+                <div class="col-md-12 feature-box">
                     <img class="img img-responsive" src="https://placehold.co/70/003657/FFF"/>
-                    <!-- <span class="glyphicon glyphicon-cog icon"></span> -->
-                    <h4><i18n:text>xmlui.homepage.getHelp</i18n:text></h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sapien augue, dictum et gravida et, viverra et est. </p>
-                    <a role="button" class="btn btn-primary site-btn homepage-options-button" target="_blank">
-                        <xsl:if test="$active-locale = 'cs'">
-                            <xsl:attribute name="href"><xsl:text>https://openscience.cuni.cz/OSCI-1.html</xsl:text></xsl:attribute>
-                        </xsl:if>
-                        <xsl:if test="$active-locale = 'en'">
-                            <xsl:attribute name="href"><xsl:text>https://openscience.cuni.cz/OSCIEN-1.html</xsl:text></xsl:attribute>
-                        </xsl:if>
-                        Zjistit víc
-                    </a>
-                    <!-- <xsl:if test="$active-locale = 'cs'">
-                        <a role="button" class="btn btn-primary site-btn homepage-options-button" href="https://openscience.cuni.cz/OSCI-1.html" target="_blank">Start Right Now</a>
-                    </xsl:if>
-                    <xsl:if test="$active-locale = 'en'">
-                        <a role="button" class="btn btn-primary site-btn homepage-options-button" href="https://openscience.cuni.cz/OSCIEN-1.html" target="_blank">Start Right Now</a>
-                    </xsl:if> -->
+                    <h4>
+                        <i18n:text>xmlui.homepage.getHelp</i18n:text>
+                    </h4>
+                    <p>
+                        <i18n:text>xmlui.homepage.getHelp.info.text</i18n:text>
+                    </p>
+                    <div class="row feature-box-button-row">
+                        <div class="col-md-12 feature-box-column-content">
+                            <a role="button" class="btn btn-primary site-btn homepage-options-button" target="_blank">
+                                <xsl:if test="$active-locale = 'cs'">
+                                    <xsl:attribute name="href"><xsl:text>https://openscience.cuni.cz/OSCI-1.html</xsl:text></xsl:attribute>
+                                </xsl:if>
+                                <xsl:if test="$active-locale = 'en'">
+                                    <xsl:attribute name="href"><xsl:text>https://openscience.cuni.cz/OSCIEN-1.html</xsl:text></xsl:attribute>
+                                </xsl:if>
+                                <i18n:text>xmlui.homepage.getHelp.button.text</i18n:text>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div> <!-- End Col -->
         </div>

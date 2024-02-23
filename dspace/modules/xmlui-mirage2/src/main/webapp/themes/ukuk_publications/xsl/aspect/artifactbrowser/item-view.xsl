@@ -415,11 +415,12 @@
             <xsl:variable name="doiIdentifier" select="dim:field[@element='identifier' and @qualifier='doi']"/>
             <div id="item-view-DOI" class="simple-item-view-DOI simple-item-view-first-in-second-column item-page-field-wrapper table">
                 <div class="alert alert-success item-view-doi-alert" role="alert">
-                    <p class="item-view-doi-alert-text"><i18n:text>xmlui.dri2xhtml.METS-1.0.item-doi-alert-text</i18n:text><xsl:text> </xsl:text><a href="https://doi.org/{$doiIdentifier}" target="_blank" class="item-view-doi-alert-link">
-                        <xsl:value-of select="$doiIdentifier"/>
-                    </a>.</p>
-                    
-
+                    <p class="item-view-doi-alert-text">
+                        <i18n:text>xmlui.dri2xhtml.METS-1.0.item-doi-alert-text</i18n:text><xsl:text> </xsl:text>
+                        <a href="https://doi.org/{$doiIdentifier}" target="_blank" class="item-view-doi-alert-link">
+                            <xsl:value-of select="$doiIdentifier"/>
+                        </a>
+                    </p>
                 </div>
             </div>
         </xsl:if>

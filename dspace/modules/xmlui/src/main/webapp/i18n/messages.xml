@@ -24,7 +24,7 @@
 		-->
 
 	<!-- General keys -->
-	<message key="xmlui.general.dspace_home">DSpace Home</message>
+	<message key="xmlui.general.dspace_home">CU Research Publications Repository</message>
 	<message key="xmlui.general.search">Search</message>
 	<message key="xmlui.general.go">Go</message>
 	<message key="xmlui.general.go_home">Go to DSpace home</message>
@@ -3577,8 +3577,19 @@
 	<message key="xmlui.publication.version.updatedVersion">Updated published version</message>
 
 	<!-- HOMEPAGE -->
-	<message key="xmlui.homepage.recentSubmissions.info.text">Discover recently submitted publications</message>
-	<message key="xmlui.homepage.howToSubmit">How to deposit?</message>
+	<message key="xmlui.homepage.recentSubmissions.info.text">Discover publications recently submitted into the Research Publications Repository.</message>
+	<message key="xmlui.homepage.recentSubmissions.button.text">Show publications</message>
+	
+	<message key="xmlui.homepage.howToDeposit">How to deposit?</message>
+	<message key="xmlui.homepage.howToDeposit.info.text">Are you employee or student of the Charles University? Get information on how to deposit 
+		your publication into the Research Publications Repository.
+	</message>
+	<message key="xmlui.homepage.howToDeposit.button.text">Discover more</message>
+		
 	<message key="xmlui.homepage.getHelp">Do you need help?</message>
+	<message key="xmlui.homepage.getHelp.info.text">If you need any assistance in the area of open access publishing, research data management 
+		or any other information related to the open science support at the Charles University, visit the Open Science Support Centre Portal.
+	</message>
+	<message key="xmlui.homepage.getHelp.button.text">Visit the portal</message>
 
 </catalogue>
