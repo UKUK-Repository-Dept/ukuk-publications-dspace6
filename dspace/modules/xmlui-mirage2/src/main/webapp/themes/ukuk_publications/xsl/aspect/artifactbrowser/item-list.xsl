@@ -78,12 +78,6 @@
             </div>
 
         </div>
-            <!-- </xsl:when>
-            <xsl:otherwise>
-                <xsl:apply-templates select="./mets:dmdSec/mets:mdWrap[@OTHERMDTYPE='DIM']/mets:xmlData/dim:dim"
-                                     mode="itemSummaryList-DIM-metadata"><xsl:with-param name="href" select="$href"/></xsl:apply-templates>
-            </xsl:otherwise>
-        </xsl:choose> -->
     </xsl:template>
 
     <!--handles the rendering of a single item in a list in file mode-->
@@ -125,7 +119,50 @@
                     </span>
                 </h4>
             </xsl:element>
+            
             <div class="artifact-info">
+                <xsl:choose>
+                    <xsl:when test="dim:field[@element='displayTitle'][@qualifier='translated']">
+                        <div class="item-title-translated">
+                            <h4 class="discovery-item-title-translated">
+                                <xsl:call-template name="utility-parse-display-title">
+                                    <xsl:with-param name="title-string" select="dim:field[@element='displayTitle'][@qualifier='translated']"/>
+                                </xsl:call-template>
+                            </h4>
+                        </div>
+                        <xsl:for-each select="dim:field[@element='displayTitle'][@qualifier='translated']">
+                            <xsl:if test="not(position() = 1)">
+                                <div class="item-title-translated-other">
+                                    <h4 class="discovery-item-title-translated">
+                                        <xsl:call-template name="utility-parse-display-title">
+                                            <xsl:with-param name="title-string" select="./node()"/>
+                                        </xsl:call-template>
+                                    </h4>
+                                </div>
+                            </xsl:if>
+                        </xsl:for-each>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:choose>
+                            <xsl:when test="dim:field[@element='title'][@qualifier='translated']">
+                                <div class="item-title-translated">
+                                    <h4 class="discovery-item-title-translated">
+                                        <xsl:apply-templates select="dim:field[@element='displayTitle'][@qualifier='translated']"/>
+                                    </h4>
+                                </div>
+                                <xsl:for-each select="dim:field[@element='title'][@qualifier='translated']">
+                                    <xsl:if test="not(position() = 1)">
+                                        <div class="item-title-translated-other">
+                                            <h4 class="discovery-item-title-translated">
+                                                <xsl:value-of select="dim:field[@element='title'][@qualifier='translated']"/>
+                                            </h4>
+                                        </div>
+                                    </xsl:if>
+                                </xsl:for-each>
+                            </xsl:when>
+                        </xsl:choose>
+                    </xsl:otherwise>
+                </xsl:choose>
                 
                 <!-- <JR> - 2024-02-06: Adding template for additional info row -->
                 <xsl:call-template name="itemSummaryList-additional-info" />
@@ -147,7 +184,7 @@
         <div class="row discovery-additional-info-row">
             <div class="col-xs-6 col-sm-6 col-md-6 discovery-additional-info-column">
                 <div aria-label="additional-item-info-type" role="group" class="btn-group label-group">
-                    <xsl:call-template name="discovery-additional-info-type" />
+                    <xsl:call-template name="itemSummaryList-additional-info-type" />
                 </div>
             </div>
             <div class="col-xs-6 col-sm-6 col-md-6 discovery-additional-info-column discovery-additional-info-column-right">
@@ -184,16 +221,17 @@
             </xsl:choose>
         </xsl:variable>
 
+        <xsl:variable name="qualifier" select="concat('obdHierarchy', $languageCapitalized)"/>
+
         <xsl:choose>
-            <xsl:when test="dim:field[@element=type][@qualifier=concat('obdHierarchy', $languageCapitalized)]">
-                
-                <h4 class="label label-additional-info label-discovery-publication-type" aria-haspopup="true">
+            <xsl:when test="dim:field[@element='type'][@qualifier=$qualifier]">
+                <h4 class="discovery-publication-additional-info-heading" aria-haspopup="false">
                     <xsl:value-of 
-                        select="substring-after(substring-after(dim:field[@element=type][@qualifier=concat('obdHierarchy', $languageCapitalized)],'::'),'::')"/>
+                        select="substring-after(substring-after(dim:field[@element='type'][@qualifier=$qualifier],'::'),'::')"/>
                 </h4>
             </xsl:when>
             <xsl:otherwise>
-                <h4 class="label label-additional-info label-discovery-publication-type" aria-haspopup="false">
+                <h4 class="discovery-publication-additional-info-heading" aria-haspopup="false">
                     <i18n:text>xmlui.dri2xhtml.METS-1.0.item-publication-type-unknown</i18n:text>
                 </h4>
             </xsl:otherwise>
@@ -214,7 +252,7 @@
                     <xsl:when test="dim:field[@element='date'][@qualifier='embargoEndDate']">
                         <xsl:variable name="embargoEndDate" select="dim:field[@element='date'][@qualifier='embargoEndDate']"/>
 
-                        <h4 class="label label-additional-info label-discovery-publication-accessRights"
+                        <h4 class="discovery-publication-additional-info-heading"
                             data-toggle="tooltip" data-placement="bottom" 
                             aria-label="Access information">
                             <xsl:if test="$active-locale = 'cs'">
@@ -228,7 +266,7 @@
                         </h4>
                     </xsl:when>
                     <xsl:otherwise>
-                        <h4 class="label label-additional-info label-discovery-publication-accessRights" 
+                        <h4 class="discovery-publication-additional-info-heading" 
                             aria-label="Access information">
                             <i18n:text><xsl:value-of select="$publicationAccessRightsValue" /></i18n:text>
                         </h4>
@@ -236,7 +274,7 @@
                 </xsl:choose>
             </xsl:when>
             <xsl:otherwise>
-                <h4 class="label label-additional-info label-discovery-publication-accessRights" aria-haspopup="false">
+                <h4 class="discovery-publication-additional-info-heading" aria-haspopup="false">
                     <i18n:text>xmlui.dri2xhtml.METS-1.0.item-publication-accessRights.unknown</i18n:text>
                 </h4>
             </xsl:otherwise>
@@ -252,7 +290,7 @@
                     <xsl:value-of select="substring-after($versionValue, 'info:eu-repo/semantics/')" />
                 </xsl:variable>
                     
-                <h4 id="discovery-publication-version" class="label label-additional-info label-discovery-publication-version" aria-haspopup="false">
+                <h4 class="discovery-publication-additional-info-heading" aria-haspopup="false">
                     <i18n:text>xmlui.dri2xhtml.METS-1.0.item-publication-version-<xsl:value-of select="$publicationVersionValue" />
                     </i18n:text>
                 </h4>
@@ -260,7 +298,7 @@
             </xsl:when>
             <xsl:otherwise>
                 
-                <h4 id="discovery-publication-version" class="label label-additional-info label-discovery-publication-version" aria-haspopup="false">
+                <h4 class="discovery-publication-additional-info-heading" aria-haspopup="false">
                     <i18n:text>xmlui.dri2xhtml.METS-1.0.item-publication-version-unknown</i18n:text>
                 </h4>
                 
@@ -325,7 +363,7 @@
         <xsl:variable name="author">
             <xsl:apply-templates select="$authorItem"/>
         </xsl:variable>
-        <h4 class="discovery-author">
+        <h4 class="discovery-publication-additional-info-heading">
             <!--Check authority in the mets document-->
             <xsl:if test="@authority">
                 <xsl:attribute name="class"><xsl:text>ds-dc_contributor_author-authority</xsl:text></xsl:attribute>
@@ -412,7 +450,7 @@
         <div class="row discovery-publication-info-row">
             <div class="col-xs-12 col-sm-12 col-md-12 discovery-publication-info-column">
                 <xsl:if test="dim:field[@element='date'][@qualifier='issued']">
-                    <h4 class="discovery-publication-info-heading">
+                    <h4 class="discovery-publication-additional-info-heading">
                         <xsl:value-of
                                 select="substring(dim:field[@element='date'][@qualifier='issued'],1,10)"/>
                     </h4>
@@ -420,20 +458,20 @@
 
                 <xsl:if test="dim:field[@element='publisher'][@qualifier='publicationPlace']">
                     <xsl:text>, </xsl:text>
-                    <h4 class="discovery-publication-info-heading">
+                    <h4 class="discovery-publication-additional-info-heading">
                         <xsl:apply-templates select="dim:field[@element='publisher'][@qualifier='publicationPlace']"/>
                     </h4>
                 </xsl:if>
                 <xsl:if test="dim:field[@element='publisher'][not(@qualifier)]">
                     <xsl:text>, </xsl:text>
-                    <h4 class="discovery-publication-info-heading">
+                    <h4 class="discovery-publication-additional-info-heading">
                         <xsl:apply-templates select="dim:field[@element='publisher'][not(@qualifier)]"/>
                     </h4>
                 </xsl:if>
                 
                 <xsl:if test="dim:field[@element='isPartOf'][@qualifier='name']">
                     <xsl:text>, </xsl:text>
-                    <h4 class="discovery-publication-info-heading">
+                    <h4 class="discovery-publication-additional-info-heading">
                         <xsl:apply-templates select="dim:field[@element='isPartOf'][@qualifier='name']"/>
                     </h4>
                 </xsl:if>
@@ -441,13 +479,13 @@
                 or dim:field[@element='isPartOf'][@qualifier='journalIssue']">
                     <xsl:if test="dim:field[@element='isPartOf'][@qualifier='journalVolume']">
                         <xsl:text>, </xsl:text>
-                        <h4 class="discovery-publication-info-heading">
+                        <h4 class="discovery-publication-additional-info-heading">
                             <xsl:apply-templates select="dim:field[@element='isPartOf'][@qualifier='journalVolume']"/>
                         </h4>
                     </xsl:if>
                     <xsl:if test="dim:field[@element='isPartOf'][@qualifier='journalIssue']">
                         <xsl:text> </xsl:text>
-                        <h4 class="discovery-publication-info-heading">
+                        <h4 class="discovery-publication-additional-info-heading">
                             <xsl:text>(</xsl:text>
                             <xsl:apply-templates select="dim:field[@element='isPartOf'][@qualifier='journalIssue']"/>
                             <xsl:text>)</xsl:text>
