@@ -145,8 +145,7 @@ h5.item-view-metadata-heading {
   margin-top: 0px; }
 
 .short-description.text-muted {
-  color:#003657;
-}
+  color: #003657; }
 
 /* NAVBAR */
 /* Less then 768px width */
@@ -486,8 +485,10 @@ header .navbar-default .navbar-toggle > li > a:hover, header .navbar-default .na
   font-weight: normal;
   border-radius: 0px;
   font-family: 'silkasemibold';
-  font-size: 11px;
-  padding-left: 0px; }
+  font-size: 12px;
+  padding-left: 0px; 
+  vertical-align: middle;
+}
 
 .item-view-additional-info-row > .item-view-additional-info-column > .label-group > .label-additional-info > .caret {
   vertical-align: baseline;
@@ -932,7 +933,7 @@ label#strictly-necessary_label:before {
   padding-left: 5px; }
 
 .cc-icon > img {
-  vertical-align: bottom; }
+  vertical-align: middle; }
 
 .custom-licence-icon {
   padding-left: 5px; }
@@ -1057,13 +1058,11 @@ div#about-toc {
 
 h2.community-list-title, h2.community-list-title > a {
   font-family: 'silkalight';
-  font-size: 19px;
-}
+  font-size: 19px; }
 
-h3.collection-list-title, h3.collection-list-title > a  {
+h3.collection-list-title, h3.collection-list-title > a {
   font-family: 'silkalight';
-  font-size: 17px;
-}
+  font-size: 17px; }
 
 .row.ds-artifact-item:hover, .row.ds-artifact-item:focus, .row.ds-artifact-item:active {
   box-shadow: -5px 0px 0px #003657, inset 10px 0px 0px #003657; }
@@ -1080,11 +1079,10 @@ h3.collection-list-title, h3.collection-list-title > a  {
 h4.discovery-item-title {
   font-family: 'silkalight';
   font-size: 17px;
-  text-align: justify; 
-  margin-top: 1px;
-}
+  text-align: justify;
+  margin-top: 1px; }
 
-h5.discovery-item-title-translated {
+h4.discovery-item-title-translated {
   font-family: 'silkalight';
   font-size: 13px; }
 
@@ -1189,12 +1187,19 @@ h4.discovery-abstract {
   text-align: justify;
   word-wrap: break-word;
   text-wrap: wrap;
-  margin: 0; 
-  color: #000;
-}
+  margin: 0;
+  color: #000; }
 
 .discovery-abstract-row {
   margin-top: 10px; }
+
+.discovery-publication-additional-info-heading {
+  font-size: 12px;
+  display: -webkit-inline-box;
+  display: inline;
+  color: #000;
+
+}
 
 /* @media (max-width: 300px) 
 {
@@ -1208,78 +1213,96 @@ h4.discovery-abstract {
 /* HOMEPAGE TEST */
 
 /* Feature-CSS */
-
 .icon {
-  color : #fff;
-  padding:15px;
-  background:#323232 ;
-  font-size:50px;
-  border-radius:90px;
-  border:10px solid #323232 ;
-}
+  color: #fff;
+  padding: 15px;
+  background: #323232;
+  font-size: 50px;
+  border-radius: 90px;
+  border: 10px solid #323232; }
+
 .feature-box {
   text-align: center;
   padding: 20px;
   transition: .5s;
   margin-bottom: 30px;
-  border: 1px solid #003657;
-}
+  border: 1px solid #003657; }
+
 .feature-box:hover {
- 
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
+  box-shadow: 0 4px 8px 0 rgba(0, 54, 87, 0.2), 0 6px 20px 0 rgba(0, 54, 87, 0.19); }
 
 .feature-box h4 {
   font-size: 20px;
   font-weight: 600;
   margin: 25px 0 15px;
-  text-align: center;
-}
+  text-align: center; }
 
 .feature-box p {
-  text-align: justify;
-}
+  text-align: justify; }
 
 .feature-box img {
-  width: 100%;
-}
+  width: 100%; }
 
 .homepage-selection {
-  padding-left:0;
-  padding-right: 0;
-}
+  padding-left: 0;
+  padding-right: 0; }
 
 div#jumbotron-search-form > #ds-search-option {
-  margin-top: 10px;
-}
+  margin-top: 10px; }
 
 .jumbotron.jumbotron-muted.homepage-jumbotron {
   border-radius: 0px;
   margin-bottom: 20px;
   background-color: #003657;
-  color: #fff;
-}
+  color: #fff; }
 
-a.homepage-jumbotron-link:hover, a.homepage-jumbotron-link:focus, 
+a.homepage-jumbotron-link:hover, a.homepage-jumbotron-link:focus,
 a.homepage-jumbotron-link:active {
-  color: #fff;
-}
+  color: #fff; }
 
 button#homepage-jumbotron-search-button {
   background-color: #fff;
-  color: #003657;
-}
+  color: #003657; }
 
-button#homepage-jumbotron-search-button:hover, button#homepage-jumbotron-search-button:focus, 
+button#homepage-jumbotron-search-button:hover, button#homepage-jumbotron-search-button:focus,
 button#homepage-jumbotron-search-button:active {
-  color: #d22d40;
-}
+  color: #d22d40; }
 
 a.btn.btn-primary.site-btn.homepage-options-button {
   height: auto;
   width: auto;
-  min-width: 70%;
+  min-width: 70%; 
+  margin-top:auto;
+  align-self: center;
+}
+
+ .row.feature-row {
+  display: flex;
+  flex-wrap: wrap;
+ }
+
+.col-md-12.feature-box {
+  height: 100%;
+  padding: 20px 20px 10px;
+}
+
+.col-xs-12.col-sm-6.col-md-4.feature-column {
+  margin-bottom: 20px;
+}
+
+.row.feature-box-button-row {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+}
+
+.feature-box-column-content {
+  margin-top:auto;
+  /* display: grid; */
+}
+
+div.feature-box > p {
+  margin-bottom: 20px;
 }
 
 /* END OF: HOMEPAGE TEST */
-
