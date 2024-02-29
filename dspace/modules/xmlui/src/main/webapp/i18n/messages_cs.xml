@@ -3669,7 +3669,13 @@
 	<message key="xmlui.publication.version.updatedVersion">Aktualizovaná publikovaná verze</message>
 
 	<!-- HOMEPAGE -->
-	<message key="xmlui.homepage.recentSubmissions.info.text">Objevte publikace nedávno vložené do Repozitáře publikační činnosti UK.</message>
+	<message key="xmlui.homepage.jumbotron.welcome.heading">Vítejte v Repozitáři publikační činnosti UK</message>
+	<message key="xmlui.homepage.jumbotron.welcome.text.part.1">Aktuálně je v repozitáři uloženo</message>
+	<message key="xmlui.homepage.jumbotron.welcome.text.part.2">výsledků, z toho</message>
+	<message key="xmlui.homepage.jumbotron.welcome.text.part.3">přístupných v režimu <strong>open access</strong></message>
+
+	<message key="xmlui.homepage.recentSubmissions.info.text">Objevte publikace nedávno vložené do Repozitáře publikační činnosti UK. Výsledky jsou seřazeny podle data vložení 
+	do repozitáře, nejnovější publikace jsou na začátku seznamu.</message>
 	<message key="xmlui.homepage.recentSubmissions.button.text">Zobrazit publikace</message>
 	
 	<message key="xmlui.homepage.howToDeposit">Jak uložit publikaci?</message>
@@ -3679,9 +3685,8 @@
 	<message key="xmlui.homepage.howToDeposit.button.text">Zjistit víc</message>
 	
 	<message key="xmlui.homepage.getHelp">Potřebujete pomoct?</message>
-	<message key="xmlui.homepage.getHelp.info.text">Pokud potřebujete pomoct s open access publikováním a podporou tohoto publikačního modelu na Univerzitě Karlově,
-		případně potřebujete poradit s management vědeckých dat nebo jiným tématem v oblasti podpory a uplatnění principů open science na Univerzitě Karlově,
-		navštivte webový portál Centra pro podporu open science.
+	<message key="xmlui.homepage.getHelp.info.text">Potřebujete-li pomoct s open access publikováním, správou výzkumných dat, licencováním a dalšími tématy
+	z oblasti open science na UK, navštivte webový portál Centra pro podporu open science.
 	</message>
 	<message key="xmlui.homepage.getHelp.button.text">Navštívit portál</message>
 

@@ -3577,7 +3577,13 @@
 	<message key="xmlui.publication.version.updatedVersion">Updated published version</message>
 
 	<!-- HOMEPAGE -->
-	<message key="xmlui.homepage.recentSubmissions.info.text">Discover publications recently submitted into the Research Publications Repository.</message>
+	<message key="xmlui.homepage.jumbotron.welcome.heading">Welcome to the CU Research Publications Repository</message>
+	<message key="xmlui.homepage.jumbotron.welcome.text.part.1">There's currently</message>
+	<message key="xmlui.homepage.jumbotron.welcome.text.part.2"> research publications stored in the repository, including</message>
+	<message key="xmlui.homepage.jumbotron.welcome.text.part.3">available in <strong>open access</strong></message>
+
+	<message key="xmlui.homepage.recentSubmissions.info.text">Discover publications recently submitted into the Research Publications Repository, sorted by submission date. 
+	Newest publication appear at the top of the list.</message>
 	<message key="xmlui.homepage.recentSubmissions.button.text">Show publications</message>
 	
 	<message key="xmlui.homepage.howToDeposit">How to deposit?</message>
@@ -3587,8 +3593,8 @@
 	<message key="xmlui.homepage.howToDeposit.button.text">Discover more</message>
 		
 	<message key="xmlui.homepage.getHelp">Do you need help?</message>
-	<message key="xmlui.homepage.getHelp.info.text">If you need any assistance in the area of open access publishing, research data management 
-		or any other information related to the open science support at the Charles University, visit the Open Science Support Centre Portal.
+	<message key="xmlui.homepage.getHelp.info.text">If you need any assistance in the area of open access publishing, research data management, licensing 
+		or other areas related to open science at the Charles University, visit the Open Science Support Centre Portal.
 	</message>
 	<message key="xmlui.homepage.getHelp.button.text">Visit the portal</message>
 
