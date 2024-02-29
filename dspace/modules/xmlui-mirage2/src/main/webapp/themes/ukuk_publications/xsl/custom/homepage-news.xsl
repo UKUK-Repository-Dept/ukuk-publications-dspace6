@@ -52,17 +52,23 @@
 <xsl:template match="/dri:document/dri:body/dri:div[@id='file.news.div.news'][@n='news']">
 <!-- Basic example can be found at https://getbootstrap.com/docs/3.4/examples/jumbotron/ -->
     <div class="jumbotron jumbotron-muted homepage-jumbotron">
-        <div class="container">
-            <div class="col-lg-6 homepage-jumbotron-column">
-                <h2 class="lead">Vítejte v Repozitáři publikační činnosti UK</h2>
-                <p class="lead">Aktuálně je v repozitáři uloženo 
+        <div class="container homepage-jumbotron-container">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 homepage-jumbotron-column">
+                <h2 class="lead"><i18n:text>xmlui.homepage.jumbotron.welcome.heading</i18n:text></h2>
+                <p class="lead">
+                    <i18n:text>xmlui.homepage.jumbotron.welcome.text.part.1</i18n:text>
+                    <xsl:text> </xsl:text> <!-- Adding whitespace before number -->
                     <strong>
                         <xsl:call-template name="getTotalItemsCountWithLink"/>
-                    </strong> výsledků, z toho je 
+                    </strong>
+                    <xsl:text> </xsl:text> <!-- Adding whitespace after the number --> 
+                    <i18n:text>xmlui.homepage.jumbotron.welcome.text.part.2</i18n:text>
+                    <xsl:text> </xsl:text> <!-- Adding whitespace before number -->
                     <strong>
                         <xsl:call-template name="getOpenAccessItemsCountWithLink"/>
-                    </strong> 
-                    přístupných v režimu <strong>open access</strong>
+                    </strong>
+                    <xsl:text> </xsl:text> <!-- Adding whitespace after the number --> 
+                    <i18n:text>xmlui.homepage.jumbotron.welcome.text.part.3</i18n:text>
                 </p>
                 <!-- <xsl:call-template name="addSearch"/> -->
                 <!-- <div class="input-group">
@@ -77,19 +83,22 @@
                     and <a href="#!" target="_blank">Privacy Policy <i class="fa fa-external-link" aria-hidden="true"></i></a>.
                 </small> -->
             </div>
-            <div class="col-lg-6 homepage-jumbotron-column">
-                <img class="img-responsive" src="https://i.imgur.com/1Vm0su2.png"/>
+            <!-- <div class="col-lg-1 col-md-1 homepage-jumbotron-column"></div> -->
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 homepage-jumbotron-column hidden-xs">
+                <!-- <img class="img-responsive" src="{$theme-path}/images/repository_homepage-jumbo_picture.png"/> -->
             </div>
-            <div id="jumbotron-search-form" class="col-lg-12 homepage-jumbotron-column">
+            <div id="jumbotron-search-form" class="col-lg-12 col-sm-12 col-xs-12 homepage-jumbotron-column">
                 <xsl:call-template name="addSearch"/>   
             </div>
         </div>
     </div>
     <div class="container-fluid homepage-selection">
         <div class="row feature-row">
-            <div class="col-xs-12 col-sm-6 col-md-4 feature-column">
+            <div class="col-xs-12 col-sm-12 col-md-4 feature-column">
                 <div class="col-md-12 feature-box">
-                    <img class="img img-responsive" src="https://placehold.co/70/003657/FFF"/>
+                    <a role="button" class="btn btn-primary site-btn homepage-options-button" href="{$recentSubmissionsURL}">
+                        <img class="img img-responsive" src="{$theme-path}/images/repository_homepage_recent-submissions.png"/>
+                    </a>
                     <h4>
                         <i18n:text>xmlui.ArtifactBrowser.CollectionViewer.head_recent_submissions</i18n:text>
                     </h4>
@@ -97,7 +106,7 @@
                         <i18n:text>xmlui.homepage.recentSubmissions.info.text</i18n:text>
                     </p>
                     <div class="row feature-box-button-row">
-                        <div class="feature-box-column-content">
+                        <div class="col-md-12 feature-box-column-content">
                             <a role="button" class="btn btn-primary site-btn homepage-options-button" href="{$recentSubmissionsURL}">
                                 <i18n:text>xmlui.homepage.recentSubmissions.button.text</i18n:text>
                             </a>
@@ -107,7 +116,10 @@
             </div> <!-- End Col -->
             <div class="col-xs-12 col-sm-6 col-md-4 feature-column">
                 <div class="col-md-12 feature-box">
-                    <img class="img img-responsive" src="https://placehold.co/70/003657/FFF"/>
+                    <xsl:variable name="howToDepositURL" select="concat(confman:getProperty('dspace.baseUrl'),'/page/about#heading-about-workflow')"/>
+                    <a role="button" class="btn btn-primary site-btn homepage-options-button" href="{$howToDepositURL}" target="_blank">
+                        <img class="img img-responsive" src="{$theme-path}/images/repository_homepage_how-to-deposit.png"/>
+                    </a>
                     <h4>
                         <i18n:text>xmlui.homepage.howToDeposit</i18n:text>
                     </h4>
@@ -116,7 +128,7 @@
                     </p>
                     <div class="row feature-box-button-row">
                         <div class="col-md-12 feature-box-column-content">
-                            <xsl:variable name="howToDepositURL" select="concat(confman:getProperty('dspace.baseUrl'),'/page/about#heading-about-workflow')"/>
+                            
                             <a role="button" class="btn btn-primary site-btn homepage-options-button" href="{$howToDepositURL}" target="_blank">
                                 <i18n:text>xmlui.homepage.howToDeposit.button.text</i18n:text>
                             </a>
@@ -127,7 +139,15 @@
             
             <div class="col-xs-12 col-sm-6 col-md-4 feature-column">
                 <div class="col-md-12 feature-box">
-                    <img class="img img-responsive" src="https://placehold.co/70/003657/FFF"/>
+                    <a role="button" class="btn btn-primary site-btn homepage-options-button" target="_blank">
+                        <xsl:if test="$active-locale = 'cs'">
+                            <xsl:attribute name="href"><xsl:text>https://openscience.cuni.cz/OSCI-1.html</xsl:text></xsl:attribute>
+                        </xsl:if>
+                        <xsl:if test="$active-locale = 'en'">
+                            <xsl:attribute name="href"><xsl:text>https://openscience.cuni.cz/OSCIEN-1.html</xsl:text></xsl:attribute>
+                        </xsl:if>
+                        <img class="img img-responsive" src="{$theme-path}/images/repository_homepage_help.png"/>
+                    </a>
                     <h4>
                         <i18n:text>xmlui.homepage.getHelp</i18n:text>
                     </h4>
