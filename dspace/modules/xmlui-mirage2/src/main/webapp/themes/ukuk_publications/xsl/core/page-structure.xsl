@@ -527,6 +527,18 @@
                                                 </a>
                                             </li>
                                             <li>
+                                                <a href="{/dri:document/dri:options/dri:list[@n='account']/
+                                                dri:item/dri:xref[@target='/submissions']/@target}">
+                                                    <i18n:text>xmlui.Submission.Navigation.submissions</i18n:text>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{/dri:document/dri:options/dri:list[@n='account']/
+                                                dri:item/dri:xref[@target='/admin/export']/@target}">
+                                                    <i18n:text>xmlui.administrative.Navigation.account_export</i18n:text>
+                                                </a>
+                                            </li>
+                                            <li>
                                                 <a href="{/dri:document/dri:meta/dri:userMeta/
                             dri:metadata[@element='identifier' and @qualifier='logoutURL']}">
                                                     <i18n:text>xmlui.dri2xhtml.structural.logout</i18n:text>
