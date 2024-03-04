@@ -222,18 +222,18 @@
             </xsl:when>
             <xsl:when test="contains($licenseText, 'gratis open access')">
                 <h4 id="gratis-oa-icon" class="discovery-publication-additional-info-heading">
-                    <img src="{$theme-path}/images/cc/gratis_oa.svg" class="custom-licence-gratis-icon-image" alt="Gratis Apen Access Icon"/>
+                    <img src="{$theme-path}/images/cc/gratis_oa_3.svg" class="custom-licence-gratis-icon-image" alt="Gratis Apen Access Icon"/>
                 </h4>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:if test="$active-locale = 'cs'">
                     <h4 id="custom-licence-icon" class="discovery-publication-additional-info-heading">
-                        <img src="{$theme-path}/images/cc/other_license_cs.svg" class="custom-licence-icon-image" title="{$licenseText}" alt="Ikona Jiná licence"/>
+                        <img src="{$theme-path}/images/cc/other_license_2_cs.svg" class="custom-licence-icon-image" title="{$licenseText}" alt="Ikona Jiná licence"/>
                     </h4>
                 </xsl:if>
                 <xsl:if test="$active-locale = 'en'">
                     <h4 id="custom-licence-icon" class="discovery-publication-additional-info-heading">
-                        <img src="{$theme-path}/images/cc/other_license_en.svg" class="custom-licence-icon-image-en" title="{$licenseText}" alt="Custom Licence Icon"/>
+                        <img src="{$theme-path}/images/cc/other_license_2_en.svg" class="custom-licence-icon-image-en" title="{$licenseText}" alt="Custom Licence Icon"/>
                     </h4>
                 </xsl:if>
             </xsl:otherwise>
@@ -252,18 +252,18 @@
             </xsl:when>
             <xsl:when test="contains($licenseText, 'gratis open access')">
                 <span id="gratis-oa-icon" class="custom-licence-icon-gratis">
-                    <img src="{$theme-path}/images/cc/gratis_oa.svg" class="custom-licence-gratis-icon-image" alt="Gratis Apen Access Icon"/>
+                    <img src="{$theme-path}/images/cc/gratis_oa_3.svg" class="custom-licence-gratis-icon-image" alt="Gratis Apen Access Icon"/>
                 </span>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:if test="$active-locale = 'cs'">
                     <span id="custom-licence-icon" class="custom-licence-icon">
-                        <img src="{$theme-path}/images/cc/other_license_cs.svg" class="custom-licence-icon-image" title="{$licenseText}" alt="Ikona Jiná licence"/>
+                        <img src="{$theme-path}/images/cc/other_license_2_cs.svg" class="custom-licence-icon-image" title="{$licenseText}" alt="Ikona Jiná licence"/>
                     </span>
                 </xsl:if>
                 <xsl:if test="$active-locale = 'en'">
                     <span id="custom-licence-icon" class="custom-licence-icon">
-                        <img src="{$theme-path}/images/cc/other_license_en.svg" class="custom-licence-icon-image-en" title="{$licenseText}" alt="Custom Licence Icon"/>
+                        <img src="{$theme-path}/images/cc/other_license_2_en.svg" class="custom-licence-icon-image-en" title="{$licenseText}" alt="Custom Licence Icon"/>
                     </span>
                 </xsl:if>
             </xsl:otherwise>
