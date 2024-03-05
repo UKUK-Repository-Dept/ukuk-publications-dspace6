@@ -25,6 +25,7 @@
     <bean id="solrServiceResourceIndexPlugin" class="org.dspace.discovery.SolrServiceResourceRestrictionPlugin" scope="prototype"/>
     <bean id="SolrServiceSpellIndexingPlugin" class="org.dspace.discovery.SolrServiceSpellIndexingPlugin" scope="prototype"/>
     <bean id="solrServiceMetadataBrowseIndexingPlugin" class="org.dspace.discovery.SolrServiceMetadataBrowseIndexingPlugin" scope="prototype"/>
+    <bean id="SolrServicePublicationOriginFromSeparateMetaFieldsPlugin" class="org.dspace.discovery.SolrServicePublicationOriginFromSeparateMetaFieldsPlugin"/>
 
     <alias name="solrServiceResourceIndexPlugin" alias="org.dspace.discovery.SolrServiceResourceRestrictionPlugin"/>
     
@@ -101,6 +102,7 @@
                 <ref bean="searchFilterFacetOBDTypeHierarchyCs" />
                 <ref bean="searchFilterFacetOBDTypeHierarchyEn" />
                 <ref bean="searchFilterIssued" />
+                <ref bean="searchFilterPublicationOriginHierarchyCs" />
                 <!-- <ref bean="searchFilterAuthor" /> -->
                 <!-- <ref bean="searchFilterSubject" /> -->
 		        <!-- <ref bean="searchFilterContentInOriginalBundle"/> -->
@@ -117,6 +119,7 @@
                 <ref bean="searchFilterAuthor" />
                 <ref bean="searchFilterSubject" />
                 <ref bean="searchFilterIssued" />
+                <ref bean="searchFilterPublicationOriginHierarchyCs" />
 		        <!-- <ref bean="searchFilterContentInOriginalBundle"/>-->
                 <!-- <ref bean="searchFilterFileNameInOriginalBundle" /> -->
                 <!-- <ref bean="searchFilterFileDescriptionInOriginalBundle" /> -->
@@ -511,6 +514,17 @@
         <property name="metadataFields">
             <list/>
         </property>
+    </bean>
+
+    <bean id="searchFilterPublicationOriginHierarchyCs" class="org.dspace.discovery.configuration.HierarchicalSidebarFacetConfiguration">
+        <property name="indexFieldName" value="uk.publicationOrigin.cs"/>
+        <property name="metadataFields">
+            <list/>
+        </property>
+        <property name="facetLimit" value="5"/>
+        <property name="sortOrderSidebar" value="COUNT"/>
+        <property name="sortOrderFilterPage" value="COUNT"/>
+        <property name="splitter" value="::"/>
     </bean>
 
     <!--Sort properties-->
