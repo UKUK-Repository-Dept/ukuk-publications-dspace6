@@ -43,7 +43,7 @@ public class SolrServicePublicationOriginFromSeparateMetaFieldsPlugin implements
     {
         if (dso instanceof Item)
         {
-            DSpaceObject item = dso;
+            Item item = (Item) dso;
 
             List<MetadataValue> primaryFacultyCs = itemService.getMetadata(item, "uk", "faculty", "primaryName", "cs");
             List<MetadataValue> primaryDepartmentCs = itemService.getMetadata(item, "uk", "department", "primaryName", "cs");
