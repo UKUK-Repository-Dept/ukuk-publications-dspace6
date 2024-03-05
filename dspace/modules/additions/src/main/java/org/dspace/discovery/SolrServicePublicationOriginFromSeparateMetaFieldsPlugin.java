@@ -70,7 +70,7 @@ public class SolrServicePublicationOriginFromSeparateMetaFieldsPlugin implements
                     for (MetadataValue department : primaryDepartmentCs)
                     {
                         String departmentValue = department.getValue();
-                        
+
                         document.addField("uk.publicationOrigin.cs", facultyValue.concat("::").concat(departmentValue));
                         document.addField("uk.publicationOrigin.cs_keyword", facultyValue.concat("::").concat(departmentValue));
                         document.addField("uk.publicationOrigin.cs_filter", facultyValue.concat("::").concat(departmentValue));
@@ -84,13 +84,15 @@ public class SolrServicePublicationOriginFromSeparateMetaFieldsPlugin implements
             }
             else
             {
-                for (String faculty : secondaryFacultyCs)
+                for (MetadataValue faculty : secondaryFacultyCs)
                 {
-                    for (String department : secondaryDepartmentCs)
+                    String facultyValue = faculty.getValue();
+                    for (MetadataValue department : secondaryDepartmentCs)
                     {
-                        document.addField("uk.publicationOrigin.cs", faculty.concat("::").concat(department));
-                        document.addField("uk.publicationOrigin.cs_keyword", faculty.concat("::").concat(department));
-                        document.addField("uk.publicationOrigin.cs_filter", faculty.concat("::").concat(department));
+                        String departmentValue = department.getValue();
+                        document.addField("uk.publicationOrigin.cs", facultyValue.concat("::").concat(departmentValue));
+                        document.addField("uk.publicationOrigin.cs_keyword", facultyValue.concat("::").concat(departmentValue));
+                        document.addField("uk.publicationOrigin.cs_filter", facultyValue.concat("::").concat(departmentValue));
                     }
                 }
             }
