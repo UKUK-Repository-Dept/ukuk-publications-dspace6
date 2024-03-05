@@ -66,7 +66,7 @@ public class SolrServicePublicationResponsibilityFromSeparateMetaFieldsPlugin im
             {
                 for (MetadataValue primaryFaculty : primaryFacultyCs)
                 {
-                    String primaryFacultyValueCs = primnaryFaculty.getValue();
+                    String primaryFacultyValueCs = primaryFaculty.getValue();
                     
 
                     document.addField("uk.publicationFacultyResponsibility.cs", primaryFacultyValueCs);
@@ -94,7 +94,7 @@ public class SolrServicePublicationResponsibilityFromSeparateMetaFieldsPlugin im
             {
                 for (MetadataValue primaryDepartment : primaryDepartmentCs)
                 {
-                    String primaryDepartmentValueCs = primnaryFaculty.getValue();
+                    String primaryDepartmentValueCs = primaryDepartment.getValue();
                     
 
                     document.addField("uk.publicationDepartmentResponsibility.cs", primaryDepartmentValueCs);
