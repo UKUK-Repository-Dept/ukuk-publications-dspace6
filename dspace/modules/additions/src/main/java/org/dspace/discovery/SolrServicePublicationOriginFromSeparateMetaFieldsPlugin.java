@@ -41,10 +41,12 @@ public class SolrServicePublicationOriginFromSeparateMetaFieldsPlugin implements
         if (dso instanceof Item)
         {
             DSpaceObject item = dso;
-            List<MetadataValue> primaryFacultyCs = item.getMetadata(item, "uk", "faculty", "primaryName", "cs");
-            List<MetadataValue> primaryDepartmentCs = item.getMetadata(item, "uk", "department", "primaryName", "cs");
-            List<MetadataValue> secondaryFacultyCs = item.getMetadata(item, "uk", "faculty", "secondaryName", "cs");
-            List<MetadataValue> secondaryDepartmentCs = item.getMetadata(item, "uk", "department", "secondaryName", "cs");
+            itemService = item.getItemService()
+
+            List<MetadataValue> primaryFacultyCs = itemService.getMetadata(item, "uk", "faculty", "primaryName", "cs");
+            List<MetadataValue> primaryDepartmentCs = itemService.getMetadata(item, "uk", "department", "primaryName", "cs");
+            List<MetadataValue> secondaryFacultyCs = itemService.getMetadata(item, "uk", "faculty", "secondaryName", "cs");
+            List<MetadataValue> secondaryDepartmentCs = itemService.getMetadata(item, "uk", "department", "secondaryName", "cs");
             // List<MetadataValue> primaryFacultyEn = item.getMetadata(item, "uk", "faculty", "primaryName", "en");
             // List<MetadataValue> primaryDepartmentEn = item.getMetadata(item, "uk", "department", "primaryName", "en");
             // List<MetadataValue> secondaryFacultyEn = item.getMetadata(item, "uk", "faculty", "secondaryName", "en");
