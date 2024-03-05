@@ -105,7 +105,8 @@
                 <ref bean="searchFilterFacetOBDTypeHierarchyCs" />
                 <ref bean="searchFilterFacetOBDTypeHierarchyEn" />
                 <ref bean="searchFilterIssued" />
-                <ref bean="searchFilterPublicationOriginHierarchyCs" />
+                <ref bean="searchFilterPublicationFacultyResponsiblityCs" />
+                <ref bean="searchFilterPublicationDepartmentResponsiblityCs" />
                 <!-- <ref bean="searchFilterAuthor" /> -->
                 <!-- <ref bean="searchFilterSubject" /> -->
 		        <!-- <ref bean="searchFilterContentInOriginalBundle"/> -->
@@ -122,7 +123,8 @@
                 <ref bean="searchFilterAuthor" />
                 <ref bean="searchFilterSubject" />
                 <ref bean="searchFilterIssued" />
-                <ref bean="searchFilterPublicationOriginHierarchyCs" />
+                <ref bean="searchFilterPublicationFacultyResponsiblityCs" />
+                <ref bean="searchFilterPublicationDepartmentResponsiblityCs" />
 		        <!-- <ref bean="searchFilterContentInOriginalBundle"/>-->
                 <!-- <ref bean="searchFilterFileNameInOriginalBundle" /> -->
                 <!-- <ref bean="searchFilterFileDescriptionInOriginalBundle" /> -->
@@ -519,15 +521,26 @@
         </property>
     </bean>
 
-    <bean id="searchFilterPublicationOriginHierarchyCs" class="org.dspace.discovery.configuration.HierarchicalSidebarFacetConfiguration">
-        <property name="indexFieldName" value="uk.publicationOrigin.cs"/>
+    <bean id="searchFilterPublicationFacultyResponsiblityCs" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
+        <property name="indexFieldName" value="uk.publicationFacultyResponsibility.cs"/>
         <property name="metadataFields">
             <list/>
         </property>
         <property name="facetLimit" value="5"/>
+        <property name="type" value="standard"/>
         <property name="sortOrderSidebar" value="COUNT"/>
         <property name="sortOrderFilterPage" value="COUNT"/>
-        <property name="splitter" value="::"/>
+    </bean>
+
+    <bean id="searchFilterPublicationDepartmentResponsiblityCs" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
+        <property name="indexFieldName" value="uk.publicationDepartmentResponsibility.cs"/>
+        <property name="metadataFields">
+            <list/>
+        </property>
+        <property name="facetLimit" value="5"/>
+        <property name="type" value="standard"/>
+        <property name="sortOrderSidebar" value="COUNT"/>
+        <property name="sortOrderFilterPage" value="COUNT"/>
     </bean>
 
     <!--Sort properties-->
