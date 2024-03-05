@@ -69,7 +69,8 @@ public class SolrServicePublicationOriginFromSeparateMetaFieldsPlugin implements
                     String facultyValue = faculty.getValue();
                     for (MetadataValue department : primaryDepartmentCs)
                     {
-                        departmentValue = department.getValue();
+                        String departmentValue = department.getValue();
+                        
                         document.addField("uk.publicationOrigin.cs", facultyValue.concat("::").concat(departmentValue));
                         document.addField("uk.publicationOrigin.cs_keyword", facultyValue.concat("::").concat(departmentValue));
                         document.addField("uk.publicationOrigin.cs_filter", facultyValue.concat("::").concat(departmentValue));
