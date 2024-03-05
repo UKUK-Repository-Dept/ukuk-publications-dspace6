@@ -3652,8 +3652,12 @@
 		<!-- RESEARCH OUTPUT TYPE FACET & FILTER-->
 	<message key="xmlui.ArtifactBrowser.AdvancedSearch.type_OBDTypeHierarchyEn">Druh výsledku</message>
 	<message key="xmlui.ArtifactBrowser.AdvancedSearch.type_OBDTypeHierarchyCs">Druh výsledku</message>
+	<message key="xmlui.ArtifactBrowser.AdvancedSearch.type_uk.publicationFacultyResponsibility.cs">Fakulta / součást</message>
+	<message key="xmlui.ArtifactBrowser.AdvancedSearch.type_uk.publicationDepartmentResponsibility.cs">Oddělení / ústav / klinika</message>
 	<message key="xmlui.ArtifactBrowser.SimpleSearch.filter.OBDTypeHierarchyEn">Druh výsledku</message>
 	<message key="xmlui.ArtifactBrowser.SimpleSearch.filter.OBDTypeHierarchyCs">Druh výsledku</message>
+	<message key="xmlui.ArtifactBrowser.SimpleSearch.filter.uk.publicationFacultyResponsibility.cs">Fakulta / součást)</message>
+	<message key="xmlui.ArtifactBrowser.SimpleSearch.filter.uk.publicationDepartmentResponsibility.cs">Oddělení / ústav / klinika)</message>
 	<!-- END OF: CUSTOM FACETS LABELS TRANSLATIONS -->
 
 	<!--OUTPUT PUBLICATION VERSIONS TRANSLATIONS-->
