@@ -295,4 +295,28 @@
 
 </xsl:template>
 
+<xsl:template match="dri:list[@n='uk.publicationFacultyResponsibility.cs']">
+    <xsl:choose>
+        <!--  If we are no homepage, don't render this facet list...-->
+        <xsl:when test="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='request'][@qualifier='URI'] = ''">
+
+        </xsl:when>
+        <xsl:otherwise>
+            <xsl:apply-templates/>
+        </xsl:otherwise>
+    </xsl:choose>
+</xsl:template>
+
+<xsl:template match="dri:list[@n='uk.publicationDepartmentResponsibility.cs']">
+    <xsl:choose>
+        <!--  If we are no homepage, don't render this facet list...-->
+        <xsl:when test="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='request'][@qualifier='URI'] = ''">
+
+        </xsl:when>
+        <xsl:otherwise>
+            <xsl:apply-templates/>
+        </xsl:otherwise>
+    </xsl:choose>
+</xsl:template>
+
 </xsl:stylesheet>
