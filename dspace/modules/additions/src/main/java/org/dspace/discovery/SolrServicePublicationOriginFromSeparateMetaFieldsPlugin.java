@@ -38,14 +38,12 @@ import org.apache.commons.lang.StringUtils;
 public class SolrServicePublicationOriginFromSeparateMetaFieldsPlugin implements SolrServiceIndexPlugin
 {
 
-    private final transient ItemService itemService = ContentServiceFactory.getInstance().getItemService();
-
     @Override
     public void additionalIndex(Context context, DSpaceObject dso, SolrInputDocument document)
     {
         if (dso instanceof Item)
         {
-            Item item = (Item) dso;
+            ItemService itemService = dso.getItemService();
 
             List<MetadataValue> primaryFacultyCs = itemService.getMetadata(item, "uk", "faculty", "primaryName", "cs");
             List<MetadataValue> primaryDepartmentCs = itemService.getMetadata(item, "uk", "department", "primaryName", "cs");
