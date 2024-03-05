@@ -159,6 +159,18 @@
                 <property name="max" value="20"/>
                 <!-- If enabled the collection home page will not display metadata but show a pageable list of recent submissions -->
                 <property name="useAsHomePage" value="false"/>
+                <property name="sidebarFacets">
+                    <list>
+                        <ref bean="searchFilterFacetOBDTypeHierarchyCs" />
+                        <ref bean="searchFilterFacetOBDTypeHierarchyEn" />
+                        <ref bean="searchFilterIssued" />
+                        <ref bean="searchFilterPublicationFacultyResponsiblityCs" />
+                        <ref bean="searchFilterPublicationDepartmentResponsiblityCs" />
+                        <!-- <ref bean="searchFilterAuthor" /> -->
+                        <!-- <ref bean="searchFilterSubject" /> -->
+                        <!-- <ref bean="searchFilterContentInOriginalBundle"/> -->
+                    </list>
+                </property>
             </bean>
         </property>
         <!--Default result per page  -->
