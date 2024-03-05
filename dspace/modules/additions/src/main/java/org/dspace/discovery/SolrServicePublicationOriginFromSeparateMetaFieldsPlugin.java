@@ -16,6 +16,9 @@ import org.dspace.content.DSpaceObject;
 import org.dspace.content.service.DSpaceObjectService;
 import org.dspace.content.Item;
 import org.dspace.core.Context;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * This plugin adds three fields to the solr index to make a facet with/without
