@@ -63,9 +63,9 @@ public class SolrServicePublicationOriginFromSeparateMetaFieldsPlugin implements
                 {
                     for (String department : primaryDepartmentCs)
                     {
-                        document.addField("uk.publicationOrigin.cs", concat(faculty, "::", department));
-                        document.addField("uk.publicationOrigin.cs_keyword", concat(faculty, "::", department));
-                        document.addField("uk.publicationOrigin.cs_filter", concat(faculty, "::", department));
+                        document.addField("uk.publicationOrigin.cs", faculty.concat("::").concat(department));
+                        document.addField("uk.publicationOrigin.cs_keyword", faculty.concat("::").concat(department));
+                        document.addField("uk.publicationOrigin.cs_filter", faculty.concat("::").concat(department));
                     }
                 }
             }
@@ -80,9 +80,9 @@ public class SolrServicePublicationOriginFromSeparateMetaFieldsPlugin implements
                 {
                     for (String department : secondaryDepartmentCs)
                     {
-                        document.addField("uk.publicationOrigin.cs", concat(faculty, "::", department));
-                        document.addField("uk.publicationOrigin.cs_keyword", concat(faculty, "::", department));
-                        document.addField("uk.publicationOrigin.cs_filter", concat(faculty, "::", department));
+                        document.addField("uk.publicationOrigin.cs", faculty.concat("::").concat(department));
+                        document.addField("uk.publicationOrigin.cs_keyword", faculty.concat("::").concat(department));
+                        document.addField("uk.publicationOrigin.cs_filter", faculty.concat("::").concat(department));
                     }
                 }
             }
