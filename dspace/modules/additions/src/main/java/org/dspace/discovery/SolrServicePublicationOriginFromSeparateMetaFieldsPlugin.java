@@ -38,7 +38,7 @@ import org.apache.commons.lang.StringUtils;
 public class SolrServicePublicationOriginFromSeparateMetaFieldsPlugin implements SolrServiceIndexPlugin
 {
 
-    ItemService itemService = ContentServiceFactory.getInstance().getItemService();
+    private final transient ItemService itemService = ContentServiceFactory.getInstance().getItemService();
 
     @Override
     public void additionalIndex(Context context, DSpaceObject dso, SolrInputDocument document)

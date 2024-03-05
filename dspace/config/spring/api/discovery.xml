@@ -25,7 +25,7 @@
     <bean id="solrServiceResourceIndexPlugin" class="org.dspace.discovery.SolrServiceResourceRestrictionPlugin" scope="prototype"/>
     <bean id="SolrServiceSpellIndexingPlugin" class="org.dspace.discovery.SolrServiceSpellIndexingPlugin" scope="prototype"/>
     <bean id="solrServiceMetadataBrowseIndexingPlugin" class="org.dspace.discovery.SolrServiceMetadataBrowseIndexingPlugin" scope="prototype"/>
-    <bean id="SolrServicePublicationOriginFromSeparateMetaFieldsPlugin" class="org.dspace.discovery.SolrServicePublicationOriginFromSeparateMetaFieldsPlugin"/>
+
 
     <alias name="solrServiceResourceIndexPlugin" alias="org.dspace.discovery.SolrServiceResourceRestrictionPlugin"/>
     
@@ -34,6 +34,9 @@
 
     <!-- Additional indexing plugin enables searching by filenames and by file descriptions for files in ORIGINAL bundle -->
     <bean id="solrServiceFileInfoPlugin" class="org.dspace.discovery.SolrServiceFileInfoPlugin"/>
+
+    <!-- <JR> - 2024-03-05: Additional indexing plugin enables filtering based on merged metadata denoting the items origin  -->
+    <bean id="solrServicePublicationOriginFromSeparateMetaFieldsPlugin" class="org.dspace.discovery.SolrServicePublicationOriginFromSeparateMetaFieldsPlugin"/>
 
     <!--Bean that is used for mapping communities/collections to certain discovery configurations.-->
     <bean id="org.dspace.discovery.configuration.DiscoveryConfigurationService" class="org.dspace.discovery.configuration.DiscoveryConfigurationService">
