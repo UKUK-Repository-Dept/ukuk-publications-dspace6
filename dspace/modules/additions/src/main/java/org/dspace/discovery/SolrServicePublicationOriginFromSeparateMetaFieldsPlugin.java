@@ -43,12 +43,13 @@ public class SolrServicePublicationOriginFromSeparateMetaFieldsPlugin implements
     {
         if (dso instanceof Item)
         {
-            ItemService itemService = dso.getItemService();
+            Item item = (Item) dso;
+            ItemService itemService = item.getItemService();
 
-            List<MetadataValue> primaryFacultyCs = itemService.getMetadata(dso, "uk", "faculty", "primaryName", "cs");
-            List<MetadataValue> primaryDepartmentCs = itemService.getMetadata(dso, "uk", "department", "primaryName", "cs");
-            List<MetadataValue> secondaryFacultyCs = itemService.getMetadata(dso, "uk", "faculty", "secondaryName", "cs");
-            List<MetadataValue> secondaryDepartmentCs = itemService.getMetadata(dso, "uk", "department", "secondaryName", "cs");
+            List<MetadataValue> primaryFacultyCs = itemService.getMetadata(item, "uk", "faculty", "primaryName", "cs");
+            List<MetadataValue> primaryDepartmentCs = itemService.getMetadata(item, "uk", "department", "primaryName", "cs");
+            List<MetadataValue> secondaryFacultyCs = itemService.getMetadata(item, "uk", "faculty", "secondaryName", "cs");
+            List<MetadataValue> secondaryDepartmentCs = itemService.getMetadata(item, "uk", "department", "secondaryName", "cs");
             // List<MetadataValue> primaryFacultyEn = item.getMetadata(item, "uk", "faculty", "primaryName", "en");
             // List<MetadataValue> primaryDepartmentEn = item.getMetadata(item, "uk", "department", "primaryName", "en");
             // List<MetadataValue> secondaryFacultyEn = item.getMetadata(item, "uk", "faculty", "secondaryName", "en");
