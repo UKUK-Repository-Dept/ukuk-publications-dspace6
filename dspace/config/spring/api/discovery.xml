@@ -239,6 +239,8 @@
                 <ref bean="searchFilterFacetOBDTypeHierarchyCs" />
                 <ref bean="searchFilterFacetOBDTypeHierarchyEn" />
                 <ref bean="searchFilterIssued" />
+                <ref bean="searchFilterPublicationFacultyResponsiblityCs" />
+                <ref bean="searchFilterPublicationDepartmentResponsiblityCs" />
                 <!-- <ref bean="searchFilterAuthor" /> -->
                 <!-- <ref bean="searchFilterSubject" /> -->
 		        <!-- <ref bean="searchFilterContentInOriginalBundle"/> -->
@@ -255,6 +257,8 @@
                 <ref bean="searchFilterIssued" />
                 <ref bean="searchFilterFacetOBDTypeHierarchyCs" />
                 <ref bean="searchFilterFacetOBDTypeHierarchyEn" />
+                <ref bean="searchFilterPublicationFacultyResponsiblityCs" />
+                <ref bean="searchFilterPublicationDepartmentResponsiblityCs" />
 		        <!-- <ref bean="searchFilterContentInOriginalBundle"/> -->
                 <!-- <ref bean="searchFilterFileNameInOriginalBundle" /> -->
                 <!-- <ref bean="searchFilterFileDescriptionInOriginalBundle" /> -->
