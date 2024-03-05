@@ -539,8 +539,11 @@
    
    <field name="has_content_in_original_bundle" type="string" indexed="true" stored="true" omitNorms="true" multiValued="true" docValues="true" />
 
-   <!-- <JR> - 2024-03-05: Adding new field to hold information about faculty responsibility for a given publication (in CS) -->
+   <!-- <JR> - 2024-03-05: Adding new field to hold information about faculties responsible for a given publication (in CS) -->
    <field name="uk.publicationFacultyResponsibility.cs" type="string" indexed="true" stored="true" omitNorms="true" multiValued="true" docValues="true" />
+
+   <!-- <JR> - 2024-03-05: Adding new field to hold information about departments responsible for a given publication (in CS) -->
+   <field name="uk.publicationDepartmentResponsibility.cs" type="string" indexed="true" stored="true" omitNorms="true" multiValued="true" docValues="true" />
    
     <!-- Community and collection hierarchy of the Item of interest (candidate for hierarchical facetting ) -->
    <field name="location" type="lowerCaseSort" indexed="true" stored="true" multiValued="true" required="false" omitNorms="true" />
