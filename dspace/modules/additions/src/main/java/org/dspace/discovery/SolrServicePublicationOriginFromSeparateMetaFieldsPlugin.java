@@ -14,6 +14,7 @@ import org.dspace.content.Bitstream;
 import org.dspace.content.Bundle;
 import org.dspace.content.DSpaceObject;
 import org.dspace.content.service.DSpaceObjectService;
+import org.dspace.content.service.ItemService;
 import org.dspace.content.Item;
 import org.dspace.core.Context;
 import org.apache.commons.collections.CollectionUtils;
@@ -35,13 +36,14 @@ import org.apache.commons.lang.StringUtils;
 public class SolrServicePublicationOriginFromSeparateMetaFieldsPlugin implements SolrServiceIndexPlugin
 {
 
+    ItemService itemService = ContentServiceFactory.getInstance().getItemService();
+
     @Override
     public void additionalIndex(Context context, DSpaceObject dso, SolrInputDocument document)
     {
         if (dso instanceof Item)
         {
             DSpaceObject item = dso;
-            itemService = item.getItemService();
 
             List<MetadataValue> primaryFacultyCs = itemService.getMetadata(item, "uk", "faculty", "primaryName", "cs");
             List<MetadataValue> primaryDepartmentCs = itemService.getMetadata(item, "uk", "department", "primaryName", "cs");
