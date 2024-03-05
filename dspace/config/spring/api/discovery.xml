@@ -36,7 +36,7 @@
     <bean id="solrServiceFileInfoPlugin" class="org.dspace.discovery.SolrServiceFileInfoPlugin"/>
 
     <!-- <JR> - 2024-03-05: Additional indexing plugin enables filtering based on merged metadata denoting the items origin  -->
-    <bean id="solrServicePublicationOriginFromSeparateMetaFieldsPlugin" class="org.dspace.discovery.SolrServicePublicationOriginFromSeparateMetaFieldsPlugin"/>
+    <bean id="solrServicePublicationResponsibilityFromSeparateMetaFieldsPlugin" class="org.dspace.discovery.SolrServicePublicationResponsibilityFromSeparateMetaFieldsPlugin"/>
 
     <!--Bean that is used for mapping communities/collections to certain discovery configurations.-->
     <bean id="org.dspace.discovery.configuration.DiscoveryConfigurationService" class="org.dspace.discovery.configuration.DiscoveryConfigurationService">

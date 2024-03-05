@@ -35,7 +35,7 @@ import org.apache.commons.lang.StringUtils;
  * @author Christian Scheible christian.scheible@uni-konstanz.de
  * 
  */
-public class SolrServicePublicationOriginFromSeparateMetaFieldsPlugin implements SolrServiceIndexPlugin
+public class SolrServicePublicationResponsibilityFromSeparateMetaFieldsPlugin implements SolrServiceIndexPlugin
 {
 
     @Override
@@ -58,44 +58,62 @@ public class SolrServicePublicationOriginFromSeparateMetaFieldsPlugin implements
             // _keyword and _filter because
             // they are needed in order to work as a facet and filter.
             
-            if (primaryFacultyCs.isEmpty() || primaryDepartmentCs.isEmpty())
+            if (primaryFacultyCs.isEmpty() || secondaryFacultyCs.isEmpty())
             {
                 // do not create a new solr field with value
             }
             else 
             {
-                for (MetadataValue faculty : primaryFacultyCs)
+                for (MetadataValue primaryFaculty : primaryFacultyCs)
                 {
-                    String facultyValue = faculty.getValue();
-                    for (MetadataValue department : primaryDepartmentCs)
-                    {
-                        String departmentValue = department.getValue();
+                    String primaryFacultyValueCs = primnaryFaculty.getValue();
+                    
 
-                        document.addField("uk.publicationOrigin.cs", facultyValue.concat("::").concat(departmentValue));
-                        document.addField("uk.publicationOrigin.cs_keyword", facultyValue.concat("::").concat(departmentValue));
-                        document.addField("uk.publicationOrigin.cs_filter", facultyValue.concat("::").concat(departmentValue));
-                    }
+                    document.addField("uk.publicationFacultyResponsibility.cs", primaryFacultyValueCs);
+                    document.addField("uk.publicationFacultyResponsibility.cs_keyword", primaryFacultyValueCs);
+                    document.addField("uk.publicationFacultyResponsibility.cs_filter", primaryFacultyValueCs);
+                    
+                }
+
+                for (MetadataValue secondaryFaculty : secondaryFacultyCs)
+                {
+                    String secondaryFacultyValueCs = secondaryFaculty.getValue();
+
+                    document.addField("uk.publicationFacultyResponsibility.cs", secondaryFacultyValueCs);
+                    document.addField("uk.publicationFacultyResponsibility.cs_keyword", secondaryFacultyValueCs);
+                    document.addField("uk.publicationFacultyResponsibility.cs_filter", secondaryFacultyValueCs);
                 }
             }
 
-            if (secondaryFacultyCs.isEmpty() || secondaryDepartmentCs.isEmpty())
+
+            if (primaryDepartmentCs.isEmpty() || secondaryDepartmentCs.isEmpty())
             {
                 // do not create a new solr field with value
             }
-            else
+            else 
             {
-                for (MetadataValue faculty : secondaryFacultyCs)
+                for (MetadataValue primaryDepartment : primaryDepartmentCs)
                 {
-                    String facultyValue = faculty.getValue();
-                    for (MetadataValue department : secondaryDepartmentCs)
-                    {
-                        String departmentValue = department.getValue();
-                        document.addField("uk.publicationOrigin.cs", facultyValue.concat("::").concat(departmentValue));
-                        document.addField("uk.publicationOrigin.cs_keyword", facultyValue.concat("::").concat(departmentValue));
-                        document.addField("uk.publicationOrigin.cs_filter", facultyValue.concat("::").concat(departmentValue));
-                    }
+                    String primaryDepartmentValueCs = primnaryFaculty.getValue();
+                    
+
+                    document.addField("uk.publicationDepartmentResponsibility.cs", primaryDepartmentValueCs);
+                    document.addField("uk.publicationDepartmentResponsibility.cs_keyword", primaryDepartmentValueCs);
+                    document.addField("uk.publicationDepartmentResponsibility.cs_filter", primaryDepartmentValueCs);
+                    
+                }
+
+                for (MetadataValue secondaryDepartment : secondaryDepartmentCs)
+                {
+                    String secondaryDepartmentValueCs = secondaryDepartment.getValue();
+
+                    document.addField("uk.publicationDepartmentResponsibility.cs", secondaryDepartmentValueCs);
+                    document.addField("uk.publicationDepartmentResponsibility.cs_keyword", secondaryDepartmentValueCs);
+                    document.addField("uk.publicationDepartmentResponsibility.cs_filter", secondaryDepartmentValueCs);
                 }
             }
+
+            
 
             // if (primaryFacultyEn.isEmpty() || primaryDepartmentEn.isEmpty()) {
             //     // do not create a new solr field with value
