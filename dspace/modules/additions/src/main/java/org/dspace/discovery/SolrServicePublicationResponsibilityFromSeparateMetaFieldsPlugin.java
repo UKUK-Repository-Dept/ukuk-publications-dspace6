@@ -71,10 +71,10 @@ public class SolrServicePublicationResponsibilityFromSeparateMetaFieldsPlugin im
                     for (String qualifier : METADATA_RESPONSIBILITY_QUALIFIERS)
                     {
                         // ... get matadata values stored in that metadata field...
-                        List<MetadataValue> reponsibilityMetadataValues = itemService.getMetadata(item, METADATA_SCHEMA, element, qualifier, language) ;
+                        List<MetadataValue> responsibilityMetadataValues = itemService.getMetadata(item, METADATA_SCHEMA, element, qualifier, language) ;
 
                         // .. if there are any... (list of metadata values is not empty)...
-                        if (!reponsibilityMetadataValues.isEmpty())
+                        if (!responsibilityMetadataValues.isEmpty())
                         {
                             
                             // ... add each metadata value to appropriate SOLR fields
