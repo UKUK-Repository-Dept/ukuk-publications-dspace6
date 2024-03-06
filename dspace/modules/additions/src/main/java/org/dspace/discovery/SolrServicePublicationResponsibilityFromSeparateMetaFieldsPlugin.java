@@ -80,22 +80,25 @@ public class SolrServicePublicationResponsibilityFromSeparateMetaFieldsPlugin im
                         {
                             
                             // ... add each metadata value to appropriate SOLR fields
-                            for (String metadataValue : responsibilityMetadataValues)
+                            for (MetadataValue metadataValueObj : responsibilityMetadataValues)
                             {
-                                String solrFieldName = METADATA_SCHEMA.concat(".").concat("publication").concat(StringUtils.capitalize(element)).concat("Responsiblity").concat(".").concat(language) ;
+                                String metadataValue = metadataValueObj.getValue() ;
+
+                                String solrFieldName = METADATA_SCHEMA.concat(".")
+                                .concat("publication").concat(StringUtils.capitalize(element)).concat("Responsiblity").concat(".").concat(language) ;
                             
                                 document.addField(solrFieldName, metadataValue) ;
                                 document.addField(solrFieldName.concat(SOLR_KEYWORD_FIELD_SUFFIX), metadataValue) ;
                                 document.addField(solrFieldName.concat(SOLR_FILTER_FIELD_SUFFIX), metadataValue) ;
-                                    // document.addField(METADATA_SCHEMA.concat('.').concat(language), facultyMetadataValue) ;
-                                    // document.addField(SOLR_FACULTY_RESPONSIBILITY_FIELD.concat('.').concat(language).concat(SOLR_KEYWORD_FIELD_SUFFIX), facultyMetadataValue) ;
-                                    // document.addField(SOLR_FACULTY_RESPONSIBILITY_FIELD.concat('.').concat(language).concat(SOLR_FILTER_FIELD_SUFFIX), facultyMetadataValue) ;
+                                // document.addField(METADATA_SCHEMA.concat('.').concat(language), facultyMetadataValue) ;
+                                // document.addField(SOLR_FACULTY_RESPONSIBILITY_FIELD.concat('.').concat(language).concat(SOLR_KEYWORD_FIELD_SUFFIX), facultyMetadataValue) ;
+                                // document.addField(SOLR_FACULTY_RESPONSIBILITY_FIELD.concat('.').concat(language).concat(SOLR_FILTER_FIELD_SUFFIX), facultyMetadataValue) ;
                             }
                             
                         }
                         else
                         {
-                            log.warn("Didn't find any values for metadata field " + facultyField);
+                            log.warn("Didn't find any values for metadata field " + METADATA_SCHEMA + "." + element + "." + qualifier + "[" + language + "]");
                         }
                     }
                 }
