@@ -229,7 +229,16 @@ public class SidebarFacetsTransformer extends AbstractDSpaceTransformer implemen
                     // Handle new facets based on:
                     // - uk.publicationFacultyResponsibility.cs
                     // - uk.publicationDepartmentResponsibility.cs
-                    if (field.getIndexFieldName().equals("uk.publicationFacultyResponsibility.cs") || field.getIndexFieldName().equals("uk.publicationDepartmentResponsibility.cs")) {
+                    if (field.getIndexFieldName().equals("uk.publicationFacultyResponsibility.cs")) {
+                        if (currentLocale.equals("en")) {
+                            // don't add facet based on indexFieldName 'uk.publicationFacultyResponsibility.cs' or 'uk.publicationDepartmentResponsibility.cs'
+                            // when current language is 'en'
+                            log.debug("IAAAAAA: Found field " + field.getIndexFieldName() + "and I am on " + currentLocale + " locale");
+                            continue;
+                        }
+                    }
+
+                    if (field.getIndexFieldName().equals("uk.publicationDepartmentResponsibility.cs")) {
                         if (currentLocale.equals("en")) {
                             // don't add facet based on indexFieldName 'uk.publicationFacultyResponsibility.cs' or 'uk.publicationDepartmentResponsibility.cs'
                             // when current language is 'en'
@@ -241,7 +250,16 @@ public class SidebarFacetsTransformer extends AbstractDSpaceTransformer implemen
                     // Handle new facets based on:
                     // - uk.publicationFacultyResponsibility.en
                     // - uk.publicationDepartmentResponsibility.en
-                    if (field.getIndexFieldName().equals("uk.publicationFacultyResponsibility.en") || field.getIndexFieldName().equals("uk.publicationDepartmentResponsibility.en")) {
+                    if (field.getIndexFieldName().equals("uk.publicationFacultyResponsibility.en")) {
+                        if (currentLocale.equals("cs")) {
+                            // don't add facet based on indexFieldName `OBDTypeHierarchyCs` 
+                            // when current language is 'en'
+                            log.debug("IAAAAAA: Found field " + field.getIndexFieldName() + "and I am on " + currentLocale + " locale");
+                            continue;
+                        }
+                    }
+
+                    if (field.getIndexFieldName().equals("uk.publicationDepartmentResponsibility.en")) {
                         if (currentLocale.equals("cs")) {
                             // don't add facet based on indexFieldName `OBDTypeHierarchyCs` 
                             // when current language is 'en'
