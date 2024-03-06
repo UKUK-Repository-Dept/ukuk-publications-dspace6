@@ -295,6 +295,7 @@
 
 </xsl:template>
 
+<!-- Do not render uk.publicationFacultyResponsibility.cs facet on homepage -->
 <xsl:template match="dri:list[@n='uk.publicationFacultyResponsibility.cs']">
     <xsl:choose>
         <!--  If we are no homepage, don't render this facet list...-->
@@ -307,7 +308,34 @@
     </xsl:choose>
 </xsl:template>
 
+<!-- Do not render uk.publicationDepartmentResponsibility.cs facet on homepage -->
 <xsl:template match="dri:list[@n='uk.publicationDepartmentResponsibility.cs']">
+    <xsl:choose>
+        <!--  If we are no homepage, don't render this facet list...-->
+        <xsl:when test="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='request'][@qualifier='URI'] = ''">
+
+        </xsl:when>
+        <xsl:otherwise>
+            <xsl:apply-templates/>
+        </xsl:otherwise>
+    </xsl:choose>
+</xsl:template>
+
+<!-- Do not render uk.publicationFacultyResponsibility.en facet on homepage -->
+<xsl:template match="dri:list[@n='uk.publicationFacultyResponsibility.en']">
+    <xsl:choose>
+        <!--  If we are no homepage, don't render this facet list...-->
+        <xsl:when test="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='request'][@qualifier='URI'] = ''">
+
+        </xsl:when>
+        <xsl:otherwise>
+            <xsl:apply-templates/>
+        </xsl:otherwise>
+    </xsl:choose>
+</xsl:template>
+
+<!-- Do not render uk.publicationDepartmentResponsibility.en facet on homepage -->
+<xsl:template match="dri:list[@n='uk.publicationDepartmentResponsibility.en']">
     <xsl:choose>
         <!--  If we are no homepage, don't render this facet list...-->
         <xsl:when test="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='request'][@qualifier='URI'] = ''">
