@@ -233,7 +233,7 @@ public class SidebarFacetsTransformer extends AbstractDSpaceTransformer implemen
                         if (currentLocale.equals("en")) {
                             // don't add facet based on indexFieldName 'uk.publicationFacultyResponsibility.cs' or 'uk.publicationDepartmentResponsibility.cs'
                             // when current language is 'en'
-                            log.debug("IAAAAAA: Found field " + field.getIndexFieldName() + "and I am on " + currentLocale + " locale");
+                            log.info("IAAAAAA: Found field " + field.getIndexFieldName() + "and I am on " + currentLocale + " locale");
                             continue;
                         }
                     }
@@ -242,7 +242,7 @@ public class SidebarFacetsTransformer extends AbstractDSpaceTransformer implemen
                         if (currentLocale.equals("en")) {
                             // don't add facet based on indexFieldName 'uk.publicationFacultyResponsibility.cs' or 'uk.publicationDepartmentResponsibility.cs'
                             // when current language is 'en'
-                            log.debug("IAAAAAA: Found field " + field.getIndexFieldName() + "and I am on " + currentLocale + " locale");
+                            log.info("IAAAAAA: Found field " + field.getIndexFieldName() + "and I am on " + currentLocale + " locale");
                             continue;
                         }
                     }
@@ -254,7 +254,7 @@ public class SidebarFacetsTransformer extends AbstractDSpaceTransformer implemen
                         if (currentLocale.equals("cs")) {
                             // don't add facet based on indexFieldName `OBDTypeHierarchyCs` 
                             // when current language is 'en'
-                            log.debug("IAAAAAA: Found field " + field.getIndexFieldName() + "and I am on " + currentLocale + " locale");
+                            log.info("IAAAAAA: Found field " + field.getIndexFieldName() + "and I am on " + currentLocale + " locale");
                             continue;
                         }
                     }
@@ -263,7 +263,7 @@ public class SidebarFacetsTransformer extends AbstractDSpaceTransformer implemen
                         if (currentLocale.equals("cs")) {
                             // don't add facet based on indexFieldName `OBDTypeHierarchyCs` 
                             // when current language is 'en'
-                            log.debug("IAAAAAA: Found field " + field.getIndexFieldName() + "and I am on " + currentLocale + " locale");
+                            log.info("IAAAAAA: Found field " + field.getIndexFieldName() + "and I am on " + currentLocale + " locale");
                             continue;
                         }
                     }
