@@ -26,9 +26,13 @@ import java.util.Arrays;
 import org.apache.log4j.Logger;
 
 /**
- * This plugin adds three fields to the solr index to make a facet with/without
- * content in the ORIGINAL Bundle possible (like full text, images...). It is
- * activated simply by adding this class as a bean to discovery.xml.
+ * This plugin adds fields to the solr index to make facets from
+ * metadata fields holding information about faculty / faculties
+ * and department / departmets responsible for creation of the item.
+ * 
+ * These facets are used to limit the discovery results based on the faculty 
+ * and / or department they were created on without any need to display
+ * (rather deep) community & collection structure and depend on it for item 'discovery'.
  * 
  * The facet is added to Discovery in the usual way (create a searchFilter bean
  * and add it to the expected place) just with an empty list of used metadata
@@ -40,16 +44,12 @@ import org.apache.log4j.Logger;
 public class SolrServicePublicationResponsibilityFromSeparateMetaFieldsPlugin implements SolrServiceIndexPlugin
 {
     
-    // private static final String SOLR_FACULTY_RESPONSIBILITY_FIELD               = "uk.publicationFacultyResponsibility" ;
-    // private static final String SOLR_DEPT_RESPONSIBILITY_FIELD                  = "uk.publicationDepartmentResponsibility" ;
     private static final String SOLR_KEYWORD_FIELD_SUFFIX                       = "_keyword" ;
     private static final String SOLR_FILTER_FIELD_SUFFIX                        = "_filter" ;
     private static final String METADATA_SCHEMA                                 = "uk" ;
     private static final List<String> METADATA_RESPONSIBILITY_ELEMENTS          = Arrays.asList("faculty", "department") ;
     private static final List<String> METADATA_RESPONSIBILITY_QUALIFIERS        = Arrays.asList("primaryName", "secondaryName") ;
     private static final List<String> METADATA_LANGUAGES                        = Arrays.asList("cs", "en") ;
-    // private static final List<String> METADATA_FACULTY_RESPONSIBILITY_FIELDS    = Arrays.asList("uk.faculty.primaryName", "uk.faculty.secondaryName") ;
-    // private static final List<String> METADATA_DEPT_RESPONSIBILITY_FIELDS       = Arrays.asList("uk.department.primaryName", "uk.department.secondaryName") ;
     
 
     private static final Logger log = Logger.getLogger(SolrServiceContentInOriginalBundleFilterPlugin.class);
@@ -73,6 +73,7 @@ public class SolrServicePublicationResponsibilityFromSeparateMetaFieldsPlugin im
                     for (String qualifier : METADATA_RESPONSIBILITY_QUALIFIERS)
                     {
                         // ... get matadata values stored in that metadata field...
+                        log.debug("ITEM: [" + item.getHandle() + "/" + item.getName() + "]: " + "Trying to get metadata from field [" + METADATA_SCHEMA + "." + element + "." + qualifier + "[lang=" + language + "]") ;
                         List<MetadataValue> responsibilityMetadataValues = itemService.getMetadata(item, METADATA_SCHEMA, element, qualifier, language) ;
 
                         // .. if there are any... (list of metadata values is not empty)...
@@ -83,196 +84,32 @@ public class SolrServicePublicationResponsibilityFromSeparateMetaFieldsPlugin im
                             for (MetadataValue metadataValueObj : responsibilityMetadataValues)
                             {
                                 String metadataValue = metadataValueObj.getValue() ;
+                                log.debug("Found " + metadataValue + "in metadata field " + METADATA_SCHEMA + "." + element + "." + qualifier + "[lang=" + language + "]" ) ;
 
                                 String solrFieldName = METADATA_SCHEMA.concat(".")
                                 .concat("publication").concat(StringUtils.capitalize(element)).concat("Responsiblity").concat(".").concat(language) ;
-                            
+
+                                log.debug("Adding metadata value [" + metadataValue + "] to SOLR field [" + solrFieldName + "]") ;
                                 document.addField(solrFieldName, metadataValue) ;
+
+                                log.debug("Adding metadata value [" + metadataValue + "] to SOLR field [" + solrFieldName.concat(SOLR_KEYWORD_FIELD_SUFFIX) + "]") ;
                                 document.addField(solrFieldName.concat(SOLR_KEYWORD_FIELD_SUFFIX), metadataValue) ;
+                                
+                                log.debug("Adding metadata value [" + metadataValue + "] to SOLR field [" + solrFieldName.concat(SOLR_FILTER_FIELD_SUFFIX) + "]") ;
                                 document.addField(solrFieldName.concat(SOLR_FILTER_FIELD_SUFFIX), metadataValue) ;
-                                // document.addField(METADATA_SCHEMA.concat('.').concat(language), facultyMetadataValue) ;
-                                // document.addField(SOLR_FACULTY_RESPONSIBILITY_FIELD.concat('.').concat(language).concat(SOLR_KEYWORD_FIELD_SUFFIX), facultyMetadataValue) ;
-                                // document.addField(SOLR_FACULTY_RESPONSIBILITY_FIELD.concat('.').concat(language).concat(SOLR_FILTER_FIELD_SUFFIX), facultyMetadataValue) ;
+                                
                             }
                             
                         }
                         else
                         {
-                            log.warn("Didn't find any values for metadata field " + METADATA_SCHEMA + "." + element + "." + qualifier + "[" + language + "]");
+                            log.warn("ITEM: [" + item.getHandle() + "/" + item.getName() + "]: " + "Didn't find any values for metadata field " 
+                            + METADATA_SCHEMA + "." + element + "." + qualifier + "[" + language + "]");
                         }
                     }
                 }
                 
-                // for (String facultyField : METADATA_FACULTY_RESPONSIBILITY_FIELDS)
-                // {
-                //     try 
-                //     {
-                //         schema, element, qualifier = facultyField.split(".") ;
-                //     } catch (IllegalArgumentException e) {
-                //         log.error("Metadata field doesn't contain 'splitter character' ('.')!\n" + e.getMessage());
-                //     }
-
-                //     List<MetadataValue> responsibilityMetadataValues = itemService.getMetadata(item, schema, element, qualifier, language) ;
-
-                //     if (!responsibilityMetadataValues.isEmpty())
-                //     {
-                //         for (MetadataValue facultyMetadataValue : responsibilityMetadataValues)
-                //         {
-                //             document.addField(SOLR_FACULTY_RESPONSIBILITY_FIELD.concat('.').concat(language), facultyMetadataValue) ;
-                //             document.addField(SOLR_FACULTY_RESPONSIBILITY_FIELD.concat('.').concat(language).concat(SOLR_KEYWORD_FIELD_SUFFIX), facultyMetadataValue) ;
-                //             document.addField(SOLR_FACULTY_RESPONSIBILITY_FIELD.concat('.').concat(language).concat(SOLR_FILTER_FIELD_SUFFIX), facultyMetadataValue) ;
-                //         }
-                        
-                //     } else {
-                //         log.error("Didn't find any values for metadata field " + facultyField);
-                //     }
-                // }
             }
-
-            // List<MetadataValue> primaryFacultyCs = itemService.getMetadata(item, "uk", "faculty", "primaryName", "cs");
-            // List<MetadataValue> primaryDepartmentCs = itemService.getMetadata(item, "uk", "department", "primaryName", "cs");
-            // List<MetadataValue> secondaryFacultyCs = itemService.getMetadata(item, "uk", "faculty", "secondaryName", "cs");
-            // List<MetadataValue> secondaryDepartmentCs = itemService.getMetadata(item, "uk", "department", "secondaryName", "cs");
-            // List<MetadataValue> primaryFacultyEn = item.getMetadata(item, "uk", "faculty", "primaryName", "en");
-            // List<MetadataValue> primaryDepartmentEn = item.getMetadata(item, "uk", "department", "primaryName", "en");
-            // List<MetadataValue> secondaryFacultyEn = item.getMetadata(item, "uk", "faculty", "secondaryName", "en");
-            // List<MetadataValue> secondaryDepartmentEn = item.getMetadata(item, "uk", "department", "secondaryName", "en");
-
-            // _keyword and _filter because
-            // they are needed in order to work as a facet and filter.
-            
-            // if (primaryFacultyCs.isEmpty() || secondaryFacultyCs.isEmpty())
-            // {
-            //     // do not create a new solr field with value
-            // }
-            // else 
-            // {
-            //     for (MetadataValue primaryFaculty : primaryFacultyCs)
-            //     {
-            //         String primaryFacultyValueCs = primaryFaculty.getValue();
-                    
-
-            //         document.addField("uk.publicationFacultyResponsibility.cs", primaryFacultyValueCs);
-            //         document.addField("uk.publicationFacultyResponsibility.cs_keyword", primaryFacultyValueCs);
-            //         document.addField("uk.publicationFacultyResponsibility.cs_filter", primaryFacultyValueCs);
-                    
-            //     }
-
-            //     for (MetadataValue secondaryFaculty : secondaryFacultyCs)
-            //     {
-            //         String secondaryFacultyValueCs = secondaryFaculty.getValue();
-
-            //         document.addField("uk.publicationFacultyResponsibility.cs", secondaryFacultyValueCs);
-            //         document.addField("uk.publicationFacultyResponsibility.cs_keyword", secondaryFacultyValueCs);
-            //         document.addField("uk.publicationFacultyResponsibility.cs_filter", secondaryFacultyValueCs);
-            //     }
-            // }
-
-
-            // if (primaryDepartmentCs.isEmpty() || secondaryDepartmentCs.isEmpty())
-            // {
-            //     // do not create a new solr field with value
-            // }
-            // else 
-            // {
-            //     for (MetadataValue primaryDepartment : primaryDepartmentCs)
-            //     {
-            //         String primaryDepartmentValueCs = primaryDepartment.getValue();
-                    
-
-            //         document.addField("uk.publicationDepartmentResponsibility.cs", primaryDepartmentValueCs);
-            //         document.addField("uk.publicationDepartmentResponsibility.cs_keyword", primaryDepartmentValueCs);
-            //         document.addField("uk.publicationDepartmentResponsibility.cs_filter", primaryDepartmentValueCs);
-                    
-            //     }
-
-            //     for (MetadataValue secondaryDepartment : secondaryDepartmentCs)
-            //     {
-            //         String secondaryDepartmentValueCs = secondaryDepartment.getValue();
-
-            //         document.addField("uk.publicationDepartmentResponsibility.cs", secondaryDepartmentValueCs);
-            //         document.addField("uk.publicationDepartmentResponsibility.cs_keyword", secondaryDepartmentValueCs);
-            //         document.addField("uk.publicationDepartmentResponsibility.cs_filter", secondaryDepartmentValueCs);
-            //     }
-            // }
-
-            
-
-            // if (primaryFacultyEn.isEmpty() || primaryDepartmentEn.isEmpty()) {
-            //     // do not create a new solr field with value
-            // }
-            // else
-            // {
-            //     document.addField("uk.publicationOrigin.en", concat(primaryFacultyEn[0],"::",primaryDepartmentEn[0]));
-            //     document.addField("uk.publicationOrigin.en_keyword", concat(primaryFacultyEn[0],"::",primaryDepartmentEn[0]));
-            //     document.addField("uk.publicationOrigin.en_filter", concat(primaryFacultyEn[0],"::",primaryDepartmentEn[0]));
-            // }
-
-            
-
-            // if (secondaryFacultyEn.isEmpty() || secondaryDepartmentEn.isEmpty())
-            // {
-            //     // do not create a new solr field with value
-            // }
-            // else 
-            // {
-            //     document.addField("uk.publicationOrigin.cs", concat(secondaryFacultyEn[0],"::",secondaryDepartmentEn[0]));
-            //     document.addField("uk.publicationOrigin.cs_keyword", concat(secondaryFacultyEn[0],"::",secondaryDepartmentEn[0]));
-            //     document.addField("uk.publicationOrigin.cs_filter", concat(secondaryFacultyEn[0],"::",secondaryDepartmentEn[0]));
-            // }
-
-
-            
-            // if (!hasOriginalBundleWithContent)
-            // {
-            //     // no content in the original bundle
-            //     document.addField("has_content_in_original_bundle", false);
-            //     document.addField("has_content_in_original_bundle_keyword", false);
-            //     document.addField("has_content_in_original_bundle_filter", false);
-            // }
-            // else
-            // {
-            //     document.addField("has_content_in_original_bundle", true);
-            //     document.addField("has_content_in_original_bundle_keyword", true);
-            //     document.addField("has_content_in_original_bundle_filter", true);
-            // }
         }
     }
-
-    // private List<MetadataValue> getMetadata(DspaceObject item, String schema, String element, String qualifier, String lang) {
-        
-    //     return item.getMetadata(item, schema, element, qualifier, lang);
-
-    // }
-
-    /**
-     * Checks whether the given item has a bundle with the name ORIGINAL
-     * containing at least one bitstream.
-     * 
-     * @param item
-     *            to check
-     * @return true if there is at least on bitstream in the bundle named
-     *         ORIGINAL, otherwise false
-     */
-    // private boolean hasOriginalBundleWithContent(Item item)
-    // {
-    //     List<Bundle> bundles;
-    //     bundles = item.getBundles();
-    //     if (bundles != null)
-    //     {
-    //         for (Bundle curBundle : bundles)
-    //         {
-    //             String bName = curBundle.getName();
-    //             if ((bName != null) && bName.equals("ORIGINAL"))
-    //             {
-    //                 List<Bitstream> bitstreams = curBundle.getBitstreams();
-    //                 if (bitstreams != null && bitstreams.size() > 0)
-    //                 {
-    //                     return true;
-    //                 }
-    //             }
-    //         }
-    //     }
-    //     return false;
-    // }
 }
