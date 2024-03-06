@@ -87,7 +87,7 @@ public class SolrServicePublicationResponsibilityFromSeparateMetaFieldsPlugin im
                                 log.debug("Found " + metadataValue + "in metadata field " + METADATA_SCHEMA + "." + element + "." + qualifier + "[lang=" + language + "]" ) ;
 
                                 String solrFieldName = METADATA_SCHEMA.concat(".")
-                                .concat("publication").concat(StringUtils.capitalize(element)).concat("Responsiblity").concat(".").concat(language) ;
+                                .concat("publication").concat(StringUtils.capitalize(element)).concat("Responsibility").concat(".").concat(language) ;
 
                                 log.debug("Adding metadata value [" + metadataValue + "] to SOLR field [" + solrFieldName + "]") ;
                                 document.addField(solrFieldName, metadataValue) ;
