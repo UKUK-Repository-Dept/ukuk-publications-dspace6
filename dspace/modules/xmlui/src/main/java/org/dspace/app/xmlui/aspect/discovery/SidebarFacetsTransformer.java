@@ -210,18 +210,42 @@ public class SidebarFacetsTransformer extends AbstractDSpaceTransformer implemen
                     log.info("IAAAAAA: Processing field " + field.getIndexFieldName());
                     if (field.getIndexFieldName().equals("OBDTypeHierarchyCs")) {
                         if (currentLocale.equals("en")) {
-                            // don't add facet based on indexFieldName `OBDTypeHierarchyCs` 
+                            // don't add facet based on indexFieldName 'OBDTypeHierarchyCs' 
                             // when current language is 'en'
-                            log.info("IAAAAAA: Found field " + field.getIndexFieldName() + "and I am on " + currentLocale + " locale");
+                            log.debug("IAAAAAA: Found field " + field.getIndexFieldName() + "and I am on " + currentLocale + " locale");
                             continue;
                         }
                     } 
                      
                     if (field.getIndexFieldName().equals("OBDTypeHierarchyEn")) {
                         if (currentLocale.equals("cs")) {
-                            // don't add facet based on indexFieldName `OBDTypeHierarchyEn` 
+                            // don't add facet based on indexFieldName 'OBDTypeHierarchyEn'
                             // when current language is 'cs'
-                            log.info("IAAAAAA: Found field " + field.getIndexFieldName() + "and I am on " + currentLocale + " locale");
+                            log.debug("IAAAAAA: Found field " + field.getIndexFieldName() + "and I am on " + currentLocale + " locale");
+                            continue;
+                        }
+                    }
+
+                    // Handle new facets based on:
+                    // - uk.publicationFacultyResponsibility.cs
+                    // - uk.publicationDepartmentResponsibility.cs
+                    if (field.getIndexFieldName().equals("uk.publicationFacultyResponsibility.cs") || field.getIndexFieldName().equals("uk.publicationDepartmentResponsibility.cs")) {
+                        if (currentLocale.equals("en")) {
+                            // don't add facet based on indexFieldName 'uk.publicationFacultyResponsibility.cs' or 'uk.publicationDepartmentResponsibility.cs'
+                            // when current language is 'en'
+                            log.debug("IAAAAAA: Found field " + field.getIndexFieldName() + "and I am on " + currentLocale + " locale");
+                            continue;
+                        }
+                    }
+
+                    // Handle new facets based on:
+                    // - uk.publicationFacultyResponsibility.en
+                    // - uk.publicationDepartmentResponsibility.en
+                    if (field.getIndexFieldName().equals("uk.publicationFacultyResponsibility.en") || field.getIndexFieldName().equals("uk.publicationDepartmentResponsibility.en")) {
+                        if (currentLocale.equals("cs")) {
+                            // don't add facet based on indexFieldName `OBDTypeHierarchyCs` 
+                            // when current language is 'en'
+                            log.debug("IAAAAAA: Found field " + field.getIndexFieldName() + "and I am on " + currentLocale + " locale");
                             continue;
                         }
                     }
