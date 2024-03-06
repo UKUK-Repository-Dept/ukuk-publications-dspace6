@@ -22,6 +22,8 @@ import org.dspace.core.Context;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
+import java.util.Arrays;
+import org.apache.log4j.Logger;
 
 /**
  * This plugin adds three fields to the solr index to make a facet with/without
@@ -80,7 +82,7 @@ public class SolrServicePublicationResponsibilityFromSeparateMetaFieldsPlugin im
                             // ... add each metadata value to appropriate SOLR fields
                             for (String metadataValue : responsibilityMetadataValues)
                             {
-                                String solrFieldName = METADATA_SCHEMA.concat(".").concat("publication").concat(StringUtils.capitalize(element)).concat("Responsiblity").concat('.').concat(language) ;
+                                String solrFieldName = METADATA_SCHEMA.concat(".").concat("publication").concat(StringUtils.capitalize(element)).concat("Responsiblity").concat(".").concat(language) ;
                             
                                 document.addField(solrFieldName, metadataValue) ;
                                 document.addField(solrFieldName.concat(SOLR_KEYWORD_FIELD_SUFFIX), metadataValue) ;
