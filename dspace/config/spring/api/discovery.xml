@@ -107,6 +107,8 @@
                 <ref bean="searchFilterIssued" />
                 <ref bean="searchFilterPublicationFacultyResponsiblityCs" />
                 <ref bean="searchFilterPublicationDepartmentResponsiblityCs" />
+                <ref bean="searchFilterPublicationFacultyResponsiblityEn"/>
+                <ref bean="searchFilterPublicationDepartmentResponsiblityEn" />
                 <!-- <ref bean="searchFilterAuthor" /> -->
                 <!-- <ref bean="searchFilterSubject" /> -->
 		        <!-- <ref bean="searchFilterContentInOriginalBundle"/> -->
@@ -125,6 +127,8 @@
                 <ref bean="searchFilterIssued" />
                 <ref bean="searchFilterPublicationFacultyResponsiblityCs" />
                 <ref bean="searchFilterPublicationDepartmentResponsiblityCs" />
+                <ref bean="searchFilterPublicationFacultyResponsiblityEn"/>
+                <ref bean="searchFilterPublicationDepartmentResponsiblityEn" />
 		        <!-- <ref bean="searchFilterContentInOriginalBundle"/>-->
                 <!-- <ref bean="searchFilterFileNameInOriginalBundle" /> -->
                 <!-- <ref bean="searchFilterFileDescriptionInOriginalBundle" /> -->
@@ -241,6 +245,8 @@
                 <ref bean="searchFilterIssued" />
                 <ref bean="searchFilterPublicationFacultyResponsiblityCs" />
                 <ref bean="searchFilterPublicationDepartmentResponsiblityCs" />
+                <ref bean="searchFilterPublicationFacultyResponsiblityEn"/>
+                <ref bean="searchFilterPublicationDepartmentResponsiblityEn" />
                 <!-- <ref bean="searchFilterAuthor" /> -->
                 <!-- <ref bean="searchFilterSubject" /> -->
 		        <!-- <ref bean="searchFilterContentInOriginalBundle"/> -->
@@ -259,6 +265,8 @@
                 <ref bean="searchFilterFacetOBDTypeHierarchyEn" />
                 <ref bean="searchFilterPublicationFacultyResponsiblityCs" />
                 <ref bean="searchFilterPublicationDepartmentResponsiblityCs" />
+                <ref bean="searchFilterPublicationFacultyResponsiblityEn"/>
+                <ref bean="searchFilterPublicationDepartmentResponsiblityEn" />
 		        <!-- <ref bean="searchFilterContentInOriginalBundle"/> -->
                 <!-- <ref bean="searchFilterFileNameInOriginalBundle" /> -->
                 <!-- <ref bean="searchFilterFileDescriptionInOriginalBundle" /> -->
@@ -525,6 +533,9 @@
         </property>
     </bean>
 
+    <!-- <JR> - 2024-03-06: Added new custom made facets created by a custom plugin-->
+
+    <!-- <JR> - 2024-03-06: Faceting based on faculty / faculties (university units) responsible (primarily or secondardily) for creation of the publication, value in Czech -->
     <bean id="searchFilterPublicationFacultyResponsiblityCs" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
         <property name="indexFieldName" value="uk.publicationFacultyResponsibility.cs"/>
         <property name="metadataFields">
@@ -536,8 +547,33 @@
         <property name="sortOrderFilterPage" value="COUNT"/>
     </bean>
 
+    <!-- <JR> - 2024-03-06: Faceting based on department / departments (clinics, institutes) responsible (primarily or secondardily) for creation of the publication, value in Czech -->
     <bean id="searchFilterPublicationDepartmentResponsiblityCs" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
         <property name="indexFieldName" value="uk.publicationDepartmentResponsibility.cs"/>
+        <property name="metadataFields">
+            <list/>
+        </property>
+        <property name="facetLimit" value="5"/>
+        <property name="type" value="standard"/>
+        <property name="sortOrderSidebar" value="COUNT"/>
+        <property name="sortOrderFilterPage" value="COUNT"/>
+    </bean>
+
+    <!-- <JR> - 2024-03-06: Faceting based on faculty / faculties (university units) responsible (primarily or secondardily) for creation of the publication, value in English -->
+    <bean id="searchFilterPublicationFacultyResponsiblityEn" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
+        <property name="indexFieldName" value="uk.publicationFacultyResponsibility.en"/>
+        <property name="metadataFields">
+            <list/>
+        </property>
+        <property name="facetLimit" value="5"/>
+        <property name="type" value="standard"/>
+        <property name="sortOrderSidebar" value="COUNT"/>
+        <property name="sortOrderFilterPage" value="COUNT"/>
+    </bean>
+
+    <!-- <JR> - 2024-03-06: Faceting based on department / departments (clinics, institutes) responsible (primarily or secondardily) for creation of the publication, value in English -->
+    <bean id="searchFilterPublicationDepartmentResponsiblityEn" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
+        <property name="indexFieldName" value="uk.publicationDepartmentResponsibility.en"/>
         <property name="metadataFields">
             <list/>
         </property>
