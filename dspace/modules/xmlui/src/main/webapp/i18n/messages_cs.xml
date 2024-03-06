@@ -3654,6 +3654,8 @@
 	<message key="xmlui.ArtifactBrowser.AdvancedSearch.type_OBDTypeHierarchyCs">Druh výsledku</message>
 	<message key="xmlui.ArtifactBrowser.AdvancedSearch.type_uk.publicationFacultyResponsibility.cs">Fakulta / součást</message>
 	<message key="xmlui.ArtifactBrowser.AdvancedSearch.type_uk.publicationDepartmentResponsibility.cs">Oddělení / ústav / klinika</message>
+	<message key="xmlui.ArtifactBrowser.AdvancedSearch.type_uk.publicationFacultyResponsibility.en">Fakulta / součást</message>
+	<message key="xmlui.ArtifactBrowser.AdvancedSearch.type_uk.publicationDepartmentResponsibility.en">Oddělení / ústav / klinika</message>
 	<message key="xmlui.ArtifactBrowser.SimpleSearch.filter.OBDTypeHierarchyEn">Druh výsledku</message>
 	<message key="xmlui.ArtifactBrowser.SimpleSearch.filter.OBDTypeHierarchyCs">Druh výsledku</message>
 	<message key="xmlui.ArtifactBrowser.SimpleSearch.filter.uk.publicationFacultyResponsibility.cs">Fakulta / součást</message>
