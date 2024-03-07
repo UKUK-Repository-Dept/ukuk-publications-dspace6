@@ -3506,18 +3506,18 @@
 	<message key="obd.about-confirmations.table-confirmations.header.1">prohlášení</message>
 	<message key="obd.about-confirmations.table-confirmations.header.2">celý text</message>
 	<message key="obd.about-confirmations.table-confirmations.tr.1.td.1">
-		Potvrzení o souhlasu spoluautorů
+		Potvrzení o nezasahování do práv spoluautorů
 	</message>
 	<message key="obd.about-confirmations.table-confirmations.tr.1.td.2">
-		Prohlašuji, že mám souhlas od všech spoluautorů s uložením a zpřístupněním 
-		přiloženého plného textu díla v repozitáři publikační činnosti UK.
+		Prohlašuji, že uložením a zpřístupněním plného textu díla v repozitáři 
+		publikační činnosti UK nebude zasaženo do práv případných spoluautorů.
 	</message>
 	<message key="obd.about-confirmations.table-confirmations.tr.2.td.1">
 		Potvrzení o nezasahování do práv vydavatele/nakladatele či jiné třetí strany
 	</message>
 	<message key="obd.about-confirmations.table-confirmations.tr.2.td.2">
-		Prohlašuji, že uložením a zpřístupněním souboru v repozitáři publikační 
-		činnosti UK nebudou narušená práva vydavatele/nakladatele či jiné třetí strany.
+		Prohlašuji, že uložením a zpřístupněním plného textu díla v repozitáři publikační činnosti UK 
+		nebude zasaženo do práv vydavatele/nakladatele či jiné třetí strany.
 	</message>
 	<message key="obd.about-confirmations.para.4">
 		Pokud prohlášení nebudou potvrzena, výsledek nebude uložen a zpřístupněn v repozitáři a zůstane uložen 

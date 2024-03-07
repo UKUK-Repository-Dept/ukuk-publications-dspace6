@@ -3415,18 +3415,19 @@
 	<message key="obd.about-confirmations.table-confirmations.header.1">declaration</message>
 	<message key="obd.about-confirmations.table-confirmations.header.2">complete text</message>
 	<message key="obd.about-confirmations.table-confirmations.tr.1.td.1">
-		Confirmation of consent of co-authors
+		Confirmation of non-infringement of the rights of co-authors
 	</message>
 	<message key="obd.about-confirmations.table-confirmations.tr.1.td.2">
-		I hereby declare that I have the consent of all co-authors to store and make available 
-		the attached full text of the work in the CU repository of publishing activities.
+		I hereby declare that, by storing and making the full text of the work accessible in the CU 
+		repository of publishing activities, the rights of potential co-authors have not been infringed.
 	</message>
 	<message key="obd.about-confirmations.table-confirmations.tr.2.td.1">
 		Confirmation of non-infringement of the rights of the publisher or another third party
 	</message>
 	<message key="obd.about-confirmations.table-confirmations.tr.2.td.2">
-		I hereby declare that, by storing and making the file available in the CU repository of publishing activities, 
-		the rights of the publisher or other third parties are not infringed.
+		I hereby declare that, by storing and disclosing the full text of the work 
+		in the repository of CU publishing activities, the rights of the publisher or 
+		another third party have not been affected.
 	</message>
 	<message key="obd.about-confirmations.para.4">
 		If the declarations are not confirmed, the result will not be stored and made available in the repository 
