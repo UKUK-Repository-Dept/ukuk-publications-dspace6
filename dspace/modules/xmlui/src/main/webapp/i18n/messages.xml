@@ -3561,8 +3561,16 @@
 	<!-- RESEARCH OUTPUT TYPE FACET & FILTER-->
 	<message key="xmlui.ArtifactBrowser.AdvancedSearch.type_OBDTypeHierarchyEn">Research Output Type</message>
 	<message key="xmlui.ArtifactBrowser.AdvancedSearch.type_OBDTypeHierarchyCs">Research Output Type</message>
-	<message key="xmlui.ArtifactBrowser.SimpleSearch.filter.OBDTypeHierarchyEn">Research Output Type</message>
-	<message key="xmlui.ArtifactBrowser.SimpleSearch.filter.OBDTypeHierarchyCs">Research Output Type</message>
+	<message key="xmlui.ArtifactBrowser.AdvancedSearch.type_uk.publicationFacultyResponsibility.cs">Faculty / University unit</message>
+	<message key="xmlui.ArtifactBrowser.AdvancedSearch.type_uk.publicationDepartmentResponsibility.cs">Department / Institute / Clinic</message>
+	<message key="xmlui.ArtifactBrowser.AdvancedSearch.type_uk.publicationFacultyResponsibility.en">Faculty / University unit</message>
+	<message key="xmlui.ArtifactBrowser.AdvancedSearch.type_uk.publicationDepartmentResponsibility.en">Department / Institute / Clinic</message>
+	<message key="xmlui.ArtifactBrowser.SimpleSearch.filter.OBDTypeHierarchyEn">Research Output Type (EN)</message>
+	<message key="xmlui.ArtifactBrowser.SimpleSearch.filter.OBDTypeHierarchyCs">Research Output Type (CS)</message>
+	<message key="xmlui.ArtifactBrowser.SimpleSearch.filter.uk.publicationFacultyResponsibility.cs">Faculty / University unit (CS)</message>
+	<message key="xmlui.ArtifactBrowser.SimpleSearch.filter.uk.publicationFacultyResponsibility.en">Faculty / University unit (EN)</message>
+	<message key="xmlui.ArtifactBrowser.SimpleSearch.filter.uk.publicationDepartmentResponsibility.cs">Department / Institute / Clinic (CS)</message>
+	<message key="xmlui.ArtifactBrowser.SimpleSearch.filter.uk.publicationDepartmentResponsibility.en">Department / Institute / Clinic (EN)</message>
 	<!-- END OF: CUSTOM FACETS LABELS TRANSLATIONS -->
 	<!--OUTPUT PUBLICATION VERSIONS TRANSLATIONS-->
 	
