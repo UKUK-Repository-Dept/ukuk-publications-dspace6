@@ -21,10 +21,11 @@ import org.dspace.app.xmlui.wing.element.Figure;
 
 /**
  * 
- * This class represents a xref link to an external document. The text within
- * the tag itself will be used as part of the link's visual body.
+ * This class represents a reCAPTCHA Structural Element (div), in which reCAPTCHA validation 
+ * box is rendered.
  * 
  * @author Scott Phillips
+ * @author Jakub Řihák (2024-01-12)
  */
 
 public class ReCaptcha extends RichTextContainer implements StructuralElement
@@ -45,7 +46,7 @@ public class ReCaptcha extends RichTextContainer implements StructuralElement
     private String name;
 
     /**
-     * Construct a new xref link.
+     * Construct a new reCAPTCHA div.
      * 
      * @param context
      *            (Required) The context this element is contained in
@@ -84,7 +85,7 @@ public class ReCaptcha extends RichTextContainer implements StructuralElement
     }
     
     /**
-     * Construct a new xref link.
+     * Construct a new reCAPTCHA div.
      * 
      * @param context
      *            (Required) The context this element is contained in
@@ -100,7 +101,7 @@ public class ReCaptcha extends RichTextContainer implements StructuralElement
     }
     
     /**
-     * Construct a new xref link.
+     * Construct a new reCAPTCHA div.
      * 
      * @param context
      *            (Required) The context this element is contained in

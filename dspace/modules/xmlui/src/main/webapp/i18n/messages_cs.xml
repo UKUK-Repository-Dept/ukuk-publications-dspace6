@@ -359,6 +359,7 @@
 	<message key="xmlui.ArtifactBrowser.ItemRequestForm.requesterName">Jméno</message>
 	<message key="xmlui.ArtifactBrowser.ItemRequestForm.requesterName.error">Jméno je nutné vyplnit</message>
 	<message key="xmlui.ArtifactBrowser.ItemRequestForm.submit">Vyžádat kopii</message>
+	<message key="xmlui.ArtifactBrowser.ItemRequestForm.recaptcha.error">reCAPTCHA je vyžadována</message>
 
 	<!-- org.dspace.app.xmlui.artifactbrowser.ItemRequestSent.java -->
 	<message key="xmlui.ArtifactBrowser.ItemRequestSent.title">Váš požadavek byl odeslán.</message>

@@ -25,6 +25,11 @@ import org.dspace.app.xmlui.wing.element.List;
 import org.dspace.app.xmlui.wing.element.PageMeta;
 import org.dspace.app.xmlui.wing.element.Text;
 import org.dspace.app.xmlui.wing.element.TextArea;
+// <JR> - 2024-01-12: Added classes needed for reCATPCHA implementation
+import org.dspace.app.xmlui.wing.element.ReCaptcha;
+import org.dspace.app.xmlui.wing.element.ReCaptchaError;
+import org.apache.commons.lang.StringUtils;
+// END OF: <JR> - 2024-01-12: Added classes needed for reCATPCHA implementation
 import org.dspace.authorize.AuthorizeException;
 import org.xml.sax.SAXException;
 
@@ -62,6 +67,9 @@ public class FeedbackForm extends AbstractDSpaceTransformer implements Cacheable
     
     private static final Message T_submit =
         message("xmlui.ArtifactBrowser.FeedbackForm.submit");
+    
+    // <JR> - 2024-01-11: Google reCAPTCHA label
+    private static final Message T_recaptcha = message("reCAPTCHA");
     
     /**
      * Generate the unique caching key.
@@ -118,6 +126,25 @@ public class FeedbackForm extends AbstractDSpaceTransformer implements Cacheable
         TextArea comments = form.addItem().addTextArea("comments");
         comments.setLabel(T_comments);
         comments.setValue(parameters.getParameter("comments",""));
+
+        /** 
+         * <JR> - 2024-01-10: Add reCAPTCHA
+         * 
+         * since reCAPTCHA is not a Field, but StructuralElement,
+         * adding labels and errors to it is not as straight forward 
+         * (perhaps some TODO for the future - to have a reCAPTCHA Field?)
+         * 
+         * Label and error has to be added to the form itself, on the appropriate place 
+         */ 
+        form.addLabel(T_recaptcha);
+        // reCAPTCHA is a special Structural Element
+        ReCaptcha recaptcha = form.addItem().addReCaptcha("g-recaptcha","");
+
+        // Adding an error to appropriate place when 'g-recaptcha-response' is empty
+        if(StringUtils.isEmpty(parameters.getParameter("g-recaptcha-response", ""))) {
+                // reCAPTCHA error has is a separate Structural Element, basicaly just a 'div'
+                ReCaptchaError recaptchaError = form.addItem().addReCaptchaError("g-recaptcha-error","");
+        }
         
         form.addItem().addButton("submit").setValue(T_submit);
         

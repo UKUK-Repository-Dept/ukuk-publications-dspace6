@@ -25,6 +25,13 @@ import org.dspace.core.Context;
 import org.dspace.core.Email;
 import org.dspace.core.I18nUtil;
 import org.dspace.eperson.EPerson;
+// <JR> - 2024-01-12: Needed for reCAPTCHA validation
+import org.apache.http.HttpResponse; //
+import org.apache.http.util.EntityUtils;
+import org.dspace.app.xmlui.utils.ReCaptchaUtil; // <JR> - 2024-01-12: import ReCaptchaUtil for handling reCAPTCHA validation
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+// END OF: <JR> - 2024-01-12: Needed for reCAPTCHA validation
 
 /**
  * @author Scott Phillips
@@ -32,6 +39,7 @@ import org.dspace.eperson.EPerson;
 
 public class SendFeedbackAction extends AbstractAction
 {
+    private static final Logger log = Logger.getLogger(SendFeedbackAction.class);
 
     /**
      *
@@ -46,6 +54,32 @@ public class SendFeedbackAction extends AbstractAction
         String agent = request.getHeader("User-Agent");
         String session = request.getSession().getId();
         String comments = request.getParameter("comments");
+
+        // // <JR> - 2024-01-08: Adding reCAPTCHA, see https://groups.google.com/g/dspace-community/c/UiygSm8pV-M
+        // // for details
+
+        boolean isCaptchaValid = false; // <JR> - reCaptcha is set to be invalid by default
+        
+        // <JR> - load value of g-recaptcha-response for validation, if it is present on the page...
+        if(StringUtils.isNotBlank(request.getParameter(ReCaptchaUtil.getRecaptchaResponseParam()))) {
+            //... create and send reCaptchaRequest...
+            HttpResponse reCaptchaServerResponse = ReCaptchaUtil.sendValidateRecaptchaRequest(
+                request.getParameter(ReCaptchaUtil.getRecaptchaResponseParam()), request.getRemoteHost());
+                
+            // <JR> - 2024-01-16 - storing response in variable works if we want to use it afterwards
+            String recaptchaResponseString = EntityUtils.toString(reCaptchaServerResponse.getEntity());
+
+            log.info("recaptcha post response: " + reCaptchaServerResponse.getStatusLine().getStatusCode() + " entity: " 
+            + recaptchaResponseString);
+            
+            //... check response status to see if reCaptcha is valid
+            isCaptchaValid = ReCaptchaUtil.checkReCaptchaValidationResponseStatus(
+                reCaptchaServerResponse.getStatusLine().getStatusCode(), recaptchaResponseString);
+            
+            log.info("recaptcha valid: " + isCaptchaValid);
+        } else {
+            log.info("no recaptcha");
+        }
 
         // Obtain information from request
         // The page where the user came from
@@ -90,9 +124,9 @@ public class SendFeedbackAction extends AbstractAction
             page = fromPage;
         }
 
-        // Check all data is there
+        // Check all data is there (<JR> - 2024-01-12: Including check if reCAPTCHA is VALID)
         if ((address == null) || address.equals("")
-                || (comments == null) || comments.equals(""))
+                || (comments == null) || comments.equals("") || !isCaptchaValid)
         {
             // Either the user did not fill out the form or this is the
             // first time they are visiting the page.

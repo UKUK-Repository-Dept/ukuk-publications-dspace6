@@ -25,6 +25,7 @@ import org.apache.log4j.Logger;
 import org.dspace.app.xmlui.cocoon.AbstractDSpaceTransformer;
 import org.dspace.app.xmlui.utils.AuthenticationUtil;
 import org.dspace.app.xmlui.utils.HandleUtil;
+import org.dspace.app.xmlui.utils.ReCaptchaUtil;
 import org.dspace.app.xmlui.utils.UIException;
 import org.dspace.app.xmlui.wing.Message;
 import org.dspace.app.xmlui.wing.WingException;
@@ -245,7 +246,7 @@ public class ItemRequestForm extends AbstractDSpaceTransformer implements Cachea
         ReCaptcha recaptcha = form.addItem().addReCaptcha("g-recaptcha","");
 
         // Adding an error to appropriate place when 'g-recaptcha-response' is empty
-        if(StringUtils.isEmpty(parameters.getParameter("g-recaptcha-response", ""))) {
+        if(StringUtils.isEmpty(parameters.getParameter(ReCaptchaUtil.getRecaptchaResponseParam(), ""))) {
                 // reCAPTCHA error has is a separate Structural Element, basicaly just a 'div'
                 ReCaptchaError recaptchaError = form.addItem().addReCaptchaError("g-recaptcha-error","");
         }
