@@ -138,6 +138,8 @@ collections / items / and bitstreams
 								<map:parameter name="allFiles" value="{allFiles}" />
 								<map:parameter name="message" value="{message}" />
 								<map:parameter name="bitstreamId" value="{bitstreamId}" />
+								<!-- <JR> - new parameter for handlig reCAPTCHA response during Item Request -->
+								<map:parameter name="g-recaptcha-response" value="{g-recaptcha-response}"/>
 							</map:transform>
 							<map:serialize type="xml" />
 						</map:act>

@@ -968,6 +968,15 @@
             <script src="{$theme-path}{@src}">&#160;</script>
         </xsl:for-each>
 
+        <!-- <JR> - 2024-01-08: Adding reCAPTCHA, see https://groups.google.com/g/dspace-community/c/UiygSm8pV-M 
+                    for details
+            
+            reCAPTCHA api.js script is referenced only on pages related to restricted resources
+        -->
+        <xsl:if test="contains($current-uri,'restricted-resource')">
+            <script src="https://www.google.com/recaptcha/api.js" async="true" defer="true"></script>
+        </xsl:if>
+
         <!-- Add javascript specified in DRI -->
         <xsl:for-each select="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='javascript'][not(@qualifier)]">
             <script>

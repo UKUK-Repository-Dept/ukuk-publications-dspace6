@@ -204,3 +204,11 @@ db.schema = public
 # Authentication by Password (encrypted in DSpace's database). See authentication-password.cfg for default configuration.
 # Enabled by default in authentication.cfg
 #plugin.sequence.org.dspace.authenticate.AuthenticationMethod = org.dspace.authenticate.PasswordAuthentication
+
+##########################
+# CUNI RECAPCHA          #
+##########################
+# <JR> - 2024-01-11: New configuration properties for reCAPTCHA
+xmlui.cuni.recaptcha.sitekey = example
+xmlui.cuni.recaptcha.secretkey = secret
+xmlui.cuni.recaptcha.url = https://www.google.com/recaptcha/api/siteverify

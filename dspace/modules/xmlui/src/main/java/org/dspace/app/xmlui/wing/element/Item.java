@@ -29,6 +29,7 @@ import org.xml.sax.helpers.NamespaceSupport;
 
 public class Item extends RichTextContainer implements StructuralElement
 {
+
     /** The name of the item element */
     public static final String E_ITEM = "item";
 
@@ -59,6 +60,52 @@ public class Item extends RichTextContainer implements StructuralElement
         this.rend = rend;
     }
 
+    /**
+    * <JR> - 2024-01-11: Added methods for creating reCAPTCHA Structural Element on item (in a list)
+    */
+    // <JR> - reCATPCHA element
+    public ReCaptcha addReCaptcha() throws WingException
+    {
+        return addReCaptcha(null,null);
+    }
+    
+    public ReCaptcha addReCaptcha(String name) throws WingException
+    {
+        return addReCaptcha(name,null);
+    }
+    
+    
+    public ReCaptcha addReCaptcha(String name, String rend) throws WingException{
+     ReCaptcha recaptcha_div=new ReCaptcha(context, name, rend);
+      contents.add(recaptcha_div);
+         return recaptcha_div;
+    
+    }
+    // END OF: <JR> - reCATPCHA element
+
+    /**
+    * <JR> - 2024-01-11: Added methods for creating reCAPTCHA Error Structural Element on item (in a list)
+    */
+
+    // <JR> - reCAPTCHA Error Element
+    public ReCaptchaError addReCaptchaError() throws WingException
+    {
+        return addReCaptchaError(null,null);
+    }
+    
+    public ReCaptchaError addReCaptchaError(String name) throws WingException
+    {
+        return addReCaptchaError(name,null);
+    }
+    
+    
+    public ReCaptchaError addReCaptchaError(String name, String rend) throws WingException{
+     ReCaptchaError recaptchaError_div=new ReCaptchaError(context, name, rend);
+      contents.add(recaptchaError_div);
+         return recaptchaError_div;
+    
+    }
+    // END OF: <JR> - reCAPTCHA Error Element
     
     /**
      * Translate this element and all contained elements into SAX events. The
