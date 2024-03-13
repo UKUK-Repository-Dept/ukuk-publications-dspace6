@@ -281,6 +281,8 @@ collections / items / and bitstreams
 						<map:parameter name="comments" value="{comments}" />
 						<map:parameter name="email" value="{email}" />
 						<map:parameter name="page" value="{page}" />
+						<!-- <JR> - new parameter for handlig reCAPTCHA response during Send Feedback -->
+						<map:parameter name="g-recaptcha-response" value="{g-recaptcha-response}"/>
 					</map:transform>
 
 					<map:serialize type="xml" />

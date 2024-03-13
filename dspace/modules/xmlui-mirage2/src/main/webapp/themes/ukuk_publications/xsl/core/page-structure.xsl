@@ -973,7 +973,7 @@
             
             reCAPTCHA api.js script is referenced only on pages related to restricted resources
         -->
-        <xsl:if test="contains($current-uri,'restricted-resource')">
+        <xsl:if test="contains($current-uri,'restricted-resource') or contains($current-uri,'feedback')">
             <script src="https://www.google.com/recaptcha/api.js" async="true" defer="true"></script>
         </xsl:if>
 

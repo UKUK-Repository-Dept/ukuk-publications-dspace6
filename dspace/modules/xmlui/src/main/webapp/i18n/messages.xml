@@ -331,6 +331,7 @@
 	<message key="xmlui.ArtifactBrowser.ItemRequestForm.requesterName">Name</message>
 	<message key="xmlui.ArtifactBrowser.ItemRequestForm.requesterName.error">Name is required</message>
 	<message key="xmlui.ArtifactBrowser.ItemRequestForm.submit">Request copy</message>
+	<message key="xmlui.ArtifactBrowser.ItemRequestForm.recaptcha.error">reCAPTCHA is required</message>
 
 	<!-- org.dspace.app.xmlui.artifactbrowser.ItemRequestSent.java -->
 	<message key="xmlui.ArtifactBrowser.ItemRequestSent.title">Your request has been sent.</message>
