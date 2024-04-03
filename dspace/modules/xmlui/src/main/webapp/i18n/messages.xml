@@ -2209,6 +2209,7 @@
 	<message key="xmlui.dri2xhtml.METS-1.0.item-abstract.show.original">Show original language</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-keywords">Keywords</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-keywords.show.original">Show original language</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item.show-metadata.other-languages">Show in other languages</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-description">Description</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-uri">URI</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-file-button-download">Get publication</message>

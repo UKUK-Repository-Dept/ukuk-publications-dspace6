@@ -1651,7 +1651,7 @@
                     </xsl:call-template>
                 </xsl:for-each>
                 </div>
-                <a data-toggle="collapse" href="#{$element}-{$qualifier}-other-languages"><i18n:text>xmlui.dri2xhtml.METS-1.0.item-keywords.show.other-languages</i18n:text></a>
+                <a data-toggle="collapse" href="#{$element}-{$qualifier}-other-languages"><i18n:text>xmlui.dri2xhtml.METS-1.0.item.show-metadata.other-languages</i18n:text></a>
             </div>
             </div>
 
