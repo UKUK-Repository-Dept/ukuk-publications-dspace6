@@ -527,9 +527,19 @@
                         </xsl:variable>
                         <xsl:choose>
                             <xsl:when test="contains($src,'isAllowed=n')">
-                                <div style="width: 100%; text-align: center">
-                                    <i aria-hidden="true" class="glyphicon  glyphicon-lock"></i>
-                                </div>
+                                <img class="img-thumbnail  item-view-thumbnail" alt="Thumbnail">
+                                    <xsl:attribute name="data-src">
+                                        <xsl:text>holder.js/126x</xsl:text>
+                                        <xsl:value-of select="$thumbnail.maxheight"/>
+                                        <xsl:text>/colors:#ffffff:#d22d40</xsl:text>
+                                        <xsl:if test="$active-locale = 'en'">
+                                            <xsl:text>/text:Thubmnail Restricted</xsl:text>
+                                        </xsl:if>
+                                        <xsl:if test="$active-locale = 'cs'">
+                                            <xsl:text>/text:Náhled není přístupný</xsl:text>
+                                        </xsl:if>
+                                    </xsl:attribute>
+                                </img>
                             </xsl:when>
                             <xsl:otherwise>
                                 <img class="img-responsive img-thumbnail" alt="xmlui.mirage2.item-list.thumbnail" i18n:attr="alt">
@@ -543,9 +553,15 @@
                     <xsl:otherwise>
                         <img class="img-thumbnail" alt="xmlui.mirage2.item-list.thumbnail" i18n:attr="alt">
                             <xsl:attribute name="data-src">
-                                <xsl:text>holder.js/100%x</xsl:text>
+                                <xsl:text>holder.js/126x</xsl:text>
                                 <xsl:value-of select="$thumbnail.maxheight"/>
-                                <xsl:text>/text:No Thumbnail</xsl:text>
+                                <xsl:text>/colors:#ffffff:#d22d40</xsl:text>
+                                <xsl:if test="$active-locale = 'en'">
+                                    <xsl:text>/text:No Thumbnail</xsl:text>
+                                </xsl:if>
+                                <xsl:if test="$active-locale = 'cs'">
+                                    <xsl:text>/text:Náhled není k dispozici</xsl:text>
+                                </xsl:if>
                             </xsl:attribute>
                         </img>
                     </xsl:otherwise>

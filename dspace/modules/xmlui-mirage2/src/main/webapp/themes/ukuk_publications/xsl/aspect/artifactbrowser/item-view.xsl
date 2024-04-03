@@ -61,6 +61,10 @@
         <xsl:value-of select="concat(confman:getProperty('solr.server'), '/search')" />
     </xsl:variable>
 
+    <!-- Grouping the keyword fields based on language -->
+    <xsl:key name="keyword-language-group" match="dim:field[@element='subject' and @qualifier='keyword']" use="@language" />
+    <xsl:key name="abstract-language-group" match="dim:field[@element='description' and @qualifier='abstract']" use="@language"/>
+
     <xsl:template name="itemSummaryView-DIM">
         <!-- Generate the info about the item from the metadata section -->
         <xsl:apply-templates select="./mets:dmdSec/mets:mdWrap[@OTHERMDTYPE='DIM']/mets:xmlData/dim:dim"
@@ -387,7 +391,21 @@
                     </xsl:variable>
                     <!-- Checking if Thumbnail is restricted and if so, show a restricted image --> 
                     <xsl:choose>
-                        <xsl:when test="contains($src,'isAllowed=n')"/>
+                        <xsl:when test="contains($src,'isAllowed=n')">
+                            <img class="img-thumbnail  item-view-thumbnail" alt="Thumbnail">
+                                <xsl:attribute name="data-src">
+                                    <xsl:text>holder.js/126x</xsl:text>
+                                    <xsl:value-of select="$thumbnail.maxheight"/>
+                                    <xsl:text>/colors:#ffffff:#d22d40</xsl:text>
+                                    <xsl:if test="$active-locale = 'en'">
+                                        <xsl:text>/text:Thubmnail Restricted</xsl:text>
+                                    </xsl:if>
+                                    <xsl:if test="$active-locale = 'cs'">
+                                        <xsl:text>/text:Náhled není přístupný</xsl:text>
+                                    </xsl:if>
+                                </xsl:attribute>
+                            </img>
+                        </xsl:when>
                         <xsl:otherwise>
                             <img class="img-thumbnail item-view-thumbnail" alt="Thumbnail">
                                 <xsl:attribute name="src">
@@ -400,9 +418,15 @@
                 <xsl:otherwise>
                     <img class="img-thumbnail  item-view-thumbnail" alt="Thumbnail">
                         <xsl:attribute name="data-src">
-                            <xsl:text>holder.js/100%x</xsl:text>
+                            <xsl:text>holder.js/126x</xsl:text>
                             <xsl:value-of select="$thumbnail.maxheight"/>
-                            <xsl:text>/text:No Thumbnail</xsl:text>
+                            <xsl:text>/colors:#ffffff:#d22d40</xsl:text>
+                            <xsl:if test="$active-locale = 'en'">
+                                <xsl:text>/text:No Thumbnail</xsl:text>
+                            </xsl:if>
+                            <xsl:if test="$active-locale = 'cs'">
+                                <xsl:text>/text:Náhled není k dispozici</xsl:text>
+                            </xsl:if>
                         </xsl:attribute>
                     </img>
                 </xsl:otherwise>
@@ -456,105 +480,61 @@
 
     <!-- <JR> - 2023-11-07: Handling abstracts -->
     <xsl:template name="itemSummaryView-DIM-abstract">
-        <xsl:if test="dim:field[@element='description' and @qualifier='abstract']">
-            <xsl:if test="not(dim:field[@element='identifier'][@qualifier='doi'])">
-                <div id="item-view-abstract" class="simple-item-view-description simple-item-view-first-in-second-column item-page-field-wrapper table">
-                    <xsl:call-template name="itemSummaryView-DIM-abstract-content"/>
-                </div>
-            </xsl:if>
-            <xsl:if test="dim:field[@element='identifier'][@qualifier='doi']">
-                <div id="item-view-abstract" class="simple-item-view-description item-page-field-wrapper table">
-                    <xsl:call-template name="itemSummaryView-DIM-abstract-content"/>
-                </div>
-            </xsl:if>
-        </xsl:if>
-    </xsl:template>
-
-    <xsl:template name="itemSummaryView-DIM-abstract-content">
-        <h5 class="item-view-metadata-heading" id="item-view-metadata-abstract-en"><i18n:text>xmlui.dri2xhtml.METS-1.0.item-abstract</i18n:text></h5>
-        <div class="row abstract-language-row">
-            <div class="col-sm-12 col-md-12">
-                <xsl:for-each select="dim:field[@element='description' and @qualifier='abstract'][@language='en']">
-                    <xsl:variable name="language" select="@language"/>
-                    <span id="abstract-en">
-                        <xsl:choose>
-                            <xsl:when test="node()">
-                                <xsl:copy-of select="node()"/>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:text>&#160;</xsl:text>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                    </span>
-                </xsl:for-each>
+        <!-- <xsl:variable name="publication-language" select="dim:field[@element='language'][@qualifier='iso']" /> -->
+        <xsl:variable name="iso-lang" select="//dim:field[@element='language' and @qualifier='iso']" />
+        <xsl:variable name="key-name"><xsl:text>abstract-language-group</xsl:text></xsl:variable>
+        <xsl:variable name="element"><xsl:text>description</xsl:text></xsl:variable>
+        <xsl:variable name="qualifier"><xsl:text>abstract</xsl:text></xsl:variable>
+        <xsl:variable name="class">
+            <xsl:choose>
+                <xsl:when test="not(dim:field[@element='identifier' and @qualifier='doi'])">
+                    <xsl:text>simple-item-view-description simple-item-view-first-in-second-column item-page-field-wrapper table</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>simple-item-view-description item-page-field-wrapper table</xsl:text>
+               </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:if test="dim:field[@element=$element and @qualifier=$qualifier]">
+            <div id="item-view-abstract">
+                <xsl:attribute name="class">
+                    <xsl:value-of select="$class"/>
+                </xsl:attribute>
+                <h5 class="item-view-metadata-heading" id="item-view-metadata-abstract"><i18n:text>xmlui.dri2xhtml.METS-1.0.item-abstract</i18n:text></h5>
+                    
+                <xsl:call-template name="process-language-groups">
+                    <xsl:with-param name="iso-lang" select="$iso-lang" />
+                    <xsl:with-param name="key-name" select="$key-name"/>
+                    <xsl:with-param name="element" select="$element"/>
+                    <xsl:with-param name="qualifier" select="$qualifier"/>
+                </xsl:call-template>
             </div>
-        </div>
-        <xsl:if test="dim:field[@element='subject'][@qualifier='keyword'][not(@language='en')]">
-            <div class="row abstract-language-row collapse" aria-labelledby="item-view-abstract-original" id="collapse-abstract-original" aria-expanded="false">
-                <div class="spacer">&#160;</div>
-                <div class="col-sm-12 col-md-12">
-                    <xsl:for-each select="dim:field[@element='description'][@qualifier='abstract'][not(@language='en')]">
-                        <xsl:variable name="language" select="@language"/>
-                        <span id="abstract-{$language}">
-                            <xsl:copy-of select="node()"/>
-                        </span>
-                        <xsl:if test="count(following-sibling::dim:field[@element='description'][@qualifier='abstract'][not(@language='en')]) != 0">
-                            <div class="spacer">&#160;</div>
-                        </xsl:if>
-                    </xsl:for-each>
-                </div>
-            </div>
-            <a aria-controls="collapse-abstract-original" aria-expanded="false" href="#collapse-abstract-original" 
-            data-parent="#item-view-abstract" data-toggle="collapse" role="button">
-                <i18n:text>xmlui.dri2xhtml.METS-1.0.item-abstract.show.original</i18n:text>
-            </a>
         </xsl:if>
     </xsl:template>
     <!-- END OF: Handling abstracts -->
 
     <!-- <JR> - 2023-11-03: Handling keywords -->
     <xsl:template name="itemSummaryView-DIM-keywords">
-        <xsl:if test="dim:field[@element='subject' and @qualifier='keyword']">
+        <!-- Find the language group matching the iso value -->
+        <xsl:variable name="iso-lang" select="//dim:field[@element='language' and @qualifier='iso']" />
+        <xsl:variable name="key-name"><xsl:text>keyword-language-group</xsl:text></xsl:variable>
+        <xsl:variable name="element"><xsl:text>subject</xsl:text></xsl:variable>
+        <xsl:variable name="qualifier"><xsl:text>keyword</xsl:text></xsl:variable>
+        <xsl:if test="dim:field[@element=$element and @qualifier=$qualifier]">
             <div id="item-view-keywords" class="simple-item-view-keywords item-page-field-wrapper table">
                 <h5 class="item-view-metadata-heading"><i18n:text>xmlui.dri2xhtml.METS-1.0.item-keywords</i18n:text></h5>
-                
-                <xsl:if test="dim:field[@element='subject'][@qualifier='keyword'][@language='en']">
-                    <div class="row kewords-language-row">
-                        <div class="col-sm-12 col-md-12">
-                            <span class="keywords-en">
-                                <xsl:for-each select="dim:field[@element='subject'][@qualifier='keyword'][@language='en']">
-                                    <xsl:copy-of select="node()"/>
-                                    <xsl:if test="count(following-sibling::dim:field[@element='subject'][@qualifier='keyword'][@language='en']) != 0">
-                                        <xsl:text>, </xsl:text>
-                                    </xsl:if>
-                                </xsl:for-each>
-                            </span>
-                        </div>
-                    </div>
-                </xsl:if>
 
-                <xsl:if test="dim:field[@element='subject'][@qualifier='keyword'][not(@language='en')]">
-                    <div class="row kewords-language-row collapse" aria-labelledby="item-view-keywords-original" id="collapse-keywords-original" aria-expanded="false">
-                        <div class="spacer">&#160;</div>
-                        <div class="col-sm-12 col-md-12">
-                            <span class="keywords-original">
-                                <xsl:for-each select="dim:field[@element='subject'][@qualifier='keyword'][not(@language='en')]">
-                                    <xsl:copy-of select="node()"/>
-                                    <xsl:if test="count(following-sibling::dim:field[@element='subject'][@qualifier='keyword'][not(@language='en')]) != 0">
-                                        <xsl:text>, </xsl:text>
-                                    </xsl:if>
-                                </xsl:for-each>
-                            </span>
-                        </div>
-                    </div>
-                    <a aria-controls="collapse-keywords-original" aria-expanded="false" href="#collapse-keywords-original" 
-                    data-parent="#item-view-keywords" data-toggle="collapse" role="button">
-                        <i18n:text>xmlui.dri2xhtml.METS-1.0.item-keywords.show.original</i18n:text>
-                    </a> 
-                </xsl:if>
+                <xsl:call-template name="process-language-groups">
+                    <xsl:with-param name="iso-lang" select="$iso-lang" />
+                    <xsl:with-param name="key-name" select="$key-name"/>
+                    <xsl:with-param name="element" select="$element"/>
+                    <xsl:with-param name="qualifier" select="$qualifier"/>
+                </xsl:call-template>
             </div>
         </xsl:if>
+        
     </xsl:template>
+    
     <!-- END OF: Handling keywords-->
 
     <!-- 
@@ -1534,5 +1514,169 @@
         
     </xsl:template>
 
+    <!-- UTILITY TEMPLATES -->
+    <!-- Template to process each language group -->
+    <xsl:template name="process-language-groups">
+        <xsl:param name="iso-lang"/>
+        <xsl:param name="key-name"/>
+        <xsl:param name="element"/>
+        <xsl:param name="qualifier"/>
+       
+        <!-- Retrieve all language groups -->
+        <xsl:variable name="languageGroups" select="//dim:field[generate-id() = generate-id(key($key-name, @language)[1]) and @element=$element and @qualifier=$qualifier]"/>
+        <xsl:variable name="firstLang" select="$languageGroups[1]/@language"/>
+
+        <xsl:choose>
+            <xsl:when test="count($languageGroups[@language = $iso-lang]) > 0">
+            <!-- There are keywords in publication's (ISO) language -->
+                <xsl:call-template name="process-non-collapsible">
+                    <!-- Crate a non colapsible row for items in iso-lang -->
+                    <xsl:with-param name="language-groups" select="$languageGroups[@language = $iso-lang]" />
+                    <xsl:with-param name="element" select="$element"/>
+                    <xsl:with-param name="qualifier" select="$qualifier"/>
+                </xsl:call-template>
+                <xsl:if test="count($languageGroups[@language != $iso-lang]) > 0">
+                    <!-- There are more kewords in other languages -->
+                    <xsl:call-template name="process-collapsible">
+                        <!-- Create a collapsible row for all other langauges -->
+                        <xsl:with-param name="language-groups" select="$languageGroups[@language != $iso-lang]"/>
+                        <xsl:with-param name="iso-lang" select="$iso-lang"/>
+                        <xsl:with-param name="element" select="$element"/>
+                        <xsl:with-param name="qualifier" select="$qualifier"/>
+                        <xsl:with-param name="key-name" select="$key-name"/>
+                    </xsl:call-template>
+                </xsl:if>
+            </xsl:when>
+            <xsl:otherwise>
+            <!-- There are not keywords in publication's (ISO) language-->
+                <xsl:call-template name="process-non-collapsible">
+                    <!-- Create a non colapsible row for items in fist language group -->
+                    <xsl:with-param name="language-groups" select="$languageGroups[@language = $firstLang]" />
+                    <xsl:with-param name="element" select="$element"/>
+                    <xsl:with-param name="qualifier" select="$qualifier"/>
+                </xsl:call-template>
+                <xsl:call-template name="process-collapsible">
+                <!-- Crate a collapsible row for all other language groups-->
+                    <xsl:with-param name="language-groups" select="$languageGroups[@language != $firstLang]"/>
+                    <xsl:with-param name="iso-lang" select="$iso-lang"/>
+                    <xsl:with-param name="element" select="$element"/>
+                    <xsl:with-param name="qualifier" select="$qualifier"/>
+                    <xsl:with-param name="key-name" select="$key-name"/>
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
+        
+    </xsl:template>
+
+    <!-- Template to process each language group -->
+    <xsl:template name="process-language-group">
+        <xsl:param name="iso-lang"/>
+        <xsl:param name="element"/>
+        <xsl:param name="qualifier"/>
+        <xsl:param name="key-name"/>
+        <xsl:if test="@language = $iso-lang">
+        <div class="row">
+            <div class="col-md-12">
+            <span id="language-{@language}">
+                <xsl:value-of select="@language"/>
+                <xsl:text>: </xsl:text>
+                <xsl:for-each select="//dim:field[@language = current()/@language and @element=$element and @qualifier=$qualifier]">
+                    <xsl:value-of select="."/>
+                    <xsl:if test="position() != last()">
+                        <xsl:text>, </xsl:text>
+                    </xsl:if>
+                </xsl:for-each>
+            </span>
+            </div>
+        </div>
+        </xsl:if>
+        <xsl:if test="@language != $iso-lang">
+        <xsl:call-template name="collapsible-row">
+            <xsl:with-param name="language" select="@language"/>
+            <xsl:with-param name="key-name" select="$key-name"/>
+            <xsl:with-param name="element" select="$element"/>
+            <xsl:with-param name="qualifier" select="$qualifier"/>
+        </xsl:call-template>
+        </xsl:if>
+    </xsl:template>
+
+    <!-- Template to process non-collapsible row -->
+    <xsl:template name="process-non-collapsible">
+        <xsl:param name="language-groups"/>
+        <xsl:param name="element"/>
+        <xsl:param name="qualifier"/>
+        <xsl:choose>
+        <xsl:when test="$language-groups">
+            <div class="row">
+                <div class="col-md-12">
+                    <xsl:for-each select="$language-groups[1]">
+                        <xsl:variable name="currentLanguage" select="@language"/>
+                        <span id="language-{$currentLanguage}">
+                            <!-- <xsl:value-of select="$currentLanguage"/>
+                            <xsl:text>: </xsl:text> -->
+                            <xsl:for-each select="//dim:field[@language = $currentLanguage and @element=$element and @qualifier=$qualifier]">
+                                <xsl:value-of select="."/>
+                                <xsl:if test="position() != last()">
+                                    <xsl:text>, </xsl:text>
+                                </xsl:if>
+                            </xsl:for-each>
+                        </span>
+                        <xsl:if test="position() != last()">
+                            <br/>
+                        </xsl:if>
+                    </xsl:for-each>
+                </div>
+            </div>
+        </xsl:when>
+        </xsl:choose>
+    </xsl:template>
+
+    <!-- Template to process collapsible rows -->
+    <xsl:template name="process-collapsible">
+        <xsl:param name="language-groups"/>
+        <xsl:param name="iso-lang"/>
+        <xsl:param name="element"/>
+        <xsl:param name="qualifier"/>
+        <xsl:param name="key-name"/>
+            <div class="row">
+            <div class="col-md-12">
+                <div id="{$element}-{$qualifier}-other-languages" class="collapse">
+                <!-- <xsl:for-each select="$language-groups[position() &gt; 1]"> -->
+                <xsl:for-each select="$language-groups">
+                    <xsl:call-template name="process-language-group">
+                        <xsl:with-param name="iso-lang" select="$iso-lang"/>
+                        <xsl:with-param name="element" select="$element"/>
+                        <xsl:with-param name="qualifier" select="$qualifier"/>
+                        <xsl:with-param name="key-name" select="$key-name"/>
+                    </xsl:call-template>
+                </xsl:for-each>
+                </div>
+                <a data-toggle="collapse" href="#{$element}-{$qualifier}-other-languages"><i18n:text>xmlui.dri2xhtml.METS-1.0.item-keywords.show.other-languages</i18n:text></a>
+            </div>
+            </div>
+
+    </xsl:template>
+
+    <!-- Template to create collapsible rows -->
+    <xsl:template name="collapsible-row">
+        <xsl:param name="language"/>
+        <xsl:param name="key-name"/>
+        <xsl:param name="element"/>
+        <xsl:param name="qualifier"/>
+        <div class="spacer">&#160;</div>
+        <div class="row">
+        <div class="col-md-12">
+            <!-- <a data-toggle="collapse" href="#language-{$language}"><xsl:value-of select="$language"/></a> -->
+            <span id="{$element}-{$qualifier}-language-{$language}">
+            <xsl:for-each select="key($key-name, $language)">
+                <xsl:value-of select="."/>
+                <xsl:if test="position() != last()">
+                    <xsl:text>, </xsl:text>
+                </xsl:if>
+            </xsl:for-each>
+            </span>
+        </div>
+        </div>
+    </xsl:template>
 
 </xsl:stylesheet>
