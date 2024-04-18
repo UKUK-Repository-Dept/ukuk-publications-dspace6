@@ -341,6 +341,15 @@ header .navbar-default .navbar-nav:focus .icon-bar {
     padding-bottom: 10px; } 
 }
 
+/* SYSTEM-WIDE ALERTS */
+
+.alert-warning {
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+  color: #8a6d3b;
+  border-radius: 0px;
+}
+
 /* FEED LINKS */
 
 #ds-feed-option > .list-group-item {
