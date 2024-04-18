@@ -37,6 +37,7 @@
                 <xsl:import href="../custom/disclaimer.xsl" />
                 <xsl:import href="../custom/licenses.xsl" />
                 <xsl:import href="../custom/metadata.xsl" />
+                <xsl:import href="../custom/utility.xsl"/>
 
     <xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 
@@ -868,7 +869,12 @@
             <xsl:if test="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='alert'][@qualifier='message']">
                 <div class="alert alert-warning">
                     <button type="button" class="close" data-dismiss="alert">&#215;</button>
-                    <xsl:copy-of select="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='alert'][@qualifier='message']/node()"/>
+                    <xsl:call-template name="utility-parse-display-title">
+                        <xsl:with-param name="title-string">
+                            <xsl:value-of select="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='alert'][@qualifier='message']/node()"/>
+                        </xsl:with-param>
+                    </xsl:call-template>
+                    <!-- <xsl:copy-of select="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='alert'][@qualifier='message']/node()"/> -->
                 </div>
             </xsl:if>
 
