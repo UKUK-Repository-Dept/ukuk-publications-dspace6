@@ -86,6 +86,15 @@
 
 	<xsl:variable name="currentLocale" select="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='page'][@qualifier='currentLocale']"/>
 
+    <!-- 2023-09-04: <JR> - Added SOLR server variable -->
+    <!-- FIX: Not working, error message: No scheme found in URI -->
+    <!-- <xsl:variable name="solrURL" select="confman:getProperty('solr.server','http://localhost:8080/solr')"/>-->
+
+    <!-- <JR> - 2024-01-08: Adding reCAPTCHA, see https://groups.google.com/g/dspace-community/c/UiygSm8pV-M
+                 for details
+                 Loading reCAPTCHA sitekey from config to a global property accessible in a theme
+     -->
+     <xsl:variable name="recaptchaSiteKey" select="confman:getProperty('xmlui.cuni.recaptcha.sitekey')"/>
 
 
 </xsl:stylesheet>

@@ -28,7 +28,7 @@
 		--> 
 	
 	<!-- General keys -->
-	<message key="xmlui.general.dspace_home">Domovská stránka DSpace</message>
+	<message key="xmlui.general.dspace_home">Repozitář publikační činnosti UK</message>
 	<message key="xmlui.general.search">Hledat</message>
 	<message key="xmlui.general.go">Vykonat</message>
 	<message key="xmlui.general.go_home">Přejít na domovskou stránku DSpace</message>
@@ -41,6 +41,7 @@
 	<message key="xmlui.general.untitled">Nepojmenovaný</message>
 	<message key="xmlui.general.perform">Vykonat</message>
 	<message key="xmlui.general.queue">Fronta</message>
+	<message key="xmlui.general.repositoryTitle">Repozitář publikační činnosti</message>
 	
         <!-- Keys which are used by exception2dri.xsl on error pages -->
         <message key="xmlui.error.contact_msg">Pokud chcete nahlásit tuto chybu, prosím kontaktujte správce. Pokud je to možné, uveďte prosím podrobnosti o tom, co jste dělali v době, kdy k této chybě došlo.</message>
@@ -358,6 +359,7 @@
 	<message key="xmlui.ArtifactBrowser.ItemRequestForm.requesterName">Jméno</message>
 	<message key="xmlui.ArtifactBrowser.ItemRequestForm.requesterName.error">Jméno je nutné vyplnit</message>
 	<message key="xmlui.ArtifactBrowser.ItemRequestForm.submit">Vyžádat kopii</message>
+	<message key="xmlui.ArtifactBrowser.ItemRequestForm.recaptcha.error">reCAPTCHA je vyžadována</message>
 
 	<!-- org.dspace.app.xmlui.artifactbrowser.ItemRequestSent.java -->
 	<message key="xmlui.ArtifactBrowser.ItemRequestSent.title">Váš požadavek byl odeslán.</message>
@@ -2218,12 +2220,41 @@
 	<message key="xmlui.dri2xhtml.METS-1.0.item-preview">Náhled</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-title">Název</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-author">Autor</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-author-collapse">Zobrazit další autory</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-abstract">Abstrakt</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-abstract.show.original">Zobrazit v původním jazyce</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-keywords">Klíčová slova</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-keywords.show.original">Zobrazit v původním jazyce</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item.show-metadata.other-languages">Zobrazit v dalších jazycích</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-description">Popis</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-uri">URI</message>
-	<message key="xmlui.dri2xhtml.METS-1.0.item-date">Datum</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-file-button-download">Získat publikaci</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-file-button-embargoed">Přístupné od</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-file-button-restricted">Přístupné po přihlášení</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-date">Datum vydání</message>
+	<!-- <JR> - 2023-10-26: Added new key for translation publication type in item-view -->
+	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-type">Typ publikace</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-type-unknown">neznámý typ</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-version-draft">draft</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-version-submittedVersion">preprint</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-version-acceptedVersion">postprint</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-version-publishedVersion">vydavatelská verze</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-version-none">žádná další verze</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-version-unknown">neznámá verze</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-accessRights.openAccess">open access</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-accessRights.embargoedAccess">embargo</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-accessRights.restrictedAccess">omezený přístup</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-accessRights.unknown">neznámá oprávnění</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-licence-unknown">neznámá licence</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-source-publication-name">Publikováno v</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-source-publication-volume-issue">Ročník / Číslo vydání</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-source-publication-isbn-issn">ISBN / ISSN</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-isbn-issn">ISBN / ISSN</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-publisher">Nakladatel</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-publisher-publication-place">Místo vydání</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-subject">Klíčové slovo</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-other-systems-identifiers">Zobraz publikaci v dalších systémech</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-doi-alert-text">Tato publikace má vydavatelskou verzi s DOI</message>
 	
 	<message key="xmlui.dri2xhtml.METS-1.0.item-files-head">Soubory tohoto záznamu</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-files-file">Soubory</message>
@@ -2250,6 +2281,7 @@
 	<message key="xmlui.dri2xhtml.METS-1.0.license-text">K tomuto záznamu jsou přiřazeny následující licenční soubory:</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.cc-license-text">Kromě případů, kde je uvedeno jinak, licence tohoto záznamu je </message>
 	<message key="xmlui.dri2xhtml.METS-1.0.cc-license-text-custom">Licence pro užití plného textu výsledku: </message>
+	<message key="xmlui.dri2xhtml.METS-1.0.link-to-license-text">Zobrazit podmínky licence</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.no-license-text">
 		Plný text výsledku je zpřístupněn v repozitáři v režimu gratis open access, tj. pouze pro čtení. 
 		Plný text v režimu gratis open access je možné z repozitáře stahovat, případně tisknout, ale pouze pro osobní potřebu 
@@ -3622,14 +3654,22 @@
 		<!-- RESEARCH OUTPUT TYPE FACET & FILTER-->
 	<message key="xmlui.ArtifactBrowser.AdvancedSearch.type_OBDTypeHierarchyEn">Druh výsledku</message>
 	<message key="xmlui.ArtifactBrowser.AdvancedSearch.type_OBDTypeHierarchyCs">Druh výsledku</message>
-	<message key="xmlui.ArtifactBrowser.SimpleSearch.filter.OBDTypeHierarchyEn">Druh výsledku</message>
-	<message key="xmlui.ArtifactBrowser.SimpleSearch.filter.OBDTypeHierarchyCs">Druh výsledku</message>
+	<message key="xmlui.ArtifactBrowser.AdvancedSearch.type_uk.publicationFacultyResponsibility.cs">Fakulta / součást</message>
+	<message key="xmlui.ArtifactBrowser.AdvancedSearch.type_uk.publicationDepartmentResponsibility.cs">Oddělení / ústav / klinika</message>
+	<message key="xmlui.ArtifactBrowser.AdvancedSearch.type_uk.publicationFacultyResponsibility.en">Fakulta / součást</message>
+	<message key="xmlui.ArtifactBrowser.AdvancedSearch.type_uk.publicationDepartmentResponsibility.en">Oddělení / ústav / klinika</message>
+	<message key="xmlui.ArtifactBrowser.SimpleSearch.filter.OBDTypeHierarchyEn">Druh výsledku (EN)</message>
+	<message key="xmlui.ArtifactBrowser.SimpleSearch.filter.OBDTypeHierarchyCs">Druh výsledku (CS)</message>
+	<message key="xmlui.ArtifactBrowser.SimpleSearch.filter.uk.publicationFacultyResponsibility.cs">Fakulta / součást (CS)</message>
+	<message key="xmlui.ArtifactBrowser.SimpleSearch.filter.uk.publicationFacultyResponsibility.en">Fakulta / součást (EN)</message>
+	<message key="xmlui.ArtifactBrowser.SimpleSearch.filter.uk.publicationDepartmentResponsibility.cs">Oddělení / ústav / klinika (CS)</message>
+	<message key="xmlui.ArtifactBrowser.SimpleSearch.filter.uk.publicationDepartmentResponsibility.en">Oddělení / ústav / klinika (EN)</message>
 	<!-- END OF: CUSTOM FACETS LABELS TRANSLATIONS -->
 
 	<!--OUTPUT PUBLICATION VERSIONS TRANSLATIONS-->
 	
 	<!-- other output versions item-view heading translation -->
-	<message key="xmlui.dri2xhtml.METS-1.0.item-otherOutputVersions">Další verze výsledku</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-otherOutputVersions">Další verze publikace</message>
 	
 	<!-- other output versions values translations -->
 	<message key="xmlui.publication.version.draft">Koncept - pracovní verze</message>
@@ -3637,5 +3677,27 @@
 	<message key="xmlui.publication.version.acceptedVersion">Postprint - verze po recenzi</message>
 	<message key="xmlui.publication.version.publishedVersion">Vydavatelská publikovaná verze</message>
 	<message key="xmlui.publication.version.updatedVersion">Aktualizovaná publikovaná verze</message>
+
+	<!-- HOMEPAGE -->
+	<message key="xmlui.homepage.jumbotron.welcome.heading">Vítejte v Repozitáři publikační činnosti UK</message>
+	<message key="xmlui.homepage.jumbotron.welcome.text.part.1">Aktuálně je v repozitáři uloženo</message>
+	<message key="xmlui.homepage.jumbotron.welcome.text.part.2">výsledků, z toho</message>
+	<message key="xmlui.homepage.jumbotron.welcome.text.part.3">přístupných v režimu <strong>open access</strong></message>
+
+	<message key="xmlui.homepage.recentSubmissions.info.text">Objevte publikace nedávno vložené do Repozitáře publikační činnosti UK. Výsledky jsou seřazeny podle data vložení 
+	do repozitáře, nejnovější publikace jsou na začátku seznamu.</message>
+	<message key="xmlui.homepage.recentSubmissions.button.text">Zobrazit publikace</message>
+	
+	<message key="xmlui.homepage.howToDeposit">Jak uložit publikaci?</message>
+	<message key="xmlui.homepage.howToDeposit.info.text">Jste zaměstnancem nebo studentem Univerzity Karlovy? Zjistěte, jak uložit svou publikaci 
+		do Repozitáře publikační činnosti.
+	</message>
+	<message key="xmlui.homepage.howToDeposit.button.text">Zjistit víc</message>
+	
+	<message key="xmlui.homepage.getHelp">Potřebujete pomoct?</message>
+	<message key="xmlui.homepage.getHelp.info.text">Potřebujete-li pomoct s open access publikováním, správou výzkumných dat, licencováním a dalšími tématy
+	z oblasti open science na UK, navštivte webový portál Centra pro podporu open science.
+	</message>
+	<message key="xmlui.homepage.getHelp.button.text">Navštívit portál</message>
 
 </catalogue>

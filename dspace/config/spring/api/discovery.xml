@@ -26,6 +26,7 @@
     <bean id="SolrServiceSpellIndexingPlugin" class="org.dspace.discovery.SolrServiceSpellIndexingPlugin" scope="prototype"/>
     <bean id="solrServiceMetadataBrowseIndexingPlugin" class="org.dspace.discovery.SolrServiceMetadataBrowseIndexingPlugin" scope="prototype"/>
 
+
     <alias name="solrServiceResourceIndexPlugin" alias="org.dspace.discovery.SolrServiceResourceRestrictionPlugin"/>
     
     <!-- Additional indexing plugin make filtering by has content in original bundle (like pdf's, images) posible via SOLR -->
@@ -33,6 +34,9 @@
 
     <!-- Additional indexing plugin enables searching by filenames and by file descriptions for files in ORIGINAL bundle -->
     <bean id="solrServiceFileInfoPlugin" class="org.dspace.discovery.SolrServiceFileInfoPlugin"/>
+
+    <!-- <JR> - 2024-03-05: Additional indexing plugin enables filtering based on merged metadata denoting the items origin  -->
+    <bean id="solrServicePublicationResponsibilityFromSeparateMetaFieldsPlugin" class="org.dspace.discovery.SolrServicePublicationResponsibilityFromSeparateMetaFieldsPlugin"/>
 
     <!--Bean that is used for mapping communities/collections to certain discovery configurations.-->
     <bean id="org.dspace.discovery.configuration.DiscoveryConfigurationService" class="org.dspace.discovery.configuration.DiscoveryConfigurationService">
@@ -100,10 +104,14 @@
             <list>
                 <ref bean="searchFilterFacetOBDTypeHierarchyCs" />
                 <ref bean="searchFilterFacetOBDTypeHierarchyEn" />
-                <ref bean="searchFilterAuthor" />
-                <ref bean="searchFilterSubject" />
                 <ref bean="searchFilterIssued" />
-		        <ref bean="searchFilterContentInOriginalBundle"/>
+                <ref bean="searchFilterPublicationFacultyResponsiblityCs" />
+                <ref bean="searchFilterPublicationDepartmentResponsiblityCs" />
+                <ref bean="searchFilterPublicationFacultyResponsiblityEn" />
+                <ref bean="searchFilterPublicationDepartmentResponsiblityEn" />
+                <!-- <ref bean="searchFilterAuthor" /> -->
+                <!-- <ref bean="searchFilterSubject" /> -->
+		        <!-- <ref bean="searchFilterContentInOriginalBundle"/> -->
             </list>
         </property>
         <!-- Set TagCloud configuration per discovery configuration -->
@@ -117,9 +125,13 @@
                 <ref bean="searchFilterAuthor" />
                 <ref bean="searchFilterSubject" />
                 <ref bean="searchFilterIssued" />
-		        <ref bean="searchFilterContentInOriginalBundle"/>
-                <ref bean="searchFilterFileNameInOriginalBundle" />
-                <ref bean="searchFilterFileDescriptionInOriginalBundle" />
+                <ref bean="searchFilterPublicationFacultyResponsiblityCs" />
+                <ref bean="searchFilterPublicationFacultyResponsiblityEn" />
+                <ref bean="searchFilterPublicationDepartmentResponsiblityCs" />
+                <ref bean="searchFilterPublicationDepartmentResponsiblityEn" />
+		        <!-- <ref bean="searchFilterContentInOriginalBundle"/>-->
+                <!-- <ref bean="searchFilterFileNameInOriginalBundle" /> -->
+                <!-- <ref bean="searchFilterFileDescriptionInOriginalBundle" /> -->
             </list>
         </property>
         <!--The sort filters for the discovery search-->
@@ -137,12 +149,12 @@
             </bean>
         </property>
         <!--Any default filter queries, these filter queries will be used for all queries done by discovery for this configuration-->
-        <!--<property name="defaultFilterQueries">-->
-            <!--<list>-->
+        <property name="defaultFilterQueries">
+            <list>
                 <!--Only find items-->
-                <!--<value>search.resourcetype:2</value>-->
-            <!--</list>-->
-        <!--</property>-->
+                <value>search.resourcetype:2</value>
+            </list>
+        </property>
         <!--The configuration for the recent submissions-->
         <property name="recentSubmissionConfiguration">
             <bean class="org.dspace.discovery.configuration.DiscoveryRecentSubmissionsConfiguration">
@@ -230,10 +242,14 @@
             <list>
                 <ref bean="searchFilterFacetOBDTypeHierarchyCs" />
                 <ref bean="searchFilterFacetOBDTypeHierarchyEn" />
-                <ref bean="searchFilterAuthor" />
-                <ref bean="searchFilterSubject" />
                 <ref bean="searchFilterIssued" />
-		        <ref bean="searchFilterContentInOriginalBundle"/>
+                <ref bean="searchFilterPublicationFacultyResponsiblityCs" />
+                <ref bean="searchFilterPublicationDepartmentResponsiblityCs" />
+                <ref bean="searchFilterPublicationFacultyResponsiblityEn" />
+                <ref bean="searchFilterPublicationDepartmentResponsiblityEn" />
+                <!-- <ref bean="searchFilterAuthor" /> -->
+                <!-- <ref bean="searchFilterSubject" /> -->
+		        <!-- <ref bean="searchFilterContentInOriginalBundle"/> -->
             </list>
         </property>
         <!-- Set TagCloud configuration per discovery configuration -->
@@ -247,9 +263,13 @@
                 <ref bean="searchFilterIssued" />
                 <ref bean="searchFilterFacetOBDTypeHierarchyCs" />
                 <ref bean="searchFilterFacetOBDTypeHierarchyEn" />
-		        <ref bean="searchFilterContentInOriginalBundle"/>
-                <ref bean="searchFilterFileNameInOriginalBundle" />
-                <ref bean="searchFilterFileDescriptionInOriginalBundle" />
+                <ref bean="searchFilterPublicationFacultyResponsiblityCs" />
+                <ref bean="searchFilterPublicationFacultyResponsiblityEn" />
+                <ref bean="searchFilterPublicationDepartmentResponsiblityCs" />
+                <ref bean="searchFilterPublicationDepartmentResponsiblityEn" />
+		        <!-- <ref bean="searchFilterContentInOriginalBundle"/> -->
+                <!-- <ref bean="searchFilterFileNameInOriginalBundle" /> -->
+                <!-- <ref bean="searchFilterFileDescriptionInOriginalBundle" /> -->
             </list>
         </property>
         <!--The sort filters for the discovery search (same as defaultConfiguration above)-->
@@ -420,7 +440,7 @@
                 <value>dc.type.obdHierarchyCs</value>
             </list>
         </property>
-        <property name="facetLimit" value="20"/>
+        <property name="facetLimit" value="5"/>
         <property name="sortOrderSidebar" value="COUNT"/>
         <property name="sortOrderFilterPage" value="COUNT"/>
         <property name="splitter" value="::"/>
@@ -433,7 +453,7 @@
                 <value>dc.type.obdHierarchyEn</value>
             </list>
         </property>
-        <property name="facetLimit" value="20"/>
+        <property name="facetLimit" value="5"/>
         <property name="sortOrderSidebar" value="COUNT"/>
         <property name="sortOrderFilterPage" value="COUNT"/>
         <property name="splitter" value="::"/>
@@ -462,7 +482,7 @@
     </bean>
 
     <!-- <JR> - 2022-11-07 -->
-    <!-- Search filter faccet based only on dd.subject.keyword for now -->
+    <!-- Search filter facet based only on dc.subject.keyword for now -->
     <bean id="searchFilterSubject" class="org.dspace.discovery.configuration.HierarchicalSidebarFacetConfiguration">
         <property name="indexFieldName" value="subject"/>
         <property name="metadataFields">
@@ -511,6 +531,56 @@
         <property name="metadataFields">
             <list/>
         </property>
+    </bean>
+
+    <!-- <JR> - 2024-03-06: Added new custom made facets created by a custom plugin-->
+
+    <!-- <JR> - 2024-03-06: Faceting based on faculty / faculties (university units) responsible (primarily or secondardily) for creation of the publication, value in Czech -->
+    <bean id="searchFilterPublicationFacultyResponsiblityCs" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
+        <property name="indexFieldName" value="uk.publicationFacultyResponsibility.cs"/>
+        <property name="metadataFields">
+            <list/>
+        </property>
+        <property name="facetLimit" value="5"/>
+        <property name="type" value="standard"/>
+        <property name="sortOrderSidebar" value="COUNT"/>
+        <property name="sortOrderFilterPage" value="COUNT"/>
+    </bean>
+
+    <!-- <JR> - 2024-03-06: Faceting based on department / departments (clinics, institutes) responsible (primarily or secondardily) for creation of the publication, value in Czech -->
+    <bean id="searchFilterPublicationDepartmentResponsiblityCs" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
+        <property name="indexFieldName" value="uk.publicationDepartmentResponsibility.cs"/>
+        <property name="metadataFields">
+            <list/>
+        </property>
+        <property name="facetLimit" value="5"/>
+        <property name="type" value="standard"/>
+        <property name="sortOrderSidebar" value="COUNT"/>
+        <property name="sortOrderFilterPage" value="COUNT"/>
+    </bean>
+
+    <!-- <JR> - 2024-03-06: Faceting based on faculty / faculties (university units) responsible (primarily or secondardily) for creation of the publication, value in English -->
+    <bean id="searchFilterPublicationFacultyResponsiblityEn" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
+        <property name="indexFieldName" value="uk.publicationFacultyResponsibility.en"/>
+        <property name="metadataFields">
+            <list/>
+        </property>
+        <property name="facetLimit" value="5"/>
+        <property name="type" value="standard"/>
+        <property name="sortOrderSidebar" value="COUNT"/>
+        <property name="sortOrderFilterPage" value="COUNT"/>
+    </bean>
+
+    <!-- <JR> - 2024-03-06: Faceting based on department / departments (clinics, institutes) responsible (primarily or secondardily) for creation of the publication, value in English -->
+    <bean id="searchFilterPublicationDepartmentResponsiblityEn" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
+        <property name="indexFieldName" value="uk.publicationDepartmentResponsibility.en"/>
+        <property name="metadataFields">
+            <list/>
+        </property>
+        <property name="facetLimit" value="5"/>
+        <property name="type" value="standard"/>
+        <property name="sortOrderSidebar" value="COUNT"/>
+        <property name="sortOrderFilterPage" value="COUNT"/>
     </bean>
 
     <!--Sort properties-->

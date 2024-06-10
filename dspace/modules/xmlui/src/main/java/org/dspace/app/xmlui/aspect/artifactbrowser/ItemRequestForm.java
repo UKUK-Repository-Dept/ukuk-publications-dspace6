@@ -25,6 +25,7 @@ import org.apache.log4j.Logger;
 import org.dspace.app.xmlui.cocoon.AbstractDSpaceTransformer;
 import org.dspace.app.xmlui.utils.AuthenticationUtil;
 import org.dspace.app.xmlui.utils.HandleUtil;
+import org.dspace.app.xmlui.utils.ReCaptchaUtil;
 import org.dspace.app.xmlui.utils.UIException;
 import org.dspace.app.xmlui.wing.Message;
 import org.dspace.app.xmlui.wing.WingException;
@@ -36,6 +37,7 @@ import org.dspace.content.Bitstream;
 import org.dspace.content.DSpaceObject;
 import org.dspace.content.Item;
 import org.dspace.content.factory.ContentServiceFactory;
+import org.dspace.services.factory.DSpaceServicesFactory;
 import org.dspace.content.service.BitstreamService;
 import org.dspace.core.Constants;
 import org.xml.sax.SAXException;
@@ -96,6 +98,10 @@ public class ItemRequestForm extends AbstractDSpaceTransformer implements Cachea
     
     private static final Message T_requesterName_error = 
         message("xmlui.ArtifactBrowser.ItemRequestForm.requesterName.error");
+
+    // <JR> - 2024-01-11: Google reCAPTCHA label
+    private static final Message T_recaptcha =
+        message("reCAPTCHA");
     
     private static final Message T_allFiles = 
         message("xmlui.ArtifactBrowser.ItemRequestForm.allFiles");
@@ -223,7 +229,28 @@ public class ItemRequestForm extends AbstractDSpaceTransformer implements Cachea
 		TextArea message = form.addItem().addTextArea("message");
 		message.setLabel(T_message);
 		message.setValue(parameters.getParameter("message", ""));
+        
 		form.addItem().addHidden("bitstreamId").setValue(parameters.getParameter("bitstreamId", ""));
+        
+        /** 
+         * <JR> - 2024-01-10: Add reCAPTCHA
+         * 
+         * since reCAPTCHA is not a Field, but StructuralElement,
+         * adding labels and errors to it is not as straight forward 
+         * (perhaps some TODO for the future - to have a reCAPTCHA Field?)
+         * 
+         * Label and error has to be added to the form itself, on the appropriate place 
+         */ 
+        form.addLabel(T_recaptcha);
+        // reCAPTCHA is a special Structural Element
+        ReCaptcha recaptcha = form.addItem().addReCaptcha("g-recaptcha","");
+
+        // Adding an error to appropriate place when 'g-recaptcha-response' is empty
+        if(StringUtils.isEmpty(parameters.getParameter(ReCaptchaUtil.getRecaptchaResponseParam(), ""))) {
+                // reCAPTCHA error has is a separate Structural Element, basicaly just a 'div'
+                ReCaptchaError recaptchaError = form.addItem().addReCaptchaError("g-recaptcha-error","");
+        }
+
 		form.addItem().addButton("submit").setValue(T_submit);
 		
 		// if button is pressed and form is re-loaded it means some parameter is missing
@@ -236,7 +263,7 @@ public class ItemRequestForm extends AbstractDSpaceTransformer implements Cachea
 			}
 			if(StringUtils.isEmpty(parameters.getParameter("message", ""))){
 				message.addError(T_message_error);
-			}
+			}    
 		}
 		itemRequest.addHidden("page").setValue(parameters.getParameter("page", "unknown"));
 	}

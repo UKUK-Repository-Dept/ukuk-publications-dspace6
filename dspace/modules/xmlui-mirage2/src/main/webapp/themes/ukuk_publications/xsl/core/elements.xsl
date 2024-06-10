@@ -48,17 +48,52 @@
             <xsl:with-param name="position">top</xsl:with-param>
         </xsl:apply-templates>
         <div>
-            <xsl:call-template name="standardAttributes">
-                <xsl:with-param name="class">ds-static-div</xsl:with-param>
-            </xsl:call-template>
+            <!-- <JR> - 2024-01-08: Testing adding reCAPTCHA, see 
+                        https://github.com/LongsightGroup/DSpace/commit/5dd1c98787d9a58b74e26920702cd151ceaafc46 
+                        and 
+                        https://github.com/LongsightGroup/DSpace/commit/42e81dd9ca38effa09f3bc7ac887704cd1b9d359
+                        for details
+            -->
+            <xsl:if test="@name!=''">                
+                <xsl:attribute name="id"><xsl:value-of select="@name"/></xsl:attribute>
+            </xsl:if>
             <xsl:choose>
-                <!--  does this element have any children -->
-                <xsl:when test="child::node()">
-                    <xsl:apply-templates select="*[not(name()='head')]"/>
+                <!-- Check if name of the 'div' element is 'g-recaptcha', if so, add:
+                - 'class' attribute to it with value 'g-recaptcha' (hook for reCAPTCH api.js)
+                - 'data-sitekey' attribute to it, with value of custom data-sitekey generated for this site in google
+                reCAPTCHA admin console (key has its configuration property)
+                -->
+                <xsl:when test="@name='g-recaptcha'">                
+                    <xsl:attribute name="class"><xsl:value-of select="@name"/></xsl:attribute>
+                    <xsl:attribute name="data-sitekey"><xsl:value-of select="$recaptchaSiteKey"/></xsl:attribute>
                 </xsl:when>
-                <!-- if no children are found we add a space to eliminate self closing tags -->
+                <!-- Check if 'div' element's name is 'g-recaptcha-error', if so, add:
+                        - 'class' attribute to it with 'alert' and 'alert-danger' values to it (indicatin that it should
+                        be formatted as bootstrap error message)
+                        - 'role' attribute to it with 'alert' value to it (indicating that it should be an error message)
+                -->
+                <xsl:when test="@name='g-recaptcha-error'">                
+                    <xsl:attribute name="class">alert alert-danger</xsl:attribute>
+                    <xsl:attribute name="role">alert</xsl:attribute>
+                    <p><i18n:text>xmlui.ArtifactBrowser.ItemRequestForm.recaptcha.error</i18n:text></p>
+                </xsl:when>
                 <xsl:otherwise>
-                    &#160;
+                    <!-- Add all other standard attributes to a 'div' element if it's not a 'g-recaptcha'
+                         or 'g-recaptcha-error' 'div' element)
+                    -->
+                    <xsl:call-template name="standardAttributes">
+                        <xsl:with-param name="class">ds-static-div</xsl:with-param>
+                    </xsl:call-template>
+                    <xsl:choose>
+                        <!--  does this element have any children -->
+                        <xsl:when test="child::node()">
+                            <xsl:apply-templates select="*[not(name()='head')]"/>
+                        </xsl:when>
+                        <!-- if no children are found we add a space to eliminate self closing tags -->
+                        <xsl:otherwise>
+                            &#160;
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:otherwise>
             </xsl:choose>
         </div>
