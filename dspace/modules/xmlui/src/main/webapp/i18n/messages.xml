@@ -24,7 +24,7 @@
 		-->
 
 	<!-- General keys -->
-	<message key="xmlui.general.dspace_home">DSpace Home</message>
+	<message key="xmlui.general.dspace_home">CU Research Publications Repository</message>
 	<message key="xmlui.general.search">Search</message>
 	<message key="xmlui.general.go">Go</message>
 	<message key="xmlui.general.go_home">Go to DSpace home</message>
@@ -35,8 +35,9 @@
 	<message key="xmlui.general.delete">Delete</message>
 	<message key="xmlui.general.next">Next</message>
 	<message key="xmlui.general.untitled">Untitled</message>
-        <message key="xmlui.general.perform">Perform</message>
-        <message key="xmlui.general.queue">Queue</message>
+	<message key="xmlui.general.perform">Perform</message>
+	<message key="xmlui.general.queue">Queue</message>
+	<message key="xmlui.general.repositoryTitle">Research publications repository</message>
 
         <!-- Keys which are used by exception2dri.xsl on error pages -->
         <message key="xmlui.error.contact_msg">Please contact the site administrator if you wish to report this error. If possible, please  provide details about what you were doing at the time this error occurred.</message>
@@ -330,6 +331,7 @@
 	<message key="xmlui.ArtifactBrowser.ItemRequestForm.requesterName">Name</message>
 	<message key="xmlui.ArtifactBrowser.ItemRequestForm.requesterName.error">Name is required</message>
 	<message key="xmlui.ArtifactBrowser.ItemRequestForm.submit">Request copy</message>
+	<message key="xmlui.ArtifactBrowser.ItemRequestForm.recaptcha.error">reCAPTCHA is required</message>
 
 	<!-- org.dspace.app.xmlui.artifactbrowser.ItemRequestSent.java -->
 	<message key="xmlui.ArtifactBrowser.ItemRequestSent.title">Your request has been sent.</message>
@@ -2202,12 +2204,41 @@
 	<message key="xmlui.dri2xhtml.METS-1.0.item-preview">Preview</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-title">Title</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-author">Author</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-author-collapse">Show other authors</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-abstract">Abstract</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-abstract.show.original">Show original language</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-keywords">Keywords</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-keywords.show.original">Show original language</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item.show-metadata.other-languages">Show in other languages</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-description">Description</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-uri">URI</message>
-	<message key="xmlui.dri2xhtml.METS-1.0.item-date">Date</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-file-button-download">Get publication</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-file-button-embargoed">Accessible from</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-file-button-restricted">Login to access</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-date">Publication date</message>
+	<!-- <JR> - 2023-10-26: Added new key for translation publication type in item-view -->
+	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-type">Publication type</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-type-unknown">unknown type</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-version-draft">draft</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-version-submittedVersion">submitted version</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-version-acceptedVersion">accepted version</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-version-publishedVersion">published version</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-version-none">no other version</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-version-unknown">unknown version</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-accessRights.openAccess">open access</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-accessRights.embargoedAccess">embargoed access</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-accessRights.restrictedAccess">restricted access</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-accessRights.unknown">unknown access rights</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-licence-unknown">unknown licence</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-source-publication-name">Published in</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-source-publication-volume-issue">Volume / Issue</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-source-publication-isbn-issn">ISBN / ISSN</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-isbn-issn">ISBN / ISSN</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-publisher">Publisher</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-publisher-publication-place">Publication place</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-subject">Subject</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-other-systems-identifiers">Show publication in other systems</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-doi-alert-text">This publication has a published version with DOI</message>
 
 	<message key="xmlui.dri2xhtml.METS-1.0.item-files-head">Files in this item</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-files-file">Files</message>
@@ -2232,6 +2263,7 @@
 	<message key="xmlui.dri2xhtml.METS-1.0.item-license">License</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.license-text">The following license files are associated with this item:</message>
     <message key="xmlui.dri2xhtml.METS-1.0.cc-license-text">Except where otherwise noted, this item's license is described as </message>
+	<message key="xmlui.dri2xhtml.METS-1.0.link-to-license-text">Show license terms</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.cc-license-text-custom">Full text of this result is licensed under: </message>
 	<message key="xmlui.dri2xhtml.METS-1.0.no-license-text">
 		The full text of this result is made available in the repository as read-only, i.e. in gratis open access mode. 
@@ -3532,13 +3564,21 @@
 	<!-- RESEARCH OUTPUT TYPE FACET & FILTER-->
 	<message key="xmlui.ArtifactBrowser.AdvancedSearch.type_OBDTypeHierarchyEn">Research Output Type</message>
 	<message key="xmlui.ArtifactBrowser.AdvancedSearch.type_OBDTypeHierarchyCs">Research Output Type</message>
-	<message key="xmlui.ArtifactBrowser.SimpleSearch.filter.OBDTypeHierarchyEn">Research Output Type</message>
-	<message key="xmlui.ArtifactBrowser.SimpleSearch.filter.OBDTypeHierarchyCs">Research Output Type</message>
+	<message key="xmlui.ArtifactBrowser.AdvancedSearch.type_uk.publicationFacultyResponsibility.cs">Faculty / University unit</message>
+	<message key="xmlui.ArtifactBrowser.AdvancedSearch.type_uk.publicationDepartmentResponsibility.cs">Department / Institute / Clinic</message>
+	<message key="xmlui.ArtifactBrowser.AdvancedSearch.type_uk.publicationFacultyResponsibility.en">Faculty / University unit</message>
+	<message key="xmlui.ArtifactBrowser.AdvancedSearch.type_uk.publicationDepartmentResponsibility.en">Department / Institute / Clinic</message>
+	<message key="xmlui.ArtifactBrowser.SimpleSearch.filter.OBDTypeHierarchyEn">Research Output Type (EN)</message>
+	<message key="xmlui.ArtifactBrowser.SimpleSearch.filter.OBDTypeHierarchyCs">Research Output Type (CS)</message>
+	<message key="xmlui.ArtifactBrowser.SimpleSearch.filter.uk.publicationFacultyResponsibility.cs">Faculty / University unit (CS)</message>
+	<message key="xmlui.ArtifactBrowser.SimpleSearch.filter.uk.publicationFacultyResponsibility.en">Faculty / University unit (EN)</message>
+	<message key="xmlui.ArtifactBrowser.SimpleSearch.filter.uk.publicationDepartmentResponsibility.cs">Department / Institute / Clinic (CS)</message>
+	<message key="xmlui.ArtifactBrowser.SimpleSearch.filter.uk.publicationDepartmentResponsibility.en">Department / Institute / Clinic (EN)</message>
 	<!-- END OF: CUSTOM FACETS LABELS TRANSLATIONS -->
 	<!--OUTPUT PUBLICATION VERSIONS TRANSLATIONS-->
 	
 	<!-- other output versions item-view heading translation -->
-	<message key="xmlui.dri2xhtml.METS-1.0.item-otherOutputVersions">Other output versions</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-otherOutputVersions">Other publication versions</message>
 	
 	<!-- other output versions values translations -->
 	<message key="xmlui.publication.version.draft">Draft</message>
@@ -3546,5 +3586,27 @@
 	<message key="xmlui.publication.version.acceptedVersion">Accepted version</message>
 	<message key="xmlui.publication.version.publishedVersion">Published version</message>
 	<message key="xmlui.publication.version.updatedVersion">Updated published version</message>
+
+	<!-- HOMEPAGE -->
+	<message key="xmlui.homepage.jumbotron.welcome.heading">Welcome to the CU Research Publications Repository</message>
+	<message key="xmlui.homepage.jumbotron.welcome.text.part.1">There's currently</message>
+	<message key="xmlui.homepage.jumbotron.welcome.text.part.2"> research publications stored in the repository, including</message>
+	<message key="xmlui.homepage.jumbotron.welcome.text.part.3">available in <strong>open access</strong></message>
+
+	<message key="xmlui.homepage.recentSubmissions.info.text">Discover publications recently submitted into the Research Publications Repository, sorted by submission date. 
+	Newest publication appear at the top of the list.</message>
+	<message key="xmlui.homepage.recentSubmissions.button.text">Show publications</message>
+	
+	<message key="xmlui.homepage.howToDeposit">How to deposit?</message>
+	<message key="xmlui.homepage.howToDeposit.info.text">Are you employee or student of the Charles University? Get information on how to deposit 
+		your publication into the Research Publications Repository.
+	</message>
+	<message key="xmlui.homepage.howToDeposit.button.text">Discover more</message>
+		
+	<message key="xmlui.homepage.getHelp">Do you need help?</message>
+	<message key="xmlui.homepage.getHelp.info.text">If you need any assistance in the area of open access publishing, research data management, licensing 
+		or other areas related to open science at the Charles University, visit the Open Science Support Centre Portal.
+	</message>
+	<message key="xmlui.homepage.getHelp.button.text">Visit the portal</message>
 
 </catalogue>

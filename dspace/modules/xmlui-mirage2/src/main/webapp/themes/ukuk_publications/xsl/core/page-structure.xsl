@@ -37,6 +37,7 @@
                 <xsl:import href="../custom/disclaimer.xsl" />
                 <xsl:import href="../custom/licenses.xsl" />
                 <xsl:import href="../custom/metadata.xsl" />
+                <xsl:import href="../custom/utility.xsl"/>
 
     <xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 
@@ -182,7 +183,17 @@
             <link rel="shortcut icon">
                 <xsl:attribute name="href">
                     <xsl:value-of select="$theme-path"/>
-                    <xsl:text>images/favicon.ico</xsl:text>
+                    <xsl:choose>
+                        <xsl:when test="$active-locale = 'cs'">
+                            <xsl:text>images/UK-logo-pro_omezena_zobrazeni-CZ.svg</xsl:text>
+                        </xsl:when>
+                        <xsl:when test="$active-locale = 'en'">
+                            <xsl:text>images/UK-logo-pro_omezena_zobrazeni-EN.svg</xsl:text>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>images/UK-logo-pro_omezena_zobrazeni-EN.svg</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:attribute>
             </link>
             <link rel="apple-touch-icon">
@@ -394,18 +405,16 @@
                 <div class="container">
                     <div class="navbar-header">
 
-                        <button type="button" class="navbar-toggle" data-toggle="offcanvas">
-                            <span class="sr-only">
-                                <i18n:text>xmlui.mirage2.page-structure.toggleNavigation</i18n:text>
-                            </span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-
                         <a href="{$context-path}/" class="navbar-brand">
-                            <img class="img-responsive" title="CU Research Publications Repository Logo" src="{$theme-path}images/logo_repo_final4.svg" />
+                            <xsl:if test="$active-locale = 'cs'">
+                                <img class="img-responsive" title="Charles University Logo" src="{$theme-path}images/UK-logo-square-white-CZ.svg" />
+                            </xsl:if>
+                            <xsl:if test="$active-locale = 'en'">
+                                <img class="img-responsive" title="Charles University Logo" src="{$theme-path}images/UK-logo-square-white-EN.svg" />
+                            </xsl:if>
                         </a>
+
+                        <h1 class="navbar-text"><i18n:text>xmlui.general.repositoryTitle</i18n:text></h1>
 
 
                         <div class="navbar-header pull-right visible-xs hidden-sm hidden-md hidden-lg">
@@ -466,7 +475,7 @@
                                     </li>
                                 </xsl:when>
                                 <xsl:otherwise>
-                                    <li>
+                                    <li id="ds-login-selection-xs">
                                         <form style="display: inline" action="{/dri:document/dri:meta/dri:userMeta/
                             dri:metadata[@element='identifier' and @qualifier='loginURL']}" method="get">
                                             <button class="navbar-toggle navbar-link">
@@ -476,6 +485,16 @@
                                     </li>
                                 </xsl:otherwise>
                             </xsl:choose>
+                            <li id="ds-navigation-selection-xs">
+                                <button type="button" class="navbar-toggle" data-toggle="offcanvas">
+                                    <span class="sr-only">
+                                        <i18n:text>xmlui.mirage2.page-structure.toggleNavigation</i18n:text>
+                                    </span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                            </li>
                         </ul>
                               </div>
                     </div>
@@ -487,7 +506,7 @@
                         <ul class="nav navbar-nav pull-left">
                             <xsl:choose>
                                 <xsl:when test="/dri:document/dri:meta/dri:userMeta/@authenticated = 'yes'">
-                                    <li class="dropdown">
+                                    <li class="dropdown" id="user-profile-selection">
                                         <a id="user-dropdown-toggle" href="#" role="button" class="dropdown-toggle"
                                            data-toggle="dropdown">
                                             <span class="hidden-xs">
@@ -530,7 +549,7 @@
                                     </li>
                                 </xsl:when>
                                 <xsl:otherwise>
-                                    <li>
+                                    <li id="ds-login-selection-xs">
                                         <a href="{/dri:document/dri:meta/dri:userMeta/
                             dri:metadata[@element='identifier' and @qualifier='loginURL']}">
                                             <span class="hidden-xs">
@@ -541,13 +560,17 @@
                                 </xsl:otherwise>
                             </xsl:choose>
                         </ul>
+                        <ul class="nav navbar-nav">
+                            <li id="ds-navigation-selection-xs">
+                                <button data-toggle="offcanvas" class="navbar-toggle visible-sm" type="button">
+                                    <span class="sr-only"><i18n:text>xmlui.mirage2.page-structure.toggleNavigation</i18n:text></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                            </li>
+                        </ul>
 
-                        <button data-toggle="offcanvas" class="navbar-toggle visible-sm" type="button">
-                            <span class="sr-only"><i18n:text>xmlui.mirage2.page-structure.toggleNavigation</i18n:text></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
                     </div>
                 </div>
             </div>
@@ -610,9 +633,10 @@
     <xsl:template match="dri:trail">
         <!--put an arrow between the parts of the trail-->
         <li>
-            <xsl:if test="position()=1">
+            <!-- <JR> - 2024-01-23 - don't use this glyphicon -->
+            <!-- <xsl:if test="position()=1">
                 <i class="glyphicon glyphicon-home" aria-hidden="true"/>&#160;
-            </xsl:if>
+            </xsl:if> -->
             <!-- Determine whether we are dealing with a link or plain text trail link -->
             <xsl:choose>
                 <xsl:when test="./@target">
@@ -845,14 +869,19 @@
             <xsl:if test="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='alert'][@qualifier='message']">
                 <div class="alert alert-warning">
                     <button type="button" class="close" data-dismiss="alert">&#215;</button>
-                    <xsl:copy-of select="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='alert'][@qualifier='message']/node()"/>
+                    <xsl:call-template name="utility-parse-display-title">
+                        <xsl:with-param name="title-string">
+                            <xsl:value-of select="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='alert'][@qualifier='message']/node()"/>
+                        </xsl:with-param>
+                    </xsl:call-template>
+                    <!-- <xsl:copy-of select="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='alert'][@qualifier='message']/node()"/> -->
                 </div>
             </xsl:if>
 
             <!-- Check for the custom pages -->
             <xsl:choose>
                 <xsl:when test="starts-with($request-uri, 'page/about')">
-                    <div class="hero-unit">
+                    <div class="hero-unit cuni-static-info-page">
                         <h1><i18n:text>xmlui.mirage2.page-structure.heroUnit.title</i18n:text></h1>
                         <!--<p><i18n:text>xmlui.mirage2.page-structure.heroUnit.content</i18n:text></p>-->
                         <xsl:call-template name="about-create"/>
@@ -866,7 +895,7 @@
                     </div>
                 </xsl:when> -->
                 <xsl:when test="starts-with($request-uri, 'page/metadata')">
-                    <div class="hero-unit" id="metadata">
+                    <div class="hero-unit cuni-static-info-page" id="metadata">
                         <h1><i18n:text>xmlui.mirage2.static-pages.heading.metadata</i18n:text></h1>
                         <!-- TODO: Create custom text and make it translatable via i18n:text -->
                         <!--<p><i18n:text>xmlui.mirage2.page-structure.heroUnit.content</i18n:text></p>-->
@@ -875,7 +904,7 @@
                     
                 </xsl:when>
                 <xsl:when test="starts-with($request-uri, 'page/typology')">
-                    <div class="hero-unit">
+                    <div class="hero-unit cuni-static-info-page">
                         <h1><i18n:text>xmlui.mirage2.static-pages.heading.typology</i18n:text></h1>
                         <!-- TODO: Create custom text and make it translatable via i18n:text -->
                         <!--<p><i18n:text>xmlui.mirage2.page-structure.heroUnit.content</i18n:text></p>-->
@@ -884,12 +913,12 @@
                     
                 </xsl:when>
                 <xsl:when test="starts-with($request-uri, 'page/disclaimer')">
-                    <div class="hero-unit">
+                    <div class="hero-unit cuni-static-info-page">
                         <xsl:call-template name="disclaimer-create"/>
                     </div>
                 </xsl:when>
                 <xsl:when test="starts-with($request-uri, 'page/licenses')">
-                    <div class="hero-unit">
+                    <div class="hero-unit cuni-static-info-page">
                         <xsl:call-template name="licenses-create"/>
                     </div>
                 </xsl:when>
@@ -944,6 +973,15 @@
         <xsl:for-each select="document($scriptURL)/scripts/script">
             <script src="{$theme-path}{@src}">&#160;</script>
         </xsl:for-each>
+
+        <!-- <JR> - 2024-01-08: Adding reCAPTCHA, see https://groups.google.com/g/dspace-community/c/UiygSm8pV-M 
+                    for details
+            
+            reCAPTCHA api.js script is referenced only on pages related to restricted resources
+        -->
+        <xsl:if test="contains($current-uri,'restricted-resource') or contains($current-uri,'feedback')">
+            <script src="https://www.google.com/recaptcha/api.js" async="true" defer="true"></script>
+        </xsl:if>
 
         <!-- Add javascript specified in DRI -->
         <xsl:for-each select="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='javascript'][not(@qualifier)]">

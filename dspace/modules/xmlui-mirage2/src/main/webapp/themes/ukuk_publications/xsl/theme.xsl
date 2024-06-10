@@ -53,11 +53,15 @@
     <!-- <JR> - 2022-09-05 - Trying to import custom homepage-news.xsl, so all related templates could be stored there, 
         therefore avoiding cluttering main theme.xsl file -->
     <xsl:import href="custom/homepage-news.xsl"/>
+    <!-- <JR> - 2024-02-20: New custom XSL file for /recent-submissions page, where we want to add  search form -->
+    <xsl:import href="custom/recent-submissions.xsl"/>
     <xsl:output indent="yes"/>
 
     <!-- <JR> - 2022-09-05 - THIS WORKS FOR PLAYING WITH NEWS ON HOMEPAGE, WHEN CALLED FROM HERE -->
     <!-- <xsl:template match="/dri:document/dri:body/dri:div[@id='file.news.div.news'][@n='news']">
         <h2>Ahoj z theme.xsl</h2>
     </xsl:template> -->
+
+    
 
 </xsl:stylesheet>

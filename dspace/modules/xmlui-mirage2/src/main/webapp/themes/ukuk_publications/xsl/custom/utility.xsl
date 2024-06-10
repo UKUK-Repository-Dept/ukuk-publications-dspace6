@@ -49,4 +49,29 @@
         <xsl:value-of disable-output-escaping="yes" select="$title-string"/>
     </xsl:template>
 
+    <!--
+        This template processes a XML response from SOLR and returns string containing author's research identifiers from it.
+
+        If no item is found based on the SOLR query or more then 1 item is found, nothing happens.
+    -->
+    <xsl:template name="utility-authorIdentifiersParse">
+        <xsl:param name="authorIdentifiersXML"/>
+        <xsl:param name="authorNameInMetadata"/>
+        <xsl:choose>
+            <xsl:when test="$authorIdentifiersXML/response/result/@numFound = '0'">
+                <!-- Don't do anything -->
+            </xsl:when>
+            <xsl:when test="$authorIdentifiersXML/response/result/@numFound = '1'">
+                <xsl:for-each select="$authorIdentifiersXML/response/result/doc/arr[@name='uk.author.identifier']/str">
+                    <xsl:if test="substring-before(./text(),'|') = $authorNameInMetadata">
+                        <xsl:value-of select="./text()"/>
+                    </xsl:if>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:otherwise>
+                <!-- Don't do anything -->
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+
 </xsl:stylesheet>
