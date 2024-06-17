@@ -422,6 +422,14 @@ header .navbar-default .navbar-toggle > li > a:hover, header .navbar-default .na
   background-color: white;
   color: #d22d40; }
 
+// END OF: LANGUAGE BUTTON
+
+/* User login / name button */
+#navbar-nav-user-login-button {
+  float: right !important;
+}
+/* END OF: User login / name button */
+
 .item-view-titles-row {
   background-color: #003657;
   margin-right: 0px;
