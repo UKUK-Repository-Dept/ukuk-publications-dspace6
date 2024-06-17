@@ -500,10 +500,10 @@
                     </div>
 
                     <div class="navbar-header pull-right hidden-xs">
-                        <ul class="nav navbar-nav pull-left">
+                        <ul class="nav navbar-nav pull-left" id="navbar-nav-language-selector-button">
                               <xsl:call-template name="languageSelection"/>
                         </ul>
-                        <ul class="nav navbar-nav pull-left">
+                        <ul class="nav navbar-nav pull-left" id="navbar-nav-user-login-button">
                             <xsl:choose>
                                 <xsl:when test="/dri:document/dri:meta/dri:userMeta/@authenticated = 'yes'">
                                     <li class="dropdown" id="user-profile-selection">
@@ -560,7 +560,7 @@
                                 </xsl:otherwise>
                             </xsl:choose>
                         </ul>
-                        <ul class="nav navbar-nav">
+                        <ul class="nav navbar-nav" id="navbar-nav-hidden-menu-button">
                             <li id="ds-navigation-selection-xs">
                                 <button data-toggle="offcanvas" class="navbar-toggle visible-sm" type="button">
                                     <span class="sr-only"><i18n:text>xmlui.mirage2.page-structure.toggleNavigation</i18n:text></span>
