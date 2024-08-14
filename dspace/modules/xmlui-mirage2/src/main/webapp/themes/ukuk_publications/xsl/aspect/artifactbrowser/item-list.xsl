@@ -401,16 +401,27 @@
         <!-- <xsl:param name="metsDoc"/> -->
 
         <xsl:variable name="handleNew">
-            <xsl:value-of select="substring-after($handle, '123456789/')"/>
+            <xsl:choose>
+                <xsl:when test="contains($handle, '123456789/')">
+                    <xsl:value-of select="substring-after($handle,'123456789/')"/>
+                </xsl:when>
+                <xsl:when test="contains($handle, '20.500.14178/')">
+                    <xsl:value-of select="substring-after($handle,'20.500.14178/')"/>
+                </xsl:when>
+                <xsl:otherwise>
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:variable>
 
+
         <xsl:call-template name="itemSummaryList-authors-three-or-less">
-            <xsl:with-param name="handle" select="$handle"/>
+            <xsl:with-param name="handle" select="$handleNew"/>
             <!-- <xsl:with-param name="metsDoc" select="$metsDoc" /> -->
         </xsl:call-template>
         
         <div id="collapse-discovery-authors-{$handleNew}" class="collapse" 
         aria-labelledby="discovery-item-authors-{$handleNew}">
+            
             <xsl:for-each select="dim:field[@element='contributor'][@qualifier='author']">
                 <xsl:if test="count(preceding-sibling::dim:field[@element='contributor'][@qualifier='author']) >= 3 
                 and count(following-sibling::dim:field[@element='contributor'][@qualifier='author']) > 0">
