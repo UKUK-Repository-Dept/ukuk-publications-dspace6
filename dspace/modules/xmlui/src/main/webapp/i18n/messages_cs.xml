@@ -2239,6 +2239,7 @@
 	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-version-submittedVersion">preprint</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-version-acceptedVersion">postprint</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-version-publishedVersion">vydavatelská verze</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-version-updatedVersion">aktualizovaná vydavatelská verze</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-version-none">žádná další verze</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-version-unknown">neznámá verze</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-accessRights.openAccess">open access</message>
