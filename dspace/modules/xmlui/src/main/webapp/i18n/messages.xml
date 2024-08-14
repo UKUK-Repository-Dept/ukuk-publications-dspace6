@@ -2223,6 +2223,7 @@
 	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-version-submittedVersion">submitted version</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-version-acceptedVersion">accepted version</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-version-publishedVersion">published version</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-version-updatedVersion">updated version</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-version-none">no other version</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-version-unknown">unknown version</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-accessRights.openAccess">open access</message>
