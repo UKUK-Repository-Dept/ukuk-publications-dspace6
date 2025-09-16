@@ -528,6 +528,19 @@ header .navbar-default .navbar-toggle > li > a:hover, header .navbar-default .na
 .item-view-additional-info-column .dropdown-menu {
   margin-top: 10px; }
 
+// <JR> - 2025-09-16: Styling language badge in item-view
+.badge.publication-language-badge {
+  background-color: white;
+  color: black;
+  border-radius: 0;
+  border: 2px solid;
+  font-family: silkamedium;
+  text-transform: uppercase;
+  font-size: 10px;
+  font-weight: bold;
+  padding: 2px 4px 1px 4px;
+}
+
 #publication-versions-toggle {
   cursor: pointer;
   -webkit-box-shadow: none;
