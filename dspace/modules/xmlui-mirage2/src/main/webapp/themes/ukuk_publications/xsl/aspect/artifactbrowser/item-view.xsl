@@ -1005,8 +1005,13 @@
                     <i18n:text>xmlui.dri2xhtml.METS-1.0.item-publication-fundingReference</i18n:text>
                 </h5>
                 <xsl:for-each select="dim:field[@element='relation'][@qualifier='fundingReference']">
+                    <xsl:variable name="parsedFundingReference">
+                        <xsl:call-template name="utility-fundingReferenceParse">
+                            <xsl:with-param name="currentFundingReference" select="node()"/>
+                        </xsl:call-template>
+                    </xsl:variable>
                     <xsl:call-template name="addFundingEntry">
-                        <xsl:with-param name="currentFundingReference" select="node()"/>
+                        <xsl:with-param name="parsedCurrentFundingReference" select="parsedFundingReference"/>
                     </xsl:call-template>
                 </xsl:for-each>
             </div>
@@ -1014,7 +1019,7 @@
     </xsl:template>
 
     <xsl:template name="addFundingEntry">
-        <xsl:param name="currentFundingReference"/>
+        <xsl:param name="parsedCurrentFundingReference"/>
         <div class="simple-item-view-fundingReference-line">
             <!-- Adding author's name from metadata -->
             <span>
