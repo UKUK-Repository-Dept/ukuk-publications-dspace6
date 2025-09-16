@@ -147,6 +147,9 @@
                     <div class="btn-group label-group" role="group" aria-label="additional-item-info">
                         <xsl:call-template name="itemSummaryView-DIM-license-icons"/>
                     </div>
+                    <div class="btn-group label-group" role="group" aria-label="additional-item-info">
+                        <xsl:call-template name="itemSummaryView-DIM-item-language-icon"/>
+                    </div>
                     <!-- <JR> - 2023-11-08: TODO: Merge dropdown for selecting other versions of the publication with the label used to display current version -->
                     <div class="btn-group label-group" role="group" aria-label="additional-item-versions" style="float: right;">
                         <xsl:call-template name="itemSummaryView-DIM-publication-version"/>
@@ -770,6 +773,23 @@
                     </xsl:with-param>
                 </xsl:call-template>
             </xsl:if>
+        </xsl:if>
+    </xsl:template>
+
+    <xsl:template name="itemSummaryView-DIM-item-language-icon">
+        <!-- Check if the dc.language.iso is present in metadata -->
+        <xsl:if test="dim:field[@element='language' and @qualifier='iso']">
+            <xsl:variable name="languagecode" select="dim:field[@element='language' and @qualifier='iso']"/>
+            <xsl:variable name="languagecodetranslation">xmlui.publication.language.<xsl:value-of select='$languagecode'/></xsl:variable>
+            <span class="badge publication-language-badge" title="{$languagecodetranslation}"><xsl:value-of select="$languagecode"/></span>
+            <!-- <img class="img-responsive">
+                <xsl:attribute name="src">
+                    <xsl:value-of select="concat($theme-path,'/images/languages/', $languagecode, '.png')"/>
+                </xsl:attribute>
+                <xsl:attribute name="alt">
+                    <xsl:value-of select="$licenseText"/>
+                </xsl:attribute>
+            </img> -->
         </xsl:if>
     </xsl:template>
 
