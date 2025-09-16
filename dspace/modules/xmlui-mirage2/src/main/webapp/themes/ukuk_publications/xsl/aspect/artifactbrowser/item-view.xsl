@@ -786,7 +786,7 @@
                     <xsl:text>badge publication-language-badge</xsl:text>
                 </xsl:attribute>
                 <xsl:attribute name="title">
-                    <i18n:text>xmlui.publication.language.<xsl:value-of select="$languagecode"/></i18n:text>
+                    <xsl:value-of select="$languagecodetranslation"/>
                 </xsl:attribute>
             </xsl:element>
             <!-- <span class="badge publication-language-badge" title="$languagecodetranslation"><xsl:value-of select="$languagecode"/></span> -->
