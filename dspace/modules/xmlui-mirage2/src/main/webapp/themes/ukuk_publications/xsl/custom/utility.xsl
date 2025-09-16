@@ -76,6 +76,6 @@
 
     <xsl:template name="utility-fundingReferenceParse">
         <xsl:param name="currentFundingReference"/>
-        <xsl:value-of select="substring-after($currenctFundingReference, 'info:eu-repo/grantAgreement/')"/>
+        <xsl:value-of select="substring-after($currentFundingReference, 'info:eu-repo/grantAgreement/')"/>
     </xsl:template>
 </xsl:stylesheet>
