@@ -781,7 +781,7 @@
         <xsl:if test="dim:field[@element='language' and @qualifier='iso']">
             <xsl:variable name="languagecode" select="dim:field[@element='language' and @qualifier='iso']"/>
             <xsl:variable name="languagecodetranslation"><i18n:text>xmlui.publication.language.<xsl:value-of select='$languagecode'/></i18n:text></xsl:variable>
-            <xsl:element name="span">
+            <xsl:element name="span" i18n:attr="title">
                 <xsl:attribute name="class">
                     <xsl:text>badge publication-language-badge</xsl:text>
                 </xsl:attribute>
@@ -790,7 +790,7 @@
                 </xsl:attribute>
                 <xsl:value-of select="$languagecode"/>
             </xsl:element>
-            <!-- <span class="badge publication-language-badge" title="$languagecodetranslation"><xsl:value-of select="$languagecode"/></span> -->
+            <span class="badge publication-language-badge" i18n:attr="title" title="{$languagecodetranslation}"><xsl:value-of select="$languagecode"/></span>
             <!-- <img class="img-responsive">
                 <xsl:attribute name="src">
                     <xsl:value-of select="concat($theme-path,'/images/languages/', $languagecode, '.png')"/>
