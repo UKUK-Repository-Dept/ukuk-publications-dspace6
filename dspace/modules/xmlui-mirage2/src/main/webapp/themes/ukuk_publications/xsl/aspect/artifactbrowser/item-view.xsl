@@ -1011,7 +1011,7 @@
                         </xsl:call-template>
                     </xsl:variable>
                     <xsl:call-template name="addFundingEntry">
-                        <xsl:with-param name="parsedCurrentFundingReference" select="parsedFundingReference"/>
+                        <xsl:with-param name="parsedCurrentFundingReference" select="$parsedFundingReference"/>
                     </xsl:call-template>
                 </xsl:for-each>
             </div>
@@ -1023,7 +1023,7 @@
         <div class="simple-item-view-fundingReference-line">
             <!-- Adding author's name from metadata -->
             <span>
-                <xsl:copy-of select="node()"/>
+                <xsl:copy-of select="$parsedCurrentFundingReference"/>
             </span>
             
             <!--
