@@ -3610,4 +3610,20 @@
 	</message>
 	<message key="xmlui.homepage.getHelp.button.text">Visit the portal</message>
 
+	<!-- <JR> - 2025-09-16: Added iso language codes translations -->
+	<message key="xmlui.publication.language.cs">Czech</message>
+	<message key="xmlui.publication.language.en">English</message>
+	<message key="xmlui.publication.language.de">German</message>
+	<message key="xmlui.publication.language.fr">French</message>
+	<message key="xmlui.publication.language.es">Spanish</message>
+	<message key="xmlui.publication.language.it">Italina</message>
+	<message key="xmlui.publication.language.ja">Japanese</message>
+	<message key="xmlui.publication.language.zh">Chinese</message>
+	<message key="xmlui.publication.language.tr">Turkish</message>
+	<message key="xmlui.publication.language.sk">Slovak</message>
+	<message key="xmlui.publication.language.pl">Polish</message>
+	<message key="xmlui.publication.language.pt">Portuguese</message>
+	<message key="xmlui.publication.language.uk">Ukrainian</message>
+	<message key="xmlui.publication.language.ru">Russian</message>
+
 </catalogue>

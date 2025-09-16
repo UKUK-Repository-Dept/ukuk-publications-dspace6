@@ -3701,4 +3701,20 @@
 	</message>
 	<message key="xmlui.homepage.getHelp.button.text">Navštívit portál</message>
 
+	<!-- <JR> - 2025-09-16: Added iso language codes translations -->
+	<message key="xmlui.publication.language.cs">Čeština</message>
+	<message key="xmlui.publication.language.en">Angličtina</message>
+	<message key="xmlui.publication.language.de">Němčina</message>
+	<message key="xmlui.publication.language.fr">Francouzština</message>
+	<message key="xmlui.publication.language.es">Španělština</message>
+	<message key="xmlui.publication.language.it">Italština</message>
+	<message key="xmlui.publication.language.ja">Japonština</message>
+	<message key="xmlui.publication.language.zh">Čínština</message>
+	<message key="xmlui.publication.language.tr">Turečtina</message>
+	<message key="xmlui.publication.language.sk">Slovenština</message>
+	<message key="xmlui.publication.language.pl">Polština</message>
+	<message key="xmlui.publication.language.pt">Portugulština</message>
+	<message key="xmlui.publication.language.uk">Ukrajinština</message>
+	<message key="xmlui.publication.language.ru">Ruština</message>
+
 </catalogue>
