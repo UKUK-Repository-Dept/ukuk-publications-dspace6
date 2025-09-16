@@ -788,6 +788,7 @@
                 <xsl:attribute name="title">
                     <xsl:value-of select="$languagecodetranslation"/>
                 </xsl:attribute>
+                <xsl:value-of select="$languagecode"/>
             </xsl:element>
             <!-- <span class="badge publication-language-badge" title="$languagecodetranslation"><xsl:value-of select="$languagecode"/></span> -->
             <!-- <img class="img-responsive">
