@@ -780,7 +780,7 @@
         <!-- Check if the dc.language.iso is present in metadata -->
         <xsl:if test="dim:field[@element='language' and @qualifier='iso']">
             <xsl:variable name="languagecode" select="dim:field[@element='language' and @qualifier='iso']"/>
-            <xsl:variable name="languagecodetranslation"><i18n:text>xmlui.publication.language<xsl:value-of select='$languagecode'/></i18n:text></xsl:variable>
+            <xsl:variable name="languagecodetranslation"><i18n:text>xmlui.publication.language.<xsl:value-of select='$languagecode'/></i18n:text></xsl:variable>
             <span class="badge publication-language-badge" title="{$languagecodetranslation}"><xsl:value-of select="$languagecode"/></span>
             <!-- <img class="img-responsive">
                 <xsl:attribute name="src">
