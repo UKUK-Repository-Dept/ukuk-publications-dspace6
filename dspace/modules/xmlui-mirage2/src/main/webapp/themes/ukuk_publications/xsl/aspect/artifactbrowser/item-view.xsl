@@ -177,6 +177,7 @@
                     <xsl:call-template name="itemSummaryView-DIM-source-publication-volume-issue"/>
                     <xsl:call-template name="itemSummaryView-DIM-source-publication-isbn-issn" />
                     <xsl:call-template name="itemSummaryView-DIM-publication-isbn-issn" />
+                    <xsl:call-template name="itemSummaryView-DIM-fundingReference" />
                     <xsl:if test="$ds_item_view_toggle_url != ''">
                         <xsl:call-template name="itemSummaryView-show-full"/>
                     </xsl:if>
@@ -994,6 +995,40 @@
             </div>
         </xsl:if>
 
+    </xsl:template>
+
+    <xsl:template name="itemSummaryView-DIM-fundingReference">
+        <!-- <JR> - 2025-09-16: Adding funding reference information to item-view -->
+        <xsl:if test="dim:field[@element='relation' and @qualifier='fundingReference']">
+            <div class="simple-item-view-publication-fundingReference word-break item-page-field-wrapper table">
+                <h5 class="item-view-metadata-heading" id="itemSummaryView-DIM-publication-fundingReference">
+                    <i18n:text>xmlui.dri2xhtml.METS-1.0.item-publication-fundingReference</i18n:text>
+                </h5>
+                <xsl:for-each select="dim:field[@element='relation'][@qualifier='fundingReference']">
+                    <xsl:call-template name="addFundingEntry">
+                        <xsl:with-param name="currentFundingReference" select="node()"/>
+                    </xsl:call-template>
+                </xsl:for-each>
+            </div>
+        </xsl:if>
+    </xsl:template>
+
+    <xsl:template name="addFundingEntry">
+        <xsl:param name="currentFundingReference"/>
+        <div class="simple-item-view-fundingReference-line">
+            <!-- Adding author's name from metadata -->
+            <span>
+                <xsl:copy-of select="node()"/>
+            </span>
+            
+            <!--
+                Calling template that actually creates the HTML elements holding author's identifiers information
+            -->
+            <!-- <xsl:call-template name="addAuthorIdentifiers">
+                <xsl:with-param name="authorIdentifiersRecord" select="$currentAuthorIdentifiersRecord"/>
+            </xsl:call-template> -->
+
+        </div>
     </xsl:template>
 
     <xsl:template name="itemSummaryView-DIM-publisher-publicationPlace">
