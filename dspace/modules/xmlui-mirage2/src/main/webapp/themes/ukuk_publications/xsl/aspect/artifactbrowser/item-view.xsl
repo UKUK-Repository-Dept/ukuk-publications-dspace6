@@ -1021,14 +1021,14 @@
     <xsl:template name="addFundingEntry">
         <xsl:param name="parsedCurrentFundingReference"/>
 
-        <xsl:variable name="funder" select="substring-before($fundingReference, '/')" />
+        <xsl:variable name="funder" select="substring-before($parsedCurrentFundingReference, '/')" />
 
         <xsl:variable name="fundingProgram">
-            <xsl:value-of select="substring-before(substring-after($fundingReference, concat($funder,'/')),'/')"/>
+            <xsl:value-of select="substring-before(substring-after($parsedCurrentFundingReference, concat($funder,'/')),'/')"/>
         </xsl:variable>
 
         <xsl:variable name="projectID">
-            <xsl:value-of select="substring-after($fundingReference, concat($funder, '/' ,$fundingProgram, '/'))"/>
+            <xsl:value-of select="substring-after($parsedCurrentFundingReference, concat($funder, '/' ,$fundingProgram, '/'))"/>
         </xsl:variable>
 
         <div class="simple-item-view-fundingReference-line">
