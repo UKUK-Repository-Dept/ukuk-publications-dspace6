@@ -1020,18 +1020,23 @@
 
     <xsl:template name="addFundingEntry">
         <xsl:param name="parsedCurrentFundingReference"/>
+
+        <xsl:variable name="funder" select="substring-before($fundingReference, '/')" />
+
+        <xsl:variable name="fundingProgram">
+            <xsl:value-of select="substring-before(substring-after($fundingReference, concat($funder,'/')),'/')"/>
+        </xsl:variable>
+
+        <xsl:variable name="projectID">
+            <xsl:value-of select="substring-after($fundingReference, concat($funder, '/' ,$fundingProgram, '/'))"/>
+        </xsl:variable>
+
         <div class="simple-item-view-fundingReference-line">
+        
             <!-- Adding author's name from metadata -->
-            <span>
-                <xsl:copy-of select="$parsedCurrentFundingReference"/>
-            </span>
-            
-            <!--
-                Calling template that actually creates the HTML elements holding author's identifiers information
-            -->
-            <!-- <xsl:call-template name="addAuthorIdentifiers">
-                <xsl:with-param name="authorIdentifiersRecord" select="$currentAuthorIdentifiersRecord"/>
-            </xsl:call-template> -->
+            <span title="Funder"><xsl:value-of select="$funder" />/</span>
+            <span title="Funding Program"><xsl:value-of select="$fundingProgram"/>/</span>
+            <span title="Project ID"><xsl:value-of select="$projectID"/></span>
 
         </div>
     </xsl:template>
