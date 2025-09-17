@@ -2252,6 +2252,9 @@
 	<message key="xmlui.dri2xhtml.METS-1.0.item-source-publication-isbn-issn">ISBN / ISSN</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-isbn-issn">ISBN / ISSN</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-fundingReference">Informace o financování</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-fundingReference.funder">Poskytovatel financí (zkratka)</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-fundingReference.fundingProgram">Program financování</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-fundingReference.projectID">Identifikátor projektu</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-publisher">Nakladatel</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-publisher-publication-place">Místo vydání</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-subject">Klíčové slovo</message>

@@ -2236,6 +2236,9 @@
 	<message key="xmlui.dri2xhtml.METS-1.0.item-source-publication-isbn-issn">ISBN / ISSN</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-isbn-issn">ISBN / ISSN</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-fundingReference">Funding Information</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-fundingReference.funder">Funder Name Abbreviation</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-fundingReference.fundingProgram">Funding Program</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-publication-fundingReference.projectID">Project Identifier</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-publisher">Publisher</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-publisher-publication-place">Publication place</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-subject">Subject</message>
