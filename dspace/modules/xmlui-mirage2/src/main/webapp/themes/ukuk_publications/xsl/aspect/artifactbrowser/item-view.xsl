@@ -1031,13 +1031,21 @@
             <xsl:value-of select="substring-after($parsedCurrentFundingReference, concat($funder, '/' ,$fundingProgram, '/'))"/>
         </xsl:variable>
 
-        <div class="simple-item-view-fundingReference-line">
-        
-            <!-- Adding author's name from metadata -->
-            <span title="Funder"><xsl:value-of select="$funder" />/</span>
-            <span title="Funding Program"><xsl:value-of select="$fundingProgram"/>/</span>
-            <span title="Project ID"><xsl:value-of select="$projectID"/></span>
+        <xsl:variable name="funderTranslation">
+            <i18n:text>xmlui.dri2xhtml.METS-1.0.item-publication-fundingReference.funder</i18n:text>
+        </xsl:variable>
+        <xsl:variable name="fundingProgramTranslation">
+           <i18n:text>xmlui.dri2xhtml.METS-1.0.item-publication-fundingReference.fundingProgram</i18n:text> 
+        </xsl:variable>
+        <xsl:variable name="projectIdentifier">
+           <i18n:text>xmlui.dri2xhtml.METS-1.0.item-publication-fundingReference.projectID</i18n:text> 
+        </xsl:variable> 
 
+        <div class="simple-item-view-fundingReference-line">
+            <!-- Adding author's name from metadata -->
+            <span title="{$funderTranslation}"><xsl:value-of select="$funder" />/</span>
+            <span title="{$fundingProgramTranslation}"><xsl:value-of select="$fundingProgram"/>/</span>
+            <span title="{$projectIdentifier}"><xsl:value-of select="$projectID"/></span>
         </div>
     </xsl:template>
 
