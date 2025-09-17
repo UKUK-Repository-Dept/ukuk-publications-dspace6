@@ -1043,9 +1043,9 @@
 
         <div class="simple-item-view-fundingReference-line">
             <!-- Adding author's name from metadata -->
-            <span title="{$funderTranslation}"><xsl:value-of select="$funder" />/</span>
-            <span title="{$fundingProgramTranslation}"><xsl:value-of select="$fundingProgram"/>/</span>
-            <span title="{$projectIdentifier}"><xsl:value-of select="$projectID"/></span>
+            <span i18n:attr="title" title="{$funderTranslation}"><xsl:value-of select="$funder" />/</span>
+            <span i18n:attr="title" title="{$fundingProgramTranslation}"><xsl:value-of select="$fundingProgram"/>/</span>
+            <span i18n:attr="title" title="{$projectIdentifier}"><xsl:value-of select="$projectID"/></span>
         </div>
     </xsl:template>
 
