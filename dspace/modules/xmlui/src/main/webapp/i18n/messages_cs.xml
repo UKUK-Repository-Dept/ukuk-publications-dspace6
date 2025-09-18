@@ -3718,6 +3718,10 @@
 	<message key="xmlui.publication.language.sk">Slovenština</message>
 	<message key="xmlui.publication.language.pl">Polština</message>
 	<message key="xmlui.publication.language.pt">Portugulština</message>
+	<message key="xmlui.publication.language.bg">Bulharština</message>
+	<message key="xmlui.publication.language.hr">Chorvatština</message>
+	<message key="xmlui.publication.language.hu">Maďarština</message>
+	<message key="xmlui.publication.language.sl">Slovinština</message>
 	<message key="xmlui.publication.language.uk">Ukrajinština</message>
 	<message key="xmlui.publication.language.ru">Ruština</message>
 
