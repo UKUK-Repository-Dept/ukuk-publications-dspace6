@@ -3627,6 +3627,10 @@
 	<message key="xmlui.publication.language.sk">Slovak</message>
 	<message key="xmlui.publication.language.pl">Polish</message>
 	<message key="xmlui.publication.language.pt">Portuguese</message>
+	<message key="xmlui.publication.language.bg">Bulgarian</message>
+	<message key="xmlui.publication.language.hr">Croatian</message>
+	<message key="xmlui.publication.language.hu">Hungarian</message>
+	<message key="xmlui.publication.language.sl">Slovenian</message>
 	<message key="xmlui.publication.language.uk">Ukrainian</message>
 	<message key="xmlui.publication.language.ru">Russian</message>
 
