@@ -20,24 +20,27 @@ PROCESS_COUNT=${PROCESS_COUNT:-0}  # fallback na 0, pokud je proměnná prázdn�
 
 # send to STDOUT and to LOG_FILE if the directory exists
 log() {
-    echo "$1"
+    local message="$1"
+    local echo_output="${2:-true}"  # výchozí: vypisovat na stdout
+    if [ "$echo_output" = "true" ]; then
+        echo "$message"
+    fi
+
     if [ -d "$LOG_DIR" ]; then
-        echo "$1" >> "$LOG_FILE"
+        echo "$message" >> "$LOG_FILE"
     fi
 }
 
-log "PROCESS COUNT: $PROCESS_COUNT"
-
 # Check if number of running processes with given name is 0
 if [ "$PROCESS_COUNT" -eq 0 ]; then
-    # Print on STDOUT
-    log "$TIMESTAMP: Process '$SEARCH_TERM' is not running. Starting..."
+    log "PROCESS COUNT: $PROCESS_COUNT" true
+    log "$TIMESTAMP: Process '$SEARCH_TERM' is not running. Starting..." true
     # START
     START_OUTPUT=$($START_COMMAND 2>&1)
     # Print on STDOUT and append to log file
-    log "$START_OUTPUT"
-    log "$TIMESTAMP: Process started."
+    log "$START_OUTPUT" true
+    log "$TIMESTAMP: Process started." true
 else
     # COMMAND is running, print to STDOUT and append to LOG_FILE
-    log "$TIMESTAMP: Process '$SEARCH_TERM' is running."
+    log "$TIMESTAMP: Process '$SEARCH_TERM' is running." false
 fi
