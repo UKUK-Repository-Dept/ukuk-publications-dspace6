@@ -10,7 +10,7 @@ public class DIMIngestionCrosswalk extends XSLTIngestionCrosswalk {
 
     private static final Logger log = Logger.getLogger(DIMIngestionCrosswalk.class);
     
-    public CUNICRISDIMXSLTCrosswalk() {
+    public DIMIngestionCrosswalk() {
         super();
         log.info("Custom DIMIngestionCrosswalk initialized.");
     }
