@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
 */
 public class CUNICRISDIMXSLTCrosswalk extends XSLTIngestionCrosswalk {
 
-    private static final Logger log = Logger.getLogger(CustomDIMXSLTCrosswalk.class);
+    private static final Logger log = Logger.getLogger(CUNICRISDIMXSLTCrosswalk.class);
     
     public CUNICRISDIMXSLTCrosswalk() {
         super();
