@@ -6,12 +6,12 @@ import org.apache.log4j.Logger;
  * 
  * This class extends the standard XSLTIngestionCrosswalk and can be * registered under the alias "DIM" to override the default DIMIngestionCrosswalk. 
 */
-public class CUNICRISDIMXSLTCrosswalk extends XSLTIngestionCrosswalk {
+public class DIMIngestionCrosswalk extends XSLTIngestionCrosswalk {
 
-    private static final Logger log = Logger.getLogger(CUNICRISDIMXSLTCrosswalk.class);
+    private static final Logger log = Logger.getLogger(DIMIngestionCrosswalk.class);
     
     public CUNICRISDIMXSLTCrosswalk() {
         super();
-        log.info("CUNICRISDIMXSLTCrosswalk initialized.");
+        log.info("Custom DIMIngestionCrosswalk initialized.");
     }
 }
