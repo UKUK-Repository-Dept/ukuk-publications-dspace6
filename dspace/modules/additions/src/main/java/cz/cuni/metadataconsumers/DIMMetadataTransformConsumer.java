@@ -9,9 +9,10 @@ import org.dspace.event.Event;
 //import org.dspace.event.EventConsumer;
 //import org.dspace.event.EventFilter;
 import org.dspace.content.crosswalk.CrosswalkException;
+import org.dspace.content.crosswalk.DisseminationCrosswalk;
 // import org.dspace.content.crosswalk.DisseminationCrosswalk;
 // import org.dspace.content.crosswalk.IngestionCrosswalk;
-import org.dspace.content.crosswalk.StreamDisseminationCrosswalk;
+// import org.dspace.content.crosswalk.StreamDisseminationCrosswalk;
 import org.dspace.content.crosswalk.StreamIngestionCrosswalk;
 // import org.dspace.content.crosswalk.XSLTIngestionCrosswalk;
 import org.dspace.content.factory.ContentServiceFactory;
@@ -27,6 +28,9 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
+
+import org.jdom.Element;
+import org.jdom.output.XMLOutputter;
 // import java.util.List;
 // import java.util.Map;
 // import java.util.ArrayList;
@@ -61,9 +65,10 @@ public class DIMMetadataTransformConsumer implements Consumer {
 
                 item = context.reloadEntity(item);
                 // --- 1. Get the XSLT crosswalk plugins ---
-                // Get the DIM dissemination crosswalk to export the item's metadata as XML
-                StreamDisseminationCrosswalk dimDisseminator = 
-                    (StreamDisseminationCrosswalk) CoreServiceFactory.getInstance().getPluginService().getNamedPlugin(StreamDisseminationCrosswalk.class, "DIM");
+                // Get the DIM crosswalk using the correct interface for DSpace 6.x
+                DisseminationCrosswalk dimDisseminator = 
+                    (DisseminationCrosswalk) CoreServiceFactory.getInstance().getPluginService().getNamedPlugin(
+                        DisseminationCrosswalk.class, "dim");
                 
                 // Get the XSLT ingestion crosswalk to import the modified XML
                 StreamIngestionCrosswalk xsltIngester = 
@@ -75,8 +80,11 @@ public class DIMMetadataTransformConsumer implements Consumer {
                 }
 
                 try (ByteArrayOutputStream dimOutputStream = new ByteArrayOutputStream()) {
-                    // Disseminate item's metadata to DIM XML
-                    dimDisseminator.disseminate(context, item, dimOutputStream);
+                    // Disseminate item's metadata to DIM XML as a JDOM Element
+                    Element dimElement = dimDisseminator.disseminateElement(context, item);
+
+                    // Use JDOM's XMLOutputter to write the element to the stream
+                    new XMLOutputter().output(dimElement, dimOutputStream);
                     
                     ByteArrayInputStream dimInputStream = new ByteArrayInputStream(dimOutputStream.toByteArray());
 
