@@ -13,7 +13,7 @@ import org.dspace.content.crosswalk.DisseminationCrosswalk;
 // import org.dspace.content.crosswalk.DisseminationCrosswalk;
 // import org.dspace.content.crosswalk.IngestionCrosswalk;
 // import org.dspace.content.crosswalk.StreamDisseminationCrosswalk;
-import org.dspace.content.crosswalk.StreamIngestionCrosswalk;
+// import org.dspace.content.crosswalk.StreamIngestionCrosswalk;
 // import org.dspace.content.crosswalk.XSLTIngestionCrosswalk;
 import org.dspace.content.factory.ContentServiceFactory;
 import org.dspace.content.service.ItemService;
@@ -82,12 +82,13 @@ public class DIMMetadataTransformConsumer implements Consumer {
                     (DisseminationCrosswalk) CoreServiceFactory.getInstance().getPluginService().getNamedPlugin(
                         DisseminationCrosswalk.class, "dim");
                 
-                // Get the XSLT ingestion crosswalk to import the modified XML
-                StreamIngestionCrosswalk xsltIngester = 
-                    (StreamIngestionCrosswalk) CoreServiceFactory.getInstance().getPluginService().getNamedPlugin(
-                        StreamIngestionCrosswalk.class, XSLT_CROSSWALK_NAME); // Use the name from dspace.cfg
+                // // Get the XSLT ingestion crosswalk to import the modified XML
+                // StreamIngestionCrosswalk xsltIngester = 
+                //     (StreamIngestionCrosswalk) CoreServiceFactory.getInstance().getPluginService().getNamedPlugin(
+                //         StreamIngestionCrosswalk.class, XSLT_CROSSWALK_NAME); // Use the name from dspace.cfg
                 
-                if (dimDisseminator == null || xsltIngester == null) {
+                // if (dimDisseminator == null || xsltIngester == null) {
+                if (dimDisseminator == null) {
                     throw new CrosswalkException("Required crosswalk plugins not found.");
                 }
 
