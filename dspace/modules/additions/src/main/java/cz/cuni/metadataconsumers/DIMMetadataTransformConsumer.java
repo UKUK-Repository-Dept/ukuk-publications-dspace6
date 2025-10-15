@@ -32,8 +32,11 @@ import java.io.StringWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.SQLException;
-
+import java.util.HashSet;
 import java.util.List;
+import java.util.Collections;
+import java.util.Set;
+import java.util.UUID;
 
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
@@ -53,13 +56,8 @@ import org.apache.log4j.Logger;
 
 public class DIMMetadataTransformConsumer implements Consumer {
 
-    // Use a ThreadLocal to store a flag for the current consumer's execution thread
-    private static final ThreadLocal<Boolean> inProgress = new ThreadLocal<Boolean>() {
-        @Override
-        protected Boolean initialValue() {
-            return false;
-        }
-    };
+    // Use a static, synchronized Set to track item IDs being processed
+    private static final Set<UUID> inProgressItemIds = Collections.synchronizedSet(new HashSet<>());
 
     static ConfigurationService configurationService = DSpaceServicesFactory.getInstance().getConfigurationService();
     private static final Logger log = Logger.getLogger(cz.cuni.metadataconsumers.DIMMetadataTransformConsumer.class);
@@ -78,17 +76,19 @@ public class DIMMetadataTransformConsumer implements Consumer {
     
     @Override
     public void consume(Context context, Event event) throws Exception {
-
-        // Check if the current thread is already processing this consumer's logic
-        if (inProgress.get()) {
-            return; // Exit to prevent the infinite loop
-        }
+        
         // Ensure this consumer only acts on an Item object during CREATE or MODIFY
         if (event.getSubjectType() == Constants.ITEM) {
             if (event.getEventType() == Event.CREATE || event.getEventType() == Event.MODIFY_METADATA) {
                 Item item = (Item) event.getSubject(context);
 
                 item = context.reloadEntity(item);
+                UUID itemId = item.getID();
+
+                // Check if this item is already being processed
+                if (inProgressItemIds.contains(itemId)) {
+                    return; // Exit to prevent the infinite loop
+                }
                 // --- 1. Get the XSLT crosswalk plugins ---
                 // Get the DIM crosswalk using the correct interface for DSpace 6.x
                 DisseminationCrosswalk dimDisseminator = 
@@ -106,8 +106,9 @@ public class DIMMetadataTransformConsumer implements Consumer {
                 }
 
                 try (ByteArrayOutputStream dimOutputStream = new ByteArrayOutputStream()) {
-                    // Set the flag to indicate processing has started
-                    inProgress.set(true);
+                    
+                    // Add the item ID to the set to mark it as in-progress
+                    inProgressItemIds.add(itemId);
 
                     // 1. Disseminate item's metadata to DIM XML
                     Element dimElement = dimDisseminator.disseminateElement(context, item);
@@ -160,9 +161,8 @@ public class DIMMetadataTransformConsumer implements Consumer {
                 } catch (IOException | SQLException | JDOMException | javax.xml.transform.TransformerException e) {
                     throw new Exception("Error transforming metadata manually with XSLT", e);
                 } finally {
-                    
-                    // Ensure the flag is cleared after the consumer's execution
-                    inProgress.remove();
+                    // Remove the item ID from the set after the consumer's execution
+                    inProgressItemIds.remove(itemId);
                 }
             }
         }
