@@ -72,7 +72,7 @@ public class DIMMetadataTransformConsumer implements Consumer {
     public void consume(Context context, Event event) throws Exception {
         // Ensure this consumer only acts on an Item object during CREATE or MODIFY
         if (event.getSubjectType() == Constants.ITEM) {
-            if (event.getEventType() == Event.CREATE || event.getEventType() == Event.MODIFY || event.getEventType() == Event.MODIFY_METADATA) {
+            if (event.getEventType() == Event.CREATE || event.getEventType() == Event.MODIFY_METADATA) {
                 Item item = (Item) event.getSubject(context);
 
                 item = context.reloadEntity(item);
