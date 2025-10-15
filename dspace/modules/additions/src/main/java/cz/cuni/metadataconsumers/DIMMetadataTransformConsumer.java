@@ -53,6 +53,14 @@ import org.apache.log4j.Logger;
 
 public class DIMMetadataTransformConsumer implements Consumer {
 
+    // Use a ThreadLocal to store a flag for the current consumer's execution thread
+    private static final ThreadLocal<Boolean> inProgress = new ThreadLocal<Boolean>() {
+        @Override
+        protected Boolean initialValue() {
+            return false;
+        }
+    };
+
     static ConfigurationService configurationService = DSpaceServicesFactory.getInstance().getConfigurationService();
     private static final Logger log = Logger.getLogger(cz.cuni.metadataconsumers.DIMMetadataTransformConsumer.class);
     private final ItemService itemService = ContentServiceFactory.getInstance().getItemService();
@@ -70,6 +78,11 @@ public class DIMMetadataTransformConsumer implements Consumer {
     
     @Override
     public void consume(Context context, Event event) throws Exception {
+
+        // Check if the current thread is already processing this consumer's logic
+        if (inProgress.get()) {
+            return; // Exit to prevent the infinite loop
+        }
         // Ensure this consumer only acts on an Item object during CREATE or MODIFY
         if (event.getSubjectType() == Constants.ITEM) {
             if (event.getEventType() == Event.CREATE || event.getEventType() == Event.MODIFY_METADATA) {
@@ -93,6 +106,9 @@ public class DIMMetadataTransformConsumer implements Consumer {
                 }
 
                 try (ByteArrayOutputStream dimOutputStream = new ByteArrayOutputStream()) {
+                    // Set the flag to indicate processing has started
+                    inProgress.set(true);
+
                     // 1. Disseminate item's metadata to DIM XML
                     Element dimElement = dimDisseminator.disseminateElement(context, item);
                     new XMLOutputter().output(dimElement, dimOutputStream);
@@ -143,6 +159,10 @@ public class DIMMetadataTransformConsumer implements Consumer {
                     
                 } catch (IOException | SQLException | JDOMException | javax.xml.transform.TransformerException e) {
                     throw new Exception("Error transforming metadata manually with XSLT", e);
+                } finally {
+                    
+                    // Ensure the flag is cleared after the consumer's execution
+                    inProgress.remove();
                 }
             }
         }
