@@ -58,6 +58,11 @@ public class DIMMetadataTransformConsumer implements Consumer {
         try {
             
             Item item = (Item) event.getSubject(ctx);
+            
+            // <JR> - 2025-10-15: Added based on ItemMapperServiceImple.java - line 698
+            // Reload since attached metadata/bundles/etc hibernate error when from consumer
+            item = ctx.reloadEntity(item);
+            
             if (!item.isArchived()) {
                 return;
             }
@@ -65,6 +70,8 @@ public class DIMMetadataTransformConsumer implements Consumer {
             // Get the DIM dissemination crosswalk
             DisseminationCrosswalk dimXwalk = (DisseminationCrosswalk) CoreServiceFactory.getInstance().getPluginService().getNamedPlugin(DisseminationCrosswalk.class, "DIM");
             
+            
+
             // Export metadata as JDOM Element
             Element dimElement = dimXwalk.disseminateElement(ctx, item);
             // Wrap it in a list
@@ -73,11 +80,17 @@ public class DIMMetadataTransformConsumer implements Consumer {
             // Use it as input for your XSLT ingestion crosswalkXSLTIngestionCrosswalk
             XSLTIngestionCrosswalk xwalk = (XSLTIngestionCrosswalk) CoreServiceFactory.getInstance().getPluginService().getNamedPlugin(
                 IngestionCrosswalk.class, XSLT_CROSSWALK_NAME);
-                
+            
+            // <JR> - 2025-10-15: Clear metadata before crosswalking them and re-adding them
+            itemService.clearMetadata(ctx, item, Item.ANY, Item.ANY, Item.ANY, Item.ANY);
+            
             xwalk.ingest(ctx, item, elements, false);
+
+            itemService.update(ctx, item);
+            ctx.commit();
             
         } catch (Exception e){
-            log.error(String.format("An exception has occurred trying to map item " +
+            log.error(String.format("An exception has occurred trying to transform metadata of an item " +
                     "(id:%s|handle:%s) => %s%n%s", event.getSubject(ctx) != null ? event.getSubject(ctx).getID() : "",
                 event.getSubject(ctx) != null ? event.getSubject(ctx).getID() : "", e.getMessage(), e.toString()));
             e.printStackTrace();
