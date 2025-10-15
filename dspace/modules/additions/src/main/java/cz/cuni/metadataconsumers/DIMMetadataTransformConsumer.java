@@ -24,17 +24,29 @@ import org.dspace.services.factory.DSpaceServicesFactory;
 
 import static org.apache.commons.lang.StringUtils.isBlank;
 
-import java.io.ByteArrayInputStream;
+// import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 
+import java.util.List;
+
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
+
 import org.jdom.Element;
+import org.jdom.input.SAXBuilder;
 import org.jdom.output.XMLOutputter;
-// import java.util.List;
-// import java.util.Map;
-// import java.util.ArrayList;
-// import java.util.HashMap;
+import org.jdom.Document;
+import org.jdom.JDOMException;
+
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
 
 import org.apache.log4j.Logger;
 
@@ -45,7 +57,7 @@ public class DIMMetadataTransformConsumer implements Consumer {
     private static final Logger log = Logger.getLogger(cz.cuni.metadataconsumers.DIMMetadataTransformConsumer.class);
     private final ItemService itemService = ContentServiceFactory.getInstance().getItemService();
 
-    private static final String DIM_MIME_TYPE = "application/dim";
+    // private static final String DIM_MIME_TYPE = "application/dim";
     public static final String XSLT_CROSSWALK_NAME_CFG = "consumer.cunimetadatatransorm.crosswalk.name";
     public static final String XSLT_CROSSWALK_NAME = configurationService.getProperty(XSLT_CROSSWALK_NAME_CFG);
     
@@ -80,24 +92,56 @@ public class DIMMetadataTransformConsumer implements Consumer {
                 }
 
                 try (ByteArrayOutputStream dimOutputStream = new ByteArrayOutputStream()) {
-                    // Disseminate item's metadata to DIM XML as a JDOM Element
+                    // 1. Disseminate item's metadata to DIM XML
                     Element dimElement = dimDisseminator.disseminateElement(context, item);
-
-                    // Use JDOM's XMLOutputter to write the element to the stream
                     new XMLOutputter().output(dimElement, dimOutputStream);
                     
-                    ByteArrayInputStream dimInputStream = new ByteArrayInputStream(dimOutputStream.toByteArray());
+                    String originalDimXml = dimOutputStream.toString("UTF-8");
 
-                    // The ingest method expects a String for the MIMEType, which is "application/dim"
-                    // in this case, as that is the format being ingested by the XSLT crosswalk.
-                    xsltIngester.ingest(context, item, dimInputStream, DIM_MIME_TYPE);
+                    // 2. Perform the XSLT transformation using standard Java libraries
+                    TransformerFactory factory = TransformerFactory.newInstance();
+                    
+                    // Load the XSLT stylesheet from the configuration directory
+                    String xsltPath = configurationService.getProperty("dspace.dir") + "/config/crosswalks/cuni_dim_crosswalk.xsl";
+                    Source xsltSource = new StreamSource(Files.newInputStream(Paths.get(xsltPath)));
+                    Transformer transformer = factory.newTransformer(xsltSource);
+
+                    Source xmlSource = new StreamSource(new StringReader(originalDimXml));
+                    StringWriter resultWriter = new StringWriter();
+                    transformer.transform(xmlSource, new StreamResult(resultWriter));
+                    String transformedXml = resultWriter.toString();
+
+                    // 3. Parse the transformed XML and update the item
+                    SAXBuilder saxBuilder = new SAXBuilder();
+                    Document transformedDimDoc = saxBuilder.build(new StringReader(transformedXml));
+                    Element transformedDimElement = transformedDimDoc.getRootElement();
+
+                    // The following logic is an example; your update logic might differ based on the XSLT output.
+                    // Here, we assume the XSLT replaces existing metadata.
+                    
+                    // Clear all existing metadata
+                    itemService.clearMetadata(context, item, Item.ANY, Item.ANY, Item.ANY, Item.ANY);
+                    
+                    // The getChildren() method in JDOM 1.x returns a raw List
+                    List<?> rawFieldElements = transformedDimElement.getChildren("field", transformedDimElement.getNamespace());
+
+                    for (Object rawField : rawFieldElements) {
+                        if (rawField instanceof Element) {
+                            Element field = (Element) rawField;
+                            String schema = field.getAttributeValue("mdschema");
+                            String element = field.getAttributeValue("element");
+                            String qualifier = field.getAttributeValue("qualifier");
+                            String lang = field.getAttributeValue("lang");
+                            String value = field.getTextTrim();
+                            itemService.addMetadata(context, item, schema, element, qualifier, lang, value);
+                        }
+                    }
                     
                     // --- 4. Commit changes and update the item ---
                     itemService.update(context, item);
                     
-                } catch (IOException | CrosswalkException | SQLException e) {
-                    // Log the error and handle exceptions
-                    throw new Exception("Error transforming metadata with XSLT", e);
+                } catch (IOException | SQLException | JDOMException | javax.xml.transform.TransformerException e) {
+                    throw new Exception("Error transforming metadata manually with XSLT", e);
                 }
             }
         }
