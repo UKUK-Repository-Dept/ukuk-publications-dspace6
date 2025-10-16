@@ -98,7 +98,16 @@ public class DIMMetadataTransformConsumer implements Consumer {
                 log.info("ITEM: HANDLE: " + item.getHandle() + "(" + item.getID() + ") is NOT ARCHIVED! ENDING PROCESSING");
                 return;
             }
+
+            List<MetadataValue> provenanceNotes = itemService.getMetadata(item, "dc", "description", "provenance", null);
             
+            boolean alreadyTransformed = provenanceNotes.stream().anyMatch(v -> v.getValue().contains("Metadata transformed via DIMMetadataTransformConsumer"));
+            
+            if (alreadyTransformed) {
+                log.info("Item " + item.getID() + " already transformed. Skipping.");
+                return;
+            }
+
             if (inProgressItemIds.contains(itemId)) {
                 log.info("Skipping item " + itemId + " — already being processed.");
                 return;
@@ -309,6 +318,8 @@ public class DIMMetadataTransformConsumer implements Consumer {
                     itemService.addMetadata(context, item, schema, element, qualifier, lang, value);
                 }
             }
+            itemService.addMetadata(context, item, "dc", "description", "provenance", null,    "Metadata transformed via DIMMetadataTransformConsumer on " + new java.util.Date().toString());
+
             itemService.update(context, item);
         } catch (AuthorizeException | SQLException e) {
                 log.error(e.getMessage());
