@@ -36,9 +36,9 @@ import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-// import java.util.Collections;
+import java.util.Collections;
 import java.util.Set;
-// import java.util.UUID;
+import java.util.UUID;
 
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
@@ -59,8 +59,7 @@ import org.apache.log4j.Logger;
 public class DIMMetadataTransformConsumer implements Consumer {
 
     // Use a static, synchronized Set to track item IDs being processed
-    // private static final Set<UUID> inProgressItemIds = Collections.synchronizedSet(new HashSet<>());
-
+    private static final Set<UUID> inProgressItemIds = Collections.synchronizedSet(new HashSet<>());
     static ConfigurationService configurationService = DSpaceServicesFactory.getInstance().getConfigurationService();
     private static final Logger log = Logger.getLogger(cz.cuni.metadataconsumers.DIMMetadataTransformConsumer.class);
     private final ItemService itemService = ContentServiceFactory.getInstance().getItemService();
@@ -93,12 +92,21 @@ public class DIMMetadataTransformConsumer implements Consumer {
         try {
             
             Item item = (Item) event.getSubject(context);
+            UUID itemId = item.getID();
             log.info("Processing item: " + "HANDLE: " + item.getHandle() + "(" + item.getID() +")");
             if (!item.isArchived()) {
                 log.info("ITEM: HANDLE: " + item.getHandle() + "(" + item.getID() + ") is NOT ARCHIVED! ENDING PROCESSING");
                 return;
             }
+            
+            if (inProgressItemIds.contains(itemId)) {
+                log.info("Skipping item " + itemId + " — already being processed.");
+                return;
+            }
+            inProgressItemIds.add(itemId);
+
             itemList.add(item);
+
         } catch (Exception e) {
             log.error(e.getMessage());
             log.error(e.toString());
@@ -277,6 +285,8 @@ public class DIMMetadataTransformConsumer implements Consumer {
         } catch (IOException | SQLException | JDOMException | javax.xml.transform.TransformerException | CrosswalkException | AuthorizeException e) {
             log.error(e.getMessage());
             log.error(e.toString());    
+        } finally {
+            inProgressItemIds.remove(item.getID());
         }
             
     }
