@@ -50,6 +50,7 @@ import org.jdom.output.XMLOutputter;
 import org.jdom.Document;
 import org.jdom.JDOMException;
 
+import javax.naming.ConfigurationException;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 
@@ -72,7 +73,14 @@ public class DIMMetadataTransformConsumer implements Consumer {
     @Override
     public void initialize() throws Exception {
         log.info("DIMMetadataTranformConsumer initialized...");
-        checkConsumerConfig();
+
+        try {
+            String message = checkConsumerConfig();
+            log.info(message);
+        } catch (IOException | ConfigurationException e) {
+            log.error(e.getMessage());
+            log.error(e.toString());
+        }
     }
 
     
@@ -93,12 +101,12 @@ public class DIMMetadataTransformConsumer implements Consumer {
             
             Item item = (Item) event.getSubject(context);
             UUID itemId = item.getID();
-            log.info("Processing item: " + "HANDLE: " + item.getHandle() + "(" + item.getID() +")");
+            
             if (!item.isArchived()) {
                 log.info("ITEM: HANDLE: " + item.getHandle() + "(" + item.getID() + ") is NOT ARCHIVED! ENDING PROCESSING");
                 return;
             }
-
+            
             List<MetadataValue> provenanceNotes = itemService.getMetadata(item, "dc", "description", "provenance", null);
             
             boolean alreadyTransformed = provenanceNotes.stream().anyMatch(v -> v.getValue().contains("Metadata transformed via DIMMetadataTransformConsumer"));
@@ -112,6 +120,7 @@ public class DIMMetadataTransformConsumer implements Consumer {
                 log.info("Skipping item " + itemId + " — already being processed.");
                 return;
             }
+            log.info("Processing item: " + "HANDLE: " + item.getHandle() + "(" + item.getID() +")");
             inProgressItemIds.add(itemId);
 
             itemList.add(item);
@@ -121,111 +130,20 @@ public class DIMMetadataTransformConsumer implements Consumer {
             log.error(e.toString());
         }
         
-
-
-        
-
-        
-        
-
-                // Check if this item is already being processed
-                // if (inProgressItemIds.contains(itemId)) {
-                //     return; // Exit to prevent the infinite loop
-                // }
-
-                // // --- 1. Get the XSLT crosswalk plugins ---
-                // // Get the DIM crosswalk using the correct interface for DSpace 6.x
-                // DisseminationCrosswalk dimDisseminator = 
-                //     (DisseminationCrosswalk) CoreServiceFactory.getInstance().getPluginService().getNamedPlugin(
-                //         DisseminationCrosswalk.class, "dim");
-                
-                // // // Get the XSLT ingestion crosswalk to import the modified XML
-                // // StreamIngestionCrosswalk xsltIngester = 
-                // //     (StreamIngestionCrosswalk) CoreServiceFactory.getInstance().getPluginService().getNamedPlugin(
-                // //         StreamIngestionCrosswalk.class, XSLT_CROSSWALK_NAME); // Use the name from dspace.cfg
-                
-                // // if (dimDisseminator == null || xsltIngester == null) {
-                // if (dimDisseminator == null) {
-                //     throw new CrosswalkException("Required crosswalk plugins not found.");
-                // }
-
-                // try (ByteArrayOutputStream dimOutputStream = new ByteArrayOutputStream()) {
-                    
-                    // Add the item ID to the set to mark it as in-progress
-                    // inProgressItemIds.add(itemId);
-
-                    // 1. Disseminate item's metadata to DIM XML
-                    // Element dimElement = dimDisseminator.disseminateElement(context, item);
-                    // new XMLOutputter().output(dimElement, dimOutputStream);
-                    
-                    // String originalDimXml = dimOutputStream.toString("UTF-8");
-
-                    // 2. Perform the XSLT transformation using standard Java libraries
-                    // TransformerFactory factory = TransformerFactory.newInstance();
-                    
-                    // Load the XSLT stylesheet from the configuration directory
-                    // String xsltPath = configurationService.getProperty("dspace.dir") + "/config/crosswalks/cuni_dim_crosswalk.xsl";
-                    // Source xsltSource = new StreamSource(Files.newInputStream(Paths.get(xsltPath)));
-                    // Transformer transformer = factory.newTransformer(xsltSource);
-
-                    // Source xmlSource = new StreamSource(new StringReader(originalDimXml));
-                    // StringWriter resultWriter = new StringWriter();
-                    // transformer.transform(xmlSource, new StreamResult(resultWriter));
-                    // String transformedXml = resultWriter.toString();
-
-                    // 3. Parse the transformed XML and update the item
-                    // SAXBuilder saxBuilder = new SAXBuilder();
-                    // Document transformedDimDoc = saxBuilder.build(new StringReader(transformedXml));
-                    // Element transformedDimElement = transformedDimDoc.getRootElement();
-
-                    // The following logic is an example; your update logic might differ based on the XSLT output.
-                    // Here, we assume the XSLT replaces existing metadata.
-                    
-                    // Clear all existing metadata
-                    // itemService.clearMetadata(context, item, Item.ANY, Item.ANY, Item.ANY, Item.ANY);
-                    
-                    // The getChildren() method in JDOM 1.x returns a raw List
-                    // List<?> rawFieldElements = transformedDimElement.getChildren("field", transformedDimElement.getNamespace());
-
-                    // for (Object rawField : rawFieldElements) {
-                    //     if (rawField instanceof Element) {
-                    //         Element field = (Element) rawField;
-                    //         String schema = field.getAttributeValue("mdschema");
-                    //         String element = field.getAttributeValue("element");
-                    //         String qualifier = field.getAttributeValue("qualifier");
-                    //         String lang = field.getAttributeValue("lang");
-                    //         String value = field.getTextTrim();
-                    //         itemService.addMetadata(context, item, schema, element, qualifier, lang, value);
-                    //     }
-                    // }
-                    
-                    // // --- 4. Commit changes and update the item ---
-                    // itemService.update(context, item);
-                    
-                // } catch (IOException | SQLException | JDOMException | javax.xml.transform.TransformerException e) {
-                //     throw new Exception("Error transforming metadata manually with XSLT", e);
-                // } finally {
-                //     // Remove the item ID from the set after the consumer's execution
-                //     inProgressItemIds.remove(itemId);
-                    // Restore the event dispatcher after your modifications are complete
-                    // This is critical to ensure other events are processed correctly
-        //         }
-        //     }
-        // }
     }
    
-     public void checkConsumerConfig() throws IOException {
+     public String checkConsumerConfig() throws IOException, ConfigurationException {
         String message = null;
         if (isBlank(XSLT_CROSSWALK_NAME)) 
         {
             message = "Missing configuration for your consumer property: " + XSLT_CROSSWALK_NAME_CFG ;
+            throw new ConfigurationException(message);
+        } else {
+            message = "Consumer configuration is valid.";
         }
         
-        if (message != null) {
-            log.error(message, null);
-        } else {
-            log.info("Consumer configuration is valid.");
-        }
+        return message;
+
     }
 
     private DisseminationCrosswalk createDisseminator(Context context) throws CrosswalkException {
