@@ -308,11 +308,22 @@ public class IPMatcher
 
         for (int i = 0; i < netmask.length; i++)
         {
-            log.debug("JR - Candidate: " + candidate[i]);
-            log.debug("JR - Netmask: " + netmask[i]);
-            log.debug("JR - candidate[i] & netmask[i]: " + (candidate[i] & netmask[i]));
-            log.debug("JR - network[i]: " + network[i]);
-            log.debug("JR - network[i] & netmask[i]: " + (network[i] & netmask[i]));
+            // <JR> Wrapped in isDebugEnabled() — without the guard, log4j evaluates all string
+            // concatenation arguments even when DEBUG is off: 5 expressions × 16 bytes = 80
+            // allocations per IP match. The mismatch branch below already logs the same values.
+            // log.debug("JR - Candidate: " + candidate[i]);
+            // log.debug("JR - Netmask: " + netmask[i]);
+            // log.debug("JR - candidate[i] & netmask[i]: " + (candidate[i] & netmask[i]));
+            // log.debug("JR - network[i]: " + network[i]);
+            // log.debug("JR - network[i] & netmask[i]: " + (network[i] & netmask[i]));
+            if (log.isDebugEnabled())
+            {
+                log.debug("JR - Candidate: " + candidate[i]);
+                log.debug("JR - Netmask: " + netmask[i]);
+                log.debug("JR - candidate[i] & netmask[i]: " + (candidate[i] & netmask[i]));
+                log.debug("JR - network[i]: " + network[i]);
+                log.debug("JR - network[i] & netmask[i]: " + (network[i] & netmask[i]));
+            }
             if ((candidate[i] & netmask[i]) != (network[i] & netmask[i]))
             {
                 if (log.isDebugEnabled()) {

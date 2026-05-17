@@ -19,7 +19,8 @@ import java.util.regex.PatternSyntaxException;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.collections.ListUtils;
+// <JR> ListUtils replaced by Collections.emptyList() — no longer used
+// import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.dspace.authenticate.factory.AuthenticateServiceFactory;
@@ -39,8 +40,8 @@ import org.dspace.eperson.service.EPersonService;
 import org.dspace.eperson.service.GroupService;
 import org.dspace.services.ConfigurationService;
 import org.dspace.services.factory.DSpaceServicesFactory;
-// <JR> Import IPMatcher as we would like to use it to match if user is trying to log in from allowed IP address
-import org.dspace.authenticate.IPMatcher;
+// <JR> Import not needed — IPMatcher is in the same package (org.dspace.authenticate), resolved automatically
+// import org.dspace.authenticate.IPMatcher;
 // <JR> Import LogManager for error logging from IPMatcher
 import org.dspace.core.LogManager;
 
@@ -85,6 +86,9 @@ public class UKShibAuthentication implements AuthenticationMethod
 	/** Additional metadata mappings **/
 	protected Map<String,String> metadataHeaderMap = null;
 
+	/** Pre-compiled regex patterns for group attribute matching (keyed by full config property name) **/
+	protected Map<String,Pattern> groupAttributePatternMap = null;
+
 	/** Maximum length for eperson metadata fields **/
     protected final int NAME_MAX_SIZE = 64;
     protected final int PHONE_MAX_SIZE = 32;
@@ -104,7 +108,9 @@ public class UKShibAuthentication implements AuthenticationMethod
 	*
 	*/
 	/** Whether to look for x-forwarded headers for logging IP addresses */
-	private Boolean useProxies;
+	// <JR> Issue #8: volatile prevents data race — two threads seeing null simultaneously and both writing.
+	// private Boolean useProxies;
+	private volatile Boolean useProxies;
 
 	/** All the IP matchers */
     private List<IPMatcher> ipMatchers;
@@ -322,21 +328,26 @@ public class UKShibAuthentication implements AuthenticationMethod
     public List<Group> getSpecialGroups(Context context, HttpServletRequest request)
 	{
 
-		// <JR> 
-		log.info("UK IP Shibboleth Authentication: Getting user's special groups.");
-
 		try {
 			// User has not successfuly authenticated via shibboleth.
-			if ( request == null || 
-					context.getCurrentUser() == null || 
+			if ( request == null ||
+					context.getCurrentUser() == null ||
 					request.getSession().getAttribute("shib.authenticated") == null ) {
-				return ListUtils.EMPTY_LIST;
+				// <JR> ListUtils.EMPTY_LIST returns a raw List — causes unchecked conversion warning
+				// return ListUtils.EMPTY_LIST;
+				return Collections.emptyList();
 			}
+
+			// <JR> Issue #9: demoted from log.info to log.debug — moved after the unauthenticated
+			// early-return guard so it no longer fires on every anonymous page load.
+			// log.info("UK IP Shibboleth Authentication: Getting user's special groups.");
+			log.debug("UK IP Shibboleth Authentication: Getting user's special groups.");
 
 			// If we have already calculated the special groups then return them.
 			if (request.getSession().getAttribute("shib.specialgroup") != null)
 			{
 				log.debug("UK IP Shibboleth Authentication: Returning cached special groups.");
+                @SuppressWarnings("unchecked") // servlet session stores Object; cast is safe as we only ever write List<UUID> to this key
                 List<UUID> sessionGroupIds = (List<UUID>) request.getSession().getAttribute("shib.specialgroup");
                 List<Group> result = new ArrayList<>();
                 for (UUID uuid : sessionGroupIds) {
@@ -413,11 +424,55 @@ public class UKShibAuthentication implements AuthenticationMethod
 
 
 			// Loop for dspace groups
-			try {
-				List<Group> allGroups = groupService.search(context,"");
+			// <JR> Outer try-catch(SQLException) removed — SQL exceptions are now caught inside the per-group findByName() loop.
+			// try {
+			{
+				// <JR> Replaced full group table scan with targeted lookups for groups named in config.
+				// groupService.search(context,"") generated SELECT * FROM epersongroup WHERE name LIKE '%'
+				// on every cold session — O(all groups) regardless of how many are relevant.
+				// List<Group> allGroups = groupService.search(context,"");
+
+				// <JR> Build the group list from authentication-shibboleth.group.* config keys only.
+				String groupConfigPrefix = "authentication-shibboleth.group.";
+				List<String> allPropertyKeys = configurationService.getPropertyKeys("authentication-shibboleth");
+				List<Group> allGroups = new ArrayList<>();
+				for (String propKey : allPropertyKeys)
+				{
+					if (propKey.startsWith(groupConfigPrefix))
+					{
+						String suffix = propKey.substring(groupConfigPrefix.length());
+						// Top-level group keys have no further dot (attribute keys are group.name.attr)
+						if (!suffix.contains("."))
+						{
+							try
+							{
+								Group g = groupService.findByName(context, suffix);
+								if (g != null && !allGroups.contains(g))
+									allGroups.add(g);
+							}
+							catch (SQLException sqle)
+							{
+								log.error("Exception thrown while trying to find configured group: '" + suffix + "'", sqle);
+							}
+						}
+					}
+				}
+
+				// <JR> Hoisted out of the per-group loop — config value never changes at runtime.
+				boolean checkAllowedIP = configurationService.getBooleanProperty("authentication-shibboleth-ip.ip.check", false);
+
+				// <JR> Ensure group attribute patterns are pre-compiled before the loop.
+				initializeGroupPatterns();
+
+				// <JR> Issue #2: call isFromCU() once before the loop instead of once per matching group.
+				// Short-circuits when checkAllowedIP is false so isFromCU() is not called unnecessarily.
+				// Previously called inside the per-group loop: if (isFromCU(context, request) == true)
+				boolean cuUser = checkAllowedIP && isFromCU(context, request);
+
 				if (allGroups != null) {
 					for ( Group group: allGroups ) {
-						log.info("Found group: '"+group.getName()+"'");
+						// <JR> Reduced from log.info to log.debug — this fires for every group on every cold session.
+						// log.info("Found group: '"+group.getName()+"'");
 						log.debug("Found group: '"+group.getName()+"'");
 						String[] groupAttributes = configurationService.getArrayProperty("authentication-shibboleth.group." + group.getName());
 						if (groupAttributes == null || groupAttributes.length == 0) {
@@ -427,7 +482,9 @@ public class UKShibAuthentication implements AuthenticationMethod
 						// eg.  group.<group-name>=affiliation
 						//
 						// <JR> - We found a DSpace group matching a configuration property in authentication-shibboleth.cfg
-						log.debug("<JR> Find group`s attributes: '"+groupAttributes+"'");
+						// <JR> Issue #11: use Arrays.toString() — bare array reference prints object identity, e.g. [Ljava.lang.String;@1a2b3c4d
+						// log.debug("<JR> Find group`s attributes: '"+groupAttributes+"'");
+						log.debug("<JR> Find group`s attributes: '"+Arrays.toString(groupAttributes)+"'");
 						Boolean member = true; 
 						
 						// <JR> - Now, we check from which attributes we are ought to get the information if user is a member of such group
@@ -438,7 +495,17 @@ public class UKShibAuthentication implements AuthenticationMethod
 							String valueStr = findAttribute(request, attribute);
 							boolean result = false;
 							try {
-								result = Pattern.matches(expectationStr, valueStr);
+								// <JR> Use pre-compiled pattern from cache instead of recompiling on every call.
+								// Pattern.matches() compiles a new Pattern object each invocation.
+								// result = Pattern.matches(expectationStr, valueStr);
+								String patternKey = "authentication-shibboleth.group." + group.getName() + "." + attribute;
+								Pattern compiledPattern = groupAttributePatternMap.get(patternKey);
+								if (compiledPattern != null) {
+									result = compiledPattern.matcher(valueStr != null ? valueStr : "").matches();
+								} else {
+									// Fallback for patterns not in cache (e.g. added after startup)
+									result = Pattern.matches(expectationStr, valueStr);
+								}
 							} catch (PatternSyntaxException ex) {
 								log.error("Pattern '" + expectationStr + "' is not valid.");
 							}
@@ -459,15 +526,18 @@ public class UKShibAuthentication implements AuthenticationMethod
 							// instead of the one defined in the config.
 							log.debug("User is member of group: " + group.getName());
 							Group ipAllowedGroup = null;
-							String groupMessage = "";
+							// String groupMessage = ""; // <JR> unused variable
 			
 							// Check if IP Authentication is allowed for customized Shibboleth Authentication
-							boolean checkAllowedIP = configurationService.getBooleanProperty("authentication-shibboleth-ip.ip.check", false);
+							// <JR> Moved before the loop — config value never changes at runtime.
+							// boolean checkAllowedIP = configurationService.getBooleanProperty("authentication-shibboleth-ip.ip.check", false);
 
 							if(checkAllowedIP == true)
 							{
-								if (isFromCU(context, request) == true)
-								{
+								// <JR> Use pre-computed cuUser result instead of calling isFromCU() per group.
+							// if (isFromCU(context, request) == true)
+							if (cuUser)
+							{
 									log.info("UK IP Shibboleth Authentication: Request is comming from within CU!");
 
 									String groupPrefix = "IP";
@@ -476,7 +546,10 @@ public class UKShibAuthentication implements AuthenticationMethod
 									log.debug("<JR> - ipAllowedGroup: " + ipAllowedGroup);
 
 									if (ipAllowedGroup == null) {
-										log.error("UNABLE TO FOUND AN IP-ALLOWED SPECIAL GROUP FOR SHIBBOLETH GROUP '"+group.getName()+"'");
+										// <JR> demoted from log.error — missing IP variant is valid (e.g. shibAuthenticatedSpecialStudent
+										// has no IP counterpart by design; those users always authenticate via Shibboleth)
+										// log.error("UNABLE TO FOUND AN IP-ALLOWED SPECIAL GROUP FOR SHIBBOLETH GROUP '"+group.getName()+"'");
+										log.debug("No IP-allowed group found for '" + group.getName() + "' — mapping to regular Shibboleth group.");
 										log.info("Mapping role affiliation to regular DSpace Group: " + group.getID() + " with name: " + group.getName());
 										groups.add(group);
 									}
@@ -494,11 +567,15 @@ public class UKShibAuthentication implements AuthenticationMethod
 							}
 						}
 					}
-				} else {
-					log.debug("Unable to find groups");
 				}
-			} catch (SQLException sqle) {
-				log.error("Exception thrown while trying to lookup for all groups");
+				// <JR> else branch no longer reachable — allGroups is now always a non-null ArrayList.
+				// } else {
+				// 	log.debug("Unable to find groups");
+				// }
+			// <JR> catch (SQLException) no longer reachable — SQL exceptions are now caught
+			// inside the per-group findByName() loop above.
+			// } catch (SQLException sqle) {
+			// 	log.error("Exception thrown while trying to lookup for all groups");
 			}
 
 			log.info("Added current EPerson to special groups: "+groups);
@@ -516,7 +593,9 @@ public class UKShibAuthentication implements AuthenticationMethod
 			return new ArrayList<>(groups);
 		} catch (Throwable t) {
 			log.error("Unable to validate any sepcial groups this user may belong too because of an exception.",t);
-			return ListUtils.EMPTY_LIST;
+			// <JR> ListUtils.EMPTY_LIST returns a raw List — causes unchecked conversion warning
+			// return ListUtils.EMPTY_LIST;
+			return Collections.emptyList();
 		}
 	}
 
@@ -973,7 +1052,12 @@ public class UKShibAuthentication implements AuthenticationMethod
 				value = value.substring(0,METADATA_MAX_SIZE);
 			}
 
-            ePersonService.setMetadata(context, eperson, field, value);
+            // <JR> Replaced deprecated ePersonService.setMetadata(context, eperson, field, value).
+            // Fields in metadataHeaderMap are element names under the "eperson" schema (no qualifier).
+            // This is consistent with how autoCreateEpersonMetadataField() creates them
+            // and how checkIfEpersonMetadataFieldExists() looks them up.
+            // ePersonService.setMetadata(context, eperson, field, value);
+            ePersonService.setMetadataSingleValue(context, eperson, "eperson", field, null, null, value);
 			log.debug("Updated the eperson's '"+field+"' metadata using header: '"+header+"' = '"+value+"'.");
 		}
         ePersonService.update(context, eperson);
@@ -1102,6 +1186,46 @@ public class UKShibAuthentication implements AuthenticationMethod
 
 		metadataHeaderMap = map;
 		return;
+	}
+
+	/**
+	 * Pre-compile regex patterns for all group attribute expectations defined in config.
+	 * Patterns are keyed by the full config property name, e.g.
+	 * "authentication-shibboleth.group.MyGroup.affiliation".
+	 * Safe to call multiple times — builds once and caches.
+	 */
+	protected synchronized void initializeGroupPatterns() {
+		if (groupAttributePatternMap != null)
+			return;
+
+		Map<String, Pattern> patternMap = new HashMap<>();
+		String groupConfigPrefix = "authentication-shibboleth.group.";
+		List<String> allKeys = configurationService.getPropertyKeys("authentication-shibboleth");
+		for (String key : allKeys)
+		{
+			if (key.startsWith(groupConfigPrefix))
+			{
+				String suffix = key.substring(groupConfigPrefix.length());
+				// Attribute-level keys contain a second dot: group.<name>.<attribute>
+				if (suffix.contains("."))
+				{
+					String patternStr = configurationService.getProperty(key);
+					if (patternStr != null)
+					{
+						try
+						{
+							patternMap.put(key, Pattern.compile(patternStr));
+						}
+						catch (PatternSyntaxException ex)
+						{
+							log.error("Pre-compiling pattern failed for config key '" + key + "': " + ex.getMessage());
+						}
+					}
+				}
+			}
+		}
+		groupAttributePatternMap = patternMap;
+		log.debug("Pre-compiled " + patternMap.size() + " group attribute patterns.");
 	}
 
 	/**
@@ -1260,7 +1384,10 @@ public class UKShibAuthentication implements AuthenticationMethod
 			int idx = 0;
 			do {
 				idx = value.indexOf(';',idx);
-				if ( idx != -1 && value.charAt(idx-1) != '\\') {
+				// <JR> Issue #12: added idx > 0 guard — when ';' is at position 0, charAt(idx-1) == charAt(-1) throws StringIndexOutOfBoundsException.
+				// findMultipleAttributes() already had this guard (line ~1420); findSingleAttribute() did not.
+				// if ( idx != -1 && value.charAt(idx-1) != '\\') {
+				if ( idx != -1 && (idx == 0 || value.charAt(idx-1) != '\\')) {
 					value = value.substring(0,idx);
 					break;
 				}
@@ -1379,13 +1506,17 @@ public class UKShibAuthentication implements AuthenticationMethod
     private Boolean isFromCU(Context context, HttpServletRequest request) throws IPMatcherException
     {
 
-		ipMatchers = new ArrayList<IPMatcher>();
-        ipNegativeMatchers = new ArrayList<IPMatcher>();
-		ipMatcherConfigGroupNames = new HashMap<IPMatcher, String>();
-        
+		// <JR> Initialization moved into createIPMatchers() with a null-check so matchers are
+		// built once for the lifetime of this singleton bean instead of on every call (thread-safety fix).
+		// ipMatchers = new ArrayList<IPMatcher>();
+        // ipNegativeMatchers = new ArrayList<IPMatcher>();
+		// ipMatcherConfigGroupNames = new HashMap<IPMatcher, String>();
+
 		// Get the user's IP address
         String addr = request.getRemoteAddr();
-        log.info("UK IP Shib Authentication - isFromCU(): Getting IP address.");
+        // <JR> Issue #10: demoted from log.info to log.debug — fires on every session, internal tracing only.
+        // log.info("UK IP Shib Authentication - isFromCU(): Getting IP address.");
+        log.debug("UK IP Shib Authentication - isFromCU(): Getting IP address.");
 		if (useProxies == null) {
 			log.debug("UK IP Shib Authentication - isFromCU: Use proxies is NULL");
             useProxies = configurationService.getBooleanProperty("useProxies", false);
@@ -1393,14 +1524,25 @@ public class UKShibAuthentication implements AuthenticationMethod
 
         if (useProxies && request.getHeader("X-Forwarded-For") != null)
         {
-            /* This header is a comma delimited list */
-            for(String xfip : request.getHeader("X-Forwarded-For").split(","))
-            {
-                if(!request.getHeader("X-Forwarded-For").contains(addr))
-                {
-                    addr = xfip.trim();
-                }
-            }
+            // <JR> Issue #7: Fixed three bugs in the original X-Forwarded-For parsing:
+            // (a) .contains(addr) was a substring check — "192.168.1.1" matched inside "192.168.1.10"
+            // (b) the loop assigned the LAST IP in the header, not the first (original client IP)
+            // (c) request.getHeader() was called twice per iteration
+            // Security note: if Apache passes client-supplied X-Forwarded-For through unmodified,
+            // a remote user could inject a CU IP and gain elevated group membership. Verify Apache
+            // strips/overwrites this header before forwarding.
+            //
+            // Old (buggy) code:
+            // for(String xfip : request.getHeader("X-Forwarded-For").split(","))
+            // {
+            //     if(!request.getHeader("X-Forwarded-For").contains(addr))
+            //     {
+            //         addr = xfip.trim();
+            //     }
+            // }
+            //
+            // The leftmost IP in X-Forwarded-For is the original client address (RFC 7239 / de facto standard).
+            addr = request.getHeader("X-Forwarded-For").split(",")[0].trim();
         }
 		
 		log.debug("TESTING IP ADDRESS: "+ addr);
@@ -1445,9 +1587,18 @@ public class UKShibAuthentication implements AuthenticationMethod
 	* @throws IPMatcherException
 	*			when group defined in authentication-shibboleth.cfg is not found in authentication-ip.cfg
 	*/
-	private void createIPMatchers(Context context) throws IPMatcherException
+	// <JR> Made synchronized and added null-check so IP matchers are built once and cached.
+	private synchronized void createIPMatchers(Context context) throws IPMatcherException
 	{
-		
+		// <JR> Return early if already initialized — avoids rebuilding on every isFromCU() call.
+		if (ipMatchers != null)
+		{
+			return;
+		}
+		ipMatchers = new ArrayList<IPMatcher>();
+		ipNegativeMatchers = new ArrayList<IPMatcher>();
+		ipMatcherConfigGroupNames = new HashMap<IPMatcher, String>();
+
 		log.debug("UK ShibAuthentication - createIPMatchers(): Checking, if IP allowed group is defined in authentication-shibboleth-ip config file...");
 
 		String shibUniGroupName = configurationService.getProperty("authentication-shibboleth-ip.ip.allowedGroup");
@@ -1478,8 +1629,12 @@ public class UKShibAuthentication implements AuthenticationMethod
 						}
 						else
 						{
-							// otherwise log error
-							throw new IPMatcherException("UK ShibAuthentication - createIPMatchers(): ALL UNI IP RANGES group NOT DEFINED IN THE authentication-shibboleth-ip config file: "+ipConfigGroupName);
+							// <JR> Changed from throw to continue — the original throw caused the entire
+							// getSpecialGroups() to silently return an empty list if the config had more
+							// than one allowedGroupName.* entry. We simply skip non-matching groups.
+							// throw new IPMatcherException("UK ShibAuthentication - createIPMatchers(): ALL UNI IP RANGES group NOT DEFINED IN THE authentication-shibboleth-ip config file: "+ipConfigGroupName);
+							log.debug("UK ShibAuthentication - createIPMatchers(): Skipping non-matching group in config: " + ipConfigGroupName);
+							continue;
 						}
 					}
 					else
@@ -1522,8 +1677,8 @@ public class UKShibAuthentication implements AuthenticationMethod
                 
 				ipMatcherConfigGroupNames.put(ipm, groupName);
 
-				log.info("Configured " + entry + " for special group " + groupName);
-
+				// <JR> Issue #10: removed duplicate log.info — same message was logged at both INFO and DEBUG.
+				// log.info("Configured " + entry + " for special group " + groupName);
                 if (log.isDebugEnabled())
                 {
                     log.debug("Configured " + entry + " for special group " + groupName);
