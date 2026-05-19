@@ -257,3 +257,8 @@ crawl-delay: 10
 # Bing
 User-agent: bingbot
 crawl-delay: 10
+
+User-agent: Turnitin
+Crawl-delay: 10
+Disallow: /discover
+Disallow: /handle/*/discover
